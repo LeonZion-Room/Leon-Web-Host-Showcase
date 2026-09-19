@@ -25,7 +25,7 @@ cd /home/leonzion/Desktop/Leon-TK-Station/Leon-Web-Host
 venv/bin/python showcase_export.py /tmp/showcase-deploy
 
 # 2. 同步到 GitHub 仓库
-rsync -a --delete --exclude='.git' /tmp/showcase-deploy/ /tmp/showcase-repo/
+rsync -a --delete --exclude='.git' --exclude='README.md' /tmp/showcase-deploy/ /tmp/showcase-repo/
 cd /tmp/showcase-repo
 git add -A && git commit -m "deploy: $(date +%Y-%m-%d %H:%M)" && git push origin main
 
