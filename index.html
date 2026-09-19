@@ -269,6 +269,20 @@ footer{background:var(--bg2);border-top:1px solid var(--rule);padding:60px 0 0;p
   .stats-strip-inner div{border-right:none}
 }
 </style>
+<style>
+@media(max-width:480px){
+  .featured{grid-template-columns:1fr!important}
+  .featured-card.main,.featured-card{grid-column:span 1!important}
+  .featured .ft-meta{flex-wrap:wrap}
+  .featured-card{padding:20px!important}
+  .featured-card.main h3{font-size:22px!important}
+  .ft-tag{font-size:10px!important;padding:3px 8px!important}
+  .ft-link{font-size:12px!important;padding:8px 14px!important}
+}
+@media(max-width:768px){
+  .featured-card .ft-meta{gap:8px}
+}
+</style>
 </head>
 <body>
 
