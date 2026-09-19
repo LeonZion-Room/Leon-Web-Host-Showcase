@@ -1,28 +1,38 @@
 <!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>mobile · tk-safe-upload 说明</title><style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;background:#fafbff;color:#1a2332;line-height:1.75}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;background:#fafbff;color:#1a2332;line-height:1.75;-webkit-text-size-adjust:100%}
 a{color:#2f6bff;text-decoration:none}
 .wrap{max-width:920px;margin:0 auto;padding:32px 20px 80px}
 .back{font-size:13px;color:#8a94a6}
-h1{font-size:26px;font-weight:800;margin:8px 0 4px;border-bottom:2px solid #eef1f8;padding-bottom:14px}
-.page-title{font-size:16px;color:#5c6670;margin:-2px 0 20px}
-.wiki-body{margin-top:8px}
-.wiki-body h1,.wiki-body h2,.wiki-body h3{margin:1.2em 0 .5em;line-height:1.4}
+h1{font-size:26px;font-weight:800;margin:8px 0 4px;border-bottom:2px solid #eef1f8;padding-bottom:14px;word-break:break-word}
+.page-title{font-size:16px;color:#5c6670;margin:-2px 0 20px;word-break:break-word}
+.wiki-body{margin-top:8px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.wiki-body h1,.wiki-body h2,.wiki-body h3{margin:1.2em 0 .5em;line-height:1.4;word-break:break-word}
 .wiki-body h2{font-size:22px}.wiki-body h3{font-size:18px}
-.wiki-body p{margin:.8em 0}
+.wiki-body p{margin:.8em 0;word-break:break-word}
 .wiki-body ul,.wiki-body ol{margin:.6em 0 .6em 1.6em}
-.wiki-body img{max-width:100%}
+.wiki-body img{max-width:100%;height:auto}
 .wiki-body pre{background:#0f1523;color:#e8edff;padding:14px 16px;border-radius:10px;overflow:auto;margin:.9em 0}
 .wiki-body code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:.9em}
 .wiki-body pre code{background:none;padding:0}
-.wiki-body table{border-collapse:collapse;margin:.9em 0;width:100%}
-.wiki-body th,.wiki-body td{border:1px solid #e2e7f2;padding:8px 12px;text-align:left}
+.wiki-body table{border-collapse:collapse;margin:.9em 0;width:100%;min-width:0}
+.table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:.9em 0}
+.wiki-body th,.wiki-body td{border:1px solid #e2e7f2;padding:8px 12px;text-align:left;white-space:nowrap}
 .wiki-body th{background:#f4f6fc}
 .wiki-body blockquote{border-left:4px solid #bcd0ff;background:#f4f8ff;padding:10px 16px;margin:.9em 0;color:#456}
 .wiki-body a{color:#2f6bff;border-bottom:1px dashed #bcd0ff}
 .nav{margin:14px 0 0;display:flex;gap:10px;flex-wrap:wrap}
 .nav a{background:#eef3ff;border:1px solid #d9e4ff;padding:6px 16px;border-radius:20px;font-size:13px;color:#2f6bff}
 .mark{color:#c0392b}
+/* mobile */
+@media(max-width:640px){
+  .wrap{padding:18px 12px 100px}
+  h1{font-size:21px}
+  .page-title{font-size:14px}
+  .wiki-body h2{font-size:19px}.wiki-body h3{font-size:16px}
+  .wiki-body th,.wiki-body td{padding:6px 8px;font-size:13px}
+  .nav a{padding:5px 12px;font-size:12px}
+}
 </style></head><body><div class="wrap"><a class="back" href="../index.html">← 项目合辑</a><h1>mobile</h1><div class="page-title">tk-safe-upload · 使用说明（只读镜像）</div><div class="nav"><a href="../index.html">返回合辑</a><a href="./home.html">概览</a></div><div class="wiki-body"><h1>移动端功能详解</h1>
 <blockquote>
 <p>移动端地址：http://119.145.17.34:5111/m</p>
@@ -31,7 +41,7 @@ h1{font-size:26px;font-weight:800;margin:8px 0 4px;border-bottom:2px solid #eef1
 <hr />
 <h2>底部导航栏</h2>
 <p>移动端所有页面底部固定显示 5 个导航项：</p>
-<table>
+<div class="table-wrap"><table>
 <thead>
 <tr>
 <th>图标</th>
@@ -66,7 +76,7 @@ h1{font-size:26px;font-weight:800;margin:8px 0 4px;border-bottom:2px solid #eef1
 <td>预警中心</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <hr />
 <h2>1. 移动端首页</h2>
 <p><img alt="移动端首页" src="/s/tk-safe-upload/18_mobile_home.png" /></p>
@@ -80,7 +90,7 @@ h1{font-size:26px;font-weight:800;margin:8px 0 4px;border-bottom:2px solid #eef1
 <li>👤 <strong>个人中心</strong> → 查看个人信息</li>
 </ul>
 <h4>隐患统计卡片（4 格网格）</h4>
-<table>
+<div class="table-wrap"><table>
 <thead>
 <tr>
 <th>卡片</th>
@@ -110,10 +120,10 @@ h1{font-size:26px;font-weight:800;margin:8px 0 4px;border-bottom:2px solid #eef1
 <td>重大级别隐患数量</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <h4>⚡ 快捷操作区</h4>
 <p>8 个常用功能入口：</p>
-<table>
+<div class="table-wrap"><table>
 <thead>
 <tr>
 <th>图标</th>
@@ -163,7 +173,7 @@ h1{font-size:26px;font-weight:800;margin:8px 0 4px;border-bottom:2px solid #eef1
 <td>跳转电脑管理端</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <blockquote>
 <p>💡 <strong>提示</strong>：PC后台按钮仅管理员角色可见，普通员工显示🧭工作台按钮。</p>
 </blockquote>
@@ -177,7 +187,7 @@ h1{font-size:26px;font-weight:800;margin:8px 0 4px;border-bottom:2px solid #eef1
 - 线上培训、资料查阅</p>
 <h4>⚠️ 待办预警区</h4>
 <p>5 类预警汇总，点击「查看全部」查看详情：</p>
-<table>
+<div class="table-wrap"><table>
 <thead>
 <tr>
 <th>预警类型</th>
@@ -206,7 +216,7 @@ h1{font-size:26px;font-weight:800;margin:8px 0 4px;border-bottom:2px solid #eef1
 <td>安全物资库存不足</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <hr />
 <h2>2. 隐患随手拍</h2>
 <p><img alt="隐患随手拍" src="/s/tk-safe-upload/19_mobile_photo.png" /></p>
@@ -308,7 +318,7 @@ h1{font-size:26px;font-weight:800;margin:8px 0 4px;border-bottom:2px solid #eef1
 <p><img alt="待办任务" src="/s/tk-safe-upload/21_mobile_tasks.png" /></p>
 <h3>任务列表</h3>
 <p>显示当前用户的所有待办任务：</p>
-<table>
+<div class="table-wrap"><table>
 <thead>
 <tr>
 <th>信息项</th>
@@ -333,7 +343,7 @@ h1{font-size:26px;font-weight:800;margin:8px 0 4px;border-bottom:2px solid #eef1
 <td>待处理/处理中/已完成</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <h3>操作</h3>
 <ul>
 <li>点击任务卡片查看详情</li>
@@ -347,7 +357,7 @@ h1{font-size:26px;font-weight:800;margin:8px 0 4px;border-bottom:2px solid #eef1
 <h2>5. 预警中心</h2>
 <p><img alt="预警中心" src="/s/tk-safe-upload/22_mobile_report.png" /></p>
 <h3>五类预警</h3>
-<table>
+<div class="table-wrap"><table>
 <thead>
 <tr>
 <th>预警类型</th>
@@ -382,7 +392,7 @@ h1{font-size:26px;font-weight:800;margin:8px 0 4px;border-bottom:2px solid #eef1
 <td>安全物资库存不足</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <h3>操作</h3>
 <ul>
 <li>点击预警类型查看详情</li>

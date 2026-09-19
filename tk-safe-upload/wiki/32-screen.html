@@ -1,28 +1,38 @@
 <!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>32-screen · tk-safe-upload 说明</title><style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;background:#fafbff;color:#1a2332;line-height:1.75}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;background:#fafbff;color:#1a2332;line-height:1.75;-webkit-text-size-adjust:100%}
 a{color:#2f6bff;text-decoration:none}
 .wrap{max-width:920px;margin:0 auto;padding:32px 20px 80px}
 .back{font-size:13px;color:#8a94a6}
-h1{font-size:26px;font-weight:800;margin:8px 0 4px;border-bottom:2px solid #eef1f8;padding-bottom:14px}
-.page-title{font-size:16px;color:#5c6670;margin:-2px 0 20px}
-.wiki-body{margin-top:8px}
-.wiki-body h1,.wiki-body h2,.wiki-body h3{margin:1.2em 0 .5em;line-height:1.4}
+h1{font-size:26px;font-weight:800;margin:8px 0 4px;border-bottom:2px solid #eef1f8;padding-bottom:14px;word-break:break-word}
+.page-title{font-size:16px;color:#5c6670;margin:-2px 0 20px;word-break:break-word}
+.wiki-body{margin-top:8px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.wiki-body h1,.wiki-body h2,.wiki-body h3{margin:1.2em 0 .5em;line-height:1.4;word-break:break-word}
 .wiki-body h2{font-size:22px}.wiki-body h3{font-size:18px}
-.wiki-body p{margin:.8em 0}
+.wiki-body p{margin:.8em 0;word-break:break-word}
 .wiki-body ul,.wiki-body ol{margin:.6em 0 .6em 1.6em}
-.wiki-body img{max-width:100%}
+.wiki-body img{max-width:100%;height:auto}
 .wiki-body pre{background:#0f1523;color:#e8edff;padding:14px 16px;border-radius:10px;overflow:auto;margin:.9em 0}
 .wiki-body code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:.9em}
 .wiki-body pre code{background:none;padding:0}
-.wiki-body table{border-collapse:collapse;margin:.9em 0;width:100%}
-.wiki-body th,.wiki-body td{border:1px solid #e2e7f2;padding:8px 12px;text-align:left}
+.wiki-body table{border-collapse:collapse;margin:.9em 0;width:100%;min-width:0}
+.table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:.9em 0}
+.wiki-body th,.wiki-body td{border:1px solid #e2e7f2;padding:8px 12px;text-align:left;white-space:nowrap}
 .wiki-body th{background:#f4f6fc}
 .wiki-body blockquote{border-left:4px solid #bcd0ff;background:#f4f8ff;padding:10px 16px;margin:.9em 0;color:#456}
 .wiki-body a{color:#2f6bff;border-bottom:1px dashed #bcd0ff}
 .nav{margin:14px 0 0;display:flex;gap:10px;flex-wrap:wrap}
 .nav a{background:#eef3ff;border:1px solid #d9e4ff;padding:6px 16px;border-radius:20px;font-size:13px;color:#2f6bff}
 .mark{color:#c0392b}
+/* mobile */
+@media(max-width:640px){
+  .wrap{padding:18px 12px 100px}
+  h1{font-size:21px}
+  .page-title{font-size:14px}
+  .wiki-body h2{font-size:19px}.wiki-body h3{font-size:16px}
+  .wiki-body th,.wiki-body td{padding:6px 8px;font-size:13px}
+  .nav a{padding:5px 12px;font-size:12px}
+}
 </style></head><body><div class="wrap"><a class="back" href="../index.html">← 项目合辑</a><h1>32-screen</h1><div class="page-title">tk-safe-upload · 使用说明（只读镜像）</div><div class="nav"><a href="../index.html">返回合辑</a><a href="./home.html">概览</a></div><div class="wiki-body"><h1>数据大屏（投屏展示）</h1>
 <blockquote>
 <p>把公司的安全状况<strong>投到大屏</strong>上，实时更新。适合放在监控中心、领导办公室、迎客大厅。</p>
@@ -66,7 +76,7 @@ h1{font-size:26px;font-weight:800;margin:8px 0 4px;border-bottom:2px solid #eef1
 <h2>中区域：安全态势总览</h2>
 <h3>6 个统计方格</h3>
 <p>显示核心数字，<strong>全部可以点击</strong>：</p>
-<table>
+<div class="table-wrap"><table>
 <thead>
 <tr>
 <th>方格</th>
@@ -106,7 +116,7 @@ h1{font-size:26px;font-weight:800;margin:8px 0 4px;border-bottom:2px solid #eef1
 <td>隐患列表（已销号）</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <blockquote>
 <p>✅ 这一项也是<strong>新的</strong>：每个方格都是链接，点一下就跳到对应的隐患列表。</p>
 </blockquote>

@@ -1,28 +1,38 @@
 <!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>dashboard · surveyking 说明</title><style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;background:#fafbff;color:#1a2332;line-height:1.75}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;background:#fafbff;color:#1a2332;line-height:1.75;-webkit-text-size-adjust:100%}
 a{color:#2f6bff;text-decoration:none}
 .wrap{max-width:920px;margin:0 auto;padding:32px 20px 80px}
 .back{font-size:13px;color:#8a94a6}
-h1{font-size:26px;font-weight:800;margin:8px 0 4px;border-bottom:2px solid #eef1f8;padding-bottom:14px}
-.page-title{font-size:16px;color:#5c6670;margin:-2px 0 20px}
-.wiki-body{margin-top:8px}
-.wiki-body h1,.wiki-body h2,.wiki-body h3{margin:1.2em 0 .5em;line-height:1.4}
+h1{font-size:26px;font-weight:800;margin:8px 0 4px;border-bottom:2px solid #eef1f8;padding-bottom:14px;word-break:break-word}
+.page-title{font-size:16px;color:#5c6670;margin:-2px 0 20px;word-break:break-word}
+.wiki-body{margin-top:8px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.wiki-body h1,.wiki-body h2,.wiki-body h3{margin:1.2em 0 .5em;line-height:1.4;word-break:break-word}
 .wiki-body h2{font-size:22px}.wiki-body h3{font-size:18px}
-.wiki-body p{margin:.8em 0}
+.wiki-body p{margin:.8em 0;word-break:break-word}
 .wiki-body ul,.wiki-body ol{margin:.6em 0 .6em 1.6em}
-.wiki-body img{max-width:100%}
+.wiki-body img{max-width:100%;height:auto}
 .wiki-body pre{background:#0f1523;color:#e8edff;padding:14px 16px;border-radius:10px;overflow:auto;margin:.9em 0}
 .wiki-body code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:.9em}
 .wiki-body pre code{background:none;padding:0}
-.wiki-body table{border-collapse:collapse;margin:.9em 0;width:100%}
-.wiki-body th,.wiki-body td{border:1px solid #e2e7f2;padding:8px 12px;text-align:left}
+.wiki-body table{border-collapse:collapse;margin:.9em 0;width:100%;min-width:0}
+.table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:.9em 0}
+.wiki-body th,.wiki-body td{border:1px solid #e2e7f2;padding:8px 12px;text-align:left;white-space:nowrap}
 .wiki-body th{background:#f4f6fc}
 .wiki-body blockquote{border-left:4px solid #bcd0ff;background:#f4f8ff;padding:10px 16px;margin:.9em 0;color:#456}
 .wiki-body a{color:#2f6bff;border-bottom:1px dashed #bcd0ff}
 .nav{margin:14px 0 0;display:flex;gap:10px;flex-wrap:wrap}
 .nav a{background:#eef3ff;border:1px solid #d9e4ff;padding:6px 16px;border-radius:20px;font-size:13px;color:#2f6bff}
 .mark{color:#c0392b}
+/* mobile */
+@media(max-width:640px){
+  .wrap{padding:18px 12px 100px}
+  h1{font-size:21px}
+  .page-title{font-size:14px}
+  .wiki-body h2{font-size:19px}.wiki-body h3{font-size:16px}
+  .wiki-body th,.wiki-body td{padding:6px 8px;font-size:13px}
+  .nav a{padding:5px 12px;font-size:12px}
+}
 </style></head><body><div class="wrap"><a class="back" href="../index.html">← 项目合辑</a><h1>dashboard</h1><div class="page-title">surveyking · 使用说明（只读镜像）</div><div class="nav"><a href="../index.html">返回合辑</a><a href="./home.html">概览</a></div><div class="wiki-body"><h1>🏠 首页仪表盘</h1>
 <blockquote>
 <p>📖 登录后默认进入的主界面，提供数据概览和快捷入口。
@@ -34,7 +44,7 @@ h1{font-size:26px;font-weight:800;margin:8px 0 4px;border-bottom:2px solid #eef1
 <p><img alt="首页全貌" src="/s/surveyking/03_after_login.png" />
 <em>首页仪表盘完整布局</em></p>
 <h3>顶部栏</h3>
-<table>
+<div class="table-wrap"><table>
 <thead>
 <tr>
 <th>元素</th>
@@ -64,11 +74,11 @@ h1{font-size:26px;font-weight:800;margin:8px 0 4px;border-bottom:2px solid #eef1
 <td>当前登录用户，点击可查看个人信息/退出</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <h3>左侧导航栏</h3>
 <p><img alt="侧栏菜单" src="/s/surveyking/SYS_expanded.png" />
 <em>侧栏菜单展开状态</em></p>
-<table>
+<div class="table-wrap"><table>
 <thead>
 <tr>
 <th>菜单项</th>
@@ -115,7 +125,7 @@ h1{font-size:26px;font-weight:800;margin:8px 0 4px;border-bottom:2px solid #eef1
 <td>用户管理、角色管理、组织机构、岗位设置、字典管理、系统设置</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <hr />
 <h2>欢迎区域</h2>
 <p>页面顶部显示个性化问候和统计数据：</p>
@@ -131,7 +141,7 @@ h1{font-size:26px;font-weight:800;margin:8px 0 4px;border-bottom:2px solid #eef1
 <h3>我的考试</h3>
 <p><img alt="我的考试" src="/s/surveyking/HOME01_my_exams.png" />
 <em>我的考试列表</em></p>
-<table>
+<div class="table-wrap"><table>
 <thead>
 <tr>
 <th>列名</th>
@@ -156,7 +166,7 @@ h1{font-size:26px;font-weight:800;margin:8px 0 4px;border-bottom:2px solid #eef1
 <td>查看成绩/继续考试</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <h3>我的问卷</h3>
 <p><img alt="我的问卷" src="/s/surveyking/HOME02_tab_我的问卷.png" />
 <em>我参与的问卷列表</em></p>
@@ -171,7 +181,7 @@ h1{font-size:26px;font-weight:800;margin:8px 0 4px;border-bottom:2px solid #eef1
 <p>页面右侧提供快捷入口：</p>
 <p><img alt="快速开始" src="/s/surveyking/03_after_login.png" />
 <em>右侧快捷导航区域</em></p>
-<table>
+<div class="table-wrap"><table>
 <thead>
 <tr>
 <th>按钮</th>
@@ -191,11 +201,11 @@ h1{font-size:26px;font-weight:800;margin:8px 0 4px;border-bottom:2px solid #eef1
 <td>考试创建流程</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <hr />
 <h2>表格工具栏</h2>
 <p>数据列表右上角有三个图标按钮：</p>
-<table>
+<div class="table-wrap"><table>
 <thead>
 <tr>
 <th>图标</th>
@@ -216,7 +226,7 @@ h1{font-size:26px;font-weight:800;margin:8px 0 4px;border-bottom:2px solid #eef1
 <td>表格设置（排序、筛选）</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <hr />
 <h2>空状态</h2>
 <p>当没有数据时，列表显示空状态提示：

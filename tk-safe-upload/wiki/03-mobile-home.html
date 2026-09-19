@@ -1,28 +1,38 @@
 <!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>03-mobile-home · tk-safe-upload 说明</title><style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;background:#fafbff;color:#1a2332;line-height:1.75}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;background:#fafbff;color:#1a2332;line-height:1.75;-webkit-text-size-adjust:100%}
 a{color:#2f6bff;text-decoration:none}
 .wrap{max-width:920px;margin:0 auto;padding:32px 20px 80px}
 .back{font-size:13px;color:#8a94a6}
-h1{font-size:26px;font-weight:800;margin:8px 0 4px;border-bottom:2px solid #eef1f8;padding-bottom:14px}
-.page-title{font-size:16px;color:#5c6670;margin:-2px 0 20px}
-.wiki-body{margin-top:8px}
-.wiki-body h1,.wiki-body h2,.wiki-body h3{margin:1.2em 0 .5em;line-height:1.4}
+h1{font-size:26px;font-weight:800;margin:8px 0 4px;border-bottom:2px solid #eef1f8;padding-bottom:14px;word-break:break-word}
+.page-title{font-size:16px;color:#5c6670;margin:-2px 0 20px;word-break:break-word}
+.wiki-body{margin-top:8px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.wiki-body h1,.wiki-body h2,.wiki-body h3{margin:1.2em 0 .5em;line-height:1.4;word-break:break-word}
 .wiki-body h2{font-size:22px}.wiki-body h3{font-size:18px}
-.wiki-body p{margin:.8em 0}
+.wiki-body p{margin:.8em 0;word-break:break-word}
 .wiki-body ul,.wiki-body ol{margin:.6em 0 .6em 1.6em}
-.wiki-body img{max-width:100%}
+.wiki-body img{max-width:100%;height:auto}
 .wiki-body pre{background:#0f1523;color:#e8edff;padding:14px 16px;border-radius:10px;overflow:auto;margin:.9em 0}
 .wiki-body code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:.9em}
 .wiki-body pre code{background:none;padding:0}
-.wiki-body table{border-collapse:collapse;margin:.9em 0;width:100%}
-.wiki-body th,.wiki-body td{border:1px solid #e2e7f2;padding:8px 12px;text-align:left}
+.wiki-body table{border-collapse:collapse;margin:.9em 0;width:100%;min-width:0}
+.table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:.9em 0}
+.wiki-body th,.wiki-body td{border:1px solid #e2e7f2;padding:8px 12px;text-align:left;white-space:nowrap}
 .wiki-body th{background:#f4f6fc}
 .wiki-body blockquote{border-left:4px solid #bcd0ff;background:#f4f8ff;padding:10px 16px;margin:.9em 0;color:#456}
 .wiki-body a{color:#2f6bff;border-bottom:1px dashed #bcd0ff}
 .nav{margin:14px 0 0;display:flex;gap:10px;flex-wrap:wrap}
 .nav a{background:#eef3ff;border:1px solid #d9e4ff;padding:6px 16px;border-radius:20px;font-size:13px;color:#2f6bff}
 .mark{color:#c0392b}
+/* mobile */
+@media(max-width:640px){
+  .wrap{padding:18px 12px 100px}
+  h1{font-size:21px}
+  .page-title{font-size:14px}
+  .wiki-body h2{font-size:19px}.wiki-body h3{font-size:16px}
+  .wiki-body th,.wiki-body td{padding:6px 8px;font-size:13px}
+  .nav a{padding:5px 12px;font-size:12px}
+}
 </style></head><body><div class="wrap"><a class="back" href="../index.html">← 项目合辑</a><h1>03-mobile-home</h1><div class="page-title">tk-safe-upload · 使用说明（只读镜像）</div><div class="nav"><a href="../index.html">返回合辑</a><a href="./home.html">概览</a></div><div class="wiki-body"><h1>手机端首页长什么样</h1>
 <blockquote>
 <p>这一节专门讲<strong>员工用手机看到的第一个页面</strong>。不管您是上班打卡还是随手拍，从这里开始。</p>
@@ -46,7 +56,7 @@ h1{font-size:26px;font-weight:800;margin:8px 0 4px;border-bottom:2px solid #eef1
 <h2>页面从上到下有什么？</h2>
 <h3>最上面一排</h3>
 <p>三个小图标在右上角：</p>
-<table>
+<div class="table-wrap"><table>
 <thead>
 <tr>
 <th style="text-align: center;">图标</th>
@@ -71,11 +81,11 @@ h1{font-size:26px;font-weight:800;margin:8px 0 4px;border-bottom:2px solid #eef1
 <td>跳到个人中心（看自己的信息）</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <p>下面写着"欢迎回来，XXX"，XXX是您的名字。</p>
 <h3>第二块：四个小方格</h3>
 <p>四个颜色不同的小方格，让您一眼看到重点数字：</p>
-<table>
+<div class="table-wrap"><table>
 <thead>
 <tr>
 <th style="text-align: center;">颜色</th>
@@ -105,13 +115,13 @@ h1{font-size:26px;font-weight:800;margin:8px 0 4px;border-bottom:2px solid #eef1
 <td>严重的、需要重视的</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <blockquote>
 <p>这些数字是公司<strong>全体</strong>的统计，您看看就好。具体的处理由安全员负责。</p>
 </blockquote>
 <h3>第三块：八个常用功能按钮</h3>
 <p>8 个大图标排成一行，是您最常用的功能：</p>
-<table>
+<div class="table-wrap"><table>
 <thead>
 <tr>
 <th style="text-align: center;">图标</th>
@@ -166,7 +176,7 @@ h1{font-size:26px;font-weight:800;margin:8px 0 4px;border-bottom:2px solid #eef1
 <td>跳到电脑版（管理员可见）</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <blockquote>
 <p>💡 小贴士：<strong>看到隐患就点"📷 随手拍"</strong>，拍照上传就好，比打电话、发微信方便多了。</p>
 </blockquote>
@@ -193,7 +203,7 @@ h1{font-size:26px;font-weight:800;margin:8px 0 4px;border-bottom:2px solid #eef1
 <hr />
 <h2>最下面：底部导航栏</h2>
 <p>不管您在手机端哪个页面，最下面都有一排固定的小图标：</p>
-<table>
+<div class="table-wrap"><table>
 <thead>
 <tr>
 <th style="text-align: center;">图标</th>
@@ -228,13 +238,13 @@ h1{font-size:26px;font-weight:800;margin:8px 0 4px;border-bottom:2px solid #eef1
 <td>预警提醒</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <blockquote>
 <p>💡 小贴士：底部导航栏<strong>始终在最下面</strong>，手指一点就能切换页面，不需要返回。</p>
 </blockquote>
 <hr />
 <h2>首页上每个按钮点一下会怎样</h2>
-<table>
+<div class="table-wrap"><table>
 <thead>
 <tr>
 <th>按钮</th>
@@ -299,7 +309,7 @@ h1{font-size:26px;font-weight:800;margin:8px 0 4px;border-bottom:2px solid #eef1
 <td>普通员工无法点击；管理员可点"进入后台处理"</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <hr />
 <h2>常见问题</h2>
 <p><strong>Q：首页的数字怎么没有更新？</strong>
