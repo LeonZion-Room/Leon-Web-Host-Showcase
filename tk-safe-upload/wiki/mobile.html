@@ -1,0 +1,417 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>mobile · tk-safe-upload 说明</title><style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;background:#fafbff;color:#1a2332;line-height:1.75}
+a{color:#2f6bff;text-decoration:none}
+.wrap{max-width:920px;margin:0 auto;padding:32px 20px 80px}
+.back{font-size:13px;color:#8a94a6}
+h1{font-size:26px;font-weight:800;margin:8px 0 4px;border-bottom:2px solid #eef1f8;padding-bottom:14px}
+.page-title{font-size:16px;color:#5c6670;margin:-2px 0 20px}
+.wiki-body{margin-top:8px}
+.wiki-body h1,.wiki-body h2,.wiki-body h3{margin:1.2em 0 .5em;line-height:1.4}
+.wiki-body h2{font-size:22px}.wiki-body h3{font-size:18px}
+.wiki-body p{margin:.8em 0}
+.wiki-body ul,.wiki-body ol{margin:.6em 0 .6em 1.6em}
+.wiki-body img{max-width:100%}
+.wiki-body pre{background:#0f1523;color:#e8edff;padding:14px 16px;border-radius:10px;overflow:auto;margin:.9em 0}
+.wiki-body code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:.9em}
+.wiki-body pre code{background:none;padding:0}
+.wiki-body table{border-collapse:collapse;margin:.9em 0;width:100%}
+.wiki-body th,.wiki-body td{border:1px solid #e2e7f2;padding:8px 12px;text-align:left}
+.wiki-body th{background:#f4f6fc}
+.wiki-body blockquote{border-left:4px solid #bcd0ff;background:#f4f8ff;padding:10px 16px;margin:.9em 0;color:#456}
+.wiki-body a{color:#2f6bff;border-bottom:1px dashed #bcd0ff}
+.nav{margin:14px 0 0;display:flex;gap:10px;flex-wrap:wrap}
+.nav a{background:#eef3ff;border:1px solid #d9e4ff;padding:6px 16px;border-radius:20px;font-size:13px;color:#2f6bff}
+.mark{color:#c0392b}
+</style></head><body><div class="wrap"><a class="back" href="../index.html">← 项目合辑</a><h1>mobile</h1><div class="page-title">tk-safe-upload · 使用说明（只读镜像）</div><div class="nav"><a href="../index.html">返回合辑</a><a href="./home.html">概览</a></div><div class="wiki-body"><h1>移动端功能详解</h1>
+<blockquote>
+<p>移动端地址：http://119.145.17.34:5111/m</p>
+<p>手机浏览器直接访问，无需安装APP</p>
+</blockquote>
+<hr />
+<h2>底部导航栏</h2>
+<p>移动端所有页面底部固定显示 5 个导航项：</p>
+<table>
+<thead>
+<tr>
+<th>图标</th>
+<th>标签</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>🏠</td>
+<td>首页</td>
+<td>移动端主页</td>
+</tr>
+<tr>
+<td>📷</td>
+<td>随手拍</td>
+<td>隐患快速上报</td>
+</tr>
+<tr>
+<td>📍</td>
+<td>巡查</td>
+<td>巡查打卡签到</td>
+</tr>
+<tr>
+<td>📋</td>
+<td>任务</td>
+<td>待办事项列表</td>
+</tr>
+<tr>
+<td>⏰</td>
+<td>待办</td>
+<td>预警中心</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>1. 移动端首页</h2>
+<p><img alt="移动端首页" src="/s/tk-safe-upload/18_mobile_home.png" /></p>
+<h3>页面布局</h3>
+<h4>顶部欢迎区</h4>
+<ul>
+<li>显示「欢迎回来」+ 用户姓名</li>
+<li>右上角 3 个按钮：</li>
+<li>🧭 <strong>统一工作台</strong> → 跳转门户页</li>
+<li>🔔 <strong>预警通知</strong> → 查看待办预警</li>
+<li>👤 <strong>个人中心</strong> → 查看个人信息</li>
+</ul>
+<h4>隐患统计卡片（4 格网格）</h4>
+<table>
+<thead>
+<tr>
+<th>卡片</th>
+<th>颜色</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>隐患总数</td>
+<td>红色</td>
+<td>当前所有隐患数量</td>
+</tr>
+<tr>
+<td>逾期隐患</td>
+<td>橙色</td>
+<td>超期未整改的隐患</td>
+</tr>
+<tr>
+<td>处理中</td>
+<td>黄色</td>
+<td>正在整改中的隐患</td>
+</tr>
+<tr>
+<td>重大隐患</td>
+<td>紫色</td>
+<td>重大级别隐患数量</td>
+</tr>
+</tbody>
+</table>
+<h4>⚡ 快捷操作区</h4>
+<p>8 个常用功能入口：</p>
+<table>
+<thead>
+<tr>
+<th>图标</th>
+<th>标签</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>📷</td>
+<td>随手拍</td>
+<td>上报隐患</td>
+</tr>
+<tr>
+<td>📍</td>
+<td>巡查打卡</td>
+<td>执行巡查任务</td>
+</tr>
+<tr>
+<td>📋</td>
+<td>任务</td>
+<td>查看待办任务</td>
+</tr>
+<tr>
+<td>🚨</td>
+<td>举报</td>
+<td>安全举报</td>
+</tr>
+<tr>
+<td>🎓</td>
+<td>培训</td>
+<td>在线学习</td>
+</tr>
+<tr>
+<td>📚</td>
+<td>资料</td>
+<td>安全资料查阅</td>
+</tr>
+<tr>
+<td>👤</td>
+<td>我的</td>
+<td>个人中心</td>
+</tr>
+<tr>
+<td>🖥️</td>
+<td>PC后台</td>
+<td>跳转电脑管理端</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>💡 <strong>提示</strong>：PC后台按钮仅管理员角色可见，普通员工显示🧭工作台按钮。</p>
+</blockquote>
+<h4>模块分组区</h4>
+<p>按功能分组显示：</p>
+<p><strong>基础台账</strong>（仅管理员可见）：
+- 组织、设备、人员、相关方、物资、巡查管理</p>
+<p><strong>隐患治理</strong>（全员可见）：
+- 随手拍、举报、我的任务、待办预警</p>
+<p><strong>培训与教育</strong>：
+- 线上培训、资料查阅</p>
+<h4>⚠️ 待办预警区</h4>
+<p>5 类预警汇总，点击「查看全部」查看详情：</p>
+<table>
+<thead>
+<tr>
+<th>预警类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>逾期未整改</td>
+<td>超过整改期限的隐患</td>
+</tr>
+<tr>
+<td>特种设备到期</td>
+<td>设备年检即将到期</td>
+</tr>
+<tr>
+<td>人员证件到期</td>
+<td>人员资质即将过期</td>
+</tr>
+<tr>
+<td>风险复核到期</td>
+<td>风险点需要重新评估</td>
+</tr>
+<tr>
+<td>物资需盘点/补货</td>
+<td>安全物资库存不足</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>2. 隐患随手拍</h2>
+<p><img alt="隐患随手拍" src="/s/tk-safe-upload/19_mobile_photo.png" /></p>
+<h3>操作步骤</h3>
+<ol>
+<li><strong>填写隐患标题</strong>（必填）</li>
+<li>
+<p>简要描述隐患，如"灭火器过期"、"通道堆放杂物"</p>
+</li>
+<li>
+<p><strong>填写隐患描述</strong>（选填）</p>
+</li>
+<li>
+<p>详细描述隐患情况、具体位置</p>
+</li>
+<li>
+<p><strong>选择隐患分级</strong>（选填）</p>
+</li>
+<li>一般隐患：不影响正常生产</li>
+<li>较大隐患：需要及时整改</li>
+<li>
+<p>重大隐患：可能造成严重后果</p>
+</li>
+<li>
+<p><strong>选择所属单位</strong>（选填）</p>
+</li>
+<li>
+<p>下拉选择经营主体</p>
+</li>
+<li>
+<p><strong>绑定点位</strong>（选填）</p>
+</li>
+<li>
+<p>选择关联的风险点</p>
+</li>
+<li>
+<p><strong>上传现场照片</strong>（选填）</p>
+</li>
+<li>点击「+」添加照片，最多 6 张</li>
+<li>
+<p>支持拍照或从相册选择</p>
+</li>
+<li>
+<p><strong>点击「提交上报」</strong></p>
+</li>
+</ol>
+<h3>提交后流程</h3>
+<ul>
+<li>系统自动生成<strong>隐患工单</strong></li>
+<li>由安全管理员分派责任单位限期整改</li>
+<li>全程留痕，可追踪整改进度</li>
+</ul>
+<blockquote>
+<p>💡 <strong>提示</strong>：上报后可在「我的任务」中查看整改进度。</p>
+</blockquote>
+<hr />
+<h2>3. 巡查打卡</h2>
+<p><img alt="巡查打卡" src="/s/tk-safe-upload/20_mobile_patrol.png" /></p>
+<h3>操作步骤</h3>
+<ol>
+<li><strong>查看巡查计划</strong></li>
+<li>列出所有进行中的巡查计划</li>
+<li>显示计划类型：日常巡查/专项检查/节假日督查</li>
+<li>
+<p>显示需要巡查的点位列表</p>
+</li>
+<li>
+<p><strong>开始巡查签到</strong></p>
+</li>
+<li>点击「开始巡查签到」按钮</li>
+<li>
+<p>展开签到面板</p>
+</li>
+<li>
+<p><strong>填写巡查记录</strong></p>
+</li>
+<li>巡查计划：自动显示当前计划</li>
+<li>巡查点位：选择当前所在位置</li>
+<li>巡查结果：正常/异常</li>
+<li>
+<p>巡查备注：描述现场情况</p>
+</li>
+<li>
+<p><strong>上传巡查照片</strong></p>
+</li>
+<li>
+<p>点击「+」添加照片，最多 9 张</p>
+</li>
+<li>
+<p><strong>提交签到</strong></p>
+</li>
+<li>点击「提交签到」完成本次打卡</li>
+</ol>
+<blockquote>
+<p>💡 <strong>提示</strong>：每个计划需要按顺序完成所有点位的签到。</p>
+</blockquote>
+<hr />
+<h2>4. 待办任务</h2>
+<p><img alt="待办任务" src="/s/tk-safe-upload/21_mobile_tasks.png" /></p>
+<h3>任务列表</h3>
+<p>显示当前用户的所有待办任务：</p>
+<table>
+<thead>
+<tr>
+<th>信息项</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>任务标题</td>
+<td>隐患整改任务名称</td>
+</tr>
+<tr>
+<td>任务类型</td>
+<td>隐患整改/巡查任务/培训任务</td>
+</tr>
+<tr>
+<td>截止日期</td>
+<td>任务完成期限</td>
+</tr>
+<tr>
+<td>状态标签</td>
+<td>待处理/处理中/已完成</td>
+</tr>
+</tbody>
+</table>
+<h3>操作</h3>
+<ul>
+<li>点击任务卡片查看详情</li>
+<li>在详情页可以：</li>
+<li>查看隐患描述和照片</li>
+<li>上传整改照片</li>
+<li>填写整改说明</li>
+<li>提交整改完成</li>
+</ul>
+<hr />
+<h2>5. 预警中心</h2>
+<p><img alt="预警中心" src="/s/tk-safe-upload/22_mobile_report.png" /></p>
+<h3>五类预警</h3>
+<table>
+<thead>
+<tr>
+<th>预警类型</th>
+<th>图标</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>逾期隐患</td>
+<td>🔴</td>
+<td>超过整改期限的隐患</td>
+</tr>
+<tr>
+<td>设备到期</td>
+<td>🟠</td>
+<td>特种设备年检即将到期</td>
+</tr>
+<tr>
+<td>证件到期</td>
+<td>🟠</td>
+<td>人员资质证书即将过期</td>
+</tr>
+<tr>
+<td>风险复核</td>
+<td>🔵</td>
+<td>风险点需要重新评估</td>
+</tr>
+<tr>
+<td>物资预警</td>
+<td>🟢</td>
+<td>安全物资库存不足</td>
+</tr>
+</tbody>
+</table>
+<h3>操作</h3>
+<ul>
+<li>点击预警类型查看详情</li>
+<li>可直接跳转到相关处理页面</li>
+</ul>
+<hr />
+<h2>6. 培训学习</h2>
+<p><img alt="培训学习" src="/s/tk-safe-upload/23_mobile_training.png" /></p>
+<h3>功能</h3>
+<ul>
+<li>查看在线培训课程</li>
+<li>参加培训考试</li>
+<li>查看培训成绩</li>
+<li>下载培训资料</li>
+</ul>
+<hr />
+<h2>7. 我的页面</h2>
+<p><img alt="我的页面" src="/s/tk-safe-upload/24_mobile_me.png" /></p>
+<h3>个人信息</h3>
+<ul>
+<li>显示用户姓名、手机号</li>
+<li>显示所属组织</li>
+<li>显示当前角色</li>
+</ul>
+<h3>功能入口</h3>
+<ul>
+<li>我的隐患：查看我上报的隐患</li>
+<li>我的任务：查看分配给我的任务</li>
+<li>我的培训：查看培训记录</li>
+<li>修改密码：更改登录密码</li>
+<li>退出登录：退出当前账号</li>
+</ul></div></div></body></html>

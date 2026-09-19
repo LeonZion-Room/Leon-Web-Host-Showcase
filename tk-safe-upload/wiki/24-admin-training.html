@@ -1,0 +1,156 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>24-admin-training · tk-safe-upload 说明</title><style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;background:#fafbff;color:#1a2332;line-height:1.75}
+a{color:#2f6bff;text-decoration:none}
+.wrap{max-width:920px;margin:0 auto;padding:32px 20px 80px}
+.back{font-size:13px;color:#8a94a6}
+h1{font-size:26px;font-weight:800;margin:8px 0 4px;border-bottom:2px solid #eef1f8;padding-bottom:14px}
+.page-title{font-size:16px;color:#5c6670;margin:-2px 0 20px}
+.wiki-body{margin-top:8px}
+.wiki-body h1,.wiki-body h2,.wiki-body h3{margin:1.2em 0 .5em;line-height:1.4}
+.wiki-body h2{font-size:22px}.wiki-body h3{font-size:18px}
+.wiki-body p{margin:.8em 0}
+.wiki-body ul,.wiki-body ol{margin:.6em 0 .6em 1.6em}
+.wiki-body img{max-width:100%}
+.wiki-body pre{background:#0f1523;color:#e8edff;padding:14px 16px;border-radius:10px;overflow:auto;margin:.9em 0}
+.wiki-body code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:.9em}
+.wiki-body pre code{background:none;padding:0}
+.wiki-body table{border-collapse:collapse;margin:.9em 0;width:100%}
+.wiki-body th,.wiki-body td{border:1px solid #e2e7f2;padding:8px 12px;text-align:left}
+.wiki-body th{background:#f4f6fc}
+.wiki-body blockquote{border-left:4px solid #bcd0ff;background:#f4f8ff;padding:10px 16px;margin:.9em 0;color:#456}
+.wiki-body a{color:#2f6bff;border-bottom:1px dashed #bcd0ff}
+.nav{margin:14px 0 0;display:flex;gap:10px;flex-wrap:wrap}
+.nav a{background:#eef3ff;border:1px solid #d9e4ff;padding:6px 16px;border-radius:20px;font-size:13px;color:#2f6bff}
+.mark{color:#c0392b}
+</style></head><body><div class="wrap"><a class="back" href="../index.html">← 项目合辑</a><h1>24-admin-training</h1><div class="page-title">tk-safe-upload · 使用说明（只读镜像）</div><div class="nav"><a href="../index.html">返回合辑</a><a href="./home.html">概览</a></div><div class="wiki-body"><h1>安全培训（管理员怎么看管课程和视频）</h1>
+<blockquote>
+<p>管理公司的<strong>培训课程和视频</strong>。员工在手机端学习，您在电脑端管理。</p>
+</blockquote>
+<hr />
+<h2>页面长什么样</h2>
+<p>在电脑后台左侧菜单点"<strong>🎓 安全培训</strong>"：</p>
+<p><img alt="培训管理" src="/s/tk-safe-upload/11_admin_training.png" /></p>
+<blockquote>
+<p>这个页面<strong>简化了</strong>——现在只有"课程"和"视频"两级，方便管理。</p>
+</blockquote>
+<hr />
+<h2>顶部按钮</h2>
+<table>
+<thead>
+<tr>
+<th>按钮</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>+ 新增课程</td>
+<td>创建一门新课程</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>顶部：统计卡片</h2>
+<p>四个方格显示培训情况：</p>
+<ul>
+<li><strong>课程数</strong>：一共有多少门课</li>
+<li><strong>签到人次</strong>：多少人学过</li>
+<li><strong>学习小时</strong>：累计学了多长时间</li>
+<li><strong>完成率</strong>：完成课程的比例</li>
+</ul>
+<hr />
+<h2>怎么理解"两级结构"</h2>
+<p>整个页面就像一个<strong>书架</strong>：</p>
+<h3>第一级：课程</h3>
+<p>每本书是一"门课"，每门课是一个卡片。</p>
+<p>每张课程卡片显示：
+- <strong>文件类型图标</strong>（🎬视频 / 📄PDF / 📎附件）
+- <strong>课程名称</strong>
+- <strong>分类 · 时长</strong>（比如"消防安全 · 30分钟"）
+- <strong>课程视频链接</strong>（如果有）
+- <strong>编辑/删除</strong>按钮</p>
+<h3>第二级：视频</h3>
+<p>每门课下面有它的"视频列表"。</p>
+<p>每个视频显示：
+- <strong>编号</strong>（1、2、3...）
+- <strong>视频标题</strong>
+- <strong>时长</strong>（🎥 X分钟）
+- <strong>删除</strong>按钮</p>
+<p>下面还有<strong>添加视频的表单</strong>：
+- <strong>视频标题</strong>输入框
+- <strong>视频链接</strong>输入框
+- <strong>时长</strong>输入框
+- <strong>添加视频</strong>按钮</p>
+<hr />
+<h2>怎么新增一门课程</h2>
+<p><strong>第1步</strong>：点"<strong>+ 新增课程</strong>"</p>
+<p><strong>第2步</strong>：弹出表单，填写：</p>
+<ul>
+<li><strong>课程名称</strong>（必填）：比如"消防安全基础知识"</li>
+<li><strong>课程简介</strong>：详细说明</li>
+<li><strong>分类</strong>：比如"消防安全"</li>
+<li><strong>学时（分钟）</strong>（必填）：比如 30</li>
+<li><strong>视频链接</strong>：如果有整体视频可以填</li>
+<li><strong>上传课件</strong>：选视频/PDF/Word文件（可选）</li>
+</ul>
+<p><strong>第3步</strong>：点"<strong>保存</strong>"</p>
+<blockquote>
+<p>完成！新课程已创建。</p>
+</blockquote>
+<hr />
+<h2>怎么编辑一门课程</h2>
+<p><strong>第1步</strong>：找到要改的课程</p>
+<p><strong>第2步</strong>：点"<strong>编辑</strong>"</p>
+<p><strong>第3步</strong>：修改信息</p>
+<p><strong>第4步</strong>：点"<strong>保存</strong>"</p>
+<hr />
+<h2>怎么删除一门课程</h2>
+<p><strong>第1步</strong>：找到要删的课程</p>
+<p><strong>第2步</strong>：点"<strong>删除</strong>"</p>
+<p><strong>第3步</strong>：确认</p>
+<blockquote>
+<p>⚠️ 删除会同时删除课程下的所有视频和学习记录。</p>
+</blockquote>
+<hr />
+<h2>怎么给课程添加视频</h2>
+<p>每门课可以包含<strong>多个视频</strong>，员工可以一个一个看。</p>
+<p><strong>第1步</strong>：找到要添加视频的课程</p>
+<p><strong>第2步</strong>：在课程卡片下方的"视频标题"输入框里写标题（比如"第一课：灭火器使用"）</p>
+<p><strong>第3步</strong>：在"视频链接"输入框里贴上视频的<strong>mp4 地址</strong>（比如 <code>https://example.com/video1.mp4</code>）</p>
+<p><strong>第4步</strong>：在"时长"输入框里填时长（分钟）</p>
+<p><strong>第5步</strong>：点"<strong>添加视频</strong>"</p>
+<blockquote>
+<p>完成！这个视频就加到课程里了，员工可以学。</p>
+</blockquote>
+<hr />
+<h2>怎么删除一个视频</h2>
+<p><strong>第1步</strong>：找到要删的视频</p>
+<p><strong>第2步</strong>：点视频右侧的"<strong>删除</strong>"</p>
+<p><strong>第3步</strong>：确认</p>
+<hr />
+<h2>视频链接从哪里来？</h2>
+<p>需要先把视频文件<strong>上传到服务器或云存储</strong>，然后复制链接：</p>
+<ul>
+<li>视频文件可以放在公司服务器</li>
+<li>也可以用腾讯云、阿里云等对象存储</li>
+<li>链接格式一般是 <code>https://.../*.mp4</code></li>
+</ul>
+<blockquote>
+<p>联系 IT 部门获取视频链接。</p>
+</blockquote>
+<hr />
+<h2>常见问题</h2>
+<p><strong>Q：课程和视频是什么关系？</strong>
+A：
+- <strong>课程</strong>：一个学习主题，比如"消防安全"
+- <strong>视频</strong>：课程的具体内容，每节课对应一个视频
+- 一门课可以有多个视频</p>
+<p><strong>Q：员工看到的是课程还是视频？</strong>
+A：先看到课程，点进去看视频。可以一个一个看。</p>
+<p><strong>Q：没有视频链接能加课程吗？</strong>
+A：可以。课程本身可以只放文字/PDF资料，不一定有视频。</p>
+<p><strong>Q：怎么知道员工学了多少？</strong>
+A：手机端的"个人中心 → 我的培训"可以查看。</p>
+<p><strong>Q：怎么查看所有员工的学习进度？</strong>
+A：导出培训进度报表（点击"导出进度"按钮）。</p></div></div></body></html>

@@ -1,0 +1,169 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>01-portal · tk-safe-upload 说明</title><style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;background:#fafbff;color:#1a2332;line-height:1.75}
+a{color:#2f6bff;text-decoration:none}
+.wrap{max-width:920px;margin:0 auto;padding:32px 20px 80px}
+.back{font-size:13px;color:#8a94a6}
+h1{font-size:26px;font-weight:800;margin:8px 0 4px;border-bottom:2px solid #eef1f8;padding-bottom:14px}
+.page-title{font-size:16px;color:#5c6670;margin:-2px 0 20px}
+.wiki-body{margin-top:8px}
+.wiki-body h1,.wiki-body h2,.wiki-body h3{margin:1.2em 0 .5em;line-height:1.4}
+.wiki-body h2{font-size:22px}.wiki-body h3{font-size:18px}
+.wiki-body p{margin:.8em 0}
+.wiki-body ul,.wiki-body ol{margin:.6em 0 .6em 1.6em}
+.wiki-body img{max-width:100%}
+.wiki-body pre{background:#0f1523;color:#e8edff;padding:14px 16px;border-radius:10px;overflow:auto;margin:.9em 0}
+.wiki-body code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:.9em}
+.wiki-body pre code{background:none;padding:0}
+.wiki-body table{border-collapse:collapse;margin:.9em 0;width:100%}
+.wiki-body th,.wiki-body td{border:1px solid #e2e7f2;padding:8px 12px;text-align:left}
+.wiki-body th{background:#f4f6fc}
+.wiki-body blockquote{border-left:4px solid #bcd0ff;background:#f4f8ff;padding:10px 16px;margin:.9em 0;color:#456}
+.wiki-body a{color:#2f6bff;border-bottom:1px dashed #bcd0ff}
+.nav{margin:14px 0 0;display:flex;gap:10px;flex-wrap:wrap}
+.nav a{background:#eef3ff;border:1px solid #d9e4ff;padding:6px 16px;border-radius:20px;font-size:13px;color:#2f6bff}
+.mark{color:#c0392b}
+</style></head><body><div class="wrap"><a class="back" href="../index.html">← 项目合辑</a><h1>01-portal</h1><div class="page-title">tk-safe-upload · 使用说明（只读镜像）</div><div class="nav"><a href="../index.html">返回合辑</a><a href="./home.html">概览</a></div><div class="wiki-body"><h1>怎么登录平台</h1>
+<blockquote>
+<p><strong>这一节非常重要</strong>：不管您是用手机还是电脑，都需要先登录才能使用。</p>
+</blockquote>
+<hr />
+<h2>登录页面长什么样</h2>
+<p>当您打开平台时，第一眼看到的就是登录页面。页面很简单，就一个大大的输入框。</p>
+<p><img alt="登录页面" src="/s/tk-safe-upload/01_login.png" /></p>
+<hr />
+<h2>怎么登录（一步步教您）</h2>
+<p><strong>第一步</strong>：在"用户名"那一栏，输入公司给您的<strong>账号</strong>（通常是您的工号或姓名拼音）</p>
+<p><strong>第二步</strong>：在"密码"那一栏，输入您的<strong>密码</strong>（输入时显示为小圆点，这是为了别人看不到）</p>
+<p><strong>第三步</strong>：用手指（手机）或鼠标（电脑），点击蓝色的"登录"按钮</p>
+<p><strong>登录成功</strong>的话：
+- 手机端会直接进入首页
+- 电脑端会进入一个"统一工作台"页面</p>
+<p><strong>登录失败</strong>的话：
+- 页面会显示红色的"账号或密码错误"提示
+- 您需要重新检查输入是否正确
+- 确认还不行，就找公司管理员重置密码</p>
+<hr />
+<h2>怎么打开平台</h2>
+<h3>在手机上打开</h3>
+<p>用手机浏览器（微信里点链接也行），在地址栏输入：</p>
+<pre class="codehilite"><code>http://192.168.11.70:5111/m
+</code></pre>
+
+<p>或者用公司提供的<strong>二维码</strong>扫一扫。</p>
+<h3>在电脑上打开</h3>
+<p>打开电脑浏览器（推荐 Chrome 或 Edge），在地址栏输入：</p>
+<pre class="codehilite"><code>http://192.168.11.70:5111
+</code></pre>
+
+<p>系统会自动跳转到登录页。</p>
+<h3>在大屏上打开</h3>
+<p>大屏展示时，地址栏输入：</p>
+<pre class="codehilite"><code>http://192.168.11.70:5111/screen
+</code></pre>
+
+<p>这个页面<strong>不需要登录</strong>，谁都可以看。</p>
+<hr />
+<h2>登录后看到的第一个页面</h2>
+<p>登录成功后，您会看到"<strong>统一工作台</strong>"页面。这是您进入平台后看到的第一个页面，相当于"大门"。</p>
+<p><img alt="统一工作台" src="/s/tk-safe-upload/02_portal.png" /></p>
+<h3>工作台有什么内容？</h3>
+<p><strong>最上面</strong>：显示您的姓名和角色（您的名字 + 您在公司的职位）</p>
+<p><strong>中间一排小卡片</strong>：显示一些重要的数字
+- 红色卡片：现在有多少个隐患
+- 橙色卡片：有多少个超期没处理的
+- 绿色卡片：分配给您的待办任务
+- 紫色卡片：您上报过的隐患</p>
+<p><strong>三个大按钮</strong>：让您选择用什么方式进入
+- 📱 <strong>手机端</strong>：用手机操作
+- 🖥️ <strong>电脑后台</strong>：用电脑管理（管理员才能看到）
+- 📊 <strong>数据大屏</strong>：看大屏数据</p>
+<p><strong>下面一排小图标</strong>：常用的快捷入口
+- 📷 随手拍：快速上报隐患
+- 📍 巡查打卡：每天的检查任务
+- 🚨 举报：匿名举报问题
+- 🎓 培训：在线学习
+- 📚 资料：查文档
+- ⏰ 待办：看预警提醒
+- 👤 我的：个人中心
+- ⚙️ 配置：系统设置（只有管理员能看到）</p>
+<p><strong>再下面</strong>：预警信息汇总——您一眼就能看到有哪些紧急的事情需要处理</p>
+<p><strong>最下面</strong>：最近发生的隐患动态</p>
+<hr />
+<h2>默认测试账号</h2>
+<p>平台装好后，系统自带了几个测试账号，方便您体验：</p>
+<table>
+<thead>
+<tr>
+<th>账号</th>
+<th>密码</th>
+<th>他是谁</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>admin</td>
+<td>admin123</td>
+<td><strong>公司大老板</strong>——什么都能管</td>
+</tr>
+<tr>
+<td>subadmin</td>
+<td>subadmin123</td>
+<td><strong>子公司负责人</strong>——管理自己公司</td>
+</tr>
+<tr>
+<td>inspector</td>
+<td>inspector123</td>
+<td><strong>安全员</strong>——专门做检查</td>
+</tr>
+<tr>
+<td>staff</td>
+<td>staff123</td>
+<td><strong>普通员工</strong>——只能上报和学习</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⚠️ <strong>重要提醒</strong>：这只是测试账号！真实使用后，公司会给每个人分配自己的账号。<strong>第一次登录后请立刻修改密码</strong>！</p>
+</blockquote>
+<hr />
+<h2>怎么改密码</h2>
+<h3>方式一：在手机上改</h3>
+<ol>
+<li>打开手机端</li>
+<li>点击右上角的小人头像 👤</li>
+<li>进入"个人中心"</li>
+<li>找到"修改登录密码"那一项</li>
+<li>输入旧密码、输入新密码、再输入一次确认</li>
+<li>点击"保存"</li>
+</ol>
+<h3>方式二：在电脑上改</h3>
+<ol>
+<li>登录电脑后台</li>
+<li>点击右上角的小圆头像（带您名字的第一个字）</li>
+<li>弹出修改密码窗口</li>
+<li>输入旧密码、新密码、确认新密码</li>
+<li>点击"保存新密码"</li>
+</ol>
+<h3>改密码的小贴士</h3>
+<ul>
+<li>新密码<strong>至少6位</strong></li>
+<li>建议<strong>字母+数字</strong>组合</li>
+<li><strong>不要</strong>用生日、123456这种太简单的</li>
+<li>定期更换密码更安全</li>
+</ul>
+<hr />
+<h2>怎么退出登录</h2>
+<p>在电脑后台：点击右上角的小人头像旁边的"退出登录"链接
+在手机端：在"个人中心"页面最下面有"退出登录"</p>
+<p>退出后，别人就不能用您的账号做事情了。</p>
+<hr />
+<h2>忘记密码怎么办？</h2>
+<p><strong>不要着急</strong>！您有两个选择：</p>
+<ol>
+<li><strong>找公司管理员</strong>：让管理员在"用户管理"里帮您重置密码</li>
+<li><strong>如果还能登录</strong>：登录后自己改一个新密码</li>
+</ol>
+<blockquote>
+<p>公司管理员的联系方式应该在您入职时给过您，如果忘了，找身边的同事问一下。</p>
+</blockquote></div></div></body></html>

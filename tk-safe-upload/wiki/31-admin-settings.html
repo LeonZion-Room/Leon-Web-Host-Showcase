@@ -1,0 +1,162 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>31-admin-settings · tk-safe-upload 说明</title><style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;background:#fafbff;color:#1a2332;line-height:1.75}
+a{color:#2f6bff;text-decoration:none}
+.wrap{max-width:920px;margin:0 auto;padding:32px 20px 80px}
+.back{font-size:13px;color:#8a94a6}
+h1{font-size:26px;font-weight:800;margin:8px 0 4px;border-bottom:2px solid #eef1f8;padding-bottom:14px}
+.page-title{font-size:16px;color:#5c6670;margin:-2px 0 20px}
+.wiki-body{margin-top:8px}
+.wiki-body h1,.wiki-body h2,.wiki-body h3{margin:1.2em 0 .5em;line-height:1.4}
+.wiki-body h2{font-size:22px}.wiki-body h3{font-size:18px}
+.wiki-body p{margin:.8em 0}
+.wiki-body ul,.wiki-body ol{margin:.6em 0 .6em 1.6em}
+.wiki-body img{max-width:100%}
+.wiki-body pre{background:#0f1523;color:#e8edff;padding:14px 16px;border-radius:10px;overflow:auto;margin:.9em 0}
+.wiki-body code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:.9em}
+.wiki-body pre code{background:none;padding:0}
+.wiki-body table{border-collapse:collapse;margin:.9em 0;width:100%}
+.wiki-body th,.wiki-body td{border:1px solid #e2e7f2;padding:8px 12px;text-align:left}
+.wiki-body th{background:#f4f6fc}
+.wiki-body blockquote{border-left:4px solid #bcd0ff;background:#f4f8ff;padding:10px 16px;margin:.9em 0;color:#456}
+.wiki-body a{color:#2f6bff;border-bottom:1px dashed #bcd0ff}
+.nav{margin:14px 0 0;display:flex;gap:10px;flex-wrap:wrap}
+.nav a{background:#eef3ff;border:1px solid #d9e4ff;padding:6px 16px;border-radius:20px;font-size:13px;color:#2f6bff}
+.mark{color:#c0392b}
+</style></head><body><div class="wrap"><a class="back" href="../index.html">← 项目合辑</a><h1>31-admin-settings</h1><div class="page-title">tk-safe-upload · 使用说明（只读镜像）</div><div class="nav"><a href="../index.html">返回合辑</a><a href="./home.html">概览</a></div><div class="wiki-body"><h1>系统配置（消息模板、预警规则）</h1>
+<blockquote>
+<p>配置<strong>消息怎么发</strong>、<strong>预警怎么算</strong>。一般由 IT 管理员设置。</p>
+</blockquote>
+<hr />
+<h2>页面长什么样</h2>
+<p>在电脑后台左侧菜单点"<strong>⚙️ 系统配置</strong>"：</p>
+<p><img alt="系统配置" src="/s/tk-safe-upload/17_admin_settings.png" /></p>
+<p>页面分为<strong>4个部分</strong>：</p>
+<ol>
+<li>消息模板</li>
+<li>预警规则</li>
+<li>推送通道配置</li>
+<li>消息推送测试</li>
+</ol>
+<hr />
+<h2>1. 消息模板</h2>
+<p><strong>什么是模板</strong>：发送通知的<strong>预设文字内容</strong>。可以用变量。</p>
+<h3>怎么新增模板</h3>
+<p><strong>第1步</strong>：点"<strong>+ 新增</strong>"（消息模板区域）</p>
+<p><strong>第2步</strong>：填写表单</p>
+<ul>
+<li><strong>模板名称</strong>（必填）：比如"隐患指派通知"</li>
+<li><strong>通知通道</strong>：微信/短信</li>
+<li><strong>模板内容</strong>：写通知文字</li>
+</ul>
+<p><strong>第3步</strong>：点"<strong>保存</strong>"</p>
+<h3>支持的变量</h3>
+<p>在模板内容里可以用以下变量（系统会自动替换）：</p>
+<table>
+<thead>
+<tr>
+<th>变量</th>
+<th>替换成什么</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>{title}</code></td>
+<td>消息标题</td>
+</tr>
+<tr>
+<td><code>{name}</code></td>
+<td>收件人姓名</td>
+</tr>
+<tr>
+<td><code>{date}</code></td>
+<td>日期时间</td>
+</tr>
+</tbody>
+</table>
+<h3>模板示例</h3>
+<pre class="codehilite"><code>【安全生产平台】{title}
+{name}，您有一条新的待办事项，请及时处理。
+时间：{date}
+</code></pre>
+
+<hr />
+<h2>2. 预警规则</h2>
+<p><strong>什么是规则</strong>：定义什么情况下触发预警。</p>
+<h3>5 种预警类型</h3>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>触发条件</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>隐患整改逾期</td>
+<td>超过整改期限</td>
+</tr>
+<tr>
+<td>设备年检到期</td>
+<td>提前 X 天预警</td>
+</tr>
+<tr>
+<td>证件到期</td>
+<td>提前 X 天预警</td>
+</tr>
+<tr>
+<td>风险复核到期</td>
+<td>复核日到了</td>
+</tr>
+<tr>
+<td>维保到期</td>
+<td>维保日到了</td>
+</tr>
+</tbody>
+</table>
+<h3>怎么新增规则</h3>
+<p><strong>第1步</strong>：点"<strong>+ 新增</strong>"（预警规则区域）</p>
+<p><strong>第2步</strong>：填写表单</p>
+<ul>
+<li><strong>规则名称</strong>（必填）</li>
+<li><strong>预警类型</strong>：下拉选</li>
+<li><strong>提前天数</strong>：提前几天预警（默认7天）</li>
+</ul>
+<p><strong>第3步</strong>：点"<strong>保存</strong>"</p>
+<h3>编辑/删除</h3>
+<p>点行右侧的"<strong>编辑</strong>"或"<strong>删除</strong>"。</p>
+<hr />
+<h2>3. 推送通道配置</h2>
+<p><strong>这是什么</strong>：配置<strong>怎么发送通知</strong>。</p>
+<h3>微信 Webhook</h3>
+<ol>
+<li>找到"<strong>Wechat Webhook URL</strong>"输入框</li>
+<li>填入企业微信机器人的 Webhook 地址</li>
+<li>点"<strong>保存配置</strong>"</li>
+</ol>
+<blockquote>
+<p>没有 Webhook？请联系 IT 部门配置。</p>
+</blockquote>
+<h3>短信通道</h3>
+<p>类似配置，具体看公司用什么短信服务。</p>
+<hr />
+<h2>4. 消息推送测试</h2>
+<p><strong>用来测试</strong>通知能不能正常发送。</p>
+<p><strong>第1步</strong>：选择通道（微信/短信）</p>
+<p><strong>第2步</strong>：填写目标（手机号或微信OpenID）</p>
+<p><strong>第3步</strong>：点"<strong>发送测试</strong>"</p>
+<blockquote>
+<p>几秒后会显示"测试消息已发送"。请检查手机或微信是否收到。</p>
+</blockquote>
+<hr />
+<h2>常见问题</h2>
+<p><strong>Q：模板是必须的吗？</strong>
+A：建议设置，不然系统会用默认文字。</p>
+<p><strong>Q：预警规则不设置会怎样？</strong>
+A：会用系统默认的规则（7天前预警）。</p>
+<p><strong>Q：Webhook 在哪配置？</strong>
+A：在企业微信管理后台的"群机器人"里创建，复制 Webhook URL 填到系统。</p>
+<p><strong>Q：测试失败怎么办？</strong>
+A：检查 Webhook 是否正确、网络是否通畅。</p>
+<p><strong>Q：能控制谁收到通知吗？</strong>
+A：当前所有用户都会收到。建议后续根据角色设置。</p></div></div></body></html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>admin · tk-visitor-gate 说明</title><style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;background:#fafbff;color:#1a2332;line-height:1.75}
+a{color:#2f6bff;text-decoration:none}
+.wrap{max-width:920px;margin:0 auto;padding:32px 20px 80px}
+.back{font-size:13px;color:#8a94a6}
+h1{font-size:26px;font-weight:800;margin:8px 0 4px;border-bottom:2px solid #eef1f8;padding-bottom:14px}
+.page-title{font-size:16px;color:#5c6670;margin:-2px 0 20px}
+.wiki-body{margin-top:8px}
+.wiki-body h1,.wiki-body h2,.wiki-body h3{margin:1.2em 0 .5em;line-height:1.4}
+.wiki-body h2{font-size:22px}.wiki-body h3{font-size:18px}
+.wiki-body p{margin:.8em 0}
+.wiki-body ul,.wiki-body ol{margin:.6em 0 .6em 1.6em}
+.wiki-body img{max-width:100%}
+.wiki-body pre{background:#0f1523;color:#e8edff;padding:14px 16px;border-radius:10px;overflow:auto;margin:.9em 0}
+.wiki-body code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:.9em}
+.wiki-body pre code{background:none;padding:0}
+.wiki-body table{border-collapse:collapse;margin:.9em 0;width:100%}
+.wiki-body th,.wiki-body td{border:1px solid #e2e7f2;padding:8px 12px;text-align:left}
+.wiki-body th{background:#f4f6fc}
+.wiki-body blockquote{border-left:4px solid #bcd0ff;background:#f4f8ff;padding:10px 16px;margin:.9em 0;color:#456}
+.wiki-body a{color:#2f6bff;border-bottom:1px dashed #bcd0ff}
+.nav{margin:14px 0 0;display:flex;gap:10px;flex-wrap:wrap}
+.nav a{background:#eef3ff;border:1px solid #d9e4ff;padding:6px 16px;border-radius:20px;font-size:13px;color:#2f6bff}
+.mark{color:#c0392b}
+</style></head><body><div class="wrap"><a class="back" href="../index.html">← 项目合辑</a><h1>admin</h1><div class="page-title">tk-visitor-gate · 使用说明（只读镜像）</div><div class="nav"><a href="../index.html">返回合辑</a><a href="./home.html">概览</a></div><div class="wiki-body"><h1>管理员系统</h1>
+<p>管理员登录后 → 管理后台 →「管理员」标签页。</p>
+<p><img alt="管理员管理" src="http://119.145.17.34:5001/api/v1/attachment/download?id=721" /></p>
+<hr />
+<h2>权限分层</h2>
+<table>
+<thead>
+<tr>
+<th>角色</th>
+<th>权限</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>超级管理员（Leon）</td>
+<td>所有权限：创建用户、授权、设置、管理员管理、远程开门、一键全开</td>
+</tr>
+<tr>
+<td>普通管理员</td>
+<td>可配置启用/禁用、可配置是否拥有审批权限</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>登录</h2>
+<pre class="codehilite"><code>用户名：Leon
+密码：wswwsw1234
+</code></pre>
+
+<h3>登录安全</h3>
+<ul>
+<li><strong>防暴力破解</strong>：IP + 用户名双维度计数，5 次失败锁定 15 分钟</li>
+<li><strong>Session 轮换</strong>：登录成功时自动轮换 session，防会话固定</li>
+<li><strong>密码存储</strong>：PBKDF2 哈希（200k 迭代 + 盐），不存明文</li>
+<li><strong>密码策略</strong>：管理员密码最低 8 位</li>
+</ul>
+<hr />
+<h2>管理员操作</h2>
+<h3>创建管理员</h3>
+<ol>
+<li>超管登录 → 管理后台 → 管理员标签页</li>
+<li>点击「创建管理员」</li>
+<li>输入用户名和密码（至少 8 位）</li>
+<li>点击确认</li>
+</ol>
+<blockquote>
+<p><strong>注意</strong>：不能创建名为 "Leon" 的超管。</p>
+</blockquote>
+<h3>启用/禁用</h3>
+<p>每个管理员有启用/禁用开关。禁用后该管理员无法登录，也不出现在访客预约的经办人下拉框中。</p>
+<h3>可审批开关</h3>
+<p>控制该管理员是否出现在访客预约页的经办人下拉框中。</p>
+<hr />
+<h2>操作权限</h2>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>谁能做</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>创建管理员</td>
+<td>仅超管</td>
+</tr>
+<tr>
+<td>禁用/启用管理员</td>
+<td>仅超管</td>
+</tr>
+<tr>
+<td>切换可审批权限</td>
+<td>仅超管</td>
+</tr>
+<tr>
+<td>远程开门</td>
+<td>仅超管</td>
+</tr>
+<tr>
+<td>一键全开</td>
+<td>仅超管</td>
+</tr>
+<tr>
+<td>站点设置</td>
+<td>仅超管</td>
+</tr>
+<tr>
+<td>审批预约</td>
+<td>所有可审批的管理员</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p><a href="/w/qr-code-gate/records">← 通行记录查询</a> <a href="/w/qr-code-gate/site">站点设置 →</a></p></div></div></body></html>

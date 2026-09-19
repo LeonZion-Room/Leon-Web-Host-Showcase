@@ -1,0 +1,224 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>architecture · tk-safe-upload 说明</title><style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;background:#fafbff;color:#1a2332;line-height:1.75}
+a{color:#2f6bff;text-decoration:none}
+.wrap{max-width:920px;margin:0 auto;padding:32px 20px 80px}
+.back{font-size:13px;color:#8a94a6}
+h1{font-size:26px;font-weight:800;margin:8px 0 4px;border-bottom:2px solid #eef1f8;padding-bottom:14px}
+.page-title{font-size:16px;color:#5c6670;margin:-2px 0 20px}
+.wiki-body{margin-top:8px}
+.wiki-body h1,.wiki-body h2,.wiki-body h3{margin:1.2em 0 .5em;line-height:1.4}
+.wiki-body h2{font-size:22px}.wiki-body h3{font-size:18px}
+.wiki-body p{margin:.8em 0}
+.wiki-body ul,.wiki-body ol{margin:.6em 0 .6em 1.6em}
+.wiki-body img{max-width:100%}
+.wiki-body pre{background:#0f1523;color:#e8edff;padding:14px 16px;border-radius:10px;overflow:auto;margin:.9em 0}
+.wiki-body code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:.9em}
+.wiki-body pre code{background:none;padding:0}
+.wiki-body table{border-collapse:collapse;margin:.9em 0;width:100%}
+.wiki-body th,.wiki-body td{border:1px solid #e2e7f2;padding:8px 12px;text-align:left}
+.wiki-body th{background:#f4f6fc}
+.wiki-body blockquote{border-left:4px solid #bcd0ff;background:#f4f8ff;padding:10px 16px;margin:.9em 0;color:#456}
+.wiki-body a{color:#2f6bff;border-bottom:1px dashed #bcd0ff}
+.nav{margin:14px 0 0;display:flex;gap:10px;flex-wrap:wrap}
+.nav a{background:#eef3ff;border:1px solid #d9e4ff;padding:6px 16px;border-radius:20px;font-size:13px;color:#2f6bff}
+.mark{color:#c0392b}
+</style></head><body><div class="wrap"><a class="back" href="../index.html">← 项目合辑</a><h1>architecture</h1><div class="page-title">tk-safe-upload · 使用说明（只读镜像）</div><div class="nav"><a href="../index.html">返回合辑</a><a href="./home.html">概览</a></div><div class="wiki-body"><h1>平台架构与技术栈</h1>
+<h2>整体架构</h2>
+<p>TK-Safe-UpLoad 采用经典的三层架构。详细数据模型见 <a class="wl" href="wiki/database.html">数据库表结构</a>，接口规范见 <a class="wl" href="wiki/api.html">REST API 文档</a>，系统管理见 <a class="wl" href="wiki/system.html">系统管理</a>。</p>
+<pre class="mermaid">
+graph TB
+    subgraph Frontend["表现层 · Frontend"]
+        M["📱 移动端<br/>/m 路径<br/>Tailwind + Alpine.js"]
+        PC["🖥️ PC后台<br/>/admin 路径<br/>ECharts 统计图表"]
+        SP["📊 数据大屏<br/>/screen 路径<br/>轮播 + 实时刷新"]
+    end
+
+    subgraph Backend["业务层 · Backend (Flask)"]
+        API["REST API 路由<br/>app.py"]
+        AUTH["认证 · 会话管理<br/>RBAC 权限控制"]
+        MD["Markdown 渲染<br/>Jinja2 模板引擎"]
+    end
+
+    subgraph Storage["数据层 · Storage"]
+        DB["SQLite 数据库<br/>safe_upload.db"]
+        UPL["文件存储<br/>uploads/ 目录"]
+        LOG["操作日志<br/>审计留痕"]
+    end
+
+    M --> API
+    PC --> API
+    SP --> API
+    API --> AUTH
+    AUTH --> MD
+    MD --> DB
+    API --> DB
+    API --> UPL
+    API --> LOG
+</pre>
+
+<h2>核心路由</h2>
+<pre class="mermaid">
+graph LR
+    A["浏览器<br/>192.168.11.70:5111"] --> B["Flask app.py"]
+    B --> C{路径判断}
+    C -->|/m| D["移动端模板<br/>m/*.html"]
+    C -->|/admin| E["PC后台模板<br/>admin/*.html"]
+    C -->|/screen| F["数据大屏<br/>screen.html"]
+    C -->|/api| G["REST API<br/>返回 JSON"]
+    C -->|/s| H["静态文件<br/>uploads/"]
+</pre>
+
+<h2>技术栈详情</h2>
+<table>
+<thead>
+<tr>
+<th>技术</th>
+<th>版本/说明</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Python</td>
+<td>3.12</td>
+<td>后端运行时</td>
+</tr>
+<tr>
+<td>Flask</td>
+<td>2.x</td>
+<td>Web 框架</td>
+</tr>
+<tr>
+<td>SQLite</td>
+<td>3.x</td>
+<td>数据库（无需额外安装）</td>
+</tr>
+<tr>
+<td>Jinja2</td>
+<td>模板引擎</td>
+<td>服务端渲染 HTML</td>
+</tr>
+<tr>
+<td>Tailwind CSS</td>
+<td>CDN 引入</td>
+<td>响应式 UI 样式</td>
+</tr>
+<tr>
+<td>Alpine.js</td>
+<td>CDN 引入</td>
+<td>轻量级前端交互</td>
+</tr>
+<tr>
+<td>ECharts</td>
+<td>CDN 引入</td>
+<td>数据可视化图表</td>
+</tr>
+<tr>
+<td>hashlib (SHA-256)</td>
+<td>标准库</td>
+<td>密码加密存储</td>
+</tr>
+</tbody>
+</table>
+<h2>项目文件结构</h2>
+<pre class="codehilite"><code>TK-Safe-UpLoad/
+├── app.py              # Flask 主应用（路由 + 业务逻辑，1296 行）
+├── models.py           # 数据层（SQLite CRUD + 统计查询，667 行）
+├── config.py           # 项目配置（端口/角色/风险等级等）
+├── db_init.py          # 数据库初始化脚本
+├── start.sh            # 启动脚本
+├── requirements.txt    # 依赖清单
+├── data/               # SQLite 数据库文件目录
+│   └── safe_upload.db  # 主数据库
+├── uploads/            # 上传文件存储
+│   ├── photo/          # 隐患随手拍照片
+│   ├── patrol/         # 巡查打卡照片
+│   ├── report/         # 举报照片
+│   ├── rectify/        # 整改照片
+│   ├── training/       # 培训课件
+│   └── general/        # 通用上传
+├── static/             # 静态资源
+├── templates/          # Jinja2 模板
+│   ├── base.html       # 基础布局
+│   ├── login.html      # 登录页
+│   ├── portal.html     # 统一门户
+│   ├── screen.html     # 数据大屏
+│   ├── m/              # 移动端模板
+│   │   ├── home.html   # 移动端首页
+│   │   ├── photo.html  # 隐患随手拍
+│   │   ├── patrol.html # 巡查打卡
+│   │   ├── tasks.html  # 我的任务
+│   │   ├── report.html # 隐患举报
+│   │   ├── training.html # 线上培训
+│   │   ├── library.html  # 资料查阅
+│   │   ├── alerts.html   # 预警中心
+│   │   ├── me.html       # 个人中心
+│   │   └── tabbar.html   # 底部导航栏
+│   └── admin/          # PC 后台模板
+│       ├── modules.html    # 模块总览
+│       ├── dashboard.html  # 管理仪表盘
+│       ├── table.html      # 通用台账页
+│       ├── hazards.html    # 隐患列表
+│       ├── risks.html      # 风险点管理
+│       ├── special.html    # 专项整治
+│       ├── training.html   # 培训管理
+│       ├── emergency.html  # 应急管理
+│       ├── permits.html    # 作业许可
+│       ├── reports.html    # 统计报表
+│       ├── users.html      # 用户管理
+│       ├── logs.html       # 操作日志
+│       ├── settings.html   # 系统配置
+│       └── ...             # 其他模板
+├── test_all.py         # 完整测试套件
+└── venv/               # Python 虚拟环境
+</code></pre>
+
+<h2>部署架构</h2>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>部署设备</td>
+<td>TK-Server · 192.168.11.70</td>
+</tr>
+<tr>
+<td>服务端口</td>
+<td>5111</td>
+</tr>
+<tr>
+<td>公网地址</td>
+<td>http://119.145.17.34:5111/</td>
+</tr>
+<tr>
+<td>内网地址</td>
+<td>http://192.168.11.70:5111/</td>
+</tr>
+<tr>
+<td>进程管理</td>
+<td>Leon-Control 统一管理（服务 ID 18）</td>
+</tr>
+<tr>
+<td>自动备份</td>
+<td>每日凌晨自动增量备份至内网 Gitea</td>
+</tr>
+<tr>
+<td>反向代理</td>
+<td>Caddy 反代（leyon.top:8443/tk-safe/）</td>
+</tr>
+</tbody>
+</table>
+<h2>安全机制</h2>
+<ul>
+<li><strong>密码存储</strong>：SHA-256 单向哈希，数据库不存储明文密码</li>
+<li><strong>会话管理</strong>：Flask Session Cookie，HttpOnly + SameSite=Lax，7 天有效期</li>
+<li><strong>权限控制</strong>：基于角色的访问控制（RBAC），5 级角色体系</li>
+<li><strong>操作日志</strong>：全操作留痕，IP 地址记录，支持按模块/关键词检索</li>
+<li><strong>文件安全</strong>：上传文件重命名（时间戳+安全字符），禁止路径穿越</li>
+<li><strong>CSRF 防护</strong>：SameSite Cookie 策略</li>
+</ul></div></div></body></html>

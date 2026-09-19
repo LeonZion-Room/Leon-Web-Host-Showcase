@@ -1,0 +1,120 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>dev · tk-visitor-gate 说明</title><style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;background:#fafbff;color:#1a2332;line-height:1.75}
+a{color:#2f6bff;text-decoration:none}
+.wrap{max-width:920px;margin:0 auto;padding:32px 20px 80px}
+.back{font-size:13px;color:#8a94a6}
+h1{font-size:26px;font-weight:800;margin:8px 0 4px;border-bottom:2px solid #eef1f8;padding-bottom:14px}
+.page-title{font-size:16px;color:#5c6670;margin:-2px 0 20px}
+.wiki-body{margin-top:8px}
+.wiki-body h1,.wiki-body h2,.wiki-body h3{margin:1.2em 0 .5em;line-height:1.4}
+.wiki-body h2{font-size:22px}.wiki-body h3{font-size:18px}
+.wiki-body p{margin:.8em 0}
+.wiki-body ul,.wiki-body ol{margin:.6em 0 .6em 1.6em}
+.wiki-body img{max-width:100%}
+.wiki-body pre{background:#0f1523;color:#e8edff;padding:14px 16px;border-radius:10px;overflow:auto;margin:.9em 0}
+.wiki-body code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:.9em}
+.wiki-body pre code{background:none;padding:0}
+.wiki-body table{border-collapse:collapse;margin:.9em 0;width:100%}
+.wiki-body th,.wiki-body td{border:1px solid #e2e7f2;padding:8px 12px;text-align:left}
+.wiki-body th{background:#f4f6fc}
+.wiki-body blockquote{border-left:4px solid #bcd0ff;background:#f4f8ff;padding:10px 16px;margin:.9em 0;color:#456}
+.wiki-body a{color:#2f6bff;border-bottom:1px dashed #bcd0ff}
+.nav{margin:14px 0 0;display:flex;gap:10px;flex-wrap:wrap}
+.nav a{background:#eef3ff;border:1px solid #d9e4ff;padding:6px 16px;border-radius:20px;font-size:13px;color:#2f6bff}
+.mark{color:#c0392b}
+</style></head><body><div class="wrap"><a class="back" href="../index.html">← 项目合辑</a><h1>dev</h1><div class="page-title">tk-visitor-gate · 使用说明（只读镜像）</div><div class="nav"><a href="../index.html">返回合辑</a><a href="./home.html">概览</a></div><div class="wiki-body"><h1>开发者模式</h1>
+<p>管理员登录 → 管理后台 →「开发者模式」标签页。</p>
+<p><img alt="开发者模式" src="http://119.145.17.34:5001/api/v1/attachment/download?id=724" /></p>
+<hr />
+<h2>功能概述</h2>
+<p>开发者模式提供<strong>任意 C3 HTTP 接口调试能力</strong>，可在浏览器中直接调用 C3 网关（19002），无需后端介入。</p>
+<hr />
+<h2>操作步骤</h2>
+<h3>选择接口</h3>
+<p>从下拉菜单选择接口，系统自动填充<strong>最近一次调用记录的参数</strong>。</p>
+<p>支持的接口：</p>
+<table>
+<thead>
+<tr>
+<th>类别</th>
+<th>接口</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>认证</td>
+<td>获取 Token</td>
+</tr>
+<tr>
+<td>账户管理</td>
+<td>获取员工列表、获取员工详情、创建/修改员工、创建/修改人脸库、获取员工详情（含 Base64 人脸照）</td>
+</tr>
+<tr>
+<td>权限管理</td>
+<td>获取权限列表、添加/修改/删除/撤销权限、按 Mac 添加/修改/撤销权限、查询员工在某设备/门禁上的权限</td>
+</tr>
+<tr>
+<td>二维码</td>
+<td>获取员工开门二维码</td>
+</tr>
+<tr>
+<td>人脸设备</td>
+<td>获取员工下发列表、下发员工、获取人脸照片、添加/修改/删除人脸库、人脸设备基本控制</td>
+</tr>
+<tr>
+<td>通用</td>
+<td>获取全部门禁点位、初始化 C3 接口（19001）</td>
+</tr>
+</tbody>
+</table>
+<h3>填写参数</h3>
+<ul>
+<li>选择 GET/POST</li>
+<li>输入请求体</li>
+<li>参数输入框支持格式化对齐</li>
+<li>默认选中「启用」（传 token）</li>
+</ul>
+<h3>执行与结果</h3>
+<ul>
+<li>点击「执行请求」</li>
+<li>下方显示：请求头、请求体（格式化）、响应内容（格式化）、耗时</li>
+<li>历史按钮：查看该接口的调用历史</li>
+</ul>
+<hr />
+<h2>C3 请求基础参数</h2>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>网关地址</td>
+<td>http://192.168.101.7:19002</td>
+</tr>
+<tr>
+<td>API 路径</td>
+<td>/api/AccessInterface</td>
+</tr>
+<tr>
+<td>Header</td>
+<td>Content-Type: application/json</td>
+</tr>
+<tr>
+<td>认证</td>
+<td>传 token 时携带 Bearer token</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>注意事项</h2>
+<ul>
+<li>所有参数使用<strong>中文字段名</strong>，系统自动转换为英文字段名</li>
+<li>失败操作自动回滚</li>
+<li>此功能仅<strong>超管 Leon</strong> 可使用</li>
+</ul>
+<hr />
+<p><a href="/w/qr-code-gate/site">← 站点设置</a> <a href="/w/qr-code-gate/c3">C3 对接 →</a></p></div></div></body></html>

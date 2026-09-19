@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>智慧工地宝管理平台 - 深圳市一指通智能科技有限公司</title>
+<meta name="description" content="智慧工地宝管理平台：实名制考勤、工资分账、安全教育与质量安全巡检、工友村宿舍、防疫、视频、环境、塔吊升降机监测等智慧工地一体化解决方案。">
+<meta property="og:title" content="智慧工地宝管理平台">
+<meta property="og:description" content="智慧工地建设一体化管理平台与操作文档">
+<meta property="og:type" content="website">
+<style>
+:root{
+  --bg:#ffffff;
+  --bg2:#f5f8fc;
+  --surface:#ffffff;
+  --text:#1a2233;
+  --muted:#5b6980;
+  --rule:#e3e9f2;
+  --brand:#1d6ae5;
+  --brand2:#3d8bff;
+  --brand-ink:#0c4aad;
+  --green:#18a058;
+  --amber:#d0880c;
+  --red:#d03050;
+  --radius:12px;
+  --radius-sm:8px;
+  --shadow:0 6px 24px rgba(26,42,70,.08);
+  --font:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Helvetica Neue",sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);color:var(--text);background:var(--bg);line-height:1.7;-webkit-font-smoothing:antialiased}
+a{color:var(--brand);text-decoration:none}
+img{max-width:100%}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+
+/* ---------- Nav ---------- */
+.nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--rule)}
+.nav-in{max-width:1120px;margin:0 auto;padding:0 24px;height:64px;display:flex;align-items:center;justify-content:space-between}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:18px;color:var(--text)}
+.brand .logo{width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,var(--brand),var(--brand2));display:flex;align-items:center;justify-content:center;color:#fff;font-size:17px}
+.nav-links{display:flex;gap:4px;align-items:center}
+.nav-links a{padding:8px 13px;border-radius:8px;font-size:14px;color:var(--muted);font-weight:500;transition:.2s}
+.nav-links a:hover{color:var(--brand);background:var(--bg2)}
+.nav-links a.active{color:var(--brand);background:rgba(29,106,229,.08)}
+.nav-cta{padding:9px 18px;background:var(--brand);color:#fff;border-radius:9px;font-size:14px;font-weight:600}
+.nav-cta:hover{background:var(--brand-ink);color:#fff}
+.menu-btn{display:none;background:none;border:none;font-size:24px;cursor:pointer;color:var(--text)}
+
+/* ---------- Hero ---------- */
+.hero{padding:88px 0 72px;background:
+  radial-gradient(60% 60% at 85% 10%,rgba(61,139,255,.10),transparent 60%),
+  radial-gradient(50% 50% at 8% 90%,rgba(61,139,255,.08),transparent 60%),
+  var(--bg)}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:#eef4ff;color:var(--brand);border:1px solid #d5e4ff;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:600;margin-bottom:22px}
+.hero h1{font-size:clamp(1.9rem,4.6vw,3.2rem);font-weight:800;line-height:1.2;letter-spacing:-.5px}
+.hero h1 em{font-style:normal;background:linear-gradient(120deg,var(--brand),var(--brand2));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.hero p.sub{font-size:1.1rem;color:var(--muted);max-width:640px;margin:20px 0 30px}
+.hero-cta{display:flex;gap:14px;flex-wrap:wrap}
+.btn{padding:13px 26px;border-radius:10px;font-weight:600;font-size:15px;display:inline-block}
+.btn.primary{background:var(--brand);color:#fff}
+.btn.primary:hover{background:var(--brand-ink)}
+.btn.ghost{background:#fff;color:var(--text);border:1px solid var(--rule)}
+.btn.ghost:hover{border-color:var(--brand);color:var(--brand)}
+.hero-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-top:52px}
+.stat{background:var(--surface);border:1px solid var(--rule);border-radius:var(--radius);padding:20px;text-align:center}
+.stat .n{font-size:1.7rem;font-weight:800;background:linear-gradient(120deg,var(--brand),var(--brand2));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.stat .t{font-size:.85rem;color:var(--muted);margin-top:4px}
+
+/* ---------- Section ---------- */
+section{padding:72px 0}
+.section-head{text-align:center;max-width:720px;margin:0 auto 48px}
+.section-head .k{color:var(--brand);font-weight:700;font-size:.9rem;letter-spacing:2px;text-transform:uppercase}
+.section-head h2{font-size:clamp(1.5rem,3vw,2.2rem);font-weight:800;margin:8px 0 12px;letter-spacing:-.3px}
+.section-head p{color:var(--muted)}
+.bg-alt{background:var(--bg2)}
+
+/* ---------- Feature cards ---------- */
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:20px}
+.card{background:var(--surface);border:1px solid var(--rule);border-radius:var(--radius);padding:26px;transition:.25s}
+.card:hover{transform:translateY(-4px);box-shadow:var(--shadow);border-color:#cfe0ff}
+.card .ic{width:46px;height:46px;border-radius:11px;background:#eef4ff;color:var(--brand);display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:14px}
+.card h3{font-size:1.08rem;font-weight:700;margin-bottom:8px}
+.card p{font-size:.92rem;color:var(--muted)}
+.card .tag{display:inline-block;font-size:.75rem;font-weight:600;color:var(--brand);background:#eef4ff;padding:3px 10px;border-radius:20px;margin-top:12px}
+
+/* ---------- Terminal banner ---------- */
+.term{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.term-item{background:#fff;border:1px solid var(--rule);border-radius:var(--radius);padding:22px;position:relative;overflow:hidden}
+.term-item::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--brand),var(--brand2))}
+.term-item .num{font-size:2rem;font-weight:800;color:#e6edf7}
+.term-item h3{font-size:1.05rem;margin:4px 0 8px}
+.term-item p{font-size:.9rem;color:var(--muted);margin-bottom:12px}
+.term-item ul{list-style:none}
+.term-item li{font-size:.87rem;color:var(--text);padding-left:20px;position:relative;margin-bottom:6px}
+.term-item li::before{content:"▸";position:absolute;left:0;color:var(--brand);font-weight:700}
+
+/* ---------- Feature grid (accordion-ish rows) ---------- */
+.modules{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:16px}
+.module{display:flex;gap:16px;background:#fff;border:1px solid var(--rule);border-radius:var(--radius);padding:20px;transition:.2s}
+.module:hover{border-color:#cfe0ff;box-shadow:var(--shadow)}
+.module .ic{flex:0 0 44px;height:44px;border-radius:11px;background:#eef4ff;color:var(--brand);display:flex;align-items:center;justify-content:center;font-size:20px}
+.module h3{font-size:1rem;font-weight:700;margin-bottom:4px}
+.module p{font-size:.87rem;color:var(--muted)}
+
+/* ---------- Docs ---------- */
+.doc-layout{display:grid;grid-template-columns:270px 1fr;gap:28px}
+.doc-side{border-right:1px solid var(--rule);padding-right:20px;position:sticky;top:84px;align-self:start;max-height:calc(100vh - 110px);overflow:auto}
+.doc-side h4{font-size:.78rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin:20px 0 8px}
+.doc-side h4:first-child{margin-top:0}
+.doc-side a{display:block;padding:6px 10px;border-radius:8px;font-size:.9rem;color:var(--muted);margin-bottom:2px}
+.doc-side a:hover{color:var(--brand);background:var(--bg2)}
+.doc-side a.on{color:var(--brand);background:rgba(29,106,229,.08);font-weight:600}
+.doc-main{min-width:0}
+.doc-block{display:none;background:#fff;border:1px solid var(--rule);border-radius:var(--radius);padding:30px}
+.doc-block.active{display:block;animation:fade .3s ease}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.doc-block h2{font-size:1.4rem;font-weight:800;margin-bottom:6px;display:flex;align-items:center;gap:12px}
+.doc-block .k{font-size:.78rem;color:var(--brand);background:#eef4ff;font-weight:700;padding:4px 12px;border-radius:20px}
+.doc-block .lead{color:var(--muted);font-size:.95rem;margin:10px 0 24px}
+.step{border-left:3px solid #dde7f6;padding:0 0 18px 20px;position:relative}
+.step:last-child{padding-bottom:0}
+.step::before{content:"";width:11px;height:11px;border-radius:50%;background:var(--brand);position:absolute;left:-7px;top:5px}
+.step h3{font-size:1.02rem;font-weight:700;margin-bottom:6px}
+.step ol{list-style:decimal;padding-left:20px;color:var(--text)}
+.step li{margin-bottom:6px;font-size:.92rem}
+.step li b{color:var(--brand-ink)}
+.step .hint{font-size:.84rem;color:var(--amber);background:#fff8ec;border:1px solid #ffe6b8;border-radius:8px;padding:8px 12px;margin-top:8px;display:inline-block}
+.step .tip{font-size:.84rem;color:var(--muted);background:var(--bg2);border-radius:8px;padding:8px 12px;margin-top:8px;display:inline-block}
+
+/* ---------- FAQ ---------- */
+.faq{max-width:820px;margin:0 auto}
+.faq-item{background:#fff;border:1px solid var(--rule);border-radius:var(--radius);margin-bottom:14px;overflow:hidden}
+.faq-q{font-weight:600;padding:18px 22px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.faq-q .arrow{transition:.25s;color:var(--brand);font-weight:700}
+.faq-item.open .faq-q .arrow{transform:rotate(180deg)}
+.faq-a{display:none;padding:0 22px 18px;color:var(--muted);font-size:.92rem}
+.faq-item.open .faq-a{display:block}
+.faq-a b{color:var(--text)}
+
+/* ---------- Footer ---------- */
+footer{border-top:1px solid var(--rule);padding:44px 0 30px;background:#fbfcfe}
+.foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:30px;max-width:1120px;margin:0 auto;padding:0 24px}
+.foot-grid .desc{color:var(--muted);font-size:.9rem;margin-top:12px;max-width:320px}
+.foot-grid h4{font-size:.95rem;font-weight:700;margin-bottom:12px}
+.foot-grid a{display:block;color:var(--muted);font-size:.88rem;margin-bottom:8px}
+.foot-grid a:hover{color:var(--brand)}
+.foot-bottom{text-align:center;color:var(--muted);font-size:.82rem;padding-top:28px;border-top:1px solid var(--rule);margin:36px 24px 0;padding-top:20px}
+
+/* ---------- Back to top ---------- */
+#topBtn{position:fixed;bottom:26px;right:26px;width:46px;height:46px;border-radius:12px;background:var(--brand);color:#fff;border:none;font-size:20px;cursor:pointer;box-shadow:var(--shadow);display:none;z-index:99}
+#topBtn:hover{background:var(--brand-ink)}
+
+@media (max-width:820px){
+  .nav-links{display:none}
+  .menu-btn{display:block}
+  .nav-links.open{display:flex;flex-direction:column;position:absolute;top:64px;left:0;right:0;background:#fff;border-bottom:1px solid var(--rule);padding:14px 20px;gap:8px;align-items:stretch}
+  .hero-stats{grid-template-columns:repeat(2,1fr)}
+  .doc-layout{grid-template-columns:1fr}
+  .doc-side{position:static;border-right:none;padding-right:0;max-height:none}
+  .foot-grid{grid-template-columns:1fr 1fr}
+  .cards,.modules{grid-template-columns:1fr}
+  .term{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- ============ NAV ============ -->
+<nav class="nav" id="nav">
+  <div class="nav-in">
+    <a class="brand" href="#top"><span class="logo">智</span>智慧工地宝</a>
+    <div class="nav-links" id="navLinks">
+      <a href="#top" class="active">首页</a>
+      <a href="#product">产品功能</a>
+      <a href="#terminal">操作终端</a>
+      <a href="#docs">操作文档</a>
+      <a href="#faq">常见问题</a>
+      <a href="#contact" class="nav-cta">联系我们</a>
+    </div>
+    <button class="menu-btn" id="menuBtn" aria-label="菜单">☰</button>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header class="hero" id="top">
+  <div class="wrap">
+    <span class="hero-badge">深圳市一指通智能科技有限公司 · 智慧建造解决方案</span>
+    <h1>智慧工地宝管理平台<br><em>让工地管理更简单、更安全、更高效</em></h1>
+    <p class="sub">一站式智慧工地建设管理平台，覆盖人员实名制考勤、工资分账、安全教育与质量安全巡检、工友村宿舍管理、防疫、视频与环境监测、塔吊与升降机监测等全场景应用。</p>
+    <div class="hero-cta">
+      <a href="#docs" class="btn primary">查看操作文档</a>
+      <a href="#product" class="btn ghost">了解产品功能</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><div class="n">三大</div><div class="t">操作终端</div></div>
+      <div class="stat"><div class="n">十大＋</div><div class="t">智慧工地模块</div></div>
+      <div class="stat"><div class="n">实名制</div><div class="t">人证核验考勤</div></div>
+      <div class="stat"><div class="n">全流程</div><div class="t">数据报表导出</div></div>
+    </div>
+  </div>
+</header>
+
+<!-- ============ PRODUCT ============ -->
+<section id="product">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="k">Product</div>
+      <h2>产品核心功能</h2>
+      <p>覆盖施工现场「人 · 机 · 料 · 环境 · 安全」全过程一体化管理</p>
+    </div>
+    <div class="cards">
+      <div class="card"><div class="ic">🪪</div><h3>人员实名制管理</h3><p>身份证实名登记、人证比对、人脸模板录入、手动补录等多方式人员信息管理，含银行卡采集满足分账制需求。</p><span class="tag">人证核验</span></div>
+      <div class="card"><div class="ic">🧾</div><h3>考勤与报表</h3><p>人脸识别设备自动打卡，支持待打卡、花名册、打卡情况/时间/时长表、在场明细等丰富报表，一键导出 Excel。</p><span class="tag">考勤报表</span></div>
+      <div class="card"><div class="ic">💰</div><h3>薪资分账管理</h3><p>薪资方案分配、员工薪资数据导入/批量设置、薪资发放提交审核、薪资月报打印，满足建筑行业工资专用账户分账发放要求。</p><span class="tag">劳务实名制</span></div>
+      <div class="card"><div class="ic">🏗️</div><h3>智慧展板</h3><p>项目级账号一键开启智慧展板，大屏实时展示考勤率、在建分包、在场人数等工地运行态势。</p><span class="tag">可视化</span></div>
+      <div class="card"><div class="ic">🛡️</div><h3>安全教育与巡检</h3><p>安全教育培训课题管理、签到表导出、视频投屏与扫码考试；APP 上报整改→整改→复查全流程闭环。</p><span class="tag">安全管理</span></div>
+      <div class="card"><div class="ic">🏠</div><h3>工友村宿舍管理</h3><p>生活区、生活设备、楼栋房间、宿舍分配与入住人数管理，支持生活区进出、入住历史、住宿率统计报表。</p><span class="tag">生活服务</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TERMINAL ============ -->
+<section class="bg-alt" id="terminal">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="k">Terminal</div>
+      <h2>三大操作终端</h2>
+      <p>覆盖 PC 云端、手机 APP、大屏展板的多端协同操作</p>
+    </div>
+    <div class="term">
+      <div class="term-item"><div class="num">01</div><h3>云客户端</h3><p>浏览器登录 Web 端，面向集团 / 企业 / 项目的分级管理。</p>
+        <ul>
+          <li>分级账号权限管理</li>
+          <li>企业、项目、参建单位与班组维护</li>
+          <li>设备授权与刷卡服务</li>
+          <li>证卡打印、报表查询导出</li>
+        </ul>
+      </div>
+      <div class="term-item"><div class="num">02</div><h3>APP 移动终端</h3><p>手机扫码下载，现场人员实名登记与智慧工地移动应用。</p>
+        <ul>
+          <li>身份证实名登记</li>
+          <li>质量管理、安全巡检上报</li>
+          <li>班前教育人脸打卡</li>
+          <li>支持安卓，账号与云客户端同步</li>
+        </ul>
+      </div>
+      <div class="term-item"><div class="num">03</div><h3>智慧展板大屏</h3><p>项目门户大屏，实时呈现工地运行态势与监测数据。</p>
+        <ul>
+          <li>考勤率、在建分包统计</li>
+          <li>在场人数实时显示</li>
+          <li>视频监测、环境数据展示</li>
+          <li>塔吊、升降机运行状态</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SMART MODULES ============ -->
+<section id="smart">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="k">Smart Site</div>
+      <h2>智慧工地监测模块</h2>
+      <p>多维度物联网监测，实时采集、历史回溯、报表导出一体</p>
+    </div>
+    <div class="modules">
+      <div class="module"><div class="ic">📹</div><div><h3>视频监测</h3><p>实时播放监控、云台操作；接入硬盘录像机 / 萤石云视频。</p></div></div>
+      <div class="module"><div class="ic">🌫️</div><div><h3>环境监测</h3><p>扬尘等环境实时数据与历史明细，支持报表导出。</p></div></div>
+      <div class="module"><div class="ic">⚡</div><div><h3>配电箱监测</h3><p>二级电箱漏电、高温等实时数据与历史明细，报表导出。</p></div></div>
+      <div class="module"><div class="ic">🚚</div><div><h3>车辆管理</h3><p>车辆进出实时监测、车次统计与历史明细。</p></div></div>
+      <div class="module"><div class="ic">🏗️</div><div><h3>塔吊监测</h3><p>塔吊运行情况、实时数据与历史明细、工作循环，绑定黑匣子。</p></div></div>
+      <div class="module"><div class="ic">🛗</div><div><h3>升降机监测</h3><p>升降机运行情况与工作循环，绑定黑匣子采集数据。</p></div></div>
+      <div class="module"><div class="ic">🦠</div><div><h3>防疫管理</h3><p>绑定防疫核验终端，防疫信息化展示与历史数据导出。</p></div></div>
+      <div class="module"><div class="ic">📣</div><div><h3>班前教育</h3><p>人脸识别打卡签到，云端查看与导出班前教育签到记录。</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ DOCS ============ -->
+<section class="bg-alt" id="docs">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="k">Manual</div>
+      <h2>操作文档</h2>
+      <p>智慧工地宝管理平台 · 操作文档 V2.0 —— 完整操作指引，点击左侧目录查看</p>
+    </div>
+    <div class="doc-layout">
+      <aside class="doc-side" id="docSide">
+        <h4>云客户端</h4>
+        <a data-target="d1">登录与主界面</a>
+        <a data-target="d2">新增企业账号</a>
+        <a data-target="d3">设备授权</a>
+        <a data-target="d4">新增项目账号</a>
+        <a data-target="d5">智慧展板</a>
+        <a data-target="d6">参建单位与班组</a>
+        <a data-target="d7">绑定考勤设备</a>
+        <a data-target="d8">证卡打印</a>
+        <h4>APP 移动端</h4>
+        <a data-target="d9">人员录入</a>
+        <a data-target="d10">手动录入</a>
+        <h4>考勤报表</h4>
+        <a data-target="d11">连续多日未考勤</a>
+        <a data-target="d12">人员花名册</a>
+        <a data-target="d13">考勤表·打卡情况</a>
+        <a data-target="d14">考勤表·打卡时间/时长</a>
+        <a data-target="d15">在场与班组明细</a>
+        <h4>智慧工地</h4>
+        <a data-target="d16">安全教育</a>
+        <a data-target="d17">质量安全管理</a>
+        <a data-target="d18">班前教育</a>
+        <a data-target="d19">薪资管理</a>
+        <a data-target="d20">工友村宿舍</a>
+        <a data-target="d21">防疫与视频监测</a>
+        <a data-target="d22">环境/配电/车辆</a>
+        <a data-target="d23">塔吊与升降机</a>
+        <h4>常见问题</h4>
+        <a data-target="d24">常见问题</a>
+      </aside>
+      <div class="doc-main" id="docMain">
+        <!-- will be filled by JS -->
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section id="faq">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="k">FAQ</div>
+      <h2>常见问题</h2>
+      <p>部署与使用中的高频疑问速查</p>
+    </div>
+    <div class="faq">
+      <div class="faq-item">
+        <div class="faq-q">登录方式与登录地址<span class="arrow">▾</span></div>
+        <div class="faq-a">云客户端使用浏览器登录系统地址，登录后进入操作主界面，首页依次显示今日考勤率、在建分包、在建人数、在场人数及项目名称列表；上方功能模块依次为首页、项目管理、薪资管理、统计报表、系统管理。APP 端账号密码与云客户端同步。</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">新增企业账号如何操作？<span class="arrow">▾</span></div>
+        <div class="faq-a">需登录<b>集团账号</b>：先到「公司管理」→「新增」录入企业信息保存；再到「系统管理 → 用户管理 → 新增」填写企业账号密码、选择公司与公司角色并保存。</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">设备如何授权与绑定？<span class="arrow">▾</span></div>
+        <div class="faq-a"><b>授权</b>：集团账号→「产品管理」新增厂家→「产品入库」新增型号→「设备入库」新增设备并填 SN 码、批次、状态。「绑定」：项目管理→考勤设备→新增，录入设备名称、编号（SN 码）、厂家、进出方向、设备 IP。</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">录入人员后设备识别不了怎么办？<span class="arrow">▾</span></div>
+        <div class="faq-a">登录项目人员管理，双击查看对应人的实时人脸照片是否合格。需为<b>齐肩以上大头照、类 1 寸证件照</b>，不能半身照、照片不能模糊，否则影响识别率。</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">现场断电断网导致无法进出门禁？<span class="arrow">▾</span></div>
+        <div class="faq-a">进行<b>手动同步人员</b>：登录系统→「项目管理」→「考勤设备维护」→「同步人员」→选择参建单位→确定。人员越多同步时间越长，需耐心等待。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACT / FOOTER ============ -->
+<footer id="contact">
+  <div class="foot-grid">
+    <div>
+      <a class="brand" href="#top"><span class="logo">智</span>智慧工地宝</a>
+      <p class="desc">深圳市一指通智能科技有限公司 · 智慧工地宝管理平台，助力建筑施工企业实现数字化、智慧化、规范化管理。</p>
+    </div>
+    <div>
+      <h4>产品功能</h4>
+      <a href="#product">人员实名制</a>
+      <a href="#product">考勤报表</a>
+      <a href="#smart">智慧监测</a>
+    </div>
+    <div>
+      <h4>使用指引</h4>
+      <a href="#docs">操作文档</a>
+      <a href="#faq">常见问题</a>
+      <a href="#terminal">操作终端</a>
+    </div>
+    <div>
+      <h4>关于</h4>
+      <a href="#top">公司简介</a>
+      <a href="#product">产品介绍</a>
+      <a href="#contact">联系我们</a>
+    </div>
+  </div>
+  <div class="foot-bottom">© 2026 深圳市一指通智能科技有限公司 · 智慧工地宝管理平台　保留所有权利</div>
+</footer>
+
+<button id="topBtn" aria-label="回到顶部">↑</button>
+
+<script>
+/* ============ nav mobile ============ */
+var menuBtn=document.getElementById('menuBtn'),navLinks=document.getElementById('navLinks');
+menuBtn.addEventListener('click',function(){navLinks.classList.toggle('open');});
+var navA=navLinks.querySelectorAll('a');
+navA.forEach(function(a){a.addEventListener('click',function(){navLinks.classList.remove('open');});});
+
+/* ============ nav active on scroll ============ */
+var secs=['top','product','terminal','smart','docs','faq','contact'];
+var map={top:'#top',product:'#product',terminal:'#terminal',smart:'#product',docs:'#docs',faq:'#faq',contact:'#contact'};
+window.addEventListener('scroll',function(){
+  var pos=window.scrollY+120;
+  secs.forEach(function(id){
+    var el=document.getElementById(id);
+    if(el && el.offsetTop<=pos) setActive(map[id]);
+  });
+});
+function setActive(hash){
+  navA.forEach(function(a){
+    var h=a.getAttribute('href');
+    if(h===hash && !a.classList.contains('nav-cta')) a.classList.add('active');
+    else if(!a.classList.contains('nav-cta')) a.classList.remove('active');
+  });
+}
+
+/* ============ back to top ============ */
+var topBtn=document.getElementById('topBtn');
+window.addEventListener('scroll',function(){topBtn.style.display=window.scrollY>600?'block':'none';});
+topBtn.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+
+/* ============ FAQ toggle ============ */
+document.querySelectorAll('.faq-item').forEach(function(item){
+  item.querySelector('.faq-q').addEventListener('click',function(){item.classList.toggle('open');});
+});
+
+/* ============ DOCS DATA ============ */
+var DOCS={
+d1:{k:"云客户端操作",t:"登录与主界面",lead:"使用浏览器登录系统，进入云客户端操作主界面。",steps:[
+  {h:"登录系统",list:["使用浏览器登录系统地址","输入账号密码登录，进入云客户端操作主界面"]},
+  {h:"主界面说明",list:["首页依次显示：<b>今日考勤率 — 在建分包 — 在建人数 — 在场人数 — 项目名称列表</b>","上方功能模块依次显示：<b>首页 — 项目管理 — 薪资管理 — 统计报表 — 系统管理</b>"]}
+]},
+d2:{k:"云客户端",t:"如何新增企业账号",lead:"企业账号需由集团级账号统一创建并分配。",steps:[
+  {h:"新增企业",list:["登录集团账号 → 找到「公司管理」","点击「新增」→ 录入企业信息 → 确定保存"]},
+  {h:"分配企业账号",list:["点击「系统管理 → 用户管理 → 新增」","填写需分配的企业账号及密码","选择需要注册账号的公司 → 所属角色（公司角色）→ 确定保存"]}
+]},
+d3:{k:"云客户端",t:"如何授权设备",lead:"设备授权须通过集团级账号操作。",steps:[
+  {h:"新增厂家",list:["登录集团账号 →「产品管理」→ 选择「产品列表」","点击「新增」→ 填入厂家信息 → 确定"]},
+  {h:"产品型号入库",list:["点击「产品入库」→「新增」→ 选择所属产品及产品型号 → 确定"]},
+  {h:"设备入库",list:["点击「产品入库」→ 选择设备所属型号 → 点击明细 →「新增」","填入设备标识 SN 码、批次、状态（在库）→ 确定"]}
+]},
+d4:{k:"云客户端",t:"如何新增项目账号",lead:"项目账号由企业级账号创建并分配。",steps:[
+  {h:"新增项目",list:["登录企业账号 →「项目管理」→「项目列表」→ 新增","填写项目信息，<span class=tip>项目位置的所属地区必须按真实填写</span>，否则会影响不同地区的工种分配 → 确定保存"]},
+  {h:"分配项目账号",list:["点击「系统管理 → 用户管理 → 新增」","填写需分配的项目账号及密码","选择需要注册账号的项目 → 所属角色（项目角色）→ 确定保存"]}
+]},
+d5:{k:"云客户端",t:"如何开启智慧展板",lead:"项目级操作需登录项目账号。",steps:[
+  {h:"开启展板",list:["选择「项目管理」→ 点击「项目名称」（自动跳转至智慧展板）"]}
+]},
+d6:{k:"云客户端",t:"如何新增参建单位与班组",lead:"先建立参建单位，再在其下新增班组。",steps:[
+  {h:"新增参建单位",list:["选择「项目管理」→ 点击「参建单位维护」→「新增」","录入参建单位资料（*号为必填项）→「确定」保存"]},
+  {h:"新增参建班组",list:["选择「项目管理」→ 点击「班组维护」→「新增」","选择所属参建单位 → 班组名称 → 班组类型（*号为必填项）→「确定」保存"]}
+]},
+d7:{k:"云客户端",t:"如何绑定设备",lead:"设备编号为 SN 码，需提前通过集团账号授权。",steps:[
+  {h:"绑定设备",list:["选择「项目管理」→ 点击「考勤设备」→「新增」","录入设备名称、设备编号（编号为 SN 码，需提前通过集团账号授权）、设备厂家、进出方向标识、设备 IP → 确定保存"]}
+]},
+d8:{k:"云客户端",t:"证卡设置与打印",lead:"初次使用需先进行证卡设置。",steps:[
+  {h:"证卡设置",list:["选择「项目管理」→「项目人员管理」→「证卡设置」","录入「总包单位名称」→ 上传「总包单位 LOGO」→「确定」保存"]},
+  {h:"证卡打印",list:["选择「项目人员管理」中对应人员 →「证卡打印」→「打印」","选择 Zebra ZC100 → 布局「横向」→ 彩色「彩色」→「打印」完成"]}
+]},
+d9:{k:"APP",t:"如何录入人员信息",lead:"使用手机浏览器扫描二维码下载 APP 移动终端（目前仅支持安卓，暂不支持 IOS）。",steps:[
+  {h:"登录准备",list:["扫描二维码下载 APP（支持安卓）","输入账号密码登录（账号密码与云客户端同步）","<b>注意：</b>做完参建单位以及班组维护后，才可进行人员录入操作"]},
+  {h:"实名登记",list:["人员录入选择「实名登记」（预先准备好身份证及银行卡）","扫描「身份证正面」录入人员信息"]},
+  {h:"人证核验",list:["校验人员信息是否有误，无误点击「下一步」","点击「验证本人」进行人证比对及人脸模板录入（保持齐肩以上，按示例图为准）","扫描「身份证反面」后点击「下一步」录入「银行卡」（管理人员无需录入）"]},
+  {h:"完成提交",list:["录入银行卡（劳务工人必须录入，分账制需要）","补充完整人员归属信息后，点击「确认提交」人员录入完成","<b>提示：</b>有些地区住建局要求上传工人银行卡做分账制发放工资信息"]}
+]},
+d10:{k:"APP",t:"如何手动录入人员信息",lead:"通过 PC 端项目管理补录人员完整资料。",steps:[
+  {h:"手动录入",list:["选择「项目管理」→「项目管理」→「项目人员」→「新增」","补充完整的人员信息资料"]},
+  {h:"准备材料",list:["准备好人员正反面身份证照片","身份证上截取证件照头像、人员实时照片","<b>提示：</b>部分地区住建局要求上传工人银行卡做分账制发放工资信息"]}
+]},
+d11:{k:"考勤报表",t:"连续多日未考勤人员查询",lead:"快速定位长期未打卡人员，便于考勤督导。",steps:[
+  {h:"查询",list:["选择「项目管理」→「项目人员管理」","选择未打卡天数（选择连续多日未打卡）即可查看"]}
+]},
+d12:{k:"考勤报表",t:"人员花名册",lead:"按起始日期与参建单位查询并导出人员花名册。",steps:[
+  {h:"查询导出",list:["选择「统计报表」→「人员花名册」","选择「起始日期」→ 选择「参建单位」→ 点击「查询」","点击「导出」可下载人员花名册 EXCEL 报表"]}
+]},
+d13:{k:"考勤报表",t:"人员考勤表（打卡情况）",lead:"查看人员打卡情况报表。",steps:[
+  {h:"查询导出",list:["选择「统计报表」→「人员考勤表」→ 选择「打卡情况」","选择「查询日期」→ 选择「参建单位」→ 点击「查询」","点击「导出」可下载人员考勤 EXCEL 报表"]}
+]},
+d14:{k:"考勤报表",t:"人员考勤表（打卡时间 / 时长）",lead:"按时间维度查询打卡明细。",steps:[
+  {h:"打卡时间表",list:["选择「统计报表」→「人员考勤表」→ 选择「打卡时间」","选择「查询日期」→ 选择「参建单位」→ 点击「查询」"]},
+  {h:"打卡时长表",list:["选择「统计报表」→「人员考勤表」→ 选择「打卡时长」","选择「查询日期」→ 选择「参建单位」→ 点击「查询」","均支持「导出」人员考勤 EXCEL 报表"]}
+]},
+d15:{k:"考勤报表",t:"在场情况与班组考勤明细",lead:"查看人员在岗状态与班组考勤率。",steps:[
+  {h:"在场情况明细表",list:["选择「统计报表」→「在场情况明细表」","选择「在岗状态」可查看当前人员状态，点击「导出」可下载 EXCEL 报表"]},
+  {h:"班组考勤明细表",list:["选择「统计报表」→「班组考勤明细表」","可查看当日班组考勤率"]}
+]},
+d16:{k:"智慧工地",t:"安全教育",lead:"安全教育培训课题管理与在线考试。",steps:[
+  {h:"课题管理",list:["选择「安全教育」→「培训课题」→ 新增","录入需要培训的人员及内容 → 确定"]},
+  {h:"培训实施",list:["安全教育课程点「更多操作」→ 导出签到表 / 开始学习 / 图片上传","安全教育视频可通过 HDMI 等方式进行投屏播放","手机扫描二维码进行考试"]}
+]},
+d17:{k:"智慧工地",t:"质量安全管理",lead:"通过 APP 完成质量整改与安全巡检的闭环。",steps:[
+  {h:"闭环流程",list:["通过 APP 上传整改内容 → 下发到整改人员 APP 账号","整改人员整改完成后上传内容返回给复查人员进行审核","通过云客户端查看进度及历史记录"]}
+]},
+d18:{k:"智慧工地",t:"班前教育",lead:"设备维护与人脸打卡签到。",steps:[
+  {h:"操作流程",list:["安全质量 → 设备管理（维护签到人脸识别设备）","通过 APP 智慧工地班前教育上传内容","班前教育人员通过人脸识别进行打卡签到","云端班前教育查看及导出签到记录"]}
+]},
+d19:{k:"智慧工地",t:"薪资管理",lead:"薪资方案、数据设置、发放审核与月报。",steps:[
+  {h:"方案与数据",list:["找到薪资管理 → 薪资方案分配 → 绑定项目账户","点击员工薪资数据 → 通过导入或批量设置薪资数据"]},
+  {h:"发放与审核",list:["薪资发放需提交审核 → 点击薪资发放（如有误可重置）","选择薪资发放审核 → 选择参建单位 → 选择日期 → 提交审核 → 审核"]},
+  {h:"月报打印",list:["薪资月报打印 → 选择参建单位 → 选择日期 → 导出报表"]}
+]},
+d20:{k:"智慧工地",t:"工友村宿舍管理",lead:"生活区、楼栋、宿舍的完整管理。",steps:[
+  {h:"基础维护",list:["选择工友村 → 生活区管理 → 新增（维护工友村资料和紧急联系人）","生活设备管理 → 新增（对生活区进出门禁设备进行维护）","楼栋管理 → 新增楼栋 → 录入楼栋号、楼层数及每层房间数 → 确定"]},
+  {h:"入住管理",list:["分配房间入住人数：楼栋信息 → 宿舍管理 + 号 → 录入可住人数（自动分配每个房间）","修改房间入住人数及男女宿舍：点击需要修改的房间（可多选）→ 批量修改 → 确定","宿舍分配：点击宿舍分配 → 勾选房间 → 选择参建单位 → 确定"]},
+  {h:"数据报表",list:["生活区进出记录 / 人员入住历史记录 / 生活区人员统计（可统计各参建单位住宿率）"]}
+]},
+d21:{k:"智慧工地",t:"防疫与视频监测",lead:"防疫核验终端与视频监控接入。",steps:[
+  {h:"防疫管理",list:["通过绑定防疫核验终端对项目防疫信息化展示","可在防疫记录查看历史数据并导出报表"]},
+  {h:"视频监测",list:["实时监测可查看监控播放及云台操作","视频设备维护 → 新增：录入硬盘录像机等信息 / 萤石云（设备需连接外网才可传输）","硬盘录像机模式下需填入 ysAppkey 和 ysSecret（在萤石开放平台控制台「我的账号-应用信息」获取）"]}
+]},
+d22:{k:"智慧工地",t:"环境 / 配电 / 车辆监测",lead:"环境扬尘、配电箱、车辆的实时与历史监测。",steps:[
+  {h:"环境监测",list:["实时查看环境数据及历史明细（可导出报表）","扬尘设备维护 → 新增 → 录入设备信息 → 确定；添加完设备后联系厂商提供 SN 码开启对接推送数据"]},
+  {h:"配电箱监测",list:["实时查看二级电箱漏电 / 高温等数据及历史明细（可导出报表）","配电设备维护 → 新增 → 录入设备信息 → 确定；添加后提供设备信息联系厂商开启对接推送数据"]},
+  {h:"车辆管理",list:["实时监测车辆进出情况及车次统计，历史明细可导出报表","车辆设备维护 → 新增 → 录入设备信息 → 确定；添加后需通过厂商 CS 客户端配置服务器及设备 ID 进行数据推送"]}
+]},
+d23:{k:"智慧工地",t:"塔吊与升降机监测",lead:"大型机械运行状态监测与黑匣子绑定。",steps:[
+  {h:"塔吊监测",list:["实时查看每台塔吊监测设备运行情况，展示实时数据、历史明细、工作循环（可导出报表）","塔吊设备维护 → 新增 → 录入塔吊信息 → 确定 → 绑定黑匣子（塔吊监测主机设备）","输入黑匣子编号 / 经纬度；添加完设备后提供设备信息联系厂商开启对接推送数据"]},
+  {h:"升降机监测",list:["实时查看每笼升降机设备运行情况，展示实时数据、历史明细、工作循环（可导出报表）","升降机设备维护 → 新增 → 录入升降机信息 → 确定 → 绑定黑匣子（升降机监测主机设备）","输入黑匣子编号 / 经纬度；添加后提供设备信息联系厂商开启对接推送数据"]}
+]},
+d24:{k:"常见问题",t:"常见问题操作步骤",lead:"高频问题的排查与解决方式。",steps:[
+  {h:"问题一：录入人员后设备识别不了",list:["登录系统 → 找到「项目人员管理」","查找对应的人，双击查看实时人脸照片是否合格","需为齐肩以上大头照（类 1 寸证件照），不能半身照、照片不能模糊，否则影响识别率"]},
+  {h:"问题二：如何在系统上手动新增人员",list:["登录系统网址 → 选择项目管理 →「项目人员管理」→「新增」","红点必填：证件头像上传、人脸照片上传、身份证正面上传、身份证反面上传","补充完整人员信息 →「确定」（*号是必填项目）","<b>注意：</b>所有上传照片需提前拍好，放在电脑上才能选择上传"]},
+  {h:"问题三：如何手动同步人员信息（断电断网导致下发指令未执行、无法进出）",list:["登录系统 →「项目管理」→「考勤设备维护」→「同步人员」","选择「参建单位」→「确定」","手动同步需要一定时间等待，人员越多同步时间越久"]}
+]}
+};
+
+var docMain=document.getElementById('docMain');
+var docSideLinks=document.querySelectorAll('.doc-side a');
+function renderDoc(id){
+  var d=DOCS[id];if(!d)return;
+  var html='<div class="doc-block active"><span class="k">'+d.k+'</span><h2>'+d.t+'</h2><p class="lead">'+d.lead+'</p>';
+  d.steps.forEach(function(s,idx){
+    html+='<div class="step"><h3>'+(idx+1)+'. '+s.h+'</h3><ol>';
+    s.list.forEach(function(li){html+='<li>'+li+'</li>';});
+    html+='</ol></div>';
+  });
+  html+='</div>';
+  docMain.innerHTML=html;
+  docSideLinks.forEach(function(a){a.classList.toggle('on',a.getAttribute('data-target')===id);});
+}
+function bindDocs(){
+  docSideLinks.forEach(function(a){
+    a.addEventListener('click',function(e){e.preventDefault();renderDoc(this.getAttribute('data-target'));window.history.replaceState(null,'','#'+this.getAttribute('data-target'));});
+  });
+}
+bindDocs();
+renderDoc('d1');
+/* open docs with hash */
+if(location.hash && DOCS[location.hash.replace('#','')]) renderDoc(location.hash.replace('#',''));
+</script>
+</body>
+</html>

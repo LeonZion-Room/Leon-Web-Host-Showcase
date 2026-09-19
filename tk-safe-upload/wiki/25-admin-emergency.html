@@ -1,0 +1,168 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>25-admin-emergency · tk-safe-upload 说明</title><style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;background:#fafbff;color:#1a2332;line-height:1.75}
+a{color:#2f6bff;text-decoration:none}
+.wrap{max-width:920px;margin:0 auto;padding:32px 20px 80px}
+.back{font-size:13px;color:#8a94a6}
+h1{font-size:26px;font-weight:800;margin:8px 0 4px;border-bottom:2px solid #eef1f8;padding-bottom:14px}
+.page-title{font-size:16px;color:#5c6670;margin:-2px 0 20px}
+.wiki-body{margin-top:8px}
+.wiki-body h1,.wiki-body h2,.wiki-body h3{margin:1.2em 0 .5em;line-height:1.4}
+.wiki-body h2{font-size:22px}.wiki-body h3{font-size:18px}
+.wiki-body p{margin:.8em 0}
+.wiki-body ul,.wiki-body ol{margin:.6em 0 .6em 1.6em}
+.wiki-body img{max-width:100%}
+.wiki-body pre{background:#0f1523;color:#e8edff;padding:14px 16px;border-radius:10px;overflow:auto;margin:.9em 0}
+.wiki-body code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:.9em}
+.wiki-body pre code{background:none;padding:0}
+.wiki-body table{border-collapse:collapse;margin:.9em 0;width:100%}
+.wiki-body th,.wiki-body td{border:1px solid #e2e7f2;padding:8px 12px;text-align:left}
+.wiki-body th{background:#f4f6fc}
+.wiki-body blockquote{border-left:4px solid #bcd0ff;background:#f4f8ff;padding:10px 16px;margin:.9em 0;color:#456}
+.wiki-body a{color:#2f6bff;border-bottom:1px dashed #bcd0ff}
+.nav{margin:14px 0 0;display:flex;gap:10px;flex-wrap:wrap}
+.nav a{background:#eef3ff;border:1px solid #d9e4ff;padding:6px 16px;border-radius:20px;font-size:13px;color:#2f6bff}
+.mark{color:#c0392b}
+</style></head><body><div class="wrap"><a class="back" href="../index.html">← 项目合辑</a><h1>25-admin-emergency</h1><div class="page-title">tk-safe-upload · 使用说明（只读镜像）</div><div class="nav"><a href="../index.html">返回合辑</a><a href="./home.html">概览</a></div><div class="wiki-body"><h1>应急管理（预案、演练、通讯录）</h1>
+<blockquote>
+<p>发生紧急情况时，能快速找到<strong>预案、联系人</strong>。这一节讲怎么管理这些关键信息。</p>
+</blockquote>
+<hr />
+<h2>页面长什么样</h2>
+<p>在电脑后台左侧菜单点"<strong>🚒 应急管理</strong>"：</p>
+<p><img alt="应急管理" src="/s/tk-safe-upload/12_admin_emergency.png" /></p>
+<p>页面有<strong>3个并排的列表</strong>+ <strong>1个表格</strong>：</p>
+<ul>
+<li>应急预案</li>
+<li>演练记录</li>
+<li>应急通讯录</li>
+<li>应急物资库存（表格）</li>
+</ul>
+<hr />
+<h2>顶部按钮</h2>
+<table>
+<thead>
+<tr>
+<th>按钮</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>+ 新增演练</td>
+<td>添加一次演练记录</td>
+</tr>
+<tr>
+<td>+ 新增联系人</td>
+<td>添加应急联系人</td>
+</tr>
+<tr>
+<td>+ 新增预案</td>
+<td>创建一份应急预案</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>应急预案</h2>
+<p><strong>什么是预案</strong>：发生紧急情况时应该怎么做的<strong>详细方案</strong>。</p>
+<p>每份预案显示：
+- 标题（比如"火灾应急预案"）
+- 类型（综合预案/专项预案/现场处置）
+- 版本号</p>
+<h3>预案类型说明</h3>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th style="text-align: center;">颜色</th>
+<th>是什么</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>综合预案</td>
+<td style="text-align: center;">🔵</td>
+<td>全公司通用的</td>
+</tr>
+<tr>
+<td>专项预案</td>
+<td style="text-align: center;">🟠</td>
+<td>针对特定事故的（比如火灾专项）</td>
+</tr>
+<tr>
+<td>现场处置</td>
+<td style="text-align: center;">🟢</td>
+<td>现场具体怎么操作</td>
+</tr>
+</tbody>
+</table>
+<h3>怎么新增预案</h3>
+<p><strong>第1步</strong>：点"<strong>+ 新增预案</strong>"</p>
+<p><strong>第2步</strong>：填写表单</p>
+<ul>
+<li><strong>名称</strong>（必填）：比如"火灾应急预案"</li>
+<li><strong>预案类型</strong>：下拉选</li>
+<li><strong>版本号</strong>：比如 V1.0</li>
+</ul>
+<p><strong>第3步</strong>：点"<strong>保存</strong>"</p>
+<hr />
+<h2>演练记录</h2>
+<p><strong>什么是演练</strong>：定期组织大家"演习"，熟悉预案。</p>
+<p>每条演练显示：
+- 标题
+- 演练日期
+- 总结</p>
+<h3>怎么新增演练</h3>
+<p><strong>第1步</strong>：点"<strong>+ 新增演练</strong>"</p>
+<p><strong>第2步</strong>：填写表单</p>
+<ul>
+<li><strong>名称</strong>（必填）：比如"2024年春季消防演练"</li>
+<li><strong>演练日期</strong>：日期选择</li>
+<li><strong>演练总结</strong>：详细写</li>
+</ul>
+<p><strong>第3步</strong>：点"<strong>保存</strong>"</p>
+<blockquote>
+<p>💡 建议每季度至少一次演练。</p>
+</blockquote>
+<hr />
+<h2>应急通讯录</h2>
+<p><strong>为什么要这个</strong>：紧急时刻能<strong>快速找到人</strong>。</p>
+<p>每条联系人显示：
+- 姓名
+- 分组（比如"总指挥/医疗组/疏散组"）
+- 所属单位
+- <strong>电话号码</strong>（可点击拨打）</p>
+<h3>怎么新增联系人</h3>
+<p><strong>第1步</strong>：点"<strong>+ 新增联系人</strong>"</p>
+<p><strong>第2步</strong>：填写表单</p>
+<ul>
+<li><strong>姓名</strong>（必填）</li>
+<li><strong>分组</strong>（必填）：比如"总指挥"、"医疗组"、"消防组"</li>
+<li><strong>所属单位</strong></li>
+<li><strong>联系电话</strong>（必填）：手机号</li>
+</ul>
+<p><strong>第3步</strong>：点"<strong>保存</strong>"</p>
+<blockquote>
+<p>💡 建议每个关键岗位都有备份人员。</p>
+</blockquote>
+<hr />
+<h2>应急物资库存</h2>
+<p>页面底部显示<strong>物资库存表</strong>：</p>
+<ul>
+<li>名称、分类、点位、数量、警戒线、最近盘点</li>
+</ul>
+<blockquote>
+<p>详细说明见 <a href="19-basetable-materials">应急物资管理</a> 章节。</p>
+</blockquote>
+<hr />
+<h2>常见问题</h2>
+<p><strong>Q：预案和演练有什么区别？</strong>
+A：
+- <strong>预案</strong>：写好的"剧本"
+- <strong>演练</strong>：实际演一遍，验证预案有效</p>
+<p><strong>Q：多久演练一次？</strong>
+A：建议<strong>至少半年一次</strong>，重点行业（化工等）更频繁。</p>
+<p><strong>Q：通讯录要不要加个人手机？</strong>
+A：建议工作手机优先。个人手机可加但注意隐私。</p>
+<p><strong>Q：演练记录要保存多久？</strong>
+A：建议<strong>长期保存</strong>，作为安全档案。</p></div></div></body></html>

@@ -1,0 +1,332 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>home · tk-safe-upload 说明</title><style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;background:#fafbff;color:#1a2332;line-height:1.75}
+a{color:#2f6bff;text-decoration:none}
+.wrap{max-width:920px;margin:0 auto;padding:32px 20px 80px}
+.back{font-size:13px;color:#8a94a6}
+h1{font-size:26px;font-weight:800;margin:8px 0 4px;border-bottom:2px solid #eef1f8;padding-bottom:14px}
+.page-title{font-size:16px;color:#5c6670;margin:-2px 0 20px}
+.wiki-body{margin-top:8px}
+.wiki-body h1,.wiki-body h2,.wiki-body h3{margin:1.2em 0 .5em;line-height:1.4}
+.wiki-body h2{font-size:22px}.wiki-body h3{font-size:18px}
+.wiki-body p{margin:.8em 0}
+.wiki-body ul,.wiki-body ol{margin:.6em 0 .6em 1.6em}
+.wiki-body img{max-width:100%}
+.wiki-body pre{background:#0f1523;color:#e8edff;padding:14px 16px;border-radius:10px;overflow:auto;margin:.9em 0}
+.wiki-body code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:.9em}
+.wiki-body pre code{background:none;padding:0}
+.wiki-body table{border-collapse:collapse;margin:.9em 0;width:100%}
+.wiki-body th,.wiki-body td{border:1px solid #e2e7f2;padding:8px 12px;text-align:left}
+.wiki-body th{background:#f4f6fc}
+.wiki-body blockquote{border-left:4px solid #bcd0ff;background:#f4f8ff;padding:10px 16px;margin:.9em 0;color:#456}
+.wiki-body a{color:#2f6bff;border-bottom:1px dashed #bcd0ff}
+.nav{margin:14px 0 0;display:flex;gap:10px;flex-wrap:wrap}
+.nav a{background:#eef3ff;border:1px solid #d9e4ff;padding:6px 16px;border-radius:20px;font-size:13px;color:#2f6bff}
+.mark{color:#c0392b}
+</style></head><body><div class="wrap"><a class="back" href="../index.html">← 项目合辑</a><h1>home</h1><div class="page-title">tk-safe-upload · 使用说明（只读镜像）</div><div class="nav"><a href="../index.html">返回合辑</a><a href="./home.html">概览</a></div><div class="wiki-body"><h1>TK-Safe-UpLoad 安全生产平台 · 使用说明书</h1>
+<div class="hero-banner">
+
+本平台在大局域网内运行，访问地址：
+
+- **统一入口** `http://192.168.11.70:5111` → 登录后自动跳转
+- **移动端** `http://192.168.11.70:5111/m`
+- **数据大屏** `http://192.168.11.70:5111/screen`
+
+系统内置四个测试账号：`admin / admin123`（超级管理员）· `subadmin / subadmin123`（子公司负责人）· `inspector / inspector123`（安全员）· `staff / staff123`（普通员工）
+
+</div>
+
+<hr />
+<h2>这是什么平台？</h2>
+<p>这是大鹏投控集团用来管理安全生产工作的<strong>一站式智能平台</strong>。简单说，就是把以前用纸笔、微信群、Excel表格做的安全工作，全部搬到电脑和手机上来做。</p>
+<pre class="mermaid">
+mindmap
+  root((安全生产平台))
+    隐患管理
+      随手拍上报
+      整改任务分配
+      复核销号
+      举报匿名
+    巡查管理
+      计划下发
+      扫码打卡
+      巡查记录
+    风险管控
+      双重预防机制
+      风险点标注
+      分级管控
+    安全培训
+      视频课程
+      在线考试
+      培训档案
+    应急管理
+      应急预案
+      演练记录
+      通讯录
+    统计报表
+      隐患趋势
+      整改率排名
+      月度汇总
+</pre>
+
+<hr />
+<h2>三种使用方式</h2>
+<p>这个平台有<strong>三种入口</strong>，分别在手机和电脑上用：</p>
+<h3>手机端（员工用）</h3>
+<p>员工上班时发现隐患（比如看到灭火器过期、地面有水渍），用手机直接拍照片上传。</p>
+<p><img alt="移动端首页" src="/s/tk-safe-upload/18_mobile_home.png" /></p>
+<h3>电脑后台（管理员用）</h3>
+<p>安全管理员坐在办公室，用电脑管理整个集团的安全台账、处理隐患、审批作业、查看统计报表。</p>
+<p><img alt="PC后台首页" src="/s/tk-safe-upload/03_admin_dashboard.png" /></p>
+<h3>数据大屏（大屏展示用）</h3>
+<p>投放到公司大屏上，给领导、参观人员展示安全态势，实时更新数据。</p>
+<p><img alt="数据大屏" src="/s/tk-safe-upload/25_screen.png" /></p>
+<hr />
+<h2>说明书怎么读？</h2>
+<p>说明书分成<strong>很多小节</strong>，每节介绍一个具体功能。每节都包含：</p>
+<ul>
+<li><strong>这个页面长什么样</strong>（带真实截图）</li>
+<li><strong>每个按钮是做什么的</strong>（通俗解释）</li>
+<li><strong>怎么做某件事</strong>（一步步教您）</li>
+<li><strong>要注意什么</strong>（常见问题提醒）</li>
+</ul>
+<h2>目录导航</h2>
+<h3>第一部分：入门</h3>
+<table>
+<thead>
+<tr>
+<th>章节</th>
+<th>内容</th>
+<th style="text-align: center;">您需要先读吗</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="01-portal">1. 怎么登录</a></td>
+<td>输入账号密码、首次使用、忘记密码怎么办</td>
+<td style="text-align: center;">✅ 必须</td>
+</tr>
+<tr>
+<td><a href="02-roles">2. 我是什么角色，能做什么</a></td>
+<td>老板、安全员、普通员工分别能做什么</td>
+<td style="text-align: center;">✅ 必须</td>
+</tr>
+<tr>
+<td><a href="home">3. 平台首页长什么样</a></td>
+<td>三端入口、统计数字、快捷按钮</td>
+<td style="text-align: center;">✅ 必须</td>
+</tr>
+</tbody>
+</table>
+<h3>第二部分：手机端使用指南（员工必看）</h3>
+<table>
+<thead>
+<tr>
+<th>章节</th>
+<th>内容</th>
+<th>什么时候读</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="03-mobile-home">4. 手机端首页</a></td>
+<td>在手机上打开看到什么</td>
+<td>第一次用手机时</td>
+</tr>
+<tr>
+<td><a href="04-mobile-photo">5. 怎么上报隐患</a></td>
+<td>拍照片上传发现的安全问题</td>
+<td>看到隐患时</td>
+</tr>
+<tr>
+<td><a href="05-mobile-patrol">6. 怎么巡查打卡</a></td>
+<td>安全员每天到点检查</td>
+<td>巡查时</td>
+</tr>
+<tr>
+<td><a href="06-mobile-tasks">7. 怎么看待办任务</a></td>
+<td>分配给您的任务、提交整改</td>
+<td>有任务时</td>
+</tr>
+<tr>
+<td><a href="07-mobile-report">8. 怎么举报隐患</a></td>
+<td>匿名举报安全问题</td>
+<td>想举报时</td>
+</tr>
+<tr>
+<td><a href="08-mobile-training">9. 怎么在线学习培训</a></td>
+<td>看视频课程、参加考试</td>
+<td>培训时</td>
+</tr>
+<tr>
+<td><a href="10-mobile-library">10. 怎么查看资料</a></td>
+<td>找预案、查制度、读文档</td>
+<td>需要时</td>
+</tr>
+<tr>
+<td><a href="11-mobile-alerts">11. 怎么查看预警提醒</a></td>
+<td>五类待办预警</td>
+<td>日常查看</td>
+</tr>
+<tr>
+<td><a href="12-mobile-me">12. 个人中心</a></td>
+<td>改密码、看自己上报的东西</td>
+<td>经常用</td>
+</tr>
+</tbody>
+</table>
+<h3>第三部分：电脑后台使用指南（管理员必看）</h3>
+<table>
+<thead>
+<tr>
+<th>章节</th>
+<th>内容</th>
+<th>什么时候读</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="13-admin-base">13. 电脑后台长什么样</a></td>
+<td>左侧菜单、顶部按钮</td>
+<td>第一次用电脑后台时</td>
+</tr>
+<tr>
+<td><a href="14-admin-dashboard">14. 管理工作台</a></td>
+<td>登录后看到的第一页</td>
+<td>每天开始工作时</td>
+</tr>
+<tr>
+<td><a href="15-basetable-orgs">15. 管理组织架构</a></td>
+<td>录入公司、部门、园区、商户</td>
+<td>搭建组织时</td>
+</tr>
+<tr>
+<td><a href="16-basetable-equipment">16. 管理设备台账</a></td>
+<td>录入电梯、锅炉等设备</td>
+<td>设备管理时</td>
+</tr>
+<tr>
+<td><a href="17-basetable-personnel">17. 管理人员台账</a></td>
+<td>录入员工证书</td>
+<td>人员管理时</td>
+</tr>
+<tr>
+<td><a href="18-basetable-parties">18. 管理相关方台账</a></td>
+<td>录入承包商、租户</td>
+<td>合作方管理时</td>
+</tr>
+<tr>
+<td><a href="19-basetable-materials">19. 管理应急物资</a></td>
+<td>录入灭火器等物资</td>
+<td>物资管理时</td>
+</tr>
+<tr>
+<td><a href="20-admin-hazards">20. 隐患治理</a></td>
+<td>处理上报的隐患、分配整改、复核销号</td>
+<td>每天必看</td>
+</tr>
+<tr>
+<td><a href="21-admin-risks">21. 双重预防·风险点</a></td>
+<td>录入风险点、查看分布地图</td>
+<td>风险管控时</td>
+</tr>
+<tr>
+<td><a href="22-admin-special">22. 专项整治</a></td>
+<td>七类专项安全活动</td>
+<td>专项检查时</td>
+</tr>
+<tr>
+<td><a href="23-admin-patrols">23. 巡查管理</a></td>
+<td>下发巡查计划、查看打卡记录</td>
+<td>日常管理</td>
+</tr>
+<tr>
+<td><a href="24-admin-training">24. 安全培训</a></td>
+<td>管理课程和视频</td>
+<td>培训时</td>
+</tr>
+<tr>
+<td><a href="25-admin-emergency">25. 应急管理</a></td>
+<td>预案、演练、通讯录</td>
+<td>应急准备</td>
+</tr>
+<tr>
+<td><a href="26-admin-permits">26. 作业许可</a></td>
+<td>动火、高处等高风险作业审批</td>
+<td>有作业时</td>
+</tr>
+<tr>
+<td><a href="27-admin-reports">27. 统计报表</a></td>
+<td>图表、趋势、排名</td>
+<td>月底汇报时</td>
+</tr>
+<tr>
+<td><a href="28-admin-assessment">28. 考核管理</a></td>
+<td>给各下属单位打分</td>
+<td>考核期</td>
+</tr>
+<tr>
+<td><a href="29-admin-users">29. 用户管理</a></td>
+<td>添加/删除账号、分配角色</td>
+<td>人员变动时</td>
+</tr>
+<tr>
+<td><a href="30-admin-logs">30. 操作日志</a></td>
+<td>查看谁在什么时候做了什么</td>
+<td>审计时</td>
+</tr>
+<tr>
+<td><a href="31-admin-settings">31. 系统配置</a></td>
+<td>消息模板、预警规则</td>
+<td>系统设置时</td>
+</tr>
+</tbody>
+</table>
+<h3>第四部分：专题参考</h3>
+<table>
+<thead>
+<tr>
+<th>章节</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="32-screen">32. 数据大屏</a></td>
+<td>大屏怎么显示、怎么跳转查看</td>
+</tr>
+<tr>
+<td><a href="33-import-export">33. 导入导出</a></td>
+<td>批量录入、导出Excel报表</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>学习建议</h2>
+<p><strong>如果您是第一次使用本平台</strong>，建议按以下顺序阅读：</p>
+<ol>
+<li>先看 <a href="01-portal">第1节 怎么登录</a> 和 <a href="02-roles">第2节 我是什么角色</a>，了解基础</li>
+<li><strong>员工</strong>：重点看 <a href="#第二部分手机端使用指南员工必看">手机端使用指南</a>（第4-12节）</li>
+<li><strong>管理员</strong>：重点看 <a href="#第三部分电脑后台使用指南管理员必看">电脑后台使用指南</a>（第13-31节）</li>
+<li>遇到具体问题时，<strong>随时回头翻目录找对应章节</strong></li>
+</ol>
+<hr />
+<h2>遇到问题怎么办？</h2>
+<ul>
+<li><strong>忘记密码</strong>：找公司管理员重置，或者用自己的旧密码登录后在"个人中心"修改</li>
+<li><strong>看不到某个功能</strong>：可能您的角色权限不够，参考 <a class="wl" href="wiki/02-roles.html">我是什么角色</a></li>
+<li><strong>页面打不开</strong>：检查网络，或者联系 IT 部门</li>
+<li><strong>其他疑问</strong>：联系平台技术支持</li>
+</ul>
+<h2>相关阅读</h2>
+<p>深入了解平台：</p>
+<ul>
+<li>平台架构：<a class="wl" href="wiki/architecture.html">architecture</a></li>
+<li>REST 接口：<a class="wl" href="wiki/api.html">api</a></li>
+<li>数据库设计：<a class="wl" href="wiki/database.html">database</a></li>
+<li>隐患治理流程：<a class="wl" href="wiki/hazard-flow.html">hazard-flow</a></li>
+<li>培训系统：<a class="wl" href="wiki/training.html">training</a></li>
+<li>系统管理：<a class="wl" href="wiki/system.html">system</a></li>
+<li>数据大屏：<a class="wl" href="wiki/screen.html">screen</a></li>
+<li>用户管理：<a class="wl" href="wiki/29-admin-users.html">29-admin-users</a></li>
+</ul></div></div></body></html>

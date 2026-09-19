@@ -1,0 +1,164 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>29-admin-users · tk-safe-upload 说明</title><style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;background:#fafbff;color:#1a2332;line-height:1.75}
+a{color:#2f6bff;text-decoration:none}
+.wrap{max-width:920px;margin:0 auto;padding:32px 20px 80px}
+.back{font-size:13px;color:#8a94a6}
+h1{font-size:26px;font-weight:800;margin:8px 0 4px;border-bottom:2px solid #eef1f8;padding-bottom:14px}
+.page-title{font-size:16px;color:#5c6670;margin:-2px 0 20px}
+.wiki-body{margin-top:8px}
+.wiki-body h1,.wiki-body h2,.wiki-body h3{margin:1.2em 0 .5em;line-height:1.4}
+.wiki-body h2{font-size:22px}.wiki-body h3{font-size:18px}
+.wiki-body p{margin:.8em 0}
+.wiki-body ul,.wiki-body ol{margin:.6em 0 .6em 1.6em}
+.wiki-body img{max-width:100%}
+.wiki-body pre{background:#0f1523;color:#e8edff;padding:14px 16px;border-radius:10px;overflow:auto;margin:.9em 0}
+.wiki-body code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:.9em}
+.wiki-body pre code{background:none;padding:0}
+.wiki-body table{border-collapse:collapse;margin:.9em 0;width:100%}
+.wiki-body th,.wiki-body td{border:1px solid #e2e7f2;padding:8px 12px;text-align:left}
+.wiki-body th{background:#f4f6fc}
+.wiki-body blockquote{border-left:4px solid #bcd0ff;background:#f4f8ff;padding:10px 16px;margin:.9em 0;color:#456}
+.wiki-body a{color:#2f6bff;border-bottom:1px dashed #bcd0ff}
+.nav{margin:14px 0 0;display:flex;gap:10px;flex-wrap:wrap}
+.nav a{background:#eef3ff;border:1px solid #d9e4ff;padding:6px 16px;border-radius:20px;font-size:13px;color:#2f6bff}
+.mark{color:#c0392b}
+</style></head><body><div class="wrap"><a class="back" href="../index.html">← 项目合辑</a><h1>29-admin-users</h1><div class="page-title">tk-safe-upload · 使用说明（只读镜像）</div><div class="nav"><a href="../index.html">返回合辑</a><a href="./home.html">概览</a></div><div class="wiki-body"><h1>用户管理（添加/删除账号）</h1>
+<blockquote>
+<p>给新员工<strong>开账号</strong>、给离职员工<strong>关账号</strong>。只有公司管理员能做。</p>
+</blockquote>
+<hr />
+<h2>页面长什么样</h2>
+<p>在电脑后台左侧菜单点"<strong>👥 用户管理</strong>"：</p>
+<p><img alt="用户管理" src="/s/tk-safe-upload/15_admin_users.png" /></p>
+<hr />
+<h2>顶部按钮</h2>
+<table>
+<thead>
+<tr>
+<th>按钮</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>+ 新增用户</td>
+<td>添加一个新账号</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>表格里有什么</h2>
+<p>每行是一个用户，显示：</p>
+<ul>
+<li><strong>ID</strong>：系统编号</li>
+<li><strong>用户名</strong>：登录账号</li>
+<li><strong>姓名</strong>：真实姓名</li>
+<li><strong>角色徽标</strong>（颜色）：</li>
+<li>🟣 紫 = 公司管理员</li>
+<li>🔵 蓝 = 子公司管理员</li>
+<li>🟠 橙 = 巡查员</li>
+<li>🟢 绿 = 商户</li>
+<li>⚪ 灰 = 普通员工</li>
+<li><strong>所属单位</strong></li>
+<li><strong>电话</strong></li>
+<li><strong>操作</strong>：编辑/删除</li>
+</ul>
+<blockquote>
+<p>内置的<code>admin</code>账号<strong>不能删除</strong>。</p>
+</blockquote>
+<hr />
+<h2>怎么新增一个用户</h2>
+<p><strong>第1步</strong>：点"<strong>+ 新增用户</strong>"</p>
+<p><strong>第2步</strong>：填写表单</p>
+<ul>
+<li><strong>用户名</strong>（必填）：登录账号，比如"zhangsan"</li>
+<li><strong>密码</strong>（必填）：初始密码（默认123123）</li>
+<li><strong>姓名</strong>（必填）：真实姓名</li>
+<li><strong>手机号</strong></li>
+<li><strong>角色</strong>（必填）：下拉选</li>
+<li><strong>所属单位</strong>（必填）：下拉选</li>
+</ul>
+<p><strong>第3步</strong>：点"<strong>保存</strong>"</p>
+<blockquote>
+<p>完成！新用户可以用这个账号登录了。</p>
+</blockquote>
+<hr />
+<h2>怎么编辑一个用户</h2>
+<p><strong>第1步</strong>：找到用户</p>
+<p><strong>第2步</strong>：点"<strong>编辑</strong>"</p>
+<p><strong>第3步</strong>：修改信息</p>
+<blockquote>
+<p>💡 改密码：在密码框填新密码（<strong>留空</strong>则不修改）</p>
+</blockquote>
+<p><strong>第4步</strong>：点"<strong>保存</strong>"</p>
+<hr />
+<h2>怎么重置用户密码</h2>
+<p>如果用户<strong>忘记密码</strong>，您可以重置：</p>
+<p><strong>第1步</strong>：找到用户</p>
+<p><strong>第2步</strong>：点"<strong>编辑</strong>"</p>
+<p><strong>第3步</strong>：在"密码"框填新密码（比如"123456"）</p>
+<p><strong>第4步</strong>：点"<strong>保存</strong>"</p>
+<p><strong>第5步</strong>：通知用户新密码</p>
+<blockquote>
+<p>⚠️ 重置后请<strong>当面</strong>或<strong>电话</strong>通知用户，不要用微信/邮件（防止泄露）。</p>
+</blockquote>
+<hr />
+<h2>怎么删除一个用户</h2>
+<p><strong>第1步</strong>：找到用户</p>
+<p><strong>第2步</strong>：点"<strong>删除</strong>"</p>
+<p><strong>第3步</strong>：确认</p>
+<blockquote>
+<p>⚠️ 删除后该用户的所有数据<strong>仍保留</strong>，但账号无法登录。</p>
+</blockquote>
+<hr />
+<h2>五个角色说明</h2>
+<table>
+<thead>
+<tr>
+<th>角色</th>
+<th>适合谁</th>
+<th>能做什么</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>公司管理员</td>
+<td>集团安全总监</td>
+<td>全部功能</td>
+</tr>
+<tr>
+<td>子公司管理员</td>
+<td>子公司安全主管</td>
+<td>本子公司数据</td>
+</tr>
+<tr>
+<td>巡查员</td>
+<td>安全员</td>
+<td>巡查/任务</td>
+</tr>
+<tr>
+<td>商户</td>
+<td>园区商户</td>
+<td>自己的数据</td>
+</tr>
+<tr>
+<td>普通员工</td>
+<td>一线员工</td>
+<td>随手拍/培训</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>详细说明见 <a href="02-roles">第2节 我是什么角色</a>。</p>
+</blockquote>
+<hr />
+<h2>常见问题</h2>
+<p><strong>Q：怎么知道用户登录了没？</strong>
+A：操作日志里有登录记录。</p>
+<p><strong>Q：用户能自己改密码吗？</strong>
+A：能。在"个人中心"里改。</p>
+<p><strong>Q：账号能共享给同事吗？</strong>
+A：<strong>不能</strong>！一个账号对应一个人。共享会导致操作日志混乱。</p>
+<p><strong>Q：删除用户后数据还在吗？</strong>
+A：在。但该用户不能再登录。如果想"删除"数据，请联系平台管理员。</p></div></div></body></html>

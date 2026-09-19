@@ -1,0 +1,405 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>survey-editor · surveyking 说明</title><style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;background:#fafbff;color:#1a2332;line-height:1.75}
+a{color:#2f6bff;text-decoration:none}
+.wrap{max-width:920px;margin:0 auto;padding:32px 20px 80px}
+.back{font-size:13px;color:#8a94a6}
+h1{font-size:26px;font-weight:800;margin:8px 0 4px;border-bottom:2px solid #eef1f8;padding-bottom:14px}
+.page-title{font-size:16px;color:#5c6670;margin:-2px 0 20px}
+.wiki-body{margin-top:8px}
+.wiki-body h1,.wiki-body h2,.wiki-body h3{margin:1.2em 0 .5em;line-height:1.4}
+.wiki-body h2{font-size:22px}.wiki-body h3{font-size:18px}
+.wiki-body p{margin:.8em 0}
+.wiki-body ul,.wiki-body ol{margin:.6em 0 .6em 1.6em}
+.wiki-body img{max-width:100%}
+.wiki-body pre{background:#0f1523;color:#e8edff;padding:14px 16px;border-radius:10px;overflow:auto;margin:.9em 0}
+.wiki-body code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:.9em}
+.wiki-body pre code{background:none;padding:0}
+.wiki-body table{border-collapse:collapse;margin:.9em 0;width:100%}
+.wiki-body th,.wiki-body td{border:1px solid #e2e7f2;padding:8px 12px;text-align:left}
+.wiki-body th{background:#f4f6fc}
+.wiki-body blockquote{border-left:4px solid #bcd0ff;background:#f4f8ff;padding:10px 16px;margin:.9em 0;color:#456}
+.wiki-body a{color:#2f6bff;border-bottom:1px dashed #bcd0ff}
+.nav{margin:14px 0 0;display:flex;gap:10px;flex-wrap:wrap}
+.nav a{background:#eef3ff;border:1px solid #d9e4ff;padding:6px 16px;border-radius:20px;font-size:13px;color:#2f6bff}
+.mark{color:#c0392b}
+</style></head><body><div class="wrap"><a class="back" href="../index.html">← 项目合辑</a><h1>survey-editor</h1><div class="page-title">surveyking · 使用说明（只读镜像）</div><div class="nav"><a href="../index.html">返回合辑</a><a href="./home.html">概览</a></div><div class="wiki-body"><h1>✏️ 问卷编辑器</h1>
+<blockquote>
+<p>📖 卷王系统的核心功能 — 通过拖拽方式设计问卷/考试。
+🔗 返回 <a href="wiki/home.html">说明书首页</a></p>
+</blockquote>
+<hr />
+<h2>编辑器概览</h2>
+<p>点击「创建问卷」或编辑现有项目后进入问卷编辑器。</p>
+<p><img alt="问卷编辑器" src="/s/surveyking/SURVEY_new_flow.png" />
+<em>问卷编辑器完整界面</em></p>
+<hr />
+<h2>界面分区</h2>
+<p>编辑器分为三个主要区域：</p>
+<h3>左侧导航栏</h3>
+<table>
+<thead>
+<tr>
+<th>图标</th>
+<th>标签</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>📊</td>
+<td>概述</td>
+<td>问卷基本信息设置</td>
+</tr>
+<tr>
+<td>✏️</td>
+<td>编辑</td>
+<td><strong>当前页面</strong> — 题目设计核心区域</td>
+</tr>
+<tr>
+<td>⚙️</td>
+<td>设置</td>
+<td>问卷全局设置</td>
+</tr>
+<tr>
+<td>📊</td>
+<td>数据</td>
+<td>数据统计与导出</td>
+</tr>
+<tr>
+<td>📈</td>
+<td>报表</td>
+<td>数据可视化报表</td>
+</tr>
+<tr>
+<td>🏠</td>
+<td>项目</td>
+<td>返回项目列表</td>
+</tr>
+</tbody>
+</table>
+<h3>顶部工具栏</h3>
+<table>
+<thead>
+<tr>
+<th>按钮</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>📝 题型</td>
+<td>切换至题型选择面板（默认）</td>
+</tr>
+<tr>
+<td>📋 题库</td>
+<td>从 <a href="wiki/question-bank.html">题库中心</a> 导入已有题目</td>
+</tr>
+<tr>
+<td>📑 大纲</td>
+<td>查看问卷结构大纲</td>
+</tr>
+<tr>
+<td>↩️ redo/undo</td>
+<td>撤销/重做操作</td>
+</tr>
+<tr>
+<td>📋</td>
+<td>复制问卷</td>
+</tr>
+<tr>
+<td>📤</td>
+<td>导出问卷</td>
+</tr>
+<tr>
+<td>编辑/JSON/预览</td>
+<td>切换编辑模式：可视化编辑 / JSON 源码 / 预览效果</td>
+</tr>
+<tr>
+<td>💾 保存</td>
+<td>保存当前编辑（蓝色按钮）</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>题型大全</h2>
+<p>左侧题型面板提供丰富的题目类型，按类别分组：</p>
+<h3>选择题</h3>
+<table>
+<thead>
+<tr>
+<th>题型</th>
+<th>说明</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>单选题</td>
+<td>单个选项选择</td>
+<td>基础调查、满意度</td>
+</tr>
+<tr>
+<td>多选题</td>
+<td>多个选项选择</td>
+<td>偏好调查、多因素分析</td>
+</tr>
+<tr>
+<td>下拉题</td>
+<td>下拉菜单选择</td>
+<td>选项较多时节省空间</td>
+</tr>
+<tr>
+<td>级联题</td>
+<td>多级联动选择</td>
+<td>省市区、部门/科室</td>
+</tr>
+<tr>
+<td>上传文件</td>
+<td>文件上传</td>
+<td>收集证明材料、图片</td>
+</tr>
+</tbody>
+</table>
+<h3>填空题</h3>
+<table>
+<thead>
+<tr>
+<th>题型</th>
+<th>说明</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>单行文本题</td>
+<td>单行输入</td>
+<td>姓名、手机号</td>
+</tr>
+<tr>
+<td>多行文本题</td>
+<td>多行文本域</td>
+<td>详细描述、意见反馈</td>
+</tr>
+<tr>
+<td>多项填空</td>
+<td>多个填空组合</td>
+<td>地址、身份证号分段</td>
+</tr>
+<tr>
+<td>电子签名</td>
+<td>手写签名区域</td>
+<td>合同签署、确认</td>
+</tr>
+<tr>
+<td>横向填空</td>
+<td>水平排列填空</td>
+<td>简洁表单</td>
+</tr>
+<tr>
+<td>扫码题</td>
+<td>扫描二维码/条码</td>
+<td>物资盘点、签到</td>
+</tr>
+</tbody>
+</table>
+<h3>打分题</h3>
+<table>
+<thead>
+<tr>
+<th>题型</th>
+<th>说明</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>打分题</td>
+<td>1-5星/10星评分</td>
+<td>满意度评价</td>
+</tr>
+<tr>
+<td>NPS题</td>
+<td>净推荐值(0-10)</td>
+<td>推荐意愿调查</td>
+</tr>
+</tbody>
+</table>
+<h3>矩阵题</h3>
+<table>
+<thead>
+<tr>
+<th>题型</th>
+<th>说明</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>矩阵填空</td>
+<td>行列交叉填空</td>
+<td>多维度评价</td>
+</tr>
+<tr>
+<td>矩阵单选</td>
+<td>行列交叉单选</td>
+<td>量表调查</td>
+</tr>
+<tr>
+<td>矩阵多选</td>
+<td>行列交叉多选</td>
+<td>综合评估</td>
+</tr>
+<tr>
+<td>表格自增</td>
+<td>动态添加行</td>
+<td>多条目数据收集</td>
+</tr>
+</tbody>
+</table>
+<h3>辅助布局</h3>
+<table>
+<thead>
+<tr>
+<th>题型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>问题组</td>
+<td>将多个题目分组</td>
+</tr>
+<tr>
+<td>文字描述</td>
+<td>插入说明文字</td>
+</tr>
+<tr>
+<td>分页</td>
+<td>问卷分页</td>
+</tr>
+<tr>
+<td>分割线</td>
+<td>视觉分隔</td>
+</tr>
+</tbody>
+</table>
+<h3>高级题型</h3>
+<table>
+<thead>
+<tr>
+<th>题型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>成员</td>
+<td>选择系统用户</td>
+</tr>
+<tr>
+<td>部门</td>
+<td>选择组织部门</td>
+</tr>
+<tr>
+<td>富文本</td>
+<td>富文本编辑器</td>
+</tr>
+</tbody>
+</table>
+<h3>个人信息</h3>
+<table>
+<thead>
+<tr>
+<th>题型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>地理位置</td>
+<td>GPS 定位</td>
+</tr>
+<tr>
+<td>省市县</td>
+<td>省市区三级联动</td>
+</tr>
+<tr>
+<td>民族</td>
+<td>民族选择</td>
+</tr>
+<tr>
+<td>邮箱</td>
+<td>邮箱地址</td>
+</tr>
+<tr>
+<td>日期</td>
+<td>日期选择器</td>
+</tr>
+<tr>
+<td>时间</td>
+<td>时间选择器</td>
+</tr>
+<tr>
+<td>手机</td>
+<td>手机号码</td>
+</tr>
+<tr>
+<td>身份证</td>
+<td>身份证号码</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>拖拽设计</h2>
+<p>在左侧选择题型后，<strong>拖拽到中间画布区域</strong>即可添加题目：</p>
+<ol>
+<li>在左侧面板点击或按住题型</li>
+<li>拖拽至中间「点击或者拖拽把题型拖入此区域」</li>
+<li>松开鼠标，题目添加成功</li>
+<li>点击题目可编辑标题、选项、验证规则等</li>
+</ol>
+<hr />
+<h2>问卷标题与描述</h2>
+<ul>
+<li><strong>标题</strong>：画布顶部「请输入标题」— 点击直接编辑</li>
+<li><strong>描述</strong>：标题下方灰色文字区域 — 支持富文本编辑</li>
+</ul>
+<hr />
+<h2>保存与预览</h2>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>💾 保存</td>
+<td>保存当前编辑，快捷键 Ctrl+S</td>
+</tr>
+<tr>
+<td>预览</td>
+<td>切换到预览模式，模拟填写者视角</td>
+</tr>
+<tr>
+<td>JSON</td>
+<td>查看/编辑底层 JSON 数据结构</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>关联页面</h2>
+<ul>
+<li>📋 从 <a href="wiki/question-bank.html">题库中心</a> 导入已有题目</li>
+<li>🎨 在 <a href="wiki/template.html">模板广场</a> 选择模板快速创建</li>
+<li>📊 保存后在 <a href="wiki/projects.html">我的项目</a> 管理和分享</li>
+<li>⚙️ 在 <a href="wiki/system.html">系统设置</a> 开启 AI 智能创建功能</li>
+</ul>
+<hr />
+<blockquote>
+<p>🔗 上一步：<a href="wiki/projects.html">我的项目</a>
+🔗 下一步：<a href="wiki/question-bank.html">题库中心</a>
+🔗 相关：<a href="wiki/template.html">模板广场</a></p>
+</blockquote></div></div></body></html>

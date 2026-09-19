@@ -1,0 +1,141 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>17-basetable-personnel · tk-safe-upload 说明</title><style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;background:#fafbff;color:#1a2332;line-height:1.75}
+a{color:#2f6bff;text-decoration:none}
+.wrap{max-width:920px;margin:0 auto;padding:32px 20px 80px}
+.back{font-size:13px;color:#8a94a6}
+h1{font-size:26px;font-weight:800;margin:8px 0 4px;border-bottom:2px solid #eef1f8;padding-bottom:14px}
+.page-title{font-size:16px;color:#5c6670;margin:-2px 0 20px}
+.wiki-body{margin-top:8px}
+.wiki-body h1,.wiki-body h2,.wiki-body h3{margin:1.2em 0 .5em;line-height:1.4}
+.wiki-body h2{font-size:22px}.wiki-body h3{font-size:18px}
+.wiki-body p{margin:.8em 0}
+.wiki-body ul,.wiki-body ol{margin:.6em 0 .6em 1.6em}
+.wiki-body img{max-width:100%}
+.wiki-body pre{background:#0f1523;color:#e8edff;padding:14px 16px;border-radius:10px;overflow:auto;margin:.9em 0}
+.wiki-body code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:.9em}
+.wiki-body pre code{background:none;padding:0}
+.wiki-body table{border-collapse:collapse;margin:.9em 0;width:100%}
+.wiki-body th,.wiki-body td{border:1px solid #e2e7f2;padding:8px 12px;text-align:left}
+.wiki-body th{background:#f4f6fc}
+.wiki-body blockquote{border-left:4px solid #bcd0ff;background:#f4f8ff;padding:10px 16px;margin:.9em 0;color:#456}
+.wiki-body a{color:#2f6bff;border-bottom:1px dashed #bcd0ff}
+.nav{margin:14px 0 0;display:flex;gap:10px;flex-wrap:wrap}
+.nav a{background:#eef3ff;border:1px solid #d9e4ff;padding:6px 16px;border-radius:20px;font-size:13px;color:#2f6bff}
+.mark{color:#c0392b}
+</style></head><body><div class="wrap"><a class="back" href="../index.html">← 项目合辑</a><h1>17-basetable-personnel</h1><div class="page-title">tk-safe-upload · 使用说明（只读镜像）</div><div class="nav"><a href="../index.html">返回合辑</a><a href="./home.html">概览</a></div><div class="wiki-body"><h1>怎么管理人员台账</h1>
+<blockquote>
+<p>电工证、焊工证、安全员证……特种作业必须有证。系统帮您记录证书、提醒到期。</p>
+</blockquote>
+<hr />
+<h2>什么是"人员台账"？</h2>
+<p>记录公司所有需要<strong>特种作业证</strong>或<strong>安全员证</strong>的人，包括：
+- 电工
+- 焊工
+- 高处作业人员
+- 有限空间作业人员
+- 安全员
+- 等等</p>
+<p>他们的证书<strong>有有效期</strong>，到期前要复审，否则不能继续作业。</p>
+<hr />
+<h2>页面长什么样</h2>
+<p>在电脑后台左侧菜单点"<strong>🪪 人员台账</strong>"：</p>
+<p><img alt="人员台账" src="/s/tk-safe-upload/07_admin_personnel.png" /></p>
+<hr />
+<h2>顶部按钮</h2>
+<table>
+<thead>
+<tr>
+<th>按钮</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>⬇ 导出 Excel</td>
+<td>下载所有人员信息</td>
+</tr>
+<tr>
+<td>⬇ 导出 PDF</td>
+<td>下载为 PDF</td>
+</tr>
+<tr>
+<td>⬇ 导入模板</td>
+<td>下载空白模板</td>
+</tr>
+<tr>
+<td>⬆ 导入 CSV</td>
+<td>批量导入</td>
+</tr>
+<tr>
+<td>+ 新增</td>
+<td>添加一个人员</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>表格里有什么</h2>
+<p>每行是一个人，显示：</p>
+<ul>
+<li><strong>ID</strong>：编号</li>
+<li><strong>姓名</strong>：必填</li>
+<li><strong>证件类型</strong>：下拉选</li>
+<li><strong>证件编号</strong>：证书编号</li>
+<li><strong>所属单位</strong>：哪个公司</li>
+<li><strong>电话</strong>：手机号</li>
+<li><strong>到期日期</strong>：什么时候证到期</li>
+<li><strong>状态</strong>：有效/过期/注销</li>
+<li><strong>操作</strong>：编辑/删除</li>
+</ul>
+<hr />
+<h2>怎么新增一个人员</h2>
+<p><strong>第1步</strong>：点"<strong>+ 新增</strong>"</p>
+<p><strong>第2步</strong>：填写表单</p>
+<ul>
+<li><strong>姓名</strong>（必填）</li>
+<li><strong>证件类型</strong>（下拉选）</li>
+<li><strong>证件编号</strong>（必填，唯一）</li>
+<li><strong>所属单位</strong>（下拉选）</li>
+<li><strong>电话</strong></li>
+<li><strong>到期日期</strong>（必填，日期选择）</li>
+<li><strong>状态</strong>（有效/过期/注销）</li>
+<li><strong>备注</strong></li>
+</ul>
+<p><strong>第3步</strong>：点"<strong>保存</strong>"</p>
+<hr />
+<h2>证件类型</h2>
+<p>常见证件类型（具体看公司需要）：</p>
+<ul>
+<li>特种作业操作证（电工/焊工/高处作业等）</li>
+<li>安全员证</li>
+<li>注册安全工程师</li>
+<li>消防设施操作员</li>
+<li>等等</li>
+</ul>
+<hr />
+<h2>证件到期提醒</h2>
+<p>系统自动检查：
+- <strong>到期前 30 天</strong>：预警提醒
+- <strong>已超期</strong>：标记为"过期"</p>
+<p>提前安排复审，避免影响工作。</p>
+<hr />
+<h2>怎么批量录入</h2>
+<p>人员多时（比如几十人上百人）：</p>
+<ol>
+<li>点"<strong>⬇ 导入模板</strong>"下载空表</li>
+<li>在 Excel 里填好人员信息</li>
+<li>保存为 <strong>CSV</strong> 格式</li>
+<li>点"<strong>⬆ 导入 CSV</strong>"上传</li>
+</ol>
+<hr />
+<h2>常见问题</h2>
+<p><strong>Q：一个人有多个证书怎么办？</strong>
+A：录入多条记录，每条对应一个证书。</p>
+<p><strong>Q：员工离职了怎么处理？</strong>
+A：编辑该人员，状态改为"<strong>注销</strong>"。</p>
+<p><strong>Q：证书丢了怎么补？</strong>
+A：联系发证机关补办。系统里证件编号可以更新。</p>
+<p><strong>Q：状态"过期"和"注销"有什么区别？</strong>
+A：
+- <strong>过期</strong>：证书到了有效期没复审
+- <strong>注销</strong>：人离职或主动放弃</p></div></div></body></html>

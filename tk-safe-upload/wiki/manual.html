@@ -1,0 +1,1289 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>manual · tk-safe-upload 说明</title><style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;background:#fafbff;color:#1a2332;line-height:1.75}
+a{color:#2f6bff;text-decoration:none}
+.wrap{max-width:920px;margin:0 auto;padding:32px 20px 80px}
+.back{font-size:13px;color:#8a94a6}
+h1{font-size:26px;font-weight:800;margin:8px 0 4px;border-bottom:2px solid #eef1f8;padding-bottom:14px}
+.page-title{font-size:16px;color:#5c6670;margin:-2px 0 20px}
+.wiki-body{margin-top:8px}
+.wiki-body h1,.wiki-body h2,.wiki-body h3{margin:1.2em 0 .5em;line-height:1.4}
+.wiki-body h2{font-size:22px}.wiki-body h3{font-size:18px}
+.wiki-body p{margin:.8em 0}
+.wiki-body ul,.wiki-body ol{margin:.6em 0 .6em 1.6em}
+.wiki-body img{max-width:100%}
+.wiki-body pre{background:#0f1523;color:#e8edff;padding:14px 16px;border-radius:10px;overflow:auto;margin:.9em 0}
+.wiki-body code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:.9em}
+.wiki-body pre code{background:none;padding:0}
+.wiki-body table{border-collapse:collapse;margin:.9em 0;width:100%}
+.wiki-body th,.wiki-body td{border:1px solid #e2e7f2;padding:8px 12px;text-align:left}
+.wiki-body th{background:#f4f6fc}
+.wiki-body blockquote{border-left:4px solid #bcd0ff;background:#f4f8ff;padding:10px 16px;margin:.9em 0;color:#456}
+.wiki-body a{color:#2f6bff;border-bottom:1px dashed #bcd0ff}
+.nav{margin:14px 0 0;display:flex;gap:10px;flex-wrap:wrap}
+.nav a{background:#eef3ff;border:1px solid #d9e4ff;padding:6px 16px;border-radius:20px;font-size:13px;color:#2f6bff}
+.mark{color:#c0392b}
+</style></head><body><div class="wrap"><a class="back" href="../index.html">← 项目合辑</a><h1>manual</h1><div class="page-title">tk-safe-upload · 使用说明（只读镜像）</div><div class="nav"><a href="../index.html">返回合辑</a><a href="./home.html">概览</a></div><div class="wiki-body"><h1>TK-Safe-UpLoad 完整用户操作手册</h1>
+<div class="hero-banner">
+
+**适用对象**：初中二年级学生（零基础）  
+**编写日期**：2026年9月15日  
+**平台版本**：v3.0
+
+</div>
+
+<hr />
+<h2>目录</h2>
+<ol>
+<li><a href="#一系统简介">系统简介</a></li>
+<li><a href="#二如何访问系统">如何访问系统</a></li>
+<li><a href="#三登录系统">登录系统</a></li>
+<li><a href="#四统一工作台">统一工作台</a></li>
+<li><a href="#五移动端操作指南">移动端操作指南</a></li>
+<li><a href="#六pc管理后台操作指南">PC管理后台操作指南</a></li>
+<li><a href="#七可视化调度大屏">可视化调度大屏</a></li>
+<li><a href="#八常见问题与解答">常见问题与解答</a></li>
+</ol>
+<hr />
+<h2>一、系统简介</h2>
+<p><strong>TK-Safe-UpLoad</strong> 是一个面向企业的安全生产管理平台，主要用于：</p>
+<ul>
+<li><strong>隐患排查治理</strong>：发现安全隐患 → 上报 → 整改 → 复核 → 销号（闭环管理）</li>
+<li><strong>安全培训</strong>：在线学习安全知识、观看培训视频、获得证书</li>
+<li><strong>巡查打卡</strong>：定期巡查工作场所，记录检查情况</li>
+<li><strong>应急管理</strong>：管理应急预案、演练记录、通讯录</li>
+<li><strong>数据分析</strong>：统计报表、趋势分析、可视化大屏</li>
+</ul>
+<p>简单来说，这个系统帮助企业和员工做好安全生产工作，防止事故发生。</p>
+<pre class="mermaid">
+graph TB
+    subgraph 用户端
+        A[📱 手机移动端] 
+        B[🖥️ PC管理后台]
+        C[📊 可视化大屏]
+    end
+
+    subgraph 服务器
+        D[Flask Web应用<br/>Python]
+        E[SQLite数据库<br/>safe_upload.db]
+        F[文件存储<br/>uploads/]
+    end
+
+    subgraph 功能模块
+        G[隐患排查治理]
+        H[安全培训]
+        I[巡查打卡]
+        J[应急管理]
+        K[基础台账]
+        L[统计报表]
+    end
+
+    A -->|HTTP| D
+    B -->|HTTP| D
+    C -->|HTTP| D
+    D --> E
+    D --> F
+    D --> G
+    D --> H
+    D --> I
+    D --> J
+    D --> K
+    D --> L
+</pre>
+
+<hr />
+<h2>二、如何访问系统</h2>
+<h3>2.1 打开浏览器</h3>
+<p>在电脑或手机上打开以下任一浏览器：
+- Chrome（推荐）
+- Safari（苹果手机）
+- Firefox
+- Edge</p>
+<h3>2.2 输入访问地址</h3>
+<table>
+<thead>
+<tr>
+<th>访问方式</th>
+<th>地址</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>外网访问</td>
+<td><code>http://119.145.17.34:5111</code></td>
+</tr>
+<tr>
+<td>内网访问</td>
+<td><code>http://192.168.11.70:5111</code></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>💡 <strong>提示</strong>：手机和电脑都可以访问同一个地址，系统会自动适配屏幕大小。</p>
+</blockquote>
+<h3>2.3 系统入口</h3>
+<table>
+<thead>
+<tr>
+<th>入口</th>
+<th>地址</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>移动端工作台</td>
+<td><code>/m</code></td>
+<td>员工日常操作的主要入口</td>
+</tr>
+<tr>
+<td>PC管理后台</td>
+<td><code>/admin</code></td>
+<td>管理员处理业务的入口</td>
+</tr>
+<tr>
+<td>统一工作台</td>
+<td><code>/portal</code></td>
+<td>三端入口聚合页面</td>
+</tr>
+<tr>
+<td>可视化大屏</td>
+<td><code>/screen</code></td>
+<td>数据展示大屏</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>三、登录系统</h2>
+<h3>3.1 打开登录页面</h3>
+<p>访问 <code>http://119.145.17.34:5111</code> 后，会自动跳转到登录页面。</p>
+<p><img alt="登录页面" src="/s/tk-safe-upload/01_login.png" />
+<em>图：系统登录页面</em></p>
+<h3>3.2 输入账号密码</h3>
+<table>
+<thead>
+<tr>
+<th>角色</th>
+<th>用户名</th>
+<th>密码</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>管理员</td>
+<td>admin</td>
+<td>admin123</td>
+<td>拥有全部权限</td>
+</tr>
+<tr>
+<td>安全员</td>
+<td>inspector</td>
+<td>inspector123</td>
+<td>负责巡查和隐患处理</td>
+</tr>
+<tr>
+<td>普通员工</td>
+<td>staff</td>
+<td>staff123</td>
+<td>基本操作权限</td>
+</tr>
+<tr>
+<td>子公司管理员</td>
+<td>subadmin</td>
+<td>subadmin123</td>
+<td>子公司管理权限</td>
+</tr>
+<tr>
+<td>外协人员</td>
+<td>merchant</td>
+<td>merchant123</td>
+<td>外协单位人员</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⚠️ <strong>重要</strong>：首次登录后请立即修改密码！</p>
+</blockquote>
+<h3>3.3 登录操作步骤</h3>
+<pre class="codehilite"><code>1. 打开浏览器，输入地址：http://119.145.17.34:5111
+2. 看到登录页面
+3. 在&quot;用户名&quot;输入框输入：admin
+4. 在&quot;密码&quot;输入框输入：admin123
+5. 点击&quot;登录&quot;按钮
+6. 看到&quot;统一工作台&quot;页面，登录成功！
+</code></pre>
+
+<h3>3.4 登录失败怎么办？</h3>
+<table>
+<thead>
+<tr>
+<th>问题</th>
+<th>解决方法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>"用户名或密码错误"</td>
+<td>检查用户名和密码是否正确，注意大小写</td>
+</tr>
+<tr>
+<td>"账号已锁定"</td>
+<td>等待15分钟后重试，或联系管理员</td>
+</tr>
+<tr>
+<td>页面打不开</td>
+<td>检查网络连接，确认地址是否正确</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>四、统一工作台</h2>
+<p>登录成功后会看到"统一工作台"页面，这是系统的总入口。</p>
+<p><img alt="统一工作台" src="/s/tk-safe-upload/02_portal.png" />
+<em>图：统一工作台页面 - 三端入口聚合</em></p>
+<h3>4.1 页面布局</h3>
+<pre class="codehilite"><code>┌─────────────────────────────────────────────┐
+│              大鹏投控 · 工作台 v3.0          │
+│                                             │
+│         安全管理，一屏掌控                    │
+│                                             │
+│  [打开移动端]  [PC管理后台]  [可视化大屏]      │
+│                                             │
+├─────────────────────────────────────────────┤
+│  数据面板                                   │
+│  ┌─────┐ ┌─────┐ ┌─────┐ ┌─────┐          │
+│  │隐患  │ │逾期  │ │待办  │ │上报  │          │
+│  │总数  │ │未整改│ │任务  │ │隐患  │          │
+│  └─────┘ └─────┘ └─────┘ └─────┘          │
+├─────────────────────────────────────────────┤
+│  三端入口                                   │
+│  ┌──────────┐ ┌──────────┐ ┌──────────┐   │
+│  │📱 移动端  │ │🖥️ PC后台 │ │📊 大屏   │   │
+│  │工作台     │ │管理后台   │ │数据展示  │   │
+│  └──────────┘ └──────────┘ └──────────┘   │
+└─────────────────────────────────────────────┘
+</code></pre>
+
+<h3>4.2 三端入口说明</h3>
+<table>
+<thead>
+<tr>
+<th>入口</th>
+<th>图标</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>打开移动端</td>
+<td>📱</td>
+<td>进入手机端工作台，适合日常操作</td>
+</tr>
+<tr>
+<td>PC管理后台</td>
+<td>🖥️</td>
+<td>进入PC端后台，适合管理员处理业务（仅管理员可用）</td>
+</tr>
+<tr>
+<td>可视化大屏</td>
+<td>📊</td>
+<td>打开数据展示大屏，查看实时数据</td>
+</tr>
+</tbody>
+</table>
+<h3>4.3 数据面板</h3>
+<p>工作台顶部显示四个关键数据：
+- <strong>隐患总数</strong>：系统中所有隐患的数量
+- <strong>逾期未整改</strong>：超过整改期限的隐患数量（红色警告）
+- <strong>我的待办任务</strong>：分配给你的未完成任务数量
+- <strong>我的上报隐患</strong>：你上报的隐患总数</p>
+<p>点击这些数字可以跳转到对应的详情页面。</p>
+<hr />
+<h2>五、移动端操作指南</h2>
+<h3>5.1 移动端首页</h3>
+<p>点击"打开移动端"后进入手机端首页。</p>
+<p><img alt="移动端首页" src="/s/tk-safe-upload/18_mobile_home.png" />
+<em>图：移动端首页 - 快捷操作入口</em></p>
+<pre class="codehilite"><code>┌─────────────────────────────┐
+│  欢迎回来                   │
+│  张三                       │
+│  13800138000                │
+│  [🧭] [🔔] [👤]             │
+├─────────────────────────────┤
+│  ┌─────┐┌─────┐┌─────┐┌─────┐│
+│  │隐患  ││逾期  ││处理中││重大  ││
+│  │总数  ││隐患  ││     ││隐患  ││
+│  └─────┘└─────┘└─────┘└─────┘│
+├─────────────────────────────┤
+│  ⚡ 快捷操作                │
+│  [📷] [📍] [📋] [🚨]       │
+│  随手拍 巡查  任务  举报     │
+│  [🎓] [📚] [👤] [🖥️]       │
+│  培训  资料  我的  PC后台    │
+└─────────────────────────────┘
+</code></pre>
+
+<h3>5.2 底部导航栏</h3>
+<p>移动端底部有5个导航按钮：</p>
+<table>
+<thead>
+<tr>
+<th>按钮</th>
+<th>图标</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>首页</td>
+<td>🏠</td>
+<td>回到移动端首页</td>
+</tr>
+<tr>
+<td>随手拍</td>
+<td>📷</td>
+<td>上报安全隐患</td>
+</tr>
+<tr>
+<td>巡查</td>
+<td>📍</td>
+<td>巡查打卡</td>
+</tr>
+<tr>
+<td>任务</td>
+<td>📋</td>
+<td>查看和处理任务</td>
+</tr>
+<tr>
+<td>待办</td>
+<td>⏰</td>
+<td>查看待办预警</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>5.3 随手拍上报隐患</h3>
+<p><strong>场景</strong>：发现安全隐患时，用手机拍照上报。</p>
+<p><img alt="随手拍上报" src="/s/tk-safe-upload/19_mobile_photo.png" />
+<em>图：隐患随手拍上报页面</em></p>
+<h4>操作步骤：</h4>
+<pre class="codehilite"><code>1. 点击首页的&quot;📷 随手拍&quot;图标
+2. 填写隐患信息：
+   - 隐患标题（必填）：简要描述隐患
+   - 隐患描述：详细描述情况
+   - 隐患分级：选择一般/较大/重大
+   - 所属单位：选择责任单位
+   - 绑定点位：选择风险点位
+3. 上传照片：
+   - 点击&quot;+&quot;按钮选择照片
+   - 最多上传6张
+   - 点击已选照片可以删除
+4. 点击&quot;提交上报&quot;按钮
+5. 看到&quot;提交成功！已生成隐患工单&quot;提示
+</code></pre>
+
+<h4>隐患分级说明：</h4>
+<table>
+<thead>
+<tr>
+<th>级别</th>
+<th>颜色</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>一般隐患</td>
+<td>🟡 黄色</td>
+<td>影响较小，可限期整改</td>
+</tr>
+<tr>
+<td>较大隐患</td>
+<td>🟠 橙色</td>
+<td>影响较大，需优先处理</td>
+</tr>
+<tr>
+<td>重大隐患</td>
+<td>🔴 红色</td>
+<td>影响严重，需立即处理</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>💡 <strong>提示</strong>：上报后系统会自动生成隐患工单，由安全管理员分派责任单位限期整改。</p>
+</blockquote>
+<hr />
+<h3>5.4 巡查打卡</h3>
+<p><strong>场景</strong>：按照巡查计划，到指定地点进行安全检查。</p>
+<p><img alt="巡查打卡" src="/s/tk-safe-upload/20_mobile_patrol.png" />
+<em>图：巡查打卡页面</em></p>
+<h4>操作步骤：</h4>
+<pre class="codehilite"><code>1. 点击底部导航的&quot;📍 巡查&quot;
+2. 查看当前进行中的巡查计划
+3. 选择一个计划，点击&quot;开始巡查签到&quot;
+4. 选择签到点位
+5. 填写现场记录
+6. 选择现场状态（正常/发现异常）
+7. 可选：上传现场照片
+8. 点击&quot;确认签到&quot;
+</code></pre>
+
+<h4>巡查计划类型：</h4>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>日常巡查</td>
+<td>每日例行安全检查</td>
+</tr>
+<tr>
+<td>专项检查</td>
+<td>针对特定区域或设备的检查</td>
+</tr>
+<tr>
+<td>节假日督查</td>
+<td>节假日期间的安全督查</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>5.5 任务接收</h3>
+<p><strong>场景</strong>：查看和处理分配给你的任务。</p>
+<p><img alt="任务接收" src="/s/tk-safe-upload/21_mobile_tasks.png" />
+<em>图：任务接收页面</em></p>
+<h4>操作步骤：</h4>
+<pre class="codehilite"><code>1. 点击底部导航的&quot;📋 任务&quot;
+2. 查看待办任务列表
+3. 对于整改任务：
+   - 点击&quot;📷 提交整改&quot;
+   - 填写整改说明
+   - 上传整改后照片
+   - 点击&quot;提交并等待复核&quot;
+4. 对于其他任务：
+   - 点击&quot;标记完成&quot;
+</code></pre>
+
+<h4>任务类型：</h4>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>整改任务</td>
+<td>需要整改安全隐患</td>
+</tr>
+<tr>
+<td>复查任务</td>
+<td>需要复查整改结果</td>
+</tr>
+<tr>
+<td>培训通知</td>
+<td>需要参加培训</td>
+</tr>
+<tr>
+<td>专项检查</td>
+<td>需要进行专项检查</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>5.6 隐患举报</h3>
+<p><strong>场景</strong>：发现安全隐患但不想暴露身份时，可以匿名举报。</p>
+<p><img alt="隐患举报" src="/s/tk-safe-upload/22_mobile_report.png" />
+<em>图：隐患举报页面</em></p>
+<h4>操作步骤：</h4>
+<pre class="codehilite"><code>1. 点击首页的&quot;🚨 举报&quot;图标
+2. 填写举报信息：
+   - 举报标题（必填）
+   - 隐患描述
+   - 隐患分级
+   - 所属单位
+   - 位置
+3. 上传现场照片（可选）
+4. 勾选&quot;匿名举报&quot;（可选）
+5. 点击&quot;提交举报&quot;
+</code></pre>
+
+<hr />
+<h3>5.7 线上培训</h3>
+<p><strong>场景</strong>：在线学习安全知识，观看培训视频。</p>
+<p><img alt="线上培训" src="/s/tk-safe-upload/23_mobile_training.png" />
+<em>图：线上培训页面</em></p>
+<h4>操作步骤：</h4>
+<pre class="codehilite"><code>1. 点击首页的&quot;🎓 培训&quot;图标
+2. 查看课程列表
+3. 点击课程卡片进入学习
+4. 观看视频或阅读课件
+5. 完成课时后点击&quot;✓ 标记完成&quot;
+6. 全部课时完成后可查看证书
+</code></pre>
+
+<h4>培训功能：</h4>
+<table>
+<thead>
+<tr>
+<th>功能</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>视频播放</td>
+<td>支持倍速播放、全屏播放</td>
+</tr>
+<tr>
+<td>课件查看</td>
+<td>PDF/文档类课件在线查看</td>
+</tr>
+<tr>
+<td>学习进度</td>
+<td>自动记录学习进度</td>
+</tr>
+<tr>
+<td>学习笔记</td>
+<td>可以添加和删除笔记</td>
+</tr>
+<tr>
+<td>课程证书</td>
+<td>完成全部课时后获得证书</td>
+</tr>
+</tbody>
+</table>
+<h4>键盘快捷键：</h4>
+<table>
+<thead>
+<tr>
+<th>按键</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>空格</td>
+<td>播放/暂停</td>
+</tr>
+<tr>
+<td>←</td>
+<td>后退10秒</td>
+</tr>
+<tr>
+<td>→</td>
+<td>前进10秒</td>
+</tr>
+<tr>
+<td>F</td>
+<td>全屏切换</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>5.8 资料查阅</h3>
+<p><strong>场景</strong>：查看应急预案、风险管控卡、安全制度等文档。</p>
+<p><img alt="资料查阅" src="/s/tk-safe-upload/10_mobile_library.png" />
+<em>图：资料查阅页面</em></p>
+<h4>操作步骤：</h4>
+<pre class="codehilite"><code>1. 点击首页的&quot;📚 资料&quot;图标
+2. 查看三个板块：
+   - 应急预案：点击查看预案详情
+   - 风险管控卡：点击查看管控措施
+   - 安全制度/培训文档：点击打开文档
+3. 使用搜索框可以快速查找
+</code></pre>
+
+<h4>风险管控卡颜色：</h4>
+<table>
+<thead>
+<tr>
+<th>颜色</th>
+<th>级别</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>🔴 红色</td>
+<td>重大风险</td>
+<td>需要立即采取措施</td>
+</tr>
+<tr>
+<td>🟠 橙色</td>
+<td>较大风险</td>
+<td>需要重点关注</td>
+</tr>
+<tr>
+<td>🟡 黄色</td>
+<td>一般风险</td>
+<td>需要定期检查</td>
+</tr>
+<tr>
+<td>🔵 蓝色</td>
+<td>低风险</td>
+<td>常规管理</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>5.9 待办预警</h3>
+<p><strong>场景</strong>：查看需要关注的预警事项。</p>
+<p><img alt="待办预警" src="/s/tk-safe-upload/11_mobile_alerts.png" />
+<em>图：待办预警页面</em></p>
+<h4>操作步骤：</h4>
+<pre class="codehilite"><code>1. 点击底部导航的&quot;⏰ 待办&quot;
+2. 查看各类预警事项：
+   - 逾期未整改隐患
+   - 特种设备到期
+   - 人员证件到期
+   - 风险复核到期
+   - 应急物资提醒
+</code></pre>
+
+<hr />
+<h3>5.10 个人中心</h3>
+<p><strong>场景</strong>：查看个人信息、修改密码、查看我的记录。</p>
+<p><img alt="个人中心" src="/s/tk-safe-upload/24_mobile_me.png" />
+<em>图：个人中心页面</em></p>
+<h4>操作步骤：</h4>
+<pre class="codehilite"><code>1. 点击底部导航的&quot;👤&quot;图标
+2. 查看个人信息：
+   - 姓名、角色、手机号
+   - 我的上报、我的打卡、我的培训
+3. 修改密码：
+   - 点击&quot;修改登录密码&quot;
+   - 输入旧密码和新密码
+   - 点击&quot;保存新密码&quot;
+4. 更新资料：
+   - 点击&quot;更新姓名/手机号&quot;
+   - 修改信息后点击&quot;保存资料&quot;
+5. 其他入口：
+   - 统一工作台
+   - 隐患治理后台（管理员）
+   - 可视化调度大屏
+   - 退出登录
+</code></pre>
+
+<hr />
+<h2>六、PC管理后台操作指南</h2>
+<h3>6.1 访问后台</h3>
+<p>只有管理员和安全员才能访问PC管理后台。</p>
+<p><img alt="PC后台模块导航" src="/s/tk-safe-upload/04_admin_modules.png" />
+<em>图：PC管理后台模块导航页面</em></p>
+<pre class="codehilite"><code>1. 登录系统
+2. 在统一工作台点击&quot;PC管理后台&quot;
+3. 或直接访问：http://119.145.17.34:5111/admin
+</code></pre>
+
+<h3>6.2 后台首页（仪表盘）</h3>
+<p><img alt="PC后台仪表盘" src="/s/tk-safe-upload/03_admin_dashboard.png" />
+<em>图：PC管理后台仪表盘</em></p>
+<pre class="codehilite"><code>┌─────────────────────────────────────────────┐
+│  安全生产一体化管理平台                       │
+├─────────────────────────────────────────────┤
+│  🏠 仪表盘 | 📊 系统总览 | 🚨 隐患治理 ...   │
+├─────────────────────────────────────────────┤
+│                                             │
+│  隐患统计                                   │
+│  ┌─────────┐ ┌─────────┐ ┌─────────┐      │
+│  │ 总数     │ │ 逾期    │ │ 重大    │      │
+│  │ 15      │ │ 3       │ │ 2       │      │
+│  └─────────┘ └─────────┘ └─────────┘      │
+│                                             │
+│  风险分布                                   │
+│  ┌─────────┐ ┌─────────┐ ┌─────────┐      │
+│  │ 重大     │ │ 较大    │ │ 一般    │      │
+│  │ 5       │ │ 12      │ │ 28      │      │
+│  └─────────┘ └─────────┘ └─────────┘      │
+│                                             │
+│  各单位整改率排名                            │
+│  1. A公司: 95%  ████████████ 95%            │
+│  2. B公司: 88%  ██████████ 88%              │
+│  3. C公司: 76%  ████████ 76%                │
+└─────────────────────────────────────────────┘
+</code></pre>
+
+<h3>6.3 隐患治理</h3>
+<p>这是后台最重要的功能模块。</p>
+<p><img alt="隐患治理" src="/s/tk-safe-upload/08_admin_hazards.png" />
+<em>图：隐患治理页面 - 工单列表与筛选</em></p>
+<h4>6.3.1 查看隐患列表</h4>
+<pre class="codehilite"><code>1. 点击左侧菜单&quot;🚨 隐患治理&quot;
+2. 查看所有隐患工单
+3. 使用筛选条件：
+   - 按状态筛选：待分派/整改中/待复核/已销号
+   - 按级别筛选：重大/较大/一般
+   - 关键字搜索：标题/描述/上报人/责任人
+4. 点击&quot;查看详情&quot;查看隐患详情
+</code></pre>
+
+<h4>6.3.2 分派工单</h4>
+<pre class="codehilite"><code>1. 找到状态为&quot;待分派&quot;的隐患
+2. 选择责任人
+3. 选择责任单位
+4. 设置整改期限（天数）
+5. 点击&quot;分派工单&quot;
+</code></pre>
+
+<h4>6.3.3 复核销号</h4>
+<pre class="codehilite"><code>1. 找到状态为&quot;待复核&quot;的隐患
+2. 查看整改说明和佐证照片
+3. 填写复核意见
+4. 点击&quot;复核销号&quot;或&quot;退回整改&quot;
+</code></pre>
+
+<h4>6.3.4 挂牌督办</h4>
+<p>对于重大隐患，可以标记为"挂牌督办"或"强制停工"。</p>
+<pre class="codehilite"><code>1. 找到需要督办的隐患
+2. 点击&quot;重大挂牌/停工&quot;
+3. 确认操作
+</code></pre>
+
+<hr />
+<h3>6.4 基础台账</h3>
+<p>基础台账管理企业的基本信息。</p>
+<h4>经营主体</h4>
+<p>管理公司、部门、子公司等组织信息。</p>
+<p><img alt="经营主体管理" src="/s/tk-safe-upload/05_admin_orgs.png" />
+<em>图：经营主体管理页面</em></p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>类型</td>
+<td>公司/部门/子公司</td>
+</tr>
+<tr>
+<td>名称</td>
+<td>组织名称</td>
+</tr>
+<tr>
+<td>编码</td>
+<td>唯一编码</td>
+</tr>
+<tr>
+<td>上级</td>
+<td>上级组织</td>
+</tr>
+<tr>
+<td>地址</td>
+<td>详细地址</td>
+</tr>
+<tr>
+<td>负责人</td>
+<td>主要负责人</td>
+</tr>
+<tr>
+<td>电话</td>
+<td>联系电话</td>
+</tr>
+</tbody>
+</table>
+<h4>特种设备</h4>
+<p>管理需要特殊检验的设备。</p>
+<p><img alt="特种设备管理" src="/s/tk-safe-upload/06_admin_equipment.png" />
+<em>图：特种设备管理页面</em></p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>类型</td>
+<td>设备类型</td>
+</tr>
+<tr>
+<td>名称</td>
+<td>设备名称</td>
+</tr>
+<tr>
+<td>编码</td>
+<td>设备编号</td>
+</tr>
+<tr>
+<td>归属单位</td>
+<td>所属组织</td>
+</tr>
+<tr>
+<td>年检日期</td>
+<td>上次检验日期</td>
+</tr>
+<tr>
+<td>维保单位</td>
+<td>维护保养单位</td>
+</tr>
+<tr>
+<td>下次年检</td>
+<td>下次检验日期</td>
+</tr>
+</tbody>
+</table>
+<h4>人员</h4>
+<p>管理企业员工信息。</p>
+<p><img alt="人员管理" src="/s/tk-safe-upload/07_admin_personnel.png" />
+<em>图：人员管理页面</em></p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>姓名</td>
+<td>员工姓名</td>
+</tr>
+<tr>
+<td>部门</td>
+<td>所属部门</td>
+</tr>
+<tr>
+<td>岗位</td>
+<td>工作岗位</td>
+</tr>
+<tr>
+<td>证件类型</td>
+<td>特种作业证件类型</td>
+</tr>
+<tr>
+<td>证件号</td>
+<td>证件编号</td>
+</tr>
+<tr>
+<td>有效期至</td>
+<td>证件到期日期</td>
+</tr>
+</tbody>
+</table>
+<h4>相关方</h4>
+<p>管理外协单位、供应商等合作方信息。</p>
+<h4>应急物资</h4>
+<p>管理应急物资库存。</p>
+<p><img alt="应急物资管理" src="/s/tk-safe-upload/19_admin_materials.png" />
+<em>图：应急物资管理页面</em></p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>名称</td>
+<td>物资名称</td>
+</tr>
+<tr>
+<td>类型</td>
+<td>物资类型</td>
+</tr>
+<tr>
+<td>数量</td>
+<td>当前库存</td>
+</tr>
+<tr>
+<td>警戒线</td>
+<td>库存预警线</td>
+</tr>
+<tr>
+<td>存放位置</td>
+<td>仓库位置</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>6.5 双重预防</h3>
+<p>管理风险点和管控措施。</p>
+<p><img alt="双重预防" src="/s/tk-safe-upload/09_admin_risks.png" />
+<em>图：双重预防 - 风险点管理</em></p>
+<h4>风险点管理</h4>
+<pre class="codehilite"><code>1. 点击&quot;🗺️ 双重预防&quot; → &quot;风险点&quot;
+2. 查看所有风险点
+3. 添加新风险点：
+   - 名称、位置、类别
+   - 风险等级（红/橙/黄/蓝）
+   - 管控措施
+   - 责任人
+   - 复核周期
+4. 定期复核风险点
+</code></pre>
+
+<hr />
+<h3>6.6 专项整治</h3>
+<p>管理各类专项安全检查。</p>
+<p><img alt="专项整治" src="/s/tk-safe-upload/10_admin_special.png" />
+<em>图：专项整治管理页面</em></p>
+<h4>专项行动类型</h4>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>消防安全</td>
+<td>消防设施、通道检查</td>
+</tr>
+<tr>
+<td>燃气安全</td>
+<td>燃气设备、管道检查</td>
+</tr>
+<tr>
+<td>建筑施工</td>
+<td>施工现场安全检查</td>
+</tr>
+<tr>
+<td>有限空间</td>
+<td>密闭空间作业安全</td>
+</tr>
+<tr>
+<td>特种设备</td>
+<td>电梯、锅炉等设备检查</td>
+</tr>
+<tr>
+<td>文旅户外</td>
+<td>文旅场所安全检查</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>6.7 安全培训</h3>
+<p>管理培训课程、计划和记录。</p>
+<p><img alt="安全培训" src="/s/tk-safe-upload/11_admin_training.png" />
+<em>图：安全培训管理页面</em></p>
+<h4>课程管理</h4>
+<pre class="codehilite"><code>1. 点击&quot;🎓 安全培训&quot; → &quot;课程&quot;
+2. 查看课程列表
+3. 添加新课程：
+   - 课程名称
+   - 课程分类
+   - 课程类型（视频/文档）
+   - 上传课程文件
+   - 设置课时
+4. 上传培训课件
+</code></pre>
+
+<h4>培训计划</h4>
+<pre class="codehilite"><code>1. 点击&quot;🎓 安全培训&quot; → &quot;计划&quot;
+2. 创建培训计划：
+   - 计划名称
+   - 培训内容
+   - 培训时间
+   - 参与人员
+3. 发送培训通知
+</code></pre>
+
+<hr />
+<h3>6.8 应急管理</h3>
+<p>管理应急预案、演练记录和通讯录。</p>
+<p><img alt="应急管理" src="/s/tk-safe-upload/12_admin_emergency.png" />
+<em>图：应急管理页面</em></p>
+<h4>应急预案</h4>
+<pre class="codehilite"><code>1. 点击&quot;🚒 应急管理&quot; → &quot;预案&quot;
+2. 查看预案列表
+3. 添加新预案：
+   - 预案标题
+   - 预案类型（综合/专项/现场处置）
+   - 预案版本
+   - 上传预案文件
+</code></pre>
+
+<h4>演练记录</h4>
+<pre class="codehilite"><code>1. 点击&quot;🚒 应急管理&quot; → &quot;演练&quot;
+2. 记录演练信息：
+   - 演练名称
+   - 演练时间
+   - 参与人员
+   - 演练总结
+</code></pre>
+
+<h4>通讯录</h4>
+<pre class="codehilite"><code>1. 点击&quot;🚒 应急管理&quot; → &quot;通讯录&quot;
+2. 管理应急联系人：
+   - 姓名、职务
+   - 联系电话
+   - 职责
+</code></pre>
+
+<hr />
+<h3>6.9 高风险作业许可</h3>
+<p>管理动火、有限空间、高处作业等高风险作业的审批。</p>
+<p><img alt="作业许可管理" src="/s/tk-safe-upload/13_admin_permits.png" />
+<em>图：作业许可管理页面</em></p>
+<h4>作业许可流程</h4>
+<pre class="codehilite"><code>1. 提交作业申请
+2. 风险评估
+3. 多级审批
+4. 开始作业
+5. 完工确认
+6. 销项归档
+</code></pre>
+
+<hr />
+<h3>6.10 统计报表</h3>
+<p>查看各类统计数据和报表。</p>
+<p><img alt="统计报表" src="/s/tk-safe-upload/14_admin_reports.png" />
+<em>图：统计报表页面</em></p>
+<h4>报表功能</h4>
+<table>
+<thead>
+<tr>
+<th>报表</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>隐患趋势</td>
+<td>隐患数量变化趋势</td>
+</tr>
+<tr>
+<td>整改率排名</td>
+<td>各单位整改完成率</td>
+</tr>
+<tr>
+<td>风险分布</td>
+<td>各级别风险点分布</td>
+</tr>
+<tr>
+<td>培训统计</td>
+<td>培训完成情况</td>
+</tr>
+</tbody>
+</table>
+<h4>导出功能</h4>
+<ul>
+<li><strong>Excel导出</strong>：导出数据表格</li>
+<li><strong>PDF导出</strong>：导出报表文档</li>
+</ul>
+<hr />
+<h3>6.11 系统配套</h3>
+<p>管理用户、日志、配置等系统功能。</p>
+<h4>用户管理</h4>
+<p><img alt="用户管理" src="/s/tk-safe-upload/15_admin_users.png" />
+<em>图：用户管理页面</em></p>
+<pre class="codehilite"><code>1. 点击&quot;⚙️ 系统配套&quot; → &quot;用户&quot;
+2. 查看用户列表
+3. 添加新用户：
+   - 用户名
+   - 姓名
+   - 角色
+   - 手机号
+4. 修改用户信息
+5. 删除用户
+</code></pre>
+
+<h4>操作日志</h4>
+<p><img alt="操作日志" src="/s/tk-safe-upload/16_admin_logs.png" />
+<em>图：系统操作日志</em></p>
+<p>查看系统操作记录。</p>
+<hr />
+<h2>七、可视化调度大屏</h2>
+<h3>7.1 访问大屏</h3>
+<pre class="codehilite"><code>1. 登录系统
+2. 在统一工作台点击&quot;可视化大屏&quot;
+3. 或直接访问：http://119.145.17.34:5111/screen
+</code></pre>
+
+<h3>7.2 大屏功能</h3>
+<p>大屏展示实时数据，用于指挥调度和监控。</p>
+<p><img alt="可视化调度大屏" src="/s/tk-safe-upload/25_screen.png" />
+<em>图：可视化调度大屏 - 实时数据展示</em></p>
+<pre class="codehilite"><code>┌─────────────────────────────────────────────┐
+│         大鹏投控安全生产调度中心             │
+├─────────────────────────────────────────────┤
+│                                             │
+│  隐患统计         风险分布        预警信息    │
+│  ┌───────┐       ┌───────┐      ┌───────┐  │
+│  │总数   │       │重大   │      │逾期   │  │
+│  │15     │       │5      │      │3      │  │
+│  │逾期   │       │较大   │      │设备   │  │
+│  │3      │       │12     │      │到期   │  │
+│  └───────┘       └───────┘      └───────┘  │
+│                                             │
+│  隐患趋势图                                 │
+│  ┌─────────────────────────────────────┐   │
+│  │  📈                                 │   │
+│  │    /\    /\                         │   │
+│  │   /  \  /  \    /                   │   │
+│  │  /    \/    \  /                    │   │
+│  │ /            \/                     │   │
+│  └─────────────────────────────────────┘   │
+│                                             │
+│  各单位整改率                               │
+│  A公司  ████████████████ 95%               │
+│  B公司  ██████████████ 88%                 │
+│  C公司  ████████████ 76%                   │
+└─────────────────────────────────────────────┘
+</code></pre>
+
+<h3>7.3 大屏数据说明</h3>
+<table>
+<thead>
+<tr>
+<th>数据</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>隐患总数</td>
+<td>系统中所有隐患数量</td>
+</tr>
+<tr>
+<td>逾期隐患</td>
+<td>超过整改期限的隐患</td>
+</tr>
+<tr>
+<td>重大隐患</td>
+<td>红色级别的隐患</td>
+</tr>
+<tr>
+<td>整改率</td>
+<td>已完成整改的隐患比例</td>
+</tr>
+<tr>
+<td>风险分布</td>
+<td>各级别风险点数量</td>
+</tr>
+<tr>
+<td>预警信息</td>
+<td>需要关注的预警事项</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>八、常见问题与解答</h2>
+<h3>Q1: 登录后看不到PC管理后台入口？</h3>
+<p><strong>原因</strong>：您的角色没有PC后台访问权限。</p>
+<p><strong>解决</strong>：联系管理员，在"用户管理"中将您的角色调整为"公司管理员"或"安全员"。</p>
+<h3>Q2: 手机端照片上传失败？</h3>
+<p><strong>原因</strong>：
+- 照片格式不支持（只支持 jpg/png/gif/bmp/webp）
+- 照片文件太大
+- 网络连接不稳定</p>
+<p><strong>解决</strong>：
+- 检查照片格式
+- 压缩照片大小
+- 重试上传</p>
+<h3>Q3: 如何修改密码？</h3>
+<p><strong>步骤</strong>：
+1. 进入"个人中心"（👤）
+2. 点击"修改登录密码"
+3. 输入旧密码和新密码
+4. 点击"保存新密码"</p>
+<h3>Q4: 隐患上报后如何查看处理进度？</h3>
+<p><strong>步骤</strong>：
+1. 进入"个人中心"（👤）
+2. 查看"我的上报隐患"
+3. 点击隐患标题查看详情
+4. 查看治理流转记录</p>
+<h3>Q5: 如何导出数据？</h3>
+<p><strong>步骤</strong>（仅管理员）：
+1. 进入PC管理后台
+2. 进入对应模块（如隐患治理）
+3. 点击"导出"按钮
+4. 选择导出格式（Excel/PDF）
+5. 下载文件</p>
+<hr />
+<h2>附录A: 系统安全特性</h2>
+<p>本系统具备以下安全特性：</p>
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>密码加密</td>
+<td>密码使用bcrypt加密存储</td>
+</tr>
+<tr>
+<td>会话管理</td>
+<td>Session自动过期，支持HTTPS</td>
+</tr>
+<tr>
+<td>文件上传</td>
+<td>白名单校验，防止上传危险文件</td>
+</tr>
+<tr>
+<td>XSS防护</td>
+<td>HTML转义，防止跨站脚本攻击</td>
+</tr>
+<tr>
+<td>CSRF防护</td>
+<td>SameSite Cookie策略</td>
+</tr>
+<tr>
+<td>安全响应头</td>
+<td>X-Content-Type-Options等安全头</td>
+</tr>
+<tr>
+<td>登录限制</td>
+<td>连续失败5次锁定15分钟</td>
+</tr>
+<tr>
+<td>操作日志</td>
+<td>所有操作记录审计日志</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>附录B: 数据备份与恢复</h2>
+<h3>备份数据库</h3>
+<pre class="codehilite"><code class="language-bash"># 在服务器上执行
+cp ~/Desktop/Leon-TK-Station/TK-Safe-UpLoad/data/safe_upload.db ~/Desktop/backup/safe_upload_$(date +%Y%m%d).db
+</code></pre>
+
+<h3>恢复数据库</h3>
+<pre class="codehilite"><code class="language-bash"># 在服务器上执行
+cp ~/Desktop/backup/safe_upload_20260915.db ~/Desktop/Leon-TK-Station/TK-Safe-UpLoad/data/safe_upload.db
+</code></pre>
+
+<hr />
+<h2>附录C: 联系方式</h2>
+<table>
+<thead>
+<tr>
+<th>问题类型</th>
+<th>联系方式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>系统使用问题</td>
+<td>联系公司管理员</td>
+</tr>
+<tr>
+<td>技术问题</td>
+<td>联系IT部门</td>
+</tr>
+<tr>
+<td>账号问题</td>
+<td>联系系统管理员</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p><strong>手册结束</strong></p>
+<p><em>最后更新：2026年9月15日</em></p></div></div></body></html>

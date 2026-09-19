@@ -1,0 +1,99 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>account · qr-code-gate 说明</title><style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;background:#fafbff;color:#1a2332;line-height:1.75}
+a{color:#2f6bff;text-decoration:none}
+.wrap{max-width:920px;margin:0 auto;padding:32px 20px 80px}
+.back{font-size:13px;color:#8a94a6}
+h1{font-size:26px;font-weight:800;margin:8px 0 4px;border-bottom:2px solid #eef1f8;padding-bottom:14px}
+.page-title{font-size:16px;color:#5c6670;margin:-2px 0 20px}
+.wiki-body{margin-top:8px}
+.wiki-body h1,.wiki-body h2,.wiki-body h3{margin:1.2em 0 .5em;line-height:1.4}
+.wiki-body h2{font-size:22px}.wiki-body h3{font-size:18px}
+.wiki-body p{margin:.8em 0}
+.wiki-body ul,.wiki-body ol{margin:.6em 0 .6em 1.6em}
+.wiki-body img{max-width:100%}
+.wiki-body pre{background:#0f1523;color:#e8edff;padding:14px 16px;border-radius:10px;overflow:auto;margin:.9em 0}
+.wiki-body code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:.9em}
+.wiki-body pre code{background:none;padding:0}
+.wiki-body table{border-collapse:collapse;margin:.9em 0;width:100%}
+.wiki-body th,.wiki-body td{border:1px solid #e2e7f2;padding:8px 12px;text-align:left}
+.wiki-body th{background:#f4f6fc}
+.wiki-body blockquote{border-left:4px solid #bcd0ff;background:#f4f8ff;padding:10px 16px;margin:.9em 0;color:#456}
+.wiki-body a{color:#2f6bff;border-bottom:1px dashed #bcd0ff}
+.nav{margin:14px 0 0;display:flex;gap:10px;flex-wrap:wrap}
+.nav a{background:#eef3ff;border:1px solid #d9e4ff;padding:6px 16px;border-radius:20px;font-size:13px;color:#2f6bff}
+.mark{color:#c0392b}
+</style></head><body><div class="wrap"><a class="back" href="../index.html">← 项目合辑</a><h1>account</h1><div class="page-title">qr-code-gate · 使用说明（只读镜像）</div><div class="nav"><a href="../index.html">返回合辑</a><a href="./home.html">概览</a></div><div class="wiki-body"><h1>账户池管理</h1>
+<p>管理员登录 → 管理后台 →「账户管理」区域。</p>
+<p><img alt="账户管理" src="http://119.145.17.34:5001/api/v1/attachment/download?id=718" /></p>
+<hr />
+<h2>什么是账户池</h2>
+<p>账户池是门禁平台（C3）里提前准备好的<strong>开门名额</strong>。每个名额对应 C3 平台的一个正式账户（EmpNo），可以生成二维码、授权门禁、刷脸通行。</p>
+<p>本系统无法自主新建门禁账户，只能复用池子里的存量账户，按时段借给访客，到期自动收回。</p>
+<hr />
+<h2>分时分配机制</h2>
+<pre class="codehilite"><code class="language-mermaid">flowchart TD
+    A[访客申请时段 9:00-12:00] --&gt; B[查账户池]
+    B --&gt; C{某账户同时段已借出?}
+    C --&gt;|无冲突| D[分配该账户]
+    C --&gt;|有冲突| E[跳过找下一个]
+    E --&gt; F{还有可用账户?}
+    F --&gt;|有| C
+    F --&gt;|无| G[自动新建 V 账户]
+    G --&gt; H[调 C3 创建人员并授权]
+    H --&gt; D
+</code></pre>
+
+<ul>
+<li>同一个账户可以在<strong>非重叠时段</strong>分配给不同访客</li>
+<li>例如：账户 A 上午借给张三（9-12点），下午借给李四（14-17点）</li>
+<li>优先使用预约时指定的账户，否则执行分时分配算法</li>
+</ul>
+<hr />
+<h2>账户状态</h2>
+<table>
+<thead>
+<tr>
+<th>状态</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>空闲</td>
+<td>没有借出，可以分配</td>
+</tr>
+<tr>
+<td>已分配</td>
+<td>正在借给某访客（含时段信息）</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>账户操作</h2>
+<h3>回收过期账户</h3>
+<p>一键回收所有分时时段已结束的账户（仍有有效时段的保留），释放回空闲池。</p>
+<blockquote>
+<p><strong>提示</strong>：系统也会每 15 分钟自动扫描回收过期账户，不需要人天天点。</p>
+</blockquote>
+<h3>一键回收全部</h3>
+<p>回收所有已分配账户（慎用！访客链接立刻失效）。</p>
+<h3>添加账户</h3>
+<p>输入员工编号，将新的 C3 门禁账户加入池子。</p>
+<hr />
+<h2>自动创建账户</h2>
+<p>当账户池不足时，系统自动执行：</p>
+<ol>
+<li>生成访客编号（<code>V+时间戳</code>）</li>
+<li>调用 C3 <code>PutEmpInfo</code> 创建新门禁账户</li>
+<li>对所选门禁逐一调用 <code>GenerateEmpAuthorSet1</code> 按时段授权</li>
+<li>无卡号时自动转人脸授权兜底</li>
+</ol>
+<hr />
+<h2>分配记录与二维码日志</h2>
+<h3>账户分配记录</h3>
+<p>每次账户分配的历史：分配的外部平台账号、被分配访客姓名/手机号、分配时间、到期时间、对应审批员工、通行门禁点位、状态。</p>
+<h3>二维码生成记录</h3>
+<p>每次调用 C3 接口生成二维码的日志：生成时间、对应外部账户、对应访客信息、有效时长。</p>
+<hr />
+<p><a href="/w/qr-code-gate/face">← 人脸设备授权</a> <a href="/w/qr-code-gate/records">通行记录查询 →</a></p></div></div></body></html>

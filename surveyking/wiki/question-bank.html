@@ -1,0 +1,162 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>question-bank · surveyking 说明</title><style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;background:#fafbff;color:#1a2332;line-height:1.75}
+a{color:#2f6bff;text-decoration:none}
+.wrap{max-width:920px;margin:0 auto;padding:32px 20px 80px}
+.back{font-size:13px;color:#8a94a6}
+h1{font-size:26px;font-weight:800;margin:8px 0 4px;border-bottom:2px solid #eef1f8;padding-bottom:14px}
+.page-title{font-size:16px;color:#5c6670;margin:-2px 0 20px}
+.wiki-body{margin-top:8px}
+.wiki-body h1,.wiki-body h2,.wiki-body h3{margin:1.2em 0 .5em;line-height:1.4}
+.wiki-body h2{font-size:22px}.wiki-body h3{font-size:18px}
+.wiki-body p{margin:.8em 0}
+.wiki-body ul,.wiki-body ol{margin:.6em 0 .6em 1.6em}
+.wiki-body img{max-width:100%}
+.wiki-body pre{background:#0f1523;color:#e8edff;padding:14px 16px;border-radius:10px;overflow:auto;margin:.9em 0}
+.wiki-body code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:.9em}
+.wiki-body pre code{background:none;padding:0}
+.wiki-body table{border-collapse:collapse;margin:.9em 0;width:100%}
+.wiki-body th,.wiki-body td{border:1px solid #e2e7f2;padding:8px 12px;text-align:left}
+.wiki-body th{background:#f4f6fc}
+.wiki-body blockquote{border-left:4px solid #bcd0ff;background:#f4f8ff;padding:10px 16px;margin:.9em 0;color:#456}
+.wiki-body a{color:#2f6bff;border-bottom:1px dashed #bcd0ff}
+.nav{margin:14px 0 0;display:flex;gap:10px;flex-wrap:wrap}
+.nav a{background:#eef3ff;border:1px solid #d9e4ff;padding:6px 16px;border-radius:20px;font-size:13px;color:#2f6bff}
+.mark{color:#c0392b}
+</style></head><body><div class="wrap"><a class="back" href="../index.html">← 项目合辑</a><h1>question-bank</h1><div class="page-title">surveyking · 使用说明（只读镜像）</div><div class="nav"><a href="../index.html">返回合辑</a><a href="./home.html">概览</a></div><div class="wiki-body"><h1>📚 题库中心</h1>
+<blockquote>
+<p>📖 管理题目资源，支持创建题库、管理问题、记录笔记。
+🔗 返回 <a href="wiki/home.html">说明书首页</a></p>
+</blockquote>
+<hr />
+<h2>入口</h2>
+<p>点击左侧导航栏「题库中心」展开子菜单，包含三个子页面：</p>
+<table>
+<thead>
+<tr>
+<th>子菜单</th>
+<th>URL</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>我的题库</td>
+<td>/repo/index</td>
+<td>题库列表管理</td>
+</tr>
+<tr>
+<td>问题管理</td>
+<td>/repo/template</td>
+<td>题目模板管理</td>
+</tr>
+<tr>
+<td>我的笔记</td>
+<td>/repo/book</td>
+<td>学习笔记</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>我的题库</h2>
+<p><img alt="我的题库" src="/s/surveyking/QB01_my_bank.png" />
+<em>我的题库页面</em></p>
+<h3>页面元素</h3>
+<table>
+<thead>
+<tr>
+<th>元素</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>名称搜索</td>
+<td>按题库名称搜索</td>
+</tr>
+<tr>
+<td>类型筛选</td>
+<td>下拉选择题库类型</td>
+</tr>
+<tr>
+<td>重置</td>
+<td>清空搜索条件</td>
+</tr>
+<tr>
+<td>查询</td>
+<td>执行搜索</td>
+</tr>
+<tr>
+<td>新建练习题库</td>
+<td>蓝色按钮，创建可练习的题库</td>
+</tr>
+<tr>
+<td>+ 新建</td>
+<td>白色按钮，创建普通题库</td>
+</tr>
+</tbody>
+</table>
+<h3>题库列表字段</h3>
+<table>
+<thead>
+<tr>
+<th>列名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>名称</td>
+<td>题库名称</td>
+</tr>
+<tr>
+<td>分类</td>
+<td>题库分类标签</td>
+</tr>
+<tr>
+<td>类型</td>
+<td>题库类型（普通/练习）</td>
+</tr>
+<tr>
+<td>共享题库</td>
+<td>是否共享给其他用户</td>
+</tr>
+<tr>
+<td>练习题库</td>
+<td>是否可作为练习使用</td>
+</tr>
+<tr>
+<td>标签</td>
+<td>自定义标签</td>
+</tr>
+<tr>
+<td>题目数量</td>
+<td>题库包含的题目数</td>
+</tr>
+<tr>
+<td>操作</td>
+<td>编辑、删除、查看详情</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>问题管理</h2>
+<p><img alt="问题管理" src="/s/surveyking/QB_question_template.png" />
+<em>问题管理页面</em></p>
+<p>管理单个题目模板，可复用于多个问卷。</p>
+<hr />
+<h2>我的笔记</h2>
+<p><img alt="我的笔记" src="/s/surveyking/QB_notes.png" />
+<em>我的笔记页面</em></p>
+<p>记录学习笔记和题目解析，辅助复习。</p>
+<hr />
+<h2>与问卷编辑器的关系</h2>
+<p>在 <a href="wiki/survey-editor.html">问卷编辑器</a> 中，点击顶部「题库」标签可从已建好的题库中导入题目到当前问卷。</p>
+<p><img alt="题库导入" src="/s/surveyking/SURVEY_new_flow.png" />
+<em>编辑器顶部的「题库」按钮</em></p>
+<hr />
+<blockquote>
+<p>🔗 上一步：<a href="wiki/survey-editor.html">问卷编辑器</a>
+🔗 下一步：<a href="wiki/practice.html">我的练习</a>
+🔗 相关：<a href="wiki/system.html">系统管理</a></p>
+</blockquote></div></div></body></html>

@@ -1,0 +1,149 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>28-admin-assessment · tk-safe-upload 说明</title><style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;background:#fafbff;color:#1a2332;line-height:1.75}
+a{color:#2f6bff;text-decoration:none}
+.wrap{max-width:920px;margin:0 auto;padding:32px 20px 80px}
+.back{font-size:13px;color:#8a94a6}
+h1{font-size:26px;font-weight:800;margin:8px 0 4px;border-bottom:2px solid #eef1f8;padding-bottom:14px}
+.page-title{font-size:16px;color:#5c6670;margin:-2px 0 20px}
+.wiki-body{margin-top:8px}
+.wiki-body h1,.wiki-body h2,.wiki-body h3{margin:1.2em 0 .5em;line-height:1.4}
+.wiki-body h2{font-size:22px}.wiki-body h3{font-size:18px}
+.wiki-body p{margin:.8em 0}
+.wiki-body ul,.wiki-body ol{margin:.6em 0 .6em 1.6em}
+.wiki-body img{max-width:100%}
+.wiki-body pre{background:#0f1523;color:#e8edff;padding:14px 16px;border-radius:10px;overflow:auto;margin:.9em 0}
+.wiki-body code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:.9em}
+.wiki-body pre code{background:none;padding:0}
+.wiki-body table{border-collapse:collapse;margin:.9em 0;width:100%}
+.wiki-body th,.wiki-body td{border:1px solid #e2e7f2;padding:8px 12px;text-align:left}
+.wiki-body th{background:#f4f6fc}
+.wiki-body blockquote{border-left:4px solid #bcd0ff;background:#f4f8ff;padding:10px 16px;margin:.9em 0;color:#456}
+.wiki-body a{color:#2f6bff;border-bottom:1px dashed #bcd0ff}
+.nav{margin:14px 0 0;display:flex;gap:10px;flex-wrap:wrap}
+.nav a{background:#eef3ff;border:1px solid #d9e4ff;padding:6px 16px;border-radius:20px;font-size:13px;color:#2f6bff}
+.mark{color:#c0392b}
+</style></head><body><div class="wrap"><a class="back" href="../index.html">← 项目合辑</a><h1>28-admin-assessment</h1><div class="page-title">tk-safe-upload · 使用说明（只读镜像）</div><div class="nav"><a href="../index.html">返回合辑</a><a href="./home.html">概览</a></div><div class="wiki-body"><h1>考核管理（给下属单位打分）</h1>
+<blockquote>
+<p>每个月、每个季度，给各下属单位<strong>安全管理打分</strong>。分数和绩效挂钩。</p>
+</blockquote>
+<hr />
+<h2>什么是"考核"？</h2>
+<p>对各下属单位<strong>安全管理水平</strong>的评价：</p>
+<ul>
+<li>隐患整改率</li>
+<li>培训完成率</li>
+<li>巡查完成率</li>
+<li>物资管理</li>
+<li>应急响应</li>
+<li>等等</li>
+</ul>
+<p><strong>打分</strong>后形成考核结果，作为绩效参考。</p>
+<hr />
+<h2>页面长什么样</h2>
+<p>在电脑后台左侧菜单点"<strong>⭐ 考核管理</strong>"。</p>
+<hr />
+<h2>顶部按钮</h2>
+<table>
+<thead>
+<tr>
+<th>按钮</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>+ 录入考核</td>
+<td>添加一条考核记录</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>表格里有什么</h2>
+<p>每行是一次考核记录：</p>
+<ul>
+<li><strong>单位</strong>：被考核的公司/部门</li>
+<li><strong>考核周期</strong>（比如"2024年8月"）</li>
+<li><strong>得分</strong>（0-100，颜色编码）</li>
+<li><strong>等级</strong>（A优秀/B良好/C合格/D不合格）</li>
+<li><strong>考核人</strong>：谁打的分</li>
+<li><strong>备注</strong></li>
+<li><strong>操作</strong>：编辑/删除</li>
+</ul>
+<hr />
+<h2>评分等级</h2>
+<table>
+<thead>
+<tr>
+<th>分数</th>
+<th>等级</th>
+<th style="text-align: center;">颜色</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>≥ 90</td>
+<td>A</td>
+<td style="text-align: center;">🟢 绿色</td>
+<td>优秀</td>
+</tr>
+<tr>
+<td>70-89</td>
+<td>B</td>
+<td style="text-align: center;">🟡 黄色</td>
+<td>良好</td>
+</tr>
+<tr>
+<td>60-69</td>
+<td>C</td>
+<td style="text-align: center;">🟠 橙色</td>
+<td>合格</td>
+</tr>
+<tr>
+<td>&lt; 60</td>
+<td>D</td>
+<td style="text-align: center;">🔴 红色</td>
+<td>不合格</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>怎么录入一次考核</h2>
+<p><strong>第1步</strong>：点"<strong>+ 录入考核</strong>"</p>
+<p><strong>第2步</strong>：填写表单</p>
+<ul>
+<li><strong>单位</strong>（必填）：下拉选</li>
+<li><strong>考核周期</strong>（必填）：比如"2024年8月"</li>
+<li><strong>得分</strong>（必填，0-100）</li>
+<li><strong>等级</strong>（必填）：下拉选 A/B/C/D</li>
+<li><strong>考核人</strong>：谁打的分</li>
+<li><strong>备注</strong></li>
+</ul>
+<p><strong>第3步</strong>：点"<strong>保存</strong>"</p>
+<hr />
+<h2>怎么编辑/删除</h2>
+<p>和别的台账一样，点行右侧的"<strong>编辑</strong>"或"<strong>删除</strong>"。</p>
+<hr />
+<h2>考核周期建议</h2>
+<ul>
+<li><strong>月度考核</strong>：每月一次，针对当月表现</li>
+<li><strong>季度考核</strong>：每季度一次，综合评估</li>
+<li><strong>年度考核</strong>：每年一次，全年总结</li>
+</ul>
+<blockquote>
+<p>💡 建议<strong>月度+年度</strong>结合，既及时又全面。</p>
+</blockquote>
+<hr />
+<h2>常见问题</h2>
+<p><strong>Q：等级是自动算的吗？</strong>
+A：等级需要手动选择。系统会根据分数显示建议。</p>
+<p><strong>Q：考核人必须是领导吗？</strong>
+A：建议是，但不强制。可以由安全员打分后领导确认。</p>
+<p><strong>Q：分数怎么定？</strong>
+A：建议从以下几方面：
+- 隐患整改率
+- 培训完成率
+- 巡查完成率
+- 物资管理
+- 应急响应速度</p></div></div></body></html>

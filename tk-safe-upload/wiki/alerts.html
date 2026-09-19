@@ -1,0 +1,188 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>alerts · tk-safe-upload 说明</title><style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;background:#fafbff;color:#1a2332;line-height:1.75}
+a{color:#2f6bff;text-decoration:none}
+.wrap{max-width:920px;margin:0 auto;padding:32px 20px 80px}
+.back{font-size:13px;color:#8a94a6}
+h1{font-size:26px;font-weight:800;margin:8px 0 4px;border-bottom:2px solid #eef1f8;padding-bottom:14px}
+.page-title{font-size:16px;color:#5c6670;margin:-2px 0 20px}
+.wiki-body{margin-top:8px}
+.wiki-body h1,.wiki-body h2,.wiki-body h3{margin:1.2em 0 .5em;line-height:1.4}
+.wiki-body h2{font-size:22px}.wiki-body h3{font-size:18px}
+.wiki-body p{margin:.8em 0}
+.wiki-body ul,.wiki-body ol{margin:.6em 0 .6em 1.6em}
+.wiki-body img{max-width:100%}
+.wiki-body pre{background:#0f1523;color:#e8edff;padding:14px 16px;border-radius:10px;overflow:auto;margin:.9em 0}
+.wiki-body code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:.9em}
+.wiki-body pre code{background:none;padding:0}
+.wiki-body table{border-collapse:collapse;margin:.9em 0;width:100%}
+.wiki-body th,.wiki-body td{border:1px solid #e2e7f2;padding:8px 12px;text-align:left}
+.wiki-body th{background:#f4f6fc}
+.wiki-body blockquote{border-left:4px solid #bcd0ff;background:#f4f8ff;padding:10px 16px;margin:.9em 0;color:#456}
+.wiki-body a{color:#2f6bff;border-bottom:1px dashed #bcd0ff}
+.nav{margin:14px 0 0;display:flex;gap:10px;flex-wrap:wrap}
+.nav a{background:#eef3ff;border:1px solid #d9e4ff;padding:6px 16px;border-radius:20px;font-size:13px;color:#2f6bff}
+.mark{color:#c0392b}
+</style></head><body><div class="wrap"><a class="back" href="../index.html">← 项目合辑</a><h1>alerts</h1><div class="page-title">tk-safe-upload · 使用说明（只读镜像）</div><div class="nav"><a href="../index.html">返回合辑</a><a href="./home.html">概览</a></div><div class="wiki-body"><h1>预警与通知系统</h1>
+<h2>预警体系全景</h2>
+<pre class="mermaid">
+graph TB
+    subgraph 触发源["🔍 触发源"]
+        H["隐患整改<br/>逾期未处理"]
+        E["特种设备<br/>年检到期"]
+        P["人员证件<br/>即将过期"]
+        R["风险点<br/>需要复核"]
+        M["应急物资<br/>库存不足"]
+    end
+
+    subgraph 规则引擎["⚙️ 规则引擎"]
+        RE["预警规则<br/>提前天数阈值"]
+    end
+
+    subgraph 通知通道["📨 通知通道"]
+        WX["微信服务通知"]
+        SMS["短信"]
+        IM["站内消息"]
+    end
+
+    subgraph 接收人["👥 接收人"]
+        ADM["安全管理员"]
+        OWN["责任人"]
+        MGR["设备/人员管理员"]
+    end
+
+    H --> RE
+    E --> RE
+    P --> RE
+    R --> RE
+    M --> RE
+    RE --> WX
+    RE --> SMS
+    RE --> IM
+    WX --> ADM
+    WX --> OWN
+    SMS --> MGR
+    IM --> ADM
+
+    style RE fill:#1a237e,stroke:#4a6cf7,color:#fff
+    style H fill:#7f1d1d,stroke:#f87171,color:#fff
+    style E fill:#7c2d12,stroke:#fb923c,color:#fff
+    style P fill:#7c2d12,stroke:#fb923c,color:#fff
+    style R fill:#1e3a8a,stroke:#60a5fa,color:#fff
+    style M fill:#14532d,stroke:#22c55e,color:#fff
+</pre>
+
+<h2>五类预警</h2>
+<p>平台提供五类自动预警，帮助及时发现和处理安全隐患：</p>
+<h3>1. 逾期未整改预警 🔴</h3>
+<ul>
+<li><strong>触发条件</strong>：隐患超过整改期限仍未完成</li>
+<li><strong>预警颜色</strong>：红色</li>
+<li><strong>通知对象</strong>：责任人、安全管理员</li>
+<li><strong>处理方式</strong>：督促尽快整改</li>
+</ul>
+<h3>2. 特种设备到期预警 🟠</h3>
+<ul>
+<li><strong>触发条件</strong>：设备年检日期临近（提前30天）</li>
+<li><strong>预警颜色</strong>：橙色</li>
+<li><strong>通知对象</strong>：设备管理员</li>
+<li><strong>处理方式</strong>：安排年检</li>
+</ul>
+<h3>3. 人员证件到期预警 🟠</h3>
+<ul>
+<li><strong>触发条件</strong>：人员资质证书即将过期（提前30天）</li>
+<li><strong>预警颜色</strong>：橙色</li>
+<li><strong>通知对象</strong>：人员管理员</li>
+<li><strong>处理方式</strong>：安排换证</li>
+</ul>
+<h3>4. 风险复核到期预警 🔵</h3>
+<ul>
+<li><strong>触发条件</strong>：风险点需要重新评估</li>
+<li><strong>预警颜色</strong>：蓝色</li>
+<li><strong>通知对象</strong>：风险管理员</li>
+<li><strong>处理方式</strong>：组织复核评估</li>
+</ul>
+<h3>5. 物资预警 🟢</h3>
+<ul>
+<li><strong>触发条件</strong>：安全物资库存低于安全库存</li>
+<li><strong>预警颜色</strong>：绿色</li>
+<li><strong>通知对象</strong>：物资管理员</li>
+<li><strong>处理方式</strong>：安排采购或盘点</li>
+</ul>
+<hr />
+<h2>预警查看</h2>
+<h3>移动端查看</h3>
+<ul>
+<li>首页显示预警汇总</li>
+<li>点击「待办」进入预警中心</li>
+<li>查看各类预警详情</li>
+</ul>
+<h3>PC后台查看</h3>
+<ul>
+<li>后台首页显示预警统计</li>
+<li>左侧菜单「预警中心」查看详细列表</li>
+<li>支持按类型筛选</li>
+</ul>
+<hr />
+<h2>消息通知</h2>
+<h3>通知渠道</h3>
+<table>
+<thead>
+<tr>
+<th>渠道</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>微信服务通知</strong></td>
+<td>通过微信公众号推送</td>
+</tr>
+<tr>
+<td><strong>短信通知</strong></td>
+<td>通过短信网关推送</td>
+</tr>
+<tr>
+<td><strong>站内消息</strong></td>
+<td>在平台内显示消息</td>
+</tr>
+</tbody>
+</table>
+<h3>通知场景</h3>
+<table>
+<thead>
+<tr>
+<th>场景</th>
+<th>通知内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>隐患指派</td>
+<td>您有一条新的隐患整改任务</td>
+</tr>
+<tr>
+<td>整改逾期</td>
+<td>您负责的隐患已逾期，请尽快处理</td>
+</tr>
+<tr>
+<td>设备到期</td>
+<td>特种设备即将到期，请安排年检</td>
+</tr>
+<tr>
+<td>证件到期</td>
+<td>人员资质即将过期，请安排换证</td>
+</tr>
+<tr>
+<td>培训通知</td>
+<td>新的培训课程已发布</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>通知配置</h2>
+<p>管理员可在「系统配置」中：
+- 配置消息模板
+- 设置预警规则
+- 选择通知渠道
+- 调整预警天数</p></div></div></body></html>

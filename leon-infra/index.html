@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leon Infra · 基础设施数据引擎</title>
+<meta name="description" content="Leon Infra 基础设施数据引擎：内核级设备监控 + 公网接入 + ESXi 集群 + Caddy 网关 · 统一数据管交换 · 丰富接口">
+<meta property="og:title" content="Leon Infra · 基础设施数据引擎">
+<meta property="og:description" content="Leon Infra 基础设施数据引擎：内核级设备监控 + 公网接入 + ESXi 集群 + Caddy 网关 · 统一数据管交换 · 丰富接口">
+<meta property="og:type" content="website">
+<style>
+:root{--bg:#0b0d13;--bg2:#11141d;--card:#151926;--rule:rgba(255,255,255,.07);--text:#e8eaf2;--muted:#98a0b8;
+--a1:#f59e0b;--a2:#d97706;--grad:linear-gradient(135deg,#f59e0b,#d97706);--glow:#f59e0b33}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;background:var(--bg);color:var(--text);line-height:1.7}
+a{color:var(--a1);text-decoration:none}
+.wrap{max-width:1100px;margin:0 auto;padding:0 28px}
+nav{position:sticky;top:0;z-index:99;background:rgba(11,13,19,.82);backdrop-filter:blur(14px);border-bottom:1px solid var(--rule)}
+.nav-in{display:flex;align-items:center;justify-content:space-between;height:62px}
+.brand{font-weight:700;font-size:17px;display:flex;align-items:center;gap:10px;color:var(--text)}
+.brand .dot{width:30px;height:30px;border-radius:9px;background:var(--grad);display:flex;align-items:center;justify-content:center;font-size:16px}
+.nav-links{display:flex;gap:26px;font-size:14px}
+.nav-links a{color:var(--muted)}.nav-links a:hover{color:var(--text)}
+.hero{position:relative;padding:96px 0 76px;overflow:hidden}
+.hero::before,.hero::after{content:'';position:absolute;border-radius:50%;filter:blur(90px);opacity:.55;z-index:-1}
+.hero::before{width:480px;height:480px;background:var(--a1);top:-180px;right:-120px}
+.hero::after{width:420px;height:420px;background:var(--a2);bottom:-200px;left:-140px;opacity:.35}
+.badge{display:inline-flex;align-items:center;gap:8px;background:var(--glow);border:1px solid #f59e0b44;color:var(--a1);padding:6px 16px;border-radius:999px;font-size:13px;font-weight:600;margin-bottom:22px}
+h1{font-size:clamp(2rem,4.6vw,3.3rem);font-weight:800;line-height:1.18;letter-spacing:.5px;margin-bottom:18px}
+h1 em{font-style:normal;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.sub{font-size:1.06rem;color:var(--muted);max-width:720px;margin-bottom:34px}
+.stats{display:flex;gap:0;margin-top:56px;border:1px solid var(--rule);border-radius:14px;background:rgba(255,255,255,.02);overflow:hidden}
+.stats div{flex:1;padding:20px 12px;text-align:center;border-right:1px solid var(--rule)}
+.stats div:last-child{border-right:none}
+.stats b{display:block;font-size:1.5rem;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;font-weight:800}
+.stats span{font-size:.8rem;color:var(--muted)}
+section{padding:64px 0}
+.sec-tag{color:var(--a1);font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase}
+h2{font-size:clamp(1.5rem,3vw,2.1rem);font-weight:800;margin:6px 0 14px}
+.lead{color:var(--muted);max-width:760px;margin-bottom:36px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px}
+.card{background:var(--card);border:1px solid var(--rule);border-radius:14px;padding:26px;transition:.25s}
+.card:hover{transform:translateY(-4px);border-color:#f59e0b55;box-shadow:0 14px 40px rgba(0,0,0,.35)}
+.card .ic{width:44px;height:44px;border-radius:12px;background:var(--glow);display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:14px}
+.card h3{font-size:1.02rem;margin-bottom:8px}
+.card h3 a{color:inherit;text-decoration:none}
+.card h3 a:hover{color:var(--a1)}
+.card p{font-size:.88rem;color:var(--muted)}
+.chips{display:flex;flex-wrap:wrap;gap:10px}
+.chip{background:rgba(255,255,255,.04);border:1px solid var(--rule);padding:7px 16px;border-radius:999px;font-size:13.5px;color:var(--text)}
+.tbl{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--rule);border-radius:14px;overflow:hidden}
+.tbl tr{border-bottom:1px solid var(--rule)}.tbl tr:last-child{border-bottom:none}
+.tbl td{padding:14px 22px;font-size:.92rem;vertical-align:top}
+.tbl td:first-child{color:var(--muted);white-space:nowrap;width:150px;font-weight:600}
+.code,.mono{font-family:'SF Mono',Consolas,Menlo,monospace;font-size:.86em;color:var(--a1);word-break:break-all}
+.note{margin-top:22px;background:rgba(255,255,255,.03);border-left:3px solid var(--a1);border-radius:0 10px 10px 0;padding:16px 20px;font-size:.88rem;color:var(--muted)}
+footer{border-top:1px solid var(--rule);padding:38px 0;text-align:center;color:var(--muted);font-size:.85rem}
+footer a{color:var(--a1)}
+@media(max-width:640px){
+.nav-links{display:none}
+.hero{padding:64px 0 52px}
+.stats{flex-direction:column}.stats div{border-right:none;border-bottom:1px solid var(--rule)}
+.grid{grid-template-columns:1fr}
+.tbl td{padding:12px 14px}.tbl td:first-child{width:auto}
+}
+</style>
+</head>
+<body>
+
+<nav><div class="wrap nav-in">
+<a class="brand" href="#"><span class="dot">🖧</span>Leon Infra</a>
+<div class="nav-links"><a href="#overview">服务概览</a><a href="#engine">内核引擎</a><a href="#data">数据管交换</a><a href="#deploy">部署与访问</a></div>
+</div></nav>
+
+<header class="hero"><div class="wrap">
+<span class="badge">🖧 基础设施数据引擎</span>
+<h1>Leon <em>Infra</em></h1>
+<p class="sub">内核级设备监控 + 公网接入 + ESXi 集群 + Caddy 网关<br><br>基于自研内核的数据引擎平台：设备发现、端口管控、虚拟化管理、网关路由四大引擎并行；通过统一数据管交换协议与 MemKV 记忆库、Leon-Control 控制台等多平台实现双向数据交互，丰富的 REST API / WebSocket / Webhook 接口支持跨平台集成。</p>
+<div class="stats"><div><b>4</b><span>内核引擎</span></div><div><b>28+</b><span>公网端口</span></div><div><b>100TB</b><span>共享存储</span></div><div><b>16+</b><span>虚拟机</span></div></div>
+</div></header>
+
+<main class="wrap">
+
+<section id="overview">
+<div class="sec-tag">Overview</div>
+<h2>服务概览</h2>
+<p class="lead">四大基础设施引擎各司其职，共同构成 Leon 机房的基础设施数据引擎底座。</p>
+<div class="grid">
+<div class="card"><div class="ic">🖥️</div><h3><a href="http://192.168.11.70:5071" target="_blank">设备管理面板</a></h3><p>内核级设备自动发现 · 实时状态监测 · 毫秒级数据采集</p><p class="code">http://192.168.11.70:5071</p></div>
+<div class="card"><div class="ic">🌍</div><h3><a href="http://119.145.17.34:5000/" target="_blank">公网接入体系</a></h3><p>EG3220 NAT + Safe nginx 透传 + FRP 穿透 · 公网端口数据引擎</p><p class="code">http://119.145.17.34:5000/</p></div>
+<div class="card"><div class="ic">📦</div><h3>ESXi 虚拟化集群</h3><p>4 节点 ESXi 集群 · 100TB 共享存储 · 16+ 虚拟机资源编排</p><p class="code">192.168.11.51 – 54 (vmesxi01–04)</p></div>
+<div class="card"><div class="ic">🔐</div><h3><a href="https://leyon.top:8443/" target="_blank">Caddy 反代网关</a></h3><p>一张证书 + 一个域名 · 多路径路由 · 自动证书续期</p><p class="code">https://leyon.top:8443/</p></div>
+</div>
+</section>
+
+<section id="engine">
+<div class="sec-tag">Engine</div>
+<h2>内核引擎</h2>
+<p class="lead">五大自研内核引擎，提供毫秒级数据采集与智能管控。</p>
+<div class="grid">
+<div class="card"><div class="ic">🖧</div><h3>设备发现引擎</h3><p>基于内存库自动发现内网设备，支持物理机、虚拟机、容器多形态探测，毫秒级状态更新。</p></div>
+<div class="card"><div class="ic">🌐</div><h3>公网端口引擎</h3><p>EG3220 NAT 规则引擎、nginx 四层透传引擎、FRP 穿透引擎并行管理，28 个公网端口精细化治理。</p></div>
+<div class="card"><div class="ic">💾</div><h3>虚拟化引擎</h3><p>4 节点 ESXi 集群，100TB 共享存储引擎，承载 TK-Server / L-Ubt 系列 / Leon-Docker 等 16+ 个生产虚拟机。</p></div>
+<div class="card"><div class="ic">🔒</div><h3>网关路由引擎</h3><p>基于 Caddy 的 HTTPS 反代网关，单一入口多路径路由，TLS 证书自动续期管理。</p></div>
+<div class="card"><div class="ic">📡</div><h3>监控采集引擎</h3><p>CPU/内存/磁盘/GPU/负载等指标的毫秒级采集与聚合，实时写入记忆库。</p></div>
+</div>
+</section>
+
+<section id="data">
+<div class="sec-tag">Data</div>
+<h2>数据管交换</h2>
+<p class="lead">通过统一数据管交换协议，实现与多个平台的双向数据交互。</p>
+<div class="grid">
+<div class="card"><div class="ic">🧠</div><h3>MemKV 联动</h3><p>设备实时状态写入记忆库，实现跨 Agent 的上下文共享与持久化记忆。</p></div>
+<div class="card"><div class="ic">⚙️</div><h3>Leon-Control 对接</h3><p>监控数据推送至脚本管理 + SEO 控制台，统一纳管 20+ 服务的生命周期。</p></div>
+<div class="card"><div class="ic">🌍</div><h3>公网接入协同</h3><p>端口映射、防火墙策略、WAF 规则通过 API 动态下发，接入链路一键编排。</p></div>
+<div class="card"><div class="ic">📦</div><h3>ESXi 集群集成</h3><p>虚拟机生命周期管理、资源调度、快照备份全自动化，支持集群级别的弹性伸缩。</p></div>
+</div>
+</section>
+
+<section id="deploy">
+<div class="sec-tag">Deployment</div>
+<h2>部署与访问</h2>
+<p class="lead">四大基础服务的部署位置与访问方式汇总。</p>
+<table class="tbl">
+<tr><td>设备管理面板</td><td>http://192.168.11.70:5071</td></tr>
+<tr><td>公网接入</td><td>http://119.145.17.34:5000/</td></tr>
+<tr><td>ESXi 集群</td><td>192.168.11.51 – 54（vmesxi01–04）</td></tr>
+<tr><td>Caddy 网关</td><td>https://leyon.top:8443/</td></tr>
+<tr><td>管理节点</td><td>TK-Server · 192.168.11.70</td></tr>
+<tr><td>公网出口</td><td>119.145.17.34</td></tr>
+</table>
+<div class="note">本卡片整合自原 devices、public-access、esxi-cluster、caddy-gateway 四个独立项目，删除其独立卡片后通过 Leon Infra 数据引擎统一管理。</div>
+</section>
+
+</main>
+
+<footer>© 2026 Leon · <a href="http://192.168.11.70:5070/">Powered by Leon-Web-Host</a> · 基础设施数据引擎</footer>
+</body>
+</html>

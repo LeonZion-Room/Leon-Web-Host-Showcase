@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TK-Safe-UpLoad · 大鹏投控安全生产一体化智慧管理平台</title>
+<meta name="description" content="大鹏投控安全生产一体化智慧管理平台。三端一体：移动端随手拍/巡查/培训、PC 后台五大台账/双重预防/隐患闭环/作业审批、数据大屏热力分布与趋势实时呈现。">
+<meta property="og:title" content="TK-Safe-UpLoad · 大鹏投控安全生产平台">
+<meta property="og:description" content="三端一体的安全生产智慧管理平台">
+<meta property="og:type" content="website">
+<style>
+:root{
+  --bg-page:#08090c;
+  --bg-surface:#0f1116;
+  --bg-surface-2:#14171f;
+  --bg-elevated:#181c26;
+  --border:#ffffff10;
+  --border-strong:#ffffff18;
+  --text-primary:#f0f2f8;
+  --text-secondary:#a8b0c8;
+  --text-description:#8b91a8;
+  --text-muted:#5a6178;
+  --brand:#4a8df8;
+  --brand-soft:rgba(74,141,248,.12);
+  --brand-border:rgba(74,141,248,.28);
+  --good:#22c55e;
+  --warn:#f59e0b;
+  --bad:#ef4444;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;
+  background:
+    radial-gradient(900px 500px at 85% -20%,rgba(74,141,248,.10),transparent 60%),
+    radial-gradient(700px 400px at 10% 0%,rgba(139,92,246,.08),transparent 60%),
+    var(--bg-page);
+  color:var(--text-primary);line-height:1.7;
+  -webkit-font-smoothing:antialiased;min-height:100vh;
+}
+a{text-decoration:none;color:inherit}
+.ds-container{max-width:1280px;margin:0 auto;padding:0 24px}
+.mono{font-family:'SF Mono','JetBrains Mono','Fira Code',Consolas,monospace}
+.glass-card{background:linear-gradient(180deg,rgba(255,255,255,.025),rgba(255,255,255,.005));
+  border:1px solid var(--border);border-radius:14px;
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  transition:all .25s ease}
+.glass-card:hover{border-color:var(--border-strong);background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.008))}
+.badge-pill{display:inline-flex;align-items:center;gap:6px;
+  background:linear-gradient(135deg,rgba(255,255,255,.18) 0%,rgba(255,255,255,.05) 35%,rgba(255,255,255,.02) 65%,rgba(255,255,255,.12) 100%);
+  border-radius:8px;padding:1px;
+  box-shadow:0 0 16px rgba(255,255,255,.04),0 0 32px rgba(255,255,255,.02)}
+.badge-pill>span{background:rgba(0,0,0,.4);border-radius:7px;padding:5px 11px;
+  font-family:'SF Mono',monospace;font-size:11.5px;font-weight:500;color:#fff;letter-spacing:.02em}
+.btn-primary{display:inline-flex;align-items:center;gap:7px;padding:10px 20px;border-radius:10px;
+  background:linear-gradient(180deg,#5b9bff,#3b7cef);color:#fff;font-size:14px;font-weight:600;
+  border:1px solid rgba(255,255,255,.15);box-shadow:0 6px 20px -6px rgba(74,141,248,.45);
+  transition:all .2s ease;cursor:pointer}
+.btn-primary:hover{transform:translateY(-1px);box-shadow:0 8px 24px -6px rgba(74,141,248,.6)}
+.btn-secondary{display:inline-flex;align-items:center;gap:7px;padding:10px 20px;border-radius:10px;
+  background:rgba(255,255,255,.04);color:var(--text-primary);font-size:14px;font-weight:500;
+  border:1px solid var(--border);transition:all .2s ease;cursor:pointer}
+.btn-secondary:hover{background:rgba(255,255,255,.07);border-color:var(--border-strong)}
+.section-eyebrow{display:flex;justify-content:center;margin-bottom:18px}
+.terminal{background:rgba(0,0,0,.5);border:1px solid var(--border);border-radius:14px;
+  overflow:hidden;backdrop-filter:blur(12px)}
+.terminal-head{display:flex;align-items:center;justify-content:space-between;padding:11px 14px;border-bottom:1px solid var(--border)}
+.terminal-dots{display:flex;gap:6px}
+.terminal-dots span{width:11px;height:11px;border-radius:50%}
+.terminal-dots span:nth-child(1){background:#ff5f57}
+.terminal-dots span:nth-child(2){background:#febc2e}
+.terminal-dots span:nth-child(3){background:#28c840}
+.terminal-copy{color:var(--text-description);font-size:12px;display:flex;align-items:center;gap:6px;cursor:pointer;background:transparent;border:none}
+.terminal-copy:hover{color:var(--text-primary)}
+.terminal-body{padding:18px 22px;font-family:'SF Mono','JetBrains Mono',monospace;font-size:14px;line-height:1.7;color:var(--text-primary);white-space:pre-wrap;min-height:120px}
+.prompt{color:var(--brand)}
+.comment{color:var(--text-muted);font-style:italic}
+.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:64px;align-items:center;padding:80px 0 56px;position:relative}
+@media (max-width:980px){.hero{grid-template-columns:1fr;gap:40px;padding:48px 0 32px}}
+.hero h1{font-size:54px;line-height:1.1;font-weight:700;color:var(--text-primary);letter-spacing:-.02em;margin:18px 0 18px}
+@media (max-width:768px){.hero h1{font-size:36px}}
+.hero .lead{color:var(--text-description);font-size:16.5px;line-height:1.7;max-width:580px}
+.hero .lead strong{color:var(--text-primary)}
+.hero .actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px}
+.hero-stats{display:flex;gap:18px;margin-top:28px;flex-wrap:wrap}
+.stat-pill{display:inline-flex;align-items:baseline;gap:8px;padding:8px 16px;border-radius:99px;
+  background:rgba(255,255,255,.04);border:1px solid var(--border);font-size:13px;color:var(--text-secondary)}
+.stat-pill b{color:var(--text-primary);font-size:15px;font-weight:600}
+.section-eyebrow-row{display:flex;justify-content:center;margin-bottom:18px}
+.section-title{font-size:40px;line-height:1.18;font-weight:600;color:var(--text-primary);text-align:center;letter-spacing:-.01em;max-width:780px;margin:0 auto}
+.section-sub{color:var(--text-description);text-align:center;max-width:680px;margin:16px auto 0;font-size:16px;line-height:1.7}
+.feature-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:48px}
+@media (max-width:980px){.feature-grid{grid-template-columns:1fr;gap:14px}}
+.feature-card{padding:30px 24px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:14px}
+.feature-card .ico{width:64px;height:64px;display:flex;align-items:center;justify-content:center;
+  color:var(--brand);opacity:.85}
+.feature-card h3{font-size:17px;font-weight:600;color:var(--text-primary);margin:0;letter-spacing:-.005em}
+.feature-card p{color:var(--text-description);font-size:13.5px;line-height:1.65;margin:0}
+.entry-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:48px}
+@media (max-width:980px){.entry-grid{grid-template-columns:1fr;gap:14px}}
+.entry-card{padding:30px 26px;display:flex;flex-direction:column;gap:14px;position:relative;overflow:hidden;cursor:pointer}
+.entry-card .head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.entry-card .ico{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;
+  font-size:26px;transition:transform .25s ease}
+.entry-card:hover .ico{transform:scale(1.08) rotate(-3deg)}
+.entry-card .tag{font-family:'SF Mono',monospace;font-size:10.5px;padding:3px 9px;border-radius:6px;
+  background:rgba(74,141,248,.12);color:#8fb5ff;border:1px solid rgba(74,141,248,.2);font-weight:500}
+.entry-card h3{font-size:20px;font-weight:600;color:var(--text-primary);margin:0;letter-spacing:-.005em}
+.entry-card p{color:var(--text-description);font-size:14px;line-height:1.65;margin:0;flex:1}
+.entry-card .arrow{color:#8fb5ff;font-size:13px;font-weight:500;display:flex;align-items:center;gap:5px}
+.entry-card .arrow svg{transition:transform .2s ease}
+.entry-card:hover .arrow svg{transform:translateX(3px)}
+.entry-card.m-green .ico{background:linear-gradient(135deg,#10b98118,#10b98105);color:#34d399;border:1px solid #10b98130}
+.entry-card.m-green .tag{background:rgba(16,185,129,.12);color:#6ee7b7;border-color:rgba(16,185,129,.25)}
+.entry-card.m-blue .ico{background:linear-gradient(135deg,#4a8df818,#4a8df805);color:#4a8df8;border:1px solid #4a8df830}
+.entry-card.m-blue .tag{background:rgba(74,141,248,.12);color:#8fb5ff;border-color:rgba(74,141,248,.25)}
+.entry-card.m-violet .ico{background:linear-gradient(135deg,#a855f718,#a855f705);color:#a855f7;border:1px solid #a855f730}
+.entry-card.m-violet .tag{background:rgba(168,85,247,.12);color:#c4b5fd;border-color:rgba(168,85,247,.25)}
+.section{padding:80px 0;position:relative}
+.section-divider{border-top:1px solid var(--border);margin:24px 0}
+.nav{position:sticky;top:0;z-index:99;background:rgba(8,9,12,.78);backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--border)}
+.nav-in{display:flex;align-items:center;justify-content:space-between;height:62px}
+.brand{font-weight:700;font-size:16px;display:flex;align-items:center;gap:10px;color:var(--text-primary)}
+.brand .dot{width:30px;height:30px;border-radius:9px;
+  background:linear-gradient(135deg,#4a8df8,#7c5cff);display:flex;align-items:center;justify-content:center;font-size:16px;
+  box-shadow:0 4px 16px rgba(74,141,248,.3)}
+.brand .v{color:var(--text-muted);font-family:'SF Mono',monospace;font-size:11px;margin-left:2px;font-weight:500}
+.nav-links{display:flex;gap:24px;font-size:14px;align-items:center}
+.nav-links a{color:var(--text-secondary);transition:color .2s}
+.nav-links a:hover{color:var(--text-primary)}
+.nav-cta{background:linear-gradient(180deg,#5b9bff,#3b7cef);color:#fff!important;padding:7px 16px;border-radius:9px;font-weight:600;font-size:13px}
+.kpi-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:32px 0 0}
+@media (max-width:768px){.kpi-row{grid-template-columns:repeat(2,1fr)}}
+.kpi-card{padding:18px 20px;border:1px solid var(--border);border-radius:12px;background:rgba(255,255,255,.02)}
+.kpi-card .label{font-family:'SF Mono',monospace;font-size:10.5px;color:var(--text-muted);letter-spacing:.04em;text-transform:uppercase}
+.kpi-card .value{font-size:30px;font-weight:700;color:var(--text-primary);margin-top:6px;line-height:1.1}
+.kpi-card .desc{font-size:12.5px;color:var(--text-description);margin-top:4px}
+.kpi-card.bad .value{color:#fca5a5}
+.kpi-card.warn .value{color:#fcd34d}
+.kpi-card.good .value{color:#86efac}
+.kpi-card.brand .value{color:#93c5fd}
+.screenshot-frame{position:relative;border-radius:16px;overflow:hidden;border:1px solid var(--border-strong);
+  background:rgba(0,0,0,.4);box-shadow:0 24px 60px -10px rgba(0,0,0,.6),0 0 0 1px rgba(255,255,255,.04) inset}
+.screenshot-frame img{display:block;width:100%;height:auto}
+.screenshot-caption{text-align:center;color:var(--text-muted);font-size:12.5px;margin-top:14px;font-family:'SF Mono',monospace}
+.timeline{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:48px;position:relative}
+.timeline::before{content:'';position:absolute;left:0;right:0;top:24px;height:1px;background:linear-gradient(90deg,transparent,var(--border-strong),var(--border-strong),transparent)}
+.tl-step{position:relative;text-align:center;padding:0 12px}
+.tl-step .num{width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#4a8df8,#7c5cff);
+  color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;margin:0 auto 14px;
+  box-shadow:0 6px 20px -4px rgba(74,141,248,.5);position:relative;z-index:1;font-size:18px}
+.tl-step h4{font-size:15px;color:var(--text-primary);margin:0 0 6px;font-weight:600}
+.tl-step p{font-size:13px;color:var(--text-description);margin:0;line-height:1.55}
+.tech-row{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-top:40px}
+@media (max-width:768px){.tech-row{grid-template-columns:repeat(3,1fr)}}
+.tech-chip{background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:10px;padding:14px 12px;
+  text-align:center;transition:all .2s}
+.tech-chip:hover{border-color:var(--brand-border);background:rgba(74,141,248,.06)}
+.tech-chip .name{font-size:13.5px;font-weight:600;color:var(--text-primary)}
+.tech-chip .role{font-size:11px;color:var(--text-muted);margin-top:2px;font-family:'SF Mono',monospace}
+.cta-banner{background:linear-gradient(135deg,rgba(74,141,248,.12),rgba(124,92,255,.06));
+  border:1px solid var(--border-strong);border-radius:18px;padding:42px 36px;
+  text-align:center;margin:48px 0 0;position:relative;overflow:hidden}
+.cta-banner::before{content:'';position:absolute;width:600px;height:600px;border-radius:50%;
+  background:radial-gradient(circle,rgba(74,141,248,.18),transparent 60%);
+  top:-300px;right:-200px;filter:blur(40px);pointer-events:none}
+.cta-banner h3{font-size:30px;color:var(--text-primary);font-weight:600;margin:0 0 10px;letter-spacing:-.01em;position:relative;z-index:1}
+.cta-banner p{color:var(--text-description);font-size:15.5px;margin:0 0 26px;position:relative;z-index:1}
+.cta-banner .actions{display:flex;justify-content:center;gap:12px;position:relative;z-index:1;flex-wrap:wrap}
+.footer{padding:50px 0 30px;text-align:center;color:var(--text-muted);font-size:12.5px;border-top:1px solid var(--border);margin-top:80px}
+.footer a{color:var(--text-secondary);margin:0 14px;transition:color .2s}
+.footer a:hover{color:var(--text-primary)}
+.footer .mono-line{font-family:'SF Mono',monospace;font-size:11.5px;letter-spacing:.04em;margin-top:8px;color:var(--text-muted)}
+.hero-orb{position:absolute;right:-200px;top:-200px;width:700px;height:700px;
+  background:radial-gradient(circle,rgba(74,141,248,.20),transparent 60%);
+  filter:blur(40px);pointer-events:none;z-index:0}
+.code-tabs{display:flex;gap:6px;margin-bottom:-1px;padding:0 6px;position:relative;z-index:2}
+.code-tab{padding:7px 14px;font-size:12.5px;color:var(--text-description);cursor:pointer;
+  border-radius:8px 8px 0 0;font-family:'SF Mono',monospace;background:transparent;border:1px solid transparent;border-bottom:none;transition:all .2s ease}
+.code-tab.active{color:var(--text-primary);background:rgba(0,0,0,.5);border-color:var(--border)}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+.fade-in{animation:fadeUp .6s ease-out both}
+.fade-in.d1{animation-delay:.1s}
+.fade-in.d2{animation-delay:.2s}
+.fade-in.d3{animation-delay:.3s}
+.fade-in.d4{animation-delay:.4s}
+</style>
+</head>
+<body>
+
+<!-- 顶部导航 -->
+<nav class="nav">
+  <div class="ds-container">
+    <div class="nav-in">
+      <a class="brand" href="#top">
+        <span class="dot">🛡️</span>
+        <span>TK-Safe-UpLoad</span>
+        <span class="v mono">v3.0</span>
+      </a>
+      <div class="nav-links">
+        <a href="#features">核心能力</a>
+        <a href="#endpoints">三端入口</a>
+        <a href="#flow">业务流程</a>
+        <a href="#tech">技术栈</a>
+        <a class="nav-cta" href="/login?next=/portal" target="_blank">🚀 进入系统</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="top" style="position:relative;overflow:hidden">
+  <div class="hero-orb"></div>
+  <div class="ds-container" style="position:relative;z-index:1">
+    <div class="hero">
+      <div class="fade-in">
+        <div class="badge-pill"><span>大鹏投控 · 工作台 v3.0</span></div>
+        <h1>安全生产，<br/>一屏掌控</h1>
+        <p class="lead">大鹏投控集团<strong>安全生产一体化智慧管理平台</strong>。统一工作台聚合了<strong>移动端、PC 后台、可视化大屏</strong>三个入口，所有隐患、巡查、培训、应急任务在一处可查可办。</p>
+        <div class="actions">
+          <a class="btn-primary" href="/login?next=/portal" target="_blank">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><rect x="3" y="2" width="10" height="12" rx="2" stroke="currentColor" stroke-width="1.4"/><circle cx="8" cy="12" r=".6" fill="currentColor"/></svg>
+            打开工作台
+          </a>
+          <a class="btn-secondary" href="/s/tk-safe-upload/w/01-portal" target="_blank">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 4l5 5 5-5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M3 12h10" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+            查看说明书
+          </a>
+          <a class="btn-secondary" href="/screen" target="_blank">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M2 4l6 4 6-4M2 4v8h12V4M2 4h12" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg>
+            数据大屏
+          </a>
+        </div>
+        <div class="hero-stats">
+          <span class="stat-pill">👥 覆盖 <b>5 类角色</b> 权限分级</span>
+          <span class="stat-pill">📱 移动端 <b>iOS / Android</b></span>
+          <span class="stat-pill">🖥️ PC 后台 <b>23 个模块</b></span>
+        </div>
+
+        <!-- KPI 数字 -->
+        <div class="kpi-row">
+          <div class="kpi-card bad">
+            <div class="label">// Hazards</div>
+            <div class="value">29</div>
+            <div class="desc">在管隐患总数</div>
+          </div>
+          <div class="kpi-card warn">
+            <div class="label">// Overdue</div>
+            <div class="value">0</div>
+            <div class="desc">逾期未整改</div>
+          </div>
+          <div class="kpi-card good">
+            <div class="label">// Patrolled</div>
+            <div class="value">15</div>
+            <div class="desc">本周巡查打卡</div>
+          </div>
+          <div class="kpi-card brand">
+            <div class="label">// Trained</div>
+            <div class="value">18</div>
+            <div class="desc">培训完成人次</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 终端 / 代码区 -->
+      <div class="fade-in d2">
+        <div class="code-tabs">
+          <button class="code-tab active" data-tab="t1">快速登录</button>
+          <button class="code-tab" data-tab="t2">PC 后台</button>
+          <button class="code-tab" data-tab="t3">数据大屏</button>
+        </div>
+        <div class="terminal">
+          <div class="terminal-head">
+            <div class="terminal-dots"><span></span><span></span><span></span></div>
+            <button class="terminal-copy" onclick="copyCmd()">
+              <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><rect x="4" y="4" width="9" height="9" rx="1.4" stroke="currentColor" stroke-width="1.3"/><path d="M3 11V3h8" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+              复制
+            </button>
+          </div>
+          <div class="terminal-body" id="cmdBox">
+<span class="comment"># 默认测试账号（统一密码 admin123）</span>
+<span class="prompt">$</span> open  http://192.168.11.70:5111/login
+
+<span class="comment"># 三大入口 URL</span>
+<span class="prompt">▸</span> <span style="color:#86efac">/m</span>      — 移动端工作台（员工）
+<span class="prompt">▸</span> <span style="color:#86efac">/admin</span>  — PC 管理后台（管理员）
+<span class="prompt">▸</span> <span style="color:#86efac">/screen</span> — 可视化大屏（公开）
+
+<span class="comment"># 角色与权限</span>
+<span class="prompt">▸</span> <span style="color:#fcd34d">company_admin</span> · 公司管理员 · 全权限
+<span class="prompt">▸</span> <span style="color:#fcd34d">sub_admin</span>     · 子公司管理 · 本级数据
+<span class="prompt">▸</span> <span style="color:#fcd34d">inspector</span>    · 安全员 · 巡查 / 隐患处理
+<span class="prompt">▸</span> <span style="color:#fcd34d">staff</span>        · 普通员工 · 上报 / 学习
+<span class="prompt">▸</span> <span style="color:#fcd34d">contractor</span>   · 外协单位 · 受限访问
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 三端入口 -->
+<section id="endpoints" class="section">
+  <div class="ds-container">
+    <div class="section-eyebrow-row">
+      <div class="badge-pill"><span>3 ENDPOINTS</span></div>
+    </div>
+    <h2 class="section-title">三端一体，<br/>覆盖全员作业场景</h2>
+    <p class="section-sub">手机端面向一线员工随时上报，PC 后台让管理员高效处理，<br/>可视化大屏让指挥调度一目了然。</p>
+
+    <div class="entry-grid">
+      <a href="/m" class="glass-card entry-card m-green fade-in d1" target="_blank">
+        <div class="head">
+          <div class="ico">📱</div>
+          <span class="tag">全员可用</span>
+        </div>
+        <h3>移动端工作台</h3>
+        <p>随手拍上报 · 巡查打卡 · 任务接收 · 匿名举报 · 培训学习 · 个人中心。员工随时随地完成安全工作。</p>
+        <div class="arrow">立即进入 <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      </a>
+
+      <a href="/admin" class="glass-card entry-card m-blue fade-in d2" target="_blank">
+        <div class="head">
+          <div class="ico">🖥️</div>
+          <span class="tag">管理端</span>
+        </div>
+        <h3>PC 管理后台</h3>
+        <p>基础台账 · 双重预防 · 隐患闭环 · 专项整治 · 培训应急 · 统计报表。集中处理平台全部业务。</p>
+        <div class="arrow">立即进入 <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      </a>
+
+      <a href="/screen" class="glass-card entry-card m-violet fade-in d3" target="_blank">
+        <div class="head">
+          <div class="ico">📊</div>
+          <span class="tag">公开大屏</span>
+        </div>
+        <h3>可视化调度大屏</h3>
+        <p>全域风险热力图 · 隐患趋势曲线 · 单位整改率排名 · 重大风险实时弹窗。投屏即用。</p>
+        <div class="arrow">立即进入 <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<div class="ds-container"><div class="section-divider"></div></div>
+
+<!-- 核心能力 -->
+<section id="features" class="section">
+  <div class="ds-container">
+    <div class="section-eyebrow-row">
+      <div class="badge-pill"><span>PLATFORM CAPABILITIES</span></div>
+    </div>
+    <h2 class="section-title">平台核心能力，<br/>覆盖安全管理工作全流程</h2>
+    <p class="section-sub">从隐患随手拍到风险复核，从培训学习到应急演练 —— 一个平台贯穿安全管理闭环。</p>
+
+    <div class="feature-grid">
+      <div class="glass-card feature-card fade-in d1">
+        <div class="ico">
+          <svg width="56" height="56" viewBox="0 0 64 64" fill="none">
+            <path d="M32 6L56 18v28L32 58 8 46V18L32 6z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+            <path d="M8 18l24 12 24-12M32 30v28" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" opacity=".7"/>
+            <circle cx="32" cy="32" r="3" fill="currentColor"/>
+          </svg>
+        </div>
+        <h3>隐患随手拍 · 闭环管理</h3>
+        <p>拍照即上报，AI 自动定级。指派 → 整改 → 复核 → 销号，全流程留痕可追溯，逾期自动预警。</p>
+      </div>
+
+      <div class="glass-card feature-card fade-in d2">
+        <div class="ico">
+          <svg width="56" height="56" viewBox="0 0 64 64" fill="none">
+            <rect x="10" y="14" width="44" height="36" rx="3" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M18 24h28M18 32h20M18 40h12" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" opacity=".65"/>
+            <circle cx="46" cy="46" r="8" fill="var(--bg-page)" stroke="currentColor" stroke-width="1.6"/>
+            <path d="M46 42v4l3 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <h3>巡查打卡 · 计划下发</h3>
+        <p>扫码定位 + 拍照佐证 + 实时打卡。后台灵活配置点位与频次，巡查记录自动归档。</p>
+      </div>
+
+      <div class="glass-card feature-card fade-in d3">
+        <div class="ico">
+          <svg width="56" height="56" viewBox="0 0 64 64" fill="none">
+            <path d="M12 32l8-8 8 8-8 8-8-8z" stroke="currentColor" stroke-width="1.4" opacity=".7"/>
+            <path d="M28 32l8-8 8 8-8 8-8-8z" stroke="currentColor" stroke-width="1.4" opacity=".85"/>
+            <path d="M44 32l8-8 8 8-8 8-8-8z" stroke="currentColor" stroke-width="1.4"/>
+            <circle cx="32" cy="14" r="3" fill="currentColor"/>
+            <circle cx="52" cy="20" r="3" fill="currentColor" opacity=".7"/>
+            <circle cx="12" cy="20" r="3" fill="currentColor" opacity=".7"/>
+          </svg>
+        </div>
+        <h3>双重预防 · 风险点</h3>
+        <p>风险点识别 + 管控措施清单 + 定期复核。重大风险实时弹窗，分级管控一图可见。</p>
+      </div>
+
+      <div class="glass-card feature-card fade-in d1">
+        <div class="ico">
+          <svg width="56" height="56" viewBox="0 0 64 64" fill="none">
+            <rect x="8" y="16" width="48" height="32" rx="3" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M8 24h48" stroke="currentColor" stroke-width="1.2" opacity=".65"/>
+            <path d="M32 16v32" stroke="currentColor" stroke-width="1.2" opacity=".65"/>
+            <circle cx="20" cy="36" r="3" fill="currentColor" opacity=".6"/>
+            <circle cx="44" cy="36" r="3" fill="currentColor"/>
+          </svg>
+        </div>
+        <h3>在线培训 · 题库考核</h3>
+        <p>视频课程 + 文档学习 + 在线考试。进度自动跟踪，档案完整留存，培训记录一键导出。</p>
+      </div>
+
+      <div class="glass-card feature-card fade-in d2">
+        <div class="ico">
+          <svg width="56" height="56" viewBox="0 0 64 64" fill="none">
+            <path d="M32 8L20 20h6v14h12V20h6L32 8z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>
+            <rect x="14" y="40" width="36" height="16" rx="2" stroke="currentColor" stroke-width="1.4"/>
+            <path d="M22 48h20" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <h3>应急管理 · 预案演练</h3>
+        <p>应急预案电子化 · 应急通讯录 · 演练记录归档。发生突发事件时一键触达所有责任人。</p>
+      </div>
+
+      <div class="glass-card feature-card fade-in d3">
+        <div class="ico">
+          <svg width="56" height="56" viewBox="0 0 64 64" fill="none">
+            <path d="M10 50V30M22 50V20M34 50V12M46 50V26" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <path d="M6 50h52" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+            <circle cx="10" cy="30" r="2.5" fill="currentColor"/>
+            <circle cx="22" cy="20" r="2.5" fill="currentColor"/>
+            <circle cx="34" cy="12" r="2.5" fill="currentColor"/>
+            <circle cx="46" cy="26" r="2.5" fill="currentColor"/>
+          </svg>
+        </div>
+        <h3>统计报表 · 决策支持</h3>
+        <p>隐患趋势 · 整改率排名 · 培训完成率 · 月度汇总报表。多维度图表，让数据驱动管理决策。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="ds-container"><div class="section-divider"></div></div>
+
+<!-- 业务流程 -->
+<section id="flow" class="section">
+  <div class="ds-container">
+    <div class="section-eyebrow-row">
+      <div class="badge-pill"><span>HAZARD LIFECYCLE</span></div>
+    </div>
+    <h2 class="section-title">隐患治理 PDCA 闭环</h2>
+    <p class="section-sub">随手拍 → 分派 → 整改 → 复核 → 销号 · 全流程留痕 · 逾期自动预警</p>
+
+    <div class="timeline">
+      <div class="tl-step fade-in d1">
+        <div class="num">1</div>
+        <h4>随手拍上报</h4>
+        <p>员工拍照 + 选风险点 + 选级别</p>
+      </div>
+      <div class="tl-step fade-in d2">
+        <div class="num">2</div>
+        <h4>智能分派</h4>
+        <p>系统推送给责任单位 / 责任人</p>
+      </div>
+      <div class="tl-step fade-in d3">
+        <div class="num">3</div>
+        <h4>现场整改</h4>
+        <p>整改中提交照片 + 整改说明</p>
+      </div>
+      <div class="tl-step fade-in d4">
+        <div class="num">4</div>
+        <h4>复核销号</h4>
+        <p>安全员现场验收 + 闭环归档</p>
+      </div>
+    </div>
+
+    <div style="margin-top:64px">
+      <div class="screenshot-frame">
+        <img src="/s/tk-safe-upload/02_portal.png" alt="工作台">
+      </div>
+      <p class="screenshot-caption">// Figure 1 · 统一工作台 · 三端一体聚合入口</p>
+    </div>
+  </div>
+</section>
+
+<div class="ds-container"><div class="section-divider"></div></div>
+
+<!-- 技术栈 -->
+<section id="tech" class="section">
+  <div class="ds-container">
+    <div class="section-eyebrow-row">
+      <div class="badge-pill"><span>TECH STACK</span></div>
+    </div>
+    <h2 class="section-title">技术栈</h2>
+    <p class="section-sub">轻量、稳定、易部署</p>
+
+    <div class="tech-row">
+      <div class="tech-chip"><div class="name">Python 3.12</div><div class="role">Runtime</div></div>
+      <div class="tech-chip"><div class="name">Flask 2.x</div><div class="role">Web</div></div>
+      <div class="tech-chip"><div class="name">SQLite</div><div class="role">Storage</div></div>
+      <div class="tech-chip"><div class="name">Jinja2</div><div class="role">Template</div></div>
+      <div class="tech-chip"><div class="name">Tailwind</div><div class="role">CSS</div></div>
+      <div class="tech-chip"><div class="name">Alpine.js</div><div class="role">JS</div></div>
+      <div class="tech-chip"><div class="name">ECharts</div><div class="role">Chart</div></div>
+      <div class="tech-chip"><div class="name">Mermaid</div><div class="role">Diagram</div></div>
+      <div class="tech-chip"><div class="name">SHA-256</div><div class="role">Crypto</div></div>
+      <div class="tech-chip"><div class="name">RBAC</div><div class="role">Auth</div></div>
+      <div class="tech-chip"><div class="name">Gitea</div><div class="role">Backup</div></div>
+      <div class="tech-chip"><div class="name">Caddy</div><div class="role">Proxy</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="ds-container">
+  <div class="cta-banner">
+    <h3>立即体验安全生产智慧管理</h3>
+    <p>统一工作台 · 三端一体 · 全流程留痕</p>
+    <div class="actions">
+      <a class="btn-primary" href="/login?next=/portal" target="_blank">🚀 进入工作台</a>
+      <a class="btn-secondary" href="/s/tk-safe-upload/w/home" target="_blank">📖 查看说明书</a>
+    </div>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="ds-container">
+    <div>
+      <a href="/m/library">📚 资料库</a>
+      <a href="/m/training">🎓 培训中心</a>
+      <a href="/admin/reports">📈 数据报表</a>
+      <a href="/screen">📺 调度大屏</a>
+      <a href="/s/tk-safe-upload/w/home">📖 使用说明</a>
+    </div>
+    <div>TK-Safe-UpLoad · 大鹏投控安全生产一体化智慧管理平台</div>
+    <div class="mono-line">v3.0 · Open Source under MIT · 移动端 / PC 端 / 大屏 三端一体</div>
+  </div>
+</footer>
+
+<script>
+function copyCmd(){
+  const box=document.getElementById('cmdBox');
+  const text=box.innerText;
+  navigator.clipboard?.writeText(text).then(()=>{
+    const btn=document.querySelector('.terminal-copy');
+    const old=btn.innerHTML;
+    btn.innerHTML='<svg width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>已复制';
+    setTimeout(()=>btn.innerHTML=old,1500);
+  });
+}
+const TAB_CONTENT={
+  t1:document.getElementById('cmdBox').innerHTML,
+  t2:`<span class="comment"># PC 管理后台（仅管理员 / 安全员）</span>
+<span class="prompt">$</span> open  http://192.168.11.70:5111/admin
+
+<span class="comment"># 主要功能模块</span>
+<span class="prompt">▸</span> <span style="color:#86efac">基础台账</span>  设备/人员/物资/相关方
+<span class="prompt">▸</span> <span style="color:#86efac">隐患闭环</span>  派单·整改·复核·销号
+<span class="prompt">▸</span> <span style="color:#86efac">双重预防</span>  风险点·管控措施
+<span class="prompt">▸</span> <span style="color:#86efac">培训应急</span>  课程·演练·预案
+<span class="prompt">▸</span> <span style="color:#86efac">统计报表</span>  趋势·排名·导出`,
+  t3:`<span class="comment"># 可视化大屏（公开访问）</span>
+<span class="prompt">$</span> open  http://192.168.11.70:5111/screen
+
+<span class="comment"># 投屏场景</span>
+<span class="prompt">▸</span> <span style="color:#86efac">公司大屏</span>      实时展示
+<span class="prompt">▸</span> <span style="color:#86efac">参观接待</span>      直观展示成果
+<span class="prompt">▸</span> <span style="color:#86efac">应急指挥</span>      集中态势感知
+
+<span class="comment"># 数据每 30s 自动刷新</span>
+<span class="prompt">$</span> <span style="color:#fcd34d">cache: live · sources: 6</span>`
+};
+document.querySelectorAll('.code-tab').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('.code-tab').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('cmdBox').innerHTML=TAB_CONTENT[btn.dataset.tab];
+  });
+});
+</script>
+<a id="leon-jump-btn-wan" href="http://119.145.17.34:5111/" target="_blank" rel="noopener" style="position:fixed;right:24px;bottom:22px;z-index:99999;display:flex;align-items:center;gap:8px;border-radius:48px;font-size:14px;font-weight:600;text-decoration:none;padding:12px 22px;background:linear-gradient(135deg,#10b981,#065f46);color:#fff;box-shadow:0 4px 18px rgba(16,185,129,.45);font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif;">🌐 进入系统</a>
+</body>
+</html>

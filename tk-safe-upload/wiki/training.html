@@ -1,0 +1,397 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>training · tk-safe-upload 说明</title><style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;background:#fafbff;color:#1a2332;line-height:1.75}
+a{color:#2f6bff;text-decoration:none}
+.wrap{max-width:920px;margin:0 auto;padding:32px 20px 80px}
+.back{font-size:13px;color:#8a94a6}
+h1{font-size:26px;font-weight:800;margin:8px 0 4px;border-bottom:2px solid #eef1f8;padding-bottom:14px}
+.page-title{font-size:16px;color:#5c6670;margin:-2px 0 20px}
+.wiki-body{margin-top:8px}
+.wiki-body h1,.wiki-body h2,.wiki-body h3{margin:1.2em 0 .5em;line-height:1.4}
+.wiki-body h2{font-size:22px}.wiki-body h3{font-size:18px}
+.wiki-body p{margin:.8em 0}
+.wiki-body ul,.wiki-body ol{margin:.6em 0 .6em 1.6em}
+.wiki-body img{max-width:100%}
+.wiki-body pre{background:#0f1523;color:#e8edff;padding:14px 16px;border-radius:10px;overflow:auto;margin:.9em 0}
+.wiki-body code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:.9em}
+.wiki-body pre code{background:none;padding:0}
+.wiki-body table{border-collapse:collapse;margin:.9em 0;width:100%}
+.wiki-body th,.wiki-body td{border:1px solid #e2e7f2;padding:8px 12px;text-align:left}
+.wiki-body th{background:#f4f6fc}
+.wiki-body blockquote{border-left:4px solid #bcd0ff;background:#f4f8ff;padding:10px 16px;margin:.9em 0;color:#456}
+.wiki-body a{color:#2f6bff;border-bottom:1px dashed #bcd0ff}
+.nav{margin:14px 0 0;display:flex;gap:10px;flex-wrap:wrap}
+.nav a{background:#eef3ff;border:1px solid #d9e4ff;padding:6px 16px;border-radius:20px;font-size:13px;color:#2f6bff}
+.mark{color:#c0392b}
+</style></head><body><div class="wrap"><a class="back" href="../index.html">← 项目合辑</a><h1>training</h1><div class="page-title">tk-safe-upload · 使用说明（只读镜像）</div><div class="nav"><a href="../index.html">返回合辑</a><a href="./home.html">概览</a></div><div class="wiki-body"><h1>培训与学习系统</h1>
+<blockquote>
+<p>支持视频课程播放、学习进度追踪、在线考试考核</p>
+</blockquote>
+<hr />
+<h2>学习闭环流程</h2>
+<pre class="mermaid">
+flowchart TD
+    A["🎬 选择课程<br/>全部/已完成"] --> B{"课程类型"}
+    B -->|视频| C["▶️ 视频学习<br/>自动记录进度"]
+    B -->|文档| D["📖 打开课件<br/>阅读学习"]
+    C --> E{"进度 ≥ 90%?"}
+    E -->|否| C
+    E -->|是| F["📝 参加考试<br/>5道选择题"]
+    D --> F
+    F --> G{"分数 ≥ 60?"}
+    G -->|否| H["❌ 未通过<br/>可重新学习"]
+    H --> C
+    G -->|是| I["✅ 课程完成<br/>自动归档学习记录"]
+
+    style A fill:#1a237e,stroke:#4a6cf7,color:#fff
+    style C fill:#1e3a8a,stroke:#60a5fa,color:#fff
+    style D fill:#1e40af,stroke:#3b82f6,color:#fff
+    style F fill:#854d0e,stroke:#facc15,color:#fff
+    style I fill:#14532d,stroke:#22c55e,color:#fff
+    style H fill:#7f1d1d,stroke:#f87171,color:#fff
+</pre>
+
+<h2>功能概述</h2>
+<p>培训系统提供完整的在线学习体验：</p>
+<table>
+<thead>
+<tr>
+<th>功能</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>🎬 <strong>视频课程</strong></td>
+<td>内嵌视频播放器，支持暂停/继续/进度保存</td>
+</tr>
+<tr>
+<td>📊 <strong>进度追踪</strong></td>
+<td>自动记录学习进度、观看时长</td>
+</tr>
+<tr>
+<td>📝 <strong>在线考试</strong></td>
+<td>安全知识测验，60分及格</td>
+</tr>
+<tr>
+<td>✅ <strong>完成认证</strong></td>
+<td>视频看完+考试通过=课程完成</td>
+</tr>
+<tr>
+<td>📈 <strong>管理统计</strong></td>
+<td>管理员可查看全员学习进度</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>移动端 - 培训页面</h2>
+<p><img alt="线上培训" src="/s/tk-safe-upload/26_mobile_training_new.png" /></p>
+<h3>页面布局</h3>
+<h4>顶部导航</h4>
+<ul>
+<li><strong>← 返回按钮</strong>：返回首页</li>
+<li><strong>🎓 线上培训</strong>：页面标题</li>
+</ul>
+<h4>课程分类标签</h4>
+<p>两个切换标签：</p>
+<table>
+<thead>
+<tr>
+<th>标签</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>全部课程</strong></td>
+<td>显示所有课程</td>
+</tr>
+<tr>
+<td><strong>已完成</strong></td>
+<td>只显示已完成的课程</td>
+</tr>
+</tbody>
+</table>
+<h4>学习统计卡片</h4>
+<p>蓝色渐变背景，显示三项数据：</p>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>已完成</strong></td>
+<td>已完成的课程数量</td>
+</tr>
+<tr>
+<td><strong>学习小时</strong></td>
+<td>累计学习时长（小时）</td>
+</tr>
+<tr>
+<td><strong>考试通过率</strong></td>
+<td>考试及格的比例</td>
+</tr>
+</tbody>
+</table>
+<h4>课程列表</h4>
+<p>每个课程卡片显示：</p>
+<p><strong>视频课程卡片：</strong></p>
+<pre class="codehilite"><code>┌────────────────────────────────┐
+│  ┌──────────────────────────┐  │
+│  │                          │  │
+│  │     视频播放器            │  │
+│  │    (可播放/暂停/拖动)     │  │
+│  │                          │  │
+│  └──────────────────────────┘  │
+│                                │
+│  课程名称                      │
+│  [分类标签] [视频 · 30分钟]     │
+│  课程简介描述...                │
+│                                │
+│  学习进度 ████████░░ 80%       │
+│                                │
+│  [开始学习] [参加考试]          │
+└────────────────────────────────┘
+</code></pre>
+
+<p><strong>文档课程卡片：</strong></p>
+<pre class="codehilite"><code>┌────────────────────────────────┐
+│  课程名称                      │
+│  [分类标签] [PDF · 15分钟]      │
+│  课程简介描述...                │
+│                                │
+│  学习进度 ░░░░░░░░░░ 0%        │
+│                                │
+│  [打开课件] [参加考试]          │
+└────────────────────────────────┘
+</code></pre>
+
+<hr />
+<h3>操作流程</h3>
+<h4>1. 观看视频学习</h4>
+<p><strong>操作步骤：</strong>
+1. 点击课程卡片上的<strong>「开始学习」</strong>按钮
+2. 视频自动开始播放
+3. 可以使用播放器控制：
+   - ⏯️ 播放/暂停
+   - ⏮️ 快退10秒
+   - ⏭️ 快进10秒
+   - 🔊 音量调节
+   - ⛶ 全屏播放
+4. 系统自动记录观看进度
+5. 视频播放到90%以上视为<strong>已完成视频部分</strong></p>
+<p><strong>进度保存：</strong>
+- 系统每10秒自动保存一次进度
+- 关闭页面后再次打开，自动从上次位置继续播放
+- 进度条实时显示完成百分比</p>
+<h4>2. 打开文档学习</h4>
+<p><strong>操作步骤：</strong>
+1. 点击课程卡片上的<strong>「打开课件」</strong>按钮
+2. 文档在新标签页中打开
+3. 阅读完成后返回培训页面</p>
+<h4>3. 参加考试</h4>
+<p><strong>触发条件：</strong>
+- 视频课程：视频播放进度达到90%以上
+- 文档课程：点击「参加考试」按钮</p>
+<p><strong>考试流程：</strong>
+1. 点击<strong>「参加考试」</strong>按钮
+2. 弹出考试窗口，显示5道安全知识选择题
+3. 每题4个选项，选择一个正确答案
+4. 答完所有题目后点击<strong>「提交答卷」</strong>
+5. 系统自动评分：
+   - <strong>60分及以上</strong>：通过考试 ✅
+   - <strong>60分以下</strong>：未通过，可重新学习后再次考试</p>
+<p><strong>考试题目示例：</strong>
+| 题号 | 题目 |
+|------|------|
+| 1 | 灭火器使用时应站在哪个方向？ |
+| 2 | 高处作业的定义是指在几米及以上作业？ |
+| 3 | 发现火灾时应首先做什么？ |
+| 4 | 安全帽的作用是什么？ |
+| 5 | 触电急救的第一步是什么？ |</p>
+<h4>4. 查看学习进度</h4>
+<p>进度条颜色含义：</p>
+<table>
+<thead>
+<tr>
+<th>进度</th>
+<th>颜色</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0%</td>
+<td>灰色</td>
+<td>未开始</td>
+</tr>
+<tr>
+<td>1-89%</td>
+<td>蓝色</td>
+<td>学习中</td>
+</tr>
+<tr>
+<td>90-100%</td>
+<td>绿色</td>
+<td>已完成</td>
+</tr>
+</tbody>
+</table>
+<p>完成标记：
+- ✅ <strong>已完成</strong>：视频看完+考试通过
+- 📖 <strong>学习中</strong>：已开始但未完成
+- 空白：未开始</p>
+<hr />
+<h2>PC后台 - 培训管理</h2>
+<p><img alt="培训管理" src="/s/tk-safe-upload/27_admin_training_new.png" /></p>
+<h3>管理员可以做什么？</h3>
+<h4>1. 查看学习统计</h4>
+<p>页面顶部显示四项关键指标：</p>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>总课程数</strong></td>
+<td>已创建的课程数量</td>
+</tr>
+<tr>
+<td><strong>已完成人次</strong></td>
+<td>所有学员完成课程的总人次</td>
+</tr>
+<tr>
+<td><strong>总学习小时</strong></td>
+<td>所有学员累计学习时长</td>
+</tr>
+<tr>
+<td><strong>考试通过率</strong></td>
+<td>考试及格的比例</td>
+</tr>
+</tbody>
+</table>
+<h4>2. 管理课程库</h4>
+<p><strong>新增课程：</strong>
+1. 点击右上角<strong>「+ 新增课程」</strong>按钮
+2. 填写课程信息：
+   - <strong>课程名称</strong>（必填）
+   - <strong>课程简介</strong>：课程描述说明
+   - <strong>分类</strong>：课程类别
+   - <strong>学时(分钟)</strong>：预计学习时长
+   - <strong>视频链接</strong>：视频URL地址（可选）
+   - <strong>上传课件</strong>：支持视频/PDF/Word文件
+3. 点击<strong>「保存」</strong></p>
+<p><strong>查看课程：</strong>
+- 课程列表显示：名称、分类、文件类型、时长
+- 点击「课件」链接可打开课程文件</p>
+<p><strong>删除课程：</strong>
+- 点击课程行内的「删除」按钮</p>
+<h4>3. 查看学习进度明细</h4>
+<p>详细的进度表格：</p>
+<table>
+<thead>
+<tr>
+<th>列名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>学员</strong></td>
+<td>学员姓名</td>
+</tr>
+<tr>
+<td><strong>课程</strong></td>
+<td>课程名称</td>
+</tr>
+<tr>
+<td><strong>签到时间</strong></td>
+<td>首次学习时间</td>
+</tr>
+<tr>
+<td><strong>学习时长</strong></td>
+<td>累计观看分钟数</td>
+</tr>
+<tr>
+<td><strong>进度</strong></td>
+<td>学习进度百分比+进度条</td>
+</tr>
+<tr>
+<td><strong>状态</strong></td>
+<td>已完成/学习中/未开始</td>
+</tr>
+<tr>
+<td><strong>考试分数</strong></td>
+<td>考试得分（如有）</td>
+</tr>
+</tbody>
+</table>
+<p>颜色编码：
+- 🟢 <strong>绿色</strong>：已完成
+- 🟡 <strong>黄色</strong>：学习中
+- ⚪ <strong>灰色</strong>：未开始</p>
+<h4>4. 导出学习数据</h4>
+<p>点击右上角<strong>「导出进度」</strong>按钮，下载Excel文件，包含：
+- 学员、课程、签到时间、学习时长、进度、是否完成、考试分数</p>
+<hr />
+<h2>学习监督机制</h2>
+<h3>自动监督</h3>
+<table>
+<thead>
+<tr>
+<th>监督项</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>进度追踪</strong></td>
+<td>每10秒自动上报观看进度</td>
+</tr>
+<tr>
+<td><strong>位置记忆</strong></td>
+<td>关闭后重新打开自动续播</td>
+</tr>
+<tr>
+<td><strong>完成判定</strong></td>
+<td>视频观看≥90%才算完成视频部分</td>
+</tr>
+<tr>
+<td><strong>考试把关</strong></td>
+<td>必须考试≥60分才算完成课程</td>
+</tr>
+</tbody>
+</table>
+<h3>管理员监督</h3>
+<table>
+<thead>
+<tr>
+<th>功能</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>进度查看</strong></td>
+<td>管理员可查看每个学员的学习进度</td>
+</tr>
+<tr>
+<td><strong>时长统计</strong></td>
+<td>记录每个学员的实际学习时长</td>
+</tr>
+<tr>
+<td><strong>考试成绩</strong></td>
+<td>记录每次考试的得分</td>
+</tr>
+<tr>
+<td><strong>数据导出</strong></td>
+<td>导出Excel报表用于考核</td>
+</tr>
+</tbody>
+</table></div></div></body></html>

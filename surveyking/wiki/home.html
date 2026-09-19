@@ -1,0 +1,114 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>home · surveyking 说明</title><style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;background:#fafbff;color:#1a2332;line-height:1.75}
+a{color:#2f6bff;text-decoration:none}
+.wrap{max-width:920px;margin:0 auto;padding:32px 20px 80px}
+.back{font-size:13px;color:#8a94a6}
+h1{font-size:26px;font-weight:800;margin:8px 0 4px;border-bottom:2px solid #eef1f8;padding-bottom:14px}
+.page-title{font-size:16px;color:#5c6670;margin:-2px 0 20px}
+.wiki-body{margin-top:8px}
+.wiki-body h1,.wiki-body h2,.wiki-body h3{margin:1.2em 0 .5em;line-height:1.4}
+.wiki-body h2{font-size:22px}.wiki-body h3{font-size:18px}
+.wiki-body p{margin:.8em 0}
+.wiki-body ul,.wiki-body ol{margin:.6em 0 .6em 1.6em}
+.wiki-body img{max-width:100%}
+.wiki-body pre{background:#0f1523;color:#e8edff;padding:14px 16px;border-radius:10px;overflow:auto;margin:.9em 0}
+.wiki-body code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:.9em}
+.wiki-body pre code{background:none;padding:0}
+.wiki-body table{border-collapse:collapse;margin:.9em 0;width:100%}
+.wiki-body th,.wiki-body td{border:1px solid #e2e7f2;padding:8px 12px;text-align:left}
+.wiki-body th{background:#f4f6fc}
+.wiki-body blockquote{border-left:4px solid #bcd0ff;background:#f4f8ff;padding:10px 16px;margin:.9em 0;color:#456}
+.wiki-body a{color:#2f6bff;border-bottom:1px dashed #bcd0ff}
+.nav{margin:14px 0 0;display:flex;gap:10px;flex-wrap:wrap}
+.nav a{background:#eef3ff;border:1px solid #d9e4ff;padding:6px 16px;border-radius:20px;font-size:13px;color:#2f6bff}
+.mark{color:#c0392b}
+</style></head><body><div class="wrap"><a class="back" href="../index.html">← 项目合辑</a><h1>home</h1><div class="page-title">surveyking · 使用说明（只读镜像）</div><div class="nav"><a href="../index.html">返回合辑</a><a href="./home.html">概览</a></div><div class="wiki-body"><h1>卷王问卷考试系统 · 操作说明书</h1>
+<blockquote>
+<p>📋 SurveyKing — 做更好的调查问卷系统
+🔗 访问地址：http://119.145.17.34:3010/
+🖥️ 部署设备：Leon-Docker（192.168.11.64）
+📦 部署方式：Docker 单容器，H2 内置数据库</p>
+</blockquote>
+<hr />
+<h2>说明书导航</h2>
+<p>本说明书按功能模块拆分为多个页面，互相引用，类似多链笔记。请从下方入口开始：</p>
+<table>
+<thead>
+<tr>
+<th>页面</th>
+<th>内容</th>
+<th>适用角色</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="wiki/login.html">🔐 登录与初始化</a></td>
+<td>系统登录、首次初始化、语言切换</td>
+<td>所有用户</td>
+</tr>
+<tr>
+<td><a href="wiki/dashboard.html">🏠 首页仪表盘</a></td>
+<td>仪表盘、快捷导航、数据概览</td>
+<td>所有用户</td>
+</tr>
+<tr>
+<td><a href="wiki/projects.html">📁 我的项目</a></td>
+<td>项目列表、新建/搜索/视图切换</td>
+<td>管理员/普通用户</td>
+</tr>
+<tr>
+<td><a href="wiki/survey-editor.html">✏️ 问卷编辑器</a></td>
+<td>题型大全、拖拽设计、外观/逻辑/设置</td>
+<td>管理员/编辑者</td>
+</tr>
+<tr>
+<td><a href="wiki/question-bank.html">📚 题库中心</a></td>
+<td>我的题库、问题管理、我的笔记</td>
+<td>管理员/编辑者</td>
+</tr>
+<tr>
+<td><a href="wiki/practice.html">📝 我的练习</a></td>
+<td>练习列表、进度跟踪</td>
+<td>普通用户</td>
+</tr>
+<tr>
+<td><a href="wiki/template.html">🎨 模板广场</a></td>
+<td>公共库/私有库、分类筛选、模板复用</td>
+<td>所有用户</td>
+</tr>
+<tr>
+<td><a href="wiki/system.html">⚙️ 系统管理</a></td>
+<td>用户/角色/组织/岗位/字典/系统设置</td>
+<td>管理员</td>
+</tr>
+<tr>
+<td><a href="wiki/appendix.html">📎 附录</a></td>
+<td>API 接口、部署信息、版本记录</td>
+<td>管理员/开发者</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>系统概览</h2>
+<p>卷王问卷考试系统（SurveyKing）是一款开源的问卷调查与在线考试平台，支持：</p>
+<ul>
+<li><strong>问卷调查</strong>：30+ 题型（单选/多选/填空/矩阵/NPS/签名/扫码等）</li>
+<li><strong>在线考试</strong>：题库管理、自动组卷、限时考试、成绩统计</li>
+<li><strong>练习模式</strong>：错题本、笔记、进度跟踪</li>
+<li><strong>AI 智能创建</strong>：开启 AI 功能后，可通过自然语言描述自动生成问卷</li>
+<li><strong>数据备份</strong>：一键导出/导入 ndjson 格式备份包</li>
+</ul>
+<hr />
+<h2>快速上手</h2>
+<ol>
+<li>访问 http://119.145.17.34:3010/</li>
+<li>使用管理员提供的账号登录（详见 <a href="wiki/login.html">登录页</a>）</li>
+<li>点击首页「创建问卷」或「创建考试」开始使用</li>
+<li>在 <a href="wiki/survey-editor.html">问卷编辑器</a> 中拖拽添加题目</li>
+<li>保存后通过 <a href="wiki/projects.html">我的项目</a> 管理和分享</li>
+</ol>
+<hr />
+<blockquote>
+<p>💡 本说明书由 AI 自动生成，基于 2026-09 实际系统截图。如有疑问请联系管理员。</p>
+</blockquote></div></div></body></html>

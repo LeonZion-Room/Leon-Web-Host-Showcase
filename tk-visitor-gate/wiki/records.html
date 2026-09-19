@@ -1,0 +1,89 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>records · tk-visitor-gate 说明</title><style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;background:#fafbff;color:#1a2332;line-height:1.75}
+a{color:#2f6bff;text-decoration:none}
+.wrap{max-width:920px;margin:0 auto;padding:32px 20px 80px}
+.back{font-size:13px;color:#8a94a6}
+h1{font-size:26px;font-weight:800;margin:8px 0 4px;border-bottom:2px solid #eef1f8;padding-bottom:14px}
+.page-title{font-size:16px;color:#5c6670;margin:-2px 0 20px}
+.wiki-body{margin-top:8px}
+.wiki-body h1,.wiki-body h2,.wiki-body h3{margin:1.2em 0 .5em;line-height:1.4}
+.wiki-body h2{font-size:22px}.wiki-body h3{font-size:18px}
+.wiki-body p{margin:.8em 0}
+.wiki-body ul,.wiki-body ol{margin:.6em 0 .6em 1.6em}
+.wiki-body img{max-width:100%}
+.wiki-body pre{background:#0f1523;color:#e8edff;padding:14px 16px;border-radius:10px;overflow:auto;margin:.9em 0}
+.wiki-body code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:.9em}
+.wiki-body pre code{background:none;padding:0}
+.wiki-body table{border-collapse:collapse;margin:.9em 0;width:100%}
+.wiki-body th,.wiki-body td{border:1px solid #e2e7f2;padding:8px 12px;text-align:left}
+.wiki-body th{background:#f4f6fc}
+.wiki-body blockquote{border-left:4px solid #bcd0ff;background:#f4f8ff;padding:10px 16px;margin:.9em 0;color:#456}
+.wiki-body a{color:#2f6bff;border-bottom:1px dashed #bcd0ff}
+.nav{margin:14px 0 0;display:flex;gap:10px;flex-wrap:wrap}
+.nav a{background:#eef3ff;border:1px solid #d9e4ff;padding:6px 16px;border-radius:20px;font-size:13px;color:#2f6bff}
+.mark{color:#c0392b}
+</style></head><body><div class="wrap"><a class="back" href="../index.html">← 项目合辑</a><h1>records</h1><div class="page-title">tk-visitor-gate · 使用说明（只读镜像）</div><div class="nav"><a href="../index.html">返回合辑</a><a href="./home.html">概览</a></div><div class="wiki-body"><h1>通行记录查询</h1>
+<p>管理员登录 → 管理后台 →「访客查询」标签页。</p>
+<p><img alt="访客查询" src="http://119.145.17.34:5001/api/v1/attachment/download?id=719" /></p>
+<hr />
+<h2>两种查询方式</h2>
+<table>
+<thead>
+<tr>
+<th>方式</th>
+<th>说明</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>访客开门记录查询</td>
+<td>按手机号/姓名匹配分配记录，经过归因算法</td>
+<td>查某位访客的进出记录</td>
+</tr>
+<tr>
+<td>外部账号通行记录查询</td>
+<td>按账户编号/姓名查原始记录</td>
+<td>排查账户级别问题</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>访客开门记录查询（归因）</h2>
+<h3>操作步骤</h3>
+<ol>
+<li>进「管理后台」→「访客查询」→「访客开门记录查询」</li>
+<li>输入访客手机号或姓名</li>
+<li>点击搜索，系统匹配所有分配记录</li>
+<li>点击某条记录查看刷卡明细</li>
+</ol>
+<h3>归因算法</h3>
+<pre class="codehilite"><code class="language-mermaid">flowchart TD
+    A[输入手机号/姓名] --&gt; B[匹配分配记录]
+    B --&gt; C[每条记录按时段查C3刷卡]
+    C --&gt; D[二次校验: cardDay是否在时段内]
+    D --&gt; E[按授权门禁过滤]
+    E --&gt; F[去重]
+    F --&gt; G[附加归因元信息]
+</code></pre>
+
+<ul>
+<li><strong>精确到人</strong>：即使多个访客共用一个账户，也能按时间窗口把记录分对</li>
+<li><strong>精确到门</strong>：按授权的门禁列表过滤，只显示该访客有权限的门</li>
+<li><strong>时间窗口校验</strong>：每条刷卡记录二次校验是否落在分配时段内</li>
+</ul>
+<hr />
+<h2>外部账号通行记录查询</h2>
+<p>直接按<strong>外部账号编号</strong>或<strong>姓名</strong>查询该账号的所有通行记录（门禁刷卡 + 人脸通行合并展示），不经过访客归因。</p>
+<hr />
+<h2>通行证快速展示</h2>
+<p>输入账户编号，直接调取 C3 生成开门二维码并展示通行证。适合快速查看某个账户的通行凭证。</p>
+<hr />
+<h2>访客刷卡明细查询</h2>
+<p>精确查询门禁刷卡记录，支持访客/时间/门禁多维筛选。</p>
+<hr />
+<h2>人脸通行记录查询</h2>
+<p>按时间/员工编号/设备名称查询 C3 人脸通行记录。共 61 台人脸设备。</p>
+<hr />
+<p><a href="/w/qr-code-gate/account">← 账户池管理</a> <a href="/w/qr-code-gate/admin">管理员系统 →</a></p></div></div></body></html>

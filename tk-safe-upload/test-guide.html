@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TK-Safe-UpLoad · 手动点检测试流程</title>
+<meta name="description" content="安全生产平台逐按钮手动点检手册：照着点，验证每个按钮与数据绑定">
+<style>
+:root{
+  --bg:#ffffff;--bg2:#f7f8fb;--card:#ffffff;
+  --rule:rgba(15,23,42,.07);
+  --text:#1a1a1a;--muted:#5c6670;--muted2:#8a93a0;
+  --a1:#3d5afe;--a2:#7e57c2;
+  --green:#43a047;--orange:#fb8c00;--red:#e53935;
+  --grad2:linear-gradient(135deg,#448aff,#7c4dff);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;overflow-x:hidden}
+a{color:var(--a1);text-decoration:none}
+a:hover{color:#555}
+img{max-width:100%;display:block}
+.bg-grid{position:fixed;inset:0;background-image:linear-gradient(rgba(0,0,0,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(0,0,0,.04) 1px,transparent 1px);background-size:48px 48px;pointer-events:none;z-index:0;mask-image:radial-gradient(ellipse at center,#000 30%,transparent 80%);-webkit-mask-image:radial-gradient(ellipse at center,#000 30%,transparent 80%)}
+nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.92);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid var(--rule)}
+.nav-in{max-width:1280px;margin:0 auto;padding:0 32px;height:64px;display:flex;align-items:center;justify-content:space-between}
+.brand{font-weight:800;font-size:18px;display:flex;align-items:center;gap:11px;color:#202124}
+.brand .dot{width:34px;height:34px;border-radius:10px;background:var(--grad2);display:flex;align-items:center;justify-content:center;font-size:18px;color:#fff;box-shadow:0 4px 12px rgba(124,77,255,.3)}
+.brand small{font-size:11px;color:var(--muted);font-weight:400;margin-left:8px;padding-left:8px;border-left:1px solid var(--rule);letter-spacing:.5px}
+.nav-links{display:flex;gap:22px;font-size:14px;font-weight:500}
+.nav-links a{color:var(--muted)}
+.nav-links a:hover{color:#1a1a1a}
+.nav-right{display:flex;align-items:center;gap:10px}
+.nav-btn{padding:8px 18px;border-radius:8px;font-size:13px;font-weight:600}
+.nav-btn.ghost{color:var(--muted);border:1px solid var(--rule)}
+.nav-btn.pri{background:var(--grad2);color:#fff;box-shadow:0 4px 14px rgba(124,77,255,.3)}
+.wrap{max-width:1280px;margin:0 auto;padding:0 32px;position:relative;z-index:2}
+section{padding:70px 0;position:relative;z-index:2}
+.sec-tag{display:inline-block;color:#448aff;font-size:12px;font-weight:700;letter-spacing:3px;text-transform:uppercase;padding:4px 12px;border:1px solid rgba(68,138,255,.35);border-radius:20px;background:rgba(68,138,255,.07);margin-bottom:14px}
+h2{font-size:clamp(1.7rem,3.2vw,2.2rem);font-weight:800;margin-bottom:14px;letter-spacing:-.5px}
+h2::after{content:'';display:block;width:56px;height:4px;border-radius:2px;margin-top:12px;background:linear-gradient(90deg,#448aff,#ff5252,#ffb300)}
+h2 em{font-style:normal;background:linear-gradient(100deg,#448aff,#7c4dff 45%,#ff5252);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.lead{color:var(--muted);font-size:15.5px;max-width:780px;margin-bottom:36px}
+.hero{padding:80px 0 50px}
+.hero h1{font-size:clamp(2.2rem,4.8vw,3.4rem);font-weight:800;line-height:1.15;letter-spacing:-1px;margin-bottom:20px}
+.hero h1 em{font-style:normal;background:linear-gradient(100deg,#448aff,#7c4dff 45%,#ff5252);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.hero p.sub{font-size:1.05rem;color:var(--muted);max-width:640px;margin-bottom:30px}
+.hero-cta{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:30px}
+.btn{padding:13px 28px;border-radius:10px;font-weight:600;font-size:14.5px;display:inline-flex;align-items:center;gap:8px}
+.btn.pri{background:var(--grad2);color:#fff;box-shadow:0 6px 18px rgba(124,77,255,.32)}
+.btn.ghost{border:1px solid var(--rule);color:var(--text);background:rgba(255,255,255,.6)}
+.progress{position:sticky;top:64px;z-index:90;background:rgba(255,255,255,.95);backdrop-filter:blur(10px);border-bottom:1px solid var(--rule);padding:10px 0}
+.progress .wrap{display:flex;align-items:center;gap:14px}
+.progress .bar{flex:1;height:10px;border-radius:6px;background:var(--bg2);border:1px solid var(--rule);overflow:hidden}
+.progress .bar i{display:block;height:100%;width:0;background:var(--grad2);border-radius:6px;transition:width .3s}
+.progress b{font-size:14px;white-space:nowrap}
+.flow{display:flex;flex-wrap:wrap;gap:0;align-items:stretch;margin:10px 0 30px}
+.flow .node{background:linear-gradient(145deg,#fff,#fafafa);border:1px solid var(--rule);border-radius:12px;padding:12px 16px;font-size:13.5px;font-weight:600;min-width:120px;text-align:center}
+.flow .arrow{align-self:center;padding:0 8px;color:var(--muted2);font-weight:700}
+.check{background:linear-gradient(145deg,#ffffff,#fafafa);border:1px solid var(--rule);border-radius:14px;padding:20px 22px;margin-bottom:14px;transition:.2s}
+.check.done{border-color:rgba(67,160,71,.45);background:linear-gradient(145deg,#f4faf4,#fff)}
+.check-head{display:flex;gap:12px;align-items:flex-start;cursor:pointer}
+.check-head input{width:20px;height:20px;margin-top:4px;accent-color:#43a047;flex-shrink:0;cursor:pointer}
+.check-head .no{font-size:12px;font-weight:800;color:#fff;background:var(--grad2);border-radius:8px;padding:2px 9px;white-space:nowrap;margin-top:3px}
+.check.done .check-head .no{background:var(--green)}
+.check-head h4{font-size:15.5px;font-weight:700}
+.check-head h4 span{font-weight:400;color:var(--muted);font-size:13.5px}
+.check-body{margin:12px 0 0 32px;font-size:14px;color:var(--muted)}
+.check-body .row{padding:7px 0;border-top:1px dashed var(--rule);display:flex;gap:10px}
+.check-body .row:first-child{border-top:none}
+.check-body .k{flex-shrink:0;font-weight:700;font-size:12.5px;padding:2px 10px;border-radius:7px;height:fit-content;white-space:nowrap}
+.k.why{background:rgba(68,138,255,.1);color:#448aff}
+.k.do{background:rgba(251,140,0,.12);color:var(--orange)}
+.k.see{background:rgba(67,160,71,.12);color:var(--green)}
+.k.data{background:rgba(124,77,255,.12);color:var(--a2)}
+.check-body code{background:rgba(68,138,255,.08);color:#448aff;padding:1px 6px;border-radius:5px;font-size:13px;font-family:'SF Mono',Consolas,monospace}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:14px}
+th,td{padding:11px 14px;text-align:left;border-bottom:1px solid var(--rule)}
+th{font-weight:700;background:rgba(0,0,0,.02)}
+td{color:var(--muted)}
+.tip-box{background:linear-gradient(135deg,rgba(68,138,255,.06),rgba(124,77,255,.04));border:1px solid rgba(68,138,255,.2);border-radius:12px;padding:16px 20px;margin:16px 0;font-size:13.5px;color:var(--muted)}
+.tip-box b{color:#448aff}
+.warn-box{background:linear-gradient(135deg,rgba(255,152,0,.06),rgba(255,87,34,.04));border:1px solid rgba(255,152,0,.25);border-radius:12px;padding:16px 20px;margin:16px 0;font-size:13.5px;color:var(--muted)}
+.warn-box b{color:var(--orange)}
+.shot{border:1px solid var(--rule);border-radius:14px;overflow:hidden;margin:18px 0}
+.shot img{width:100%}
+.shot .cap{padding:12px 18px;font-size:13px;color:var(--muted);background:#fafafa}
+footer{background:var(--bg2);border-top:1px solid var(--rule);padding:36px 0;text-align:center;position:relative;z-index:2}
+footer p{color:var(--muted2);font-size:13px}
+@media(max-width:768px){.nav-links{display:none}.wrap{padding:0 20px}section{padding:50px 0}.check-body{margin-left:0}}
+</style>
+</head>
+<body>
+<div class="bg-grid"></div>
+
+<nav>
+  <div class="nav-in">
+    <a class="brand" href="/s/tk-safe-upload/manual.html"><span class="dot">✅</span>TK-Safe-UpLoad<small>手动点检测试流程 v1.0</small></a>
+    <div class="nav-links">
+      <a href="#ready">准备</a><a href="#login">登录</a><a href="#mobile">移动端</a>
+      <a href="#admin">PC后台</a><a href="#screen">大屏</a><a href="#binding">绑定核对</a><a href="#cleanup">收尾</a>
+    </div>
+    <div class="nav-right">
+      <a class="nav-btn ghost" href="/s/tk-safe-upload/manual.html">用户手册</a>
+      <a class="nav-btn pri" href="http://192.168.11.70:5112" target="_blank">打开信创站 →</a>
+    </div>
+  </div>
+</nav>
+<div class="progress"><div class="wrap"><b id="pcount">已完成 0 / 0</b><div class="bar"><i id="pbar"></i></div><a href="#" id="preset" style="font-size:13px;white-space:nowrap">重置</a></div></div>
+
+<header class="hero"><div class="wrap">
+  <span class="sec-tag">Checklist</span>
+  <h1>手动点检<em>测试流程</em><br>照着点，个个按钮都验到</h1>
+  <p class="sub">本页是给<b>测试人员</b>用的。每一条都是一次点击：先讲<b>为什么</b>要点，再讲<b>点哪里</b>、<b>应该看到什么</b>、<b>数据落到哪张表</b>。点完一项就勾一项，进度条自动记忆（存在本机浏览器）。测试对象：<b>信创站 http://192.168.11.70:5112</b>（PG 信创库）。全程约 60 条点检。</p>
+  <div class="hero-cta">
+    <a class="btn pri" href="#ready">开始点检 →</a>
+    <a class="btn ghost" href="/s/tk-safe-upload/manual.html">📖 先看用户手册</a>
+  </div>
+  <div class="flow">
+    <div class="node">① 准备</div><div class="arrow">→</div>
+    <div class="node">② 登录</div><div class="arrow">→</div>
+    <div class="node">③ 工作台</div><div class="arrow">→</div>
+    <div class="node">④ 移动端</div><div class="arrow">→</div>
+    <div class="node">⑤ PC后台</div><div class="arrow">→</div>
+    <div class="node">⑥ 大屏</div><div class="arrow">→</div>
+    <div class="node">⑦ 绑定核对</div><div class="arrow">→</div>
+    <div class="node">⑧ 收尾清理</div>
+  </div>
+</div></header>
+
+<!-- ========== 0 准备 ========== -->
+<section id="ready"><div class="wrap">
+  <div class="sec-tag">Step 0</div>
+  <h2>测试<em>准备</em></h2>
+  <p class="lead">磨刀不误砍柴工。先备好地址、账号和测试数据标记规范。</p>
+  <table>
+    <tr><th>项</th><th>值</th></tr>
+    <tr><td>测试站（内网）</td><td><code>http://192.168.11.70:5112</code></td></tr>
+    <tr><td>管理员</td><td><code>admin / admin123</code>（全部权限）</td></tr>
+    <tr><td>安全员</td><td><code>inspector / inspector123</code>（无用户管理权限，正好测 403）</td></tr>
+    <tr><td>普通员工</td><td><code>staff / staff123</code></td></tr>
+  </table>
+  <div class="warn-box"><b>⚠️ 测试数据标记：</b>所有新建的测试数据，标题/名称一律加前缀 <code>【点检】</code>（如 <code>【点检】配电房隐患</code>）。这样最后收尾时能一键认出并删干净，不污染生产数据。看到旧的 <code>测试/冒烟</code> 数据不要动，那是历史遗留。</div>
+  <div class="tip-box"><b>💡 建议开两个浏览器窗口：</b>左边手机端（按 F12 切手机模式），右边 PC 后台。这样随手拍提交后，右边立刻能看到工单，绑定关系一目了然。</div>
+</div></section>
+
+<!-- ========== 1 登录 ========== -->
+<section id="login" style="background:var(--bg2)"><div class="wrap">
+  <div class="sec-tag">Step 1</div>
+  <h2>登<em>录页</em>点检</h2>
+  <p class="lead">地址：<code>http://192.168.11.70:5112/login</code> —— 门卫，拦住坏人、放行自己人。</p>
+  <div class="shot"><img src="/s/tk-safe-upload/01_login.png" alt="登录页"><div class="cap">登录页：用户名 + 密码 + 登录按钮</div></div>
+
+  <div class="check"><div class="check-head"><input type="checkbox"><span class="no">1-1</span><h4>空密码被拒 <span>—— 空手不能进门</span></h4></div>
+    <div class="check-body">
+      <div class="row"><span class="k do">点哪里</span><span>用户名填 <code>admin</code>，密码留空，点「登录」</span></div>
+      <div class="row"><span class="k see">看到什么</span><span>弹出“请输入账号和密码”，停在登录页</span></div>
+      <div class="row"><span class="k data">数据验证</span><span>后台 <code>logs</code> 表不应新增 login 成功记录</span></div>
+    </div></div>
+
+  <div class="check"><div class="check-head"><input type="checkbox"><span class="no">1-2</span><h4>错密码被拒并留痕 <span>—— 小偷踩点要记下来</span></h4></div>
+    <div class="check-body">
+      <div class="row"><span class="k do">点哪里</span><span>用户名 <code>admin</code>，密码随便输错，点「登录」</span></div>
+      <div class="row"><span class="k see">看到什么</span><span>提示用户名或密码错误；连输 5 次会被锁 15 分钟（429）</span></div>
+      <div class="row"><span class="k data">数据验证</span><span>PC后台 → 操作日志，能查到一条 <code>login_fail</code>（action 列），detail 含用户名</span></div>
+    </div></div>
+
+  <div class="check"><div class="check-head"><input type="checkbox"><span class="no">1-3</span><h4>正确登录进工作台 <span>—— 主流程</span></h4></div>
+    <div class="check-body">
+      <div class="row"><span class="k do">点哪里</span><span><code>admin / admin123</code> 点「登录」</span></div>
+      <div class="row"><span class="k see">看到什么</span><span>跳到统一工作台，右上角显示“系统管理员”；F12 → Application → Cookies 有 <code>tk_safe_session</code></span></div>
+      <div class="row"><span class="k data">数据验证</span><span>操作日志新增一条 <code>login / auth</code>，user=系统管理员</span></div>
+    </div></div>
+</div></section>
+
+<!-- ========== 2 工作台 ========== -->
+<section id="portal"><div class="wrap">
+  <div class="sec-tag">Step 2</div>
+  <h2>统一<em>工作台</em>点检</h2>
+  <p class="lead">地址：<code>/portal</code> —— 总大厅，三扇门通三端，头顶四个数字是全站缩影。</p>
+  <div class="shot"><img src="/s/tk-safe-upload/02_portal.png" alt="工作台"><div class="cap">统一工作台：数据面板 + 三端入口</div></div>
+
+  <div class="check"><div class="check-head"><input type="checkbox"><span class="no">2-1</span><h4>四个数字互相咬合 <span>—— 数字不是摆设</span></h4></div>
+    <div class="check-body">
+      <div class="row"><span class="k do">点哪里</span><span>看顶部：隐患总数 / 逾期未整改 / 我的待办 / 我的上报</span></div>
+      <div class="row"><span class="k see">看到什么</span><span>四个数字都有值；点数字能跳到对应列表页</span></div>
+      <div class="row"><span class="k data">数据验证</span><span>隐患总数 ＝ PC后台隐患治理列表总数；逾期数 ＝ 列表里 deadline 超期且未销号的数量（抽 1 条点进去看 deadline）。待办数 ＝ 任务页待办数</span></div>
+    </div></div>
+
+  <div class="check"><div class="check-head"><input type="checkbox"><span class="no">2-2</span><h4>三端入口各就各位 <span>—— 三扇门都要能推开</span></h4></div>
+    <div class="check-body">
+      <div class="row"><span class="k do">点哪里</span><span>依次点「打开移动端」「PC管理后台」「可视化大屏」</span></div>
+      <div class="row"><span class="k see">看到什么</span><span>分别进入 <code>/m</code>、<code>/admin</code>、<code>/screen</code>，无 404/500；staff 账号看不到 PC 后台入口（无权限）</span></div>
+      <div class="row"><span class="k data">数据验证</span><span>移动端首页的隐患总数与工作台一致（同一张 <code>hazards</code> 表）</span></div>
+    </div></div>
+</div></section>
+
+<!-- ========== 3 移动端 ========== -->
+<section id="mobile" style="background:var(--bg2)"><div class="wrap">
+  <div class="sec-tag">Step 3</div>
+  <h2>移动端<em>逐页点检</em></h2>
+  <p class="lead">F12 切手机模式（390px）。员工每天用的 9 个页面，一个一个过。</p>
+  <div class="shot"><img src="/s/tk-safe-upload/18_mobile_home.png" alt="移动端首页"><div class="cap">移动端首页：快捷操作九宫格 + 底部 5 导航</div></div>
+
+  <div class="check"><div class="check-head"><input type="checkbox"><span class="no">3-1</span><h4>随手拍：提交→后台立刻有工单 <span>—— 核心链路，必须通</span></h4></div>
+    <div class="check-body">
+      <div class="row"><span class="k do">点哪里</span><span>首页点「📷 随手拍」→ 标题填 <code>【点检】配电房电缆裸露</code> → 级别选一般 → 单位/点位任选 → 传 1 张照片 → 点「提交上报」</span></div>
+      <div class="row"><span class="k see">看到什么</span><span>提示“提交成功，已生成隐患工单”；照片可点放大、可删；不填标题点提交会被拦下</span></div>
+      <div class="row"><span class="k data">数据验证</span><span>右边 PC后台 → 隐患治理，筛选“待分派”，第一条就是它（标题/照片/上报人一致）；<code>hazards.status=pending</code> 且多一条 <code>hazard_flow(action=create)</code>。记下它的 id，后面 3-3、5-1 要用</span></div>
+    </div></div>
+
+  <div class="check"><div class="check-head"><input type="checkbox"><span class="no">3-2</span><h4>巡查打卡：签到留痕 <span>—— 到没到过现场，记录说了算</span></h4></div>
+    <div class="check-body">
+      <div class="row"><span class="k do">点哪里</span><span>底部「📍 巡查」→ 选一个进行中的计划 → 点「开始巡查签到」→ 选点位 → 现场记录填 <code>【点检】正常</code> → 状态选正常 → 点「确认签到」</span></div>
+      <div class="row"><span class="k see">看到什么</span><span>提示签到成功，该点位变“已签到”；选“发现异常”时会提示去随手拍上报</span></div>
+      <div class="row"><span class="k data">数据验证</span><span>PC后台 → 巡查记录多一条（plan_id/point_name/记录一致）；个人中心 → 我的打卡数 +1</span></div>
+    </div></div>
+
+  <div class="check"><div class="check-head"><input type="checkbox"><span class="no">3-3</span><h4>任务：提交整改→待复核 <span>—— 闭环的前半段</span></h4></div>
+    <div class="check-body">
+      <div class="row"><span class="k do">点哪里</span><span>先去 PC后台把 3-1 那条隐患分派给 staff（责任人写 staff）。再用 <code>staff</code> 登录手机端 →「📋 任务」→ 点该整改任务 →「📷 提交整改」→ 说明填 <code>【点检】已包扎</code> → 传整改后照片 →「提交并等待复核」</span></div>
+      <div class="row"><span class="k see">看到什么</span><span>任务从待办消失（或变已提交）；不传照片也能提交，但有照片更合规</span></div>
+      <div class="row"><span class="k data">数据验证</span><span>PC后台该隐患状态变为“待复核”，<code>hazard_flow</code> 多一条 <code>action=rectify</code>，rectify_note 一致</span></div>
+    </div></div>
+
+  <div class="check"><div class="check-head"><input type="checkbox"><span class="no">3-4</span><h4>举报：匿名也收得到 <span>—— 给不敢具名的人留条路</span></h4></div>
+    <div class="check-body">
+      <div class="row"><span class="k do">点哪里</span><span>首页「🚨 举报」→ 标题 <code>【点检】匿名举报测试</code> → 勾选匿名 → 提交</span></div>
+      <div class="row"><span class="k see">看到什么</span><span>提交成功；个人中心“我的上报”里看不到它（匿名的代价）</span></div>
+      <div class="row"><span class="k data">数据验证</span><span>PC后台隐患列表能找到它，且 <code>anonymous=1</code>、reporter 为空；<code>violation_reports</code> 表多一条</span></div>
+    </div></div>
+
+  <div class="check"><div class="check-head"><input type="checkbox"><span class="no">3-5</span><h4>培训：看完→进度→证书 <span>—— 学没学完，进度条说了算</span></h4></div>
+    <div class="check-body">
+      <div class="row"><span class="k do">点哪里</span><span>首页「🎓 培训」→ 进一门课 → 播放视频（试试倍速/全屏/空格暂停）→ 点「✓ 标记完成」→ 试着加一条笔记再删掉</span></div>
+      <div class="row"><span class="k see">看到什么</span><span>课时变“已完成”，课程进度条上涨；笔记能增能删；全部课时完成后出现证书</span></div>
+      <div class="row"><span class="k data">数据验证</span><span><code>training_lesson_progress</code> 有你的 user_id 记录；<code>training_notes</code> 增删对应；<code>training_certificates</code> 在全完成时多一条</span></div>
+    </div></div>
+
+  <div class="check"><div class="check-head"><input type="checkbox"><span class="no">3-6</span><h4>资料：三板块+搜索 <span>—— 应急时找得到东西</span></h4></div>
+    <div class="check-body">
+      <div class="row"><span class="k do">点哪里</span><span>首页「📚 资料」→ 三个板块各点一篇 → 顶部搜索框搜一个关键词</span></div>
+      <div class="row"><span class="k see">看到什么</span><span>应急预案/风险管控卡/制度文档都能打开；搜索结果即时过滤；风险卡颜色与级别对应（红重大/橙较大/黄一般/蓝低）</span></div>
+      <div class="row"><span class="k data">数据验证</span><span>预案来自 <code>emergency_plans</code>，管控卡来自 <code>risk_points</code>（level 决定颜色）</span></div>
+    </div></div>
+
+  <div class="check"><div class="check-head"><input type="checkbox"><span class="no">3-7</span><h4>待办：五类预警 <span>—— 该催办的一个别漏</span></h4></div>
+    <div class="check-body">
+      <div class="row"><span class="k do">点哪里</span><span>底部「⏰ 待办」→ 五类逐个点开看明细</span></div>
+      <div class="row"><span class="k see">看到什么</span><span>逾期隐患/设备到期/证件到期/复核到期/物资提醒五类齐全；点条目能跳到对应处理页</span></div>
+      <div class="row"><span class="k data">数据验证</span><span>逾期数与工作台逾期数一致（同一次查询逻辑）；设备到期来自 <code>equipment.next_inspection</code></span></div>
+    </div></div>
+
+  <div class="check"><div class="check-head"><input type="checkbox"><span class="no">3-8</span><h4>个人中心：改密+改资料 <span>—— 自己的账号自己管</span></h4></div>
+    <div class="check-body">
+      <div class="row"><span class="k do">点哪里</span><span>底部「👤」→「修改登录密码」（先输错旧密码一次，再正确修改，改完退出重登）→「更新姓名/手机号」改个手机号再改回来</span></div>
+      <div class="row"><span class="k see">看到什么</span><span>旧密码错误被拒；新密码可登录；手机号即时更新；“我的上报/打卡/培训”三个数与前面操作对得上</span></div>
+      <div class="row"><span class="k data">数据验证</span><span><code>users</code> 表对应行 phone/password 变化；<code>logs</code> 有改密记录</span></div>
+    </div></div>
+</div></section>
+
+<!-- ========== 4 PC后台 ========== -->
+<section id="admin"><div class="wrap">
+  <div class="sec-tag">Step 4</div>
+  <h2>PC后台<em>逐模块点检</em></h2>
+  <p class="lead">用 <code>admin</code> 登录，地址 <code>/admin</code>。左菜单自上而下，一个模块不落。</p>
+  <div class="shot"><img src="/s/tk-safe-upload/03_admin_dashboard.png" alt="仪表盘"><div class="cap">仪表盘：隐患统计 + 风险分布 + 整改率排名，三组数字是全站数据的镜子</div></div>
+
+  <div class="check"><div class="check-head"><input type="checkbox"><span class="no">4-1</span><h4>仪表盘：三组数字与明细一致</h4></div>
+    <div class="check-body">
+      <div class="row"><span class="k do">点哪里</span><span>看隐患统计 / 风险分布 / 各单位整改率排名</span></div>
+      <div class="row"><span class="k see">看到什么</span><span>三组数字非空；整改率条形与百分比对应</span></div>
+      <div class="row"><span class="k data">数据验证</span><span>隐患总数＝隐患治理列表总数；风险分布＝双重预防各级别点数之和；点某单位名，跳过去逐条数，算出的整改率与展示一致</span></div>
+    </div></div>
+
+  <div class="check"><div class="check-head"><input type="checkbox"><span class="no">4-2</span><h4>隐患治理：走完分派→复核→销号闭环 <span>—— 后台最重要的一条链</span></h4></div>
+    <div class="check-body">
+      <div class="row"><span class="k do">点哪里</span><span>① 待分派里找到 3-1 的【点检】隐患 → 选责任人/单位/期限 →「分派工单」②（3-3 已提交整改后）待复核里打开它 → 看整改说明+照片 → 填复核意见 →「复核销号」③ 另找一条点「退回整改」再看它回到整改中 ④ 对一条重大隐患点「重大挂牌/停工」再取消</span></div>
+      <div class="row"><span class="k see">看到什么</span><span>状态依次流转 待分派→整改中→待复核→已销号；退回能打回；挂牌有醒目标记；筛选（状态/级别/关键字）+「查看详情」都正常</span></div>
+      <div class="row"><span class="k data">数据验证</span><span><code>hazards.status</code> 跟着变；<code>hazard_flow</code> 按顺序多出 assign→rectify→review/close；<code>tasks</code> 同步生成/关闭；销号后工作台隐患总数-1、待办数变化</span></div>
+    </div></div>
+  <div class="shot"><img src="/s/tk-safe-upload/08_admin_hazards.png" alt="隐患治理"><div class="cap">隐患治理：工单列表、筛选、分派、复核、销号全在这里</div></div>
+
+  <div class="check"><div class="check-head"><input type="checkbox"><span class="no">4-3</span><h4>基础台账：增→改→删走一遍 <span>—— 每个“+新增”按钮都要活</span></h4></div>
+    <div class="check-body">
+      <div class="row"><span class="k do">点哪里</span><span>经营主体/特种设备/人员/相关方/应急物资五个页：各点「+新增」建一条【点检】数据 → 点「编辑」改名 → 点「删除」删掉；物资页额外点「入库」「出库」「流水」「盘点」</span></div>
+      <div class="row"><span class="k see">看到什么</span><span>新增即时出现在列表；编辑即时生效；删除需二次确认；出库超库存被拒绝；盘点更新 last_inventory 时间</span></div>
+      <div class="row"><span class="k data">数据验证</span><span>对应表 <code>organizations / equipment / personnel / related_parties / materials(+material_io)</code> 增删改各对一条；出入库在 <code>material_io</code> 留两条（in/out），materials.quantity 加减正确</span></div>
+    </div></div>
+
+  <div class="check"><div class="check-head"><input type="checkbox"><span class="no">4-4</span><h4>双重预防：新增风险点+复核</h4></div>
+    <div class="check-body">
+      <div class="row"><span class="k do">点哪里</span><span>「+新增风险点」→ 名称 <code>【点检】配电房触电风险</code> → 级别选红 → 填管控措施/责任人/复核周期 → 保存 → 点「复核」填结果 → 再「编辑」改级别 → 「删除」</span></div>
+      <div class="row"><span class="k see">看到什么</span><span>列表颜色随级别变（红/橙/黄/蓝）；复核后下次复核日期顺延；删除需确认</span></div>
+      <div class="row"><span class="k data">数据验证</span><span><code>risk_points</code> 增删各一；<code>risk_reviews</code> 多一条；仪表盘风险分布红数 +1 再 -1</span></div>
+    </div></div>
+
+  <div class="check"><div class="check-head"><input type="checkbox"><span class="no">4-5</span><h4>专项整治：新增+归档记录</h4></div>
+    <div class="check-body">
+      <div class="row"><span class="k do">点哪里</span><span>「+新增专项行动」（模板选消防，标题 <code>【点检】消防专项</code>）→ 点「归档检查记录」填检查项 → 保存 → 删除</span></div>
+      <div class="row"><span class="k see">看到什么</span><span>行动出现在列表；检查记录可展开看；删除连记录一起清</span></div>
+      <div class="row"><span class="k data">数据验证</span><span><code>special_actions</code> 增删各一，关联记录同步</span></div>
+    </div></div>
+
+  <div class="check"><div class="check-head"><input type="checkbox"><span class="no">4-6</span><h4>安全培训：课程+课时全链</h4></div>
+    <div class="check-body">
+      <div class="row"><span class="k do">点哪里</span><span>「+新增课程」（标题 <code>【点检】消防课</code>）→「添加视频」挂课时 → 用 staff 账号去手机端学完 → 回来看学时统计 → 删除课程（连带课时/记录一起清）</span></div>
+      <div class="row"><span class="k see">看到什么</span><span>课程页有课时数；删除课程弹确认并级联清理；手机端 3-5 的进度在这里能看到</span></div>
+      <div class="row"><span class="k data">数据验证</span><span><code>training_courses/lessons/records</code> 联动；删除后三表无残留（重点查）</span></div>
+    </div></div>
+
+  <div class="check"><div class="check-head"><input type="checkbox"><span class="no">4-7</span><h4>应急管理：预案+演练+通讯录</h4></div>
+    <div class="check-body">
+      <div class="row"><span class="k do">点哪里</span><span>三个 Tab 各「+新增」一条【点检】数据 → 各「编辑」改一次 → 各「删除」</span></div>
+      <div class="row"><span class="k see">看到什么</span><span>手机端 3-6 资料页同步出现新预案（发布即同步）；删除后手机端同步消失</span></div>
+      <div class="row"><span class="k data">数据验证</span><span><code>emergency_plans / drill_records / contacts</code> 增删各一</span></div>
+    </div></div>
+
+  <div class="check"><div class="check-head"><input type="checkbox"><span class="no">4-8</span><h4>作业许可：申请→两级审批→销项 <span>—— 最长的审批链</span></h4></div>
+    <div class="check-body">
+      <div class="row"><span class="k do">点哪里</span><span>「+新建作业许可」（标题 <code>【点检】动火作业</code>，提交申请）→「一级审批」通过 →「二级审批」通过 →「完工销项」</span></div>
+      <div class="row"><span class="k see">看到什么</span><span>状态步步推进：待审批→一级通过→二级通过→已销项；驳回能打回（可另测一次驳回）</span></div>
+      <div class="row"><span class="k data">数据验证</span><span><code>work_permits.status</code> 跟着走；每步审批人和时间落库</span></div>
+    </div></div>
+
+  <div class="check"><div class="check-head"><input type="checkbox"><span class="no">4-9</span><h4>报表：导出真能下载</h4></div>
+    <div class="check-body">
+      <div class="row"><span class="k do">点哪里</span><span>统计报表页看趋势图 → 点「⬇ 导出 Excel」「导出 PDF」→ 下载打开看</span></div>
+      <div class="row"><span class="k see">看到什么</span><span>文件正常下载、能打开、中文不乱码、行数与列表一致</span></div>
+      <div class="row"><span class="k data">数据验证</span><span>Excel 行数 ＝ 当前筛选条件下隐患数；PDF 含统计数字</span></div>
+    </div></div>
+
+  <div class="check"><div class="check-head"><input type="checkbox"><span class="no">4-10</span><h4>用户管理：增改删 + 403 <span>—— 权限的试金石</span></h4></div>
+    <div class="check-body">
+      <div class="row"><span class="k do">点哪里</span><span>「+新增用户」（用户名 <code>dianjian</code>，角色 staff）→ 用它登录一次 → 改它为 inspector → 删除；再用 inspector 账号访问「用户管理」页</span></div>
+      <div class="row"><span class="k see">看到什么</span><span>新用户可登录；改角色即时生效；删除后登录提示账号不存在；inspector 进用户管理看到人性化 403 页（不是空白）</span></div>
+      <div class="row"><span class="k data">数据验证</span><span><code>users</code> 增改删各一，最终无 <code>dianjian</code> 残留</span></div>
+    </div></div>
+
+  <div class="check"><div class="check-head"><input type="checkbox"><span class="no">4-11</span><h4>日志与设置：有痕可查、配置即时生效</h4></div>
+    <div class="check-body">
+      <div class="row"><span class="k do">点哪里</span><span>操作日志页按关键字搜 <code>【点检】</code>/按模块筛 → 系统设置页改一条配置保存 → 点「发送测试」</span></div>
+      <div class="row"><span class="k see">看到什么</span><span>今天的点检操作在日志里都能搜到；配置保存后刷新还在；无效 webhook 发送不报错（降级记日志）</span></div>
+      <div class="row"><span class="k data">数据验证</span><span><code>logs</code> 可按关键字/模块命中；<code>site_settings</code> 值已更新</span></div>
+    </div></div>
+</div></section>
+
+<!-- ========== 5 大屏 ========== -->
+<section id="screen" style="background:var(--bg2)"><div class="wrap">
+  <div class="sec-tag">Step 5</div>
+  <h2>大屏<em>点检</em></h2>
+  <p class="lead">地址：<code>/screen</code> —— 免登录，给领导看的门面，数字必须和后台一致。</p>
+  <div class="shot"><img src="/s/tk-safe-upload/25_screen.png" alt="大屏"><div class="cap">可视化调度大屏：隐患统计 + 风险分布 + 趋势 + 整改率</div></div>
+
+  <div class="check"><div class="check-head"><input type="checkbox"><span class="no">5-1</span><h4>大屏数字＝后台数字 <span>—— 门面不能撒谎</span></h4></div>
+    <div class="check-body">
+      <div class="row"><span class="k do">点哪里</span><span>新开无痕窗口打开 <code>/screen</code>（验证免登录）→ 逐项抄下数字</span></div>
+      <div class="row"><span class="k see">看到什么</span><span>页面自适应、无需登录、图表正常渲染、无 500</span></div>
+      <div class="row"><span class="k data">数据验证</span><span>隐患总数/逾期/重大/整改率 ＝ 仪表盘 4-1 的数；风险分布 ＝ 4-4 的数。做完 4-2 销号后刷新大屏，数字应跟着变（验证实时性）。本页曾因 <code>longitude!=''</code> 在 PG 报错 500，已修——若再现 500 即回归失败</span></div>
+    </div></div>
+</div></section>
+
+<!-- ========== 6 绑定核对 ========== -->
+<section id="binding"><div class="wrap">
+  <div class="sec-tag">Step 6</div>
+  <h2>数据绑定<em>总表</em></h2>
+  <p class="lead">前台一点、后台一查，表名就是证据。抽查时直接用这张表。</p>
+  <table>
+    <tr><th>前台操作</th><th>落库表</th><th>关键字段</th></tr>
+    <tr><td>随手拍提交</td><td><code>hazards</code> + <code>hazard_flow(create)</code></td><td>title / photos / status=pending</td></tr>
+    <tr><td>分派工单</td><td><code>hazards</code> + <code>tasks</code> + <code>hazard_flow(assign)</code></td><td>assignee / deadline / status=handling</td></tr>
+    <tr><td>提交整改</td><td><code>hazards</code> + <code>hazard_flow(rectify)</code></td><td>rectify_note / rectify_photos / status=reviewed*</td></tr>
+    <tr><td>复核销号/退回</td><td><code>hazards</code> + <code>hazard_flow(review/close)</code></td><td>review_note / status=closed</td></tr>
+    <tr><td>巡查签到</td><td><code>patrol_records</code></td><td>plan_id / point_name / record</td></tr>
+    <tr><td>匿名举报</td><td><code>hazards(anonymous=1)</code> + <code>violation_reports</code></td><td>anonymous / reporter 为空</td></tr>
+    <tr><td>培训完成/笔记/证书</td><td><code>training_lesson_progress / training_notes / training_certificates</code></td><td>user_id / content / cert_code</td></tr>
+    <tr><td>物资出入库</td><td><code>material_io</code> + <code>materials.quantity</code></td><td>io_type / quantity 加减</td></tr>
+    <tr><td>风险复核</td><td><code>risk_reviews</code> + <code>risk_points.next_review</code></td><td>result / 日期顺延</td></tr>
+    <tr><td>作业许可全链</td><td><code>work_permits</code></td><td>status 步进 + 审批人时间</td></tr>
+    <tr><td>登录成功/失败</td><td><code>logs(action=login/login_fail)</code></td><td>user / ip</td></tr>
+    <tr><td>新增用户/改密</td><td><code>users</code></td><td>username / password(sha256)</td></tr>
+  </table>
+  <div class="tip-box"><b>💡 *状态说明：</b>提交整改后隐患状态变为“待复核”（页面显示“reviewed”类文案），复核通过后变为“已销号（closed）”。以页面实际文案为准，关键看流转是否单向推进、无跳步。</div>
+</div></section>
+
+<!-- ========== 7 收尾 ========== -->
+<section id="cleanup" style="background:var(--bg2)"><div class="wrap">
+  <div class="sec-tag">Step 7</div>
+  <h2>收尾<em>清理</em></h2>
+  <p class="lead">考完试擦黑板。所有 <code>【点检】</code> 数据必须删干净，生产库干干净净交回去。</p>
+
+  <div class="check"><div class="check-head"><input type="checkbox"><span class="no">7-1</span><h4>删光【点检】数据并复核</h4></div>
+    <div class="check-body">
+      <div class="row"><span class="k do">点哪里</span><span>PC后台各列表搜关键字 <code>【点检】</code> → 逐条删除；用户页删 <code>dianjian</code>；隐患页确认销号的那条也删（或保留归档，请示负责人）</span></div>
+      <div class="row"><span class="k see">看到什么</span><span>全站搜 <code>【点检】</code> 零结果；工作台四个数字回到点检前（对照开始时拍的照）</span></div>
+      <div class="row"><span class="k data">数据验证</span><span>各表无 <code>【点检】</code> 残留；<code>logs</code> 保留（审计不删）；旧的 <code>测试/冒烟</code> 历史数据不动</span></div>
+    </div></div>
+
+  <div class="warn-box"><b>⚠️ 别删错：</b>只删自己建的 <code>【点检】</code> 和 <code>dianjian</code>。历史遗留的 <code>测试/冒烟</code> 数据是生产库沉积问题，另立数据治理任务处理，本次不动。</div>
+</div></section>
+
+<footer><div class="wrap">
+  <p>TK-Safe-UpLoad 手动点检测试流程 v1.0 · 信创站 http://192.168.11.70:5112 · 最后更新 2026-09-19</p>
+  <p style="margin-top:8px"><a href="/s/tk-safe-upload/manual.html" style="margin:0 12px">用户手册</a><a href="/s/tk-safe-upload/" style="margin:0 12px">展示站首页</a><a href="http://192.168.11.70:5112" target="_blank" style="margin:0 12px">打开信创站</a></p>
+</div></footer>
+
+<script>
+(function(){
+  var boxes = Array.prototype.slice.call(document.querySelectorAll('.check input[type=checkbox]'));
+  var KEY = 'tksafe_checklist_v1';
+  var saved = {};
+  try { saved = JSON.parse(localStorage.getItem(KEY) || '{}'); } catch(e) {}
+  function paint(){
+    var done = 0;
+    boxes.forEach(function(b, i){
+      var c = b.closest('.check');
+      var on = !!saved[i];
+      b.checked = on;
+      if (c) c.classList.toggle('done', on);
+      if (on) done++;
+    });
+    document.getElementById('pcount').textContent = '已完成 ' + done + ' / ' + boxes.length;
+    document.getElementById('pbar').style.width = (boxes.length ? (done * 100 / boxes.length) : 0) + '%';
+  }
+  boxes.forEach(function(b, i){
+    b.addEventListener('change', function(){
+      saved[i] = b.checked;
+      try { localStorage.setItem(KEY, JSON.stringify(saved)); } catch(e) {}
+      paint();
+    });
+    var head = b.closest('.check-head');
+    if (head) head.addEventListener('click', function(e){
+      if (e.target.tagName !== 'INPUT') { b.checked = !b.checked; b.dispatchEvent(new Event('change')); }
+    });
+  });
+  document.getElementById('preset').addEventListener('click', function(e){
+    e.preventDefault();
+    saved = {};
+    try { localStorage.removeItem(KEY); } catch(e2) {}
+    paint();
+  });
+  paint();
+})();
+</script>
+</body>
+</html>

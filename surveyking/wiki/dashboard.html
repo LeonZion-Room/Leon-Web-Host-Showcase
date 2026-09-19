@@ -1,0 +1,230 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>dashboard · surveyking 说明</title><style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;background:#fafbff;color:#1a2332;line-height:1.75}
+a{color:#2f6bff;text-decoration:none}
+.wrap{max-width:920px;margin:0 auto;padding:32px 20px 80px}
+.back{font-size:13px;color:#8a94a6}
+h1{font-size:26px;font-weight:800;margin:8px 0 4px;border-bottom:2px solid #eef1f8;padding-bottom:14px}
+.page-title{font-size:16px;color:#5c6670;margin:-2px 0 20px}
+.wiki-body{margin-top:8px}
+.wiki-body h1,.wiki-body h2,.wiki-body h3{margin:1.2em 0 .5em;line-height:1.4}
+.wiki-body h2{font-size:22px}.wiki-body h3{font-size:18px}
+.wiki-body p{margin:.8em 0}
+.wiki-body ul,.wiki-body ol{margin:.6em 0 .6em 1.6em}
+.wiki-body img{max-width:100%}
+.wiki-body pre{background:#0f1523;color:#e8edff;padding:14px 16px;border-radius:10px;overflow:auto;margin:.9em 0}
+.wiki-body code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:.9em}
+.wiki-body pre code{background:none;padding:0}
+.wiki-body table{border-collapse:collapse;margin:.9em 0;width:100%}
+.wiki-body th,.wiki-body td{border:1px solid #e2e7f2;padding:8px 12px;text-align:left}
+.wiki-body th{background:#f4f6fc}
+.wiki-body blockquote{border-left:4px solid #bcd0ff;background:#f4f8ff;padding:10px 16px;margin:.9em 0;color:#456}
+.wiki-body a{color:#2f6bff;border-bottom:1px dashed #bcd0ff}
+.nav{margin:14px 0 0;display:flex;gap:10px;flex-wrap:wrap}
+.nav a{background:#eef3ff;border:1px solid #d9e4ff;padding:6px 16px;border-radius:20px;font-size:13px;color:#2f6bff}
+.mark{color:#c0392b}
+</style></head><body><div class="wrap"><a class="back" href="../index.html">← 项目合辑</a><h1>dashboard</h1><div class="page-title">surveyking · 使用说明（只读镜像）</div><div class="nav"><a href="../index.html">返回合辑</a><a href="./home.html">概览</a></div><div class="wiki-body"><h1>🏠 首页仪表盘</h1>
+<blockquote>
+<p>📖 登录后默认进入的主界面，提供数据概览和快捷入口。
+🔗 返回 <a href="wiki/home.html">说明书首页</a></p>
+</blockquote>
+<hr />
+<h2>页面布局</h2>
+<p>登录成功后进入首页，页面分为四个区域：</p>
+<p><img alt="首页全貌" src="/s/surveyking/03_after_login.png" />
+<em>首页仪表盘完整布局</em></p>
+<h3>顶部栏</h3>
+<table>
+<thead>
+<tr>
+<th>元素</th>
+<th>位置</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>系统名称</td>
+<td>左上角</td>
+<td>「卷王问卷考试系统」+ Logo</td>
+</tr>
+<tr>
+<td>侧栏折叠</td>
+<td>左侧边缘</td>
+<td>点击「&lt;」可收起/展开侧栏</td>
+</tr>
+<tr>
+<td>帮助按钮</td>
+<td>右上角</td>
+<td>「?」图标，打开帮助文档</td>
+</tr>
+<tr>
+<td>用户头像</td>
+<td>右上角</td>
+<td>当前登录用户，点击可查看个人信息/退出</td>
+</tr>
+</tbody>
+</table>
+<h3>左侧导航栏</h3>
+<p><img alt="侧栏菜单" src="/s/surveyking/SYS_expanded.png" />
+<em>侧栏菜单展开状态</em></p>
+<table>
+<thead>
+<tr>
+<th>菜单项</th>
+<th>图标</th>
+<th>说明</th>
+<th>子菜单</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>首页</td>
+<td>🏠</td>
+<td>仪表盘总览</td>
+<td>无</td>
+</tr>
+<tr>
+<td>我的项目</td>
+<td>📁</td>
+<td>问卷/考试项目管理</td>
+<td>无</td>
+</tr>
+<tr>
+<td>我的练习</td>
+<td>✏️</td>
+<td>练习记录和进度</td>
+<td>无</td>
+</tr>
+<tr>
+<td>题库中心</td>
+<td>📋</td>
+<td>题库/题目/笔记管理</td>
+<td>我的题库、问题管理、我的笔记</td>
+</tr>
+<tr>
+<td>模板广场</td>
+<td>🎨</td>
+<td>问卷模板库</td>
+<td>无</td>
+</tr>
+<tr>
+<td>系统管理</td>
+<td>⚙️</td>
+<td>系统配置（仅管理员）</td>
+<td>用户管理、角色管理、组织机构、岗位设置、字典管理、系统设置</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>欢迎区域</h2>
+<p>页面顶部显示个性化问候和统计数据：</p>
+<p><img alt="欢迎区域" src="/s/surveyking/S01_home.png" />
+<em>欢迎信息和统计卡片</em></p>
+<p><strong>显示内容：</strong>
+- 问候语：根据当前时间显示「凌晨好/早上好/下午好/晚上好，Admin，祝你开心每一天！」
+- 统计卡片：「问卷数」和「考试数」实时计数
+- 用户头像：系统默认头像</p>
+<hr />
+<h2>数据标签页</h2>
+<p>页面中部有四个标签页，显示不同维度的数据：</p>
+<h3>我的考试</h3>
+<p><img alt="我的考试" src="/s/surveyking/HOME01_my_exams.png" />
+<em>我的考试列表</em></p>
+<table>
+<thead>
+<tr>
+<th>列名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>考试名称</td>
+<td>考试标题</td>
+</tr>
+<tr>
+<td>开始时间</td>
+<td>考试开始时间</td>
+</tr>
+<tr>
+<td>完成状态</td>
+<td>已完成/进行中/未开始</td>
+</tr>
+<tr>
+<td>操作</td>
+<td>查看成绩/继续考试</td>
+</tr>
+</tbody>
+</table>
+<h3>我的问卷</h3>
+<p><img alt="我的问卷" src="/s/surveyking/HOME02_tab_我的问卷.png" />
+<em>我参与的问卷列表</em></p>
+<h3>问卷记录</h3>
+<p><img alt="问卷记录" src="/s/surveyking/HOME02_tab_问卷记录.png" />
+<em>历史问卷填写记录</em></p>
+<h3>考试记录</h3>
+<p><img alt="考试记录" src="/s/surveyking/HOME02_tab_考试记录.png" />
+<em>历史考试记录</em></p>
+<hr />
+<h2>快速开始/便捷导航</h2>
+<p>页面右侧提供快捷入口：</p>
+<p><img alt="快速开始" src="/s/surveyking/03_after_login.png" />
+<em>右侧快捷导航区域</em></p>
+<table>
+<thead>
+<tr>
+<th>按钮</th>
+<th>功能</th>
+<th>跳转</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>创建问卷</td>
+<td>新建空白问卷</td>
+<td><a href="wiki/survey-editor.html">问卷编辑器</a></td>
+</tr>
+<tr>
+<td>创建考试</td>
+<td>新建考试</td>
+<td>考试创建流程</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>表格工具栏</h2>
+<p>数据列表右上角有三个图标按钮：</p>
+<table>
+<thead>
+<tr>
+<th>图标</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>🔄</td>
+<td>刷新数据</td>
+</tr>
+<tr>
+<td>📊</td>
+<td>切换表格列显示</td>
+</tr>
+<tr>
+<td>⚙️</td>
+<td>表格设置（排序、筛选）</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>空状态</h2>
+<p>当没有数据时，列表显示空状态提示：
+- 图标：灰色文件夹
+- 文字：「暂无数据」</p>
+<hr />
+<blockquote>
+<p>🔗 上一步：<a href="wiki/login.html">登录与初始化</a>
+🔗 下一步：<a href="wiki/projects.html">我的项目</a>
+🔗 相关：<a href="wiki/survey-editor.html">问卷编辑器</a></p>
+</blockquote></div></div></body></html>

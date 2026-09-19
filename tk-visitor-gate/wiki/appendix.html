@@ -1,0 +1,387 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>appendix · tk-visitor-gate 说明</title><style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;background:#fafbff;color:#1a2332;line-height:1.75}
+a{color:#2f6bff;text-decoration:none}
+.wrap{max-width:920px;margin:0 auto;padding:32px 20px 80px}
+.back{font-size:13px;color:#8a94a6}
+h1{font-size:26px;font-weight:800;margin:8px 0 4px;border-bottom:2px solid #eef1f8;padding-bottom:14px}
+.page-title{font-size:16px;color:#5c6670;margin:-2px 0 20px}
+.wiki-body{margin-top:8px}
+.wiki-body h1,.wiki-body h2,.wiki-body h3{margin:1.2em 0 .5em;line-height:1.4}
+.wiki-body h2{font-size:22px}.wiki-body h3{font-size:18px}
+.wiki-body p{margin:.8em 0}
+.wiki-body ul,.wiki-body ol{margin:.6em 0 .6em 1.6em}
+.wiki-body img{max-width:100%}
+.wiki-body pre{background:#0f1523;color:#e8edff;padding:14px 16px;border-radius:10px;overflow:auto;margin:.9em 0}
+.wiki-body code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:.9em}
+.wiki-body pre code{background:none;padding:0}
+.wiki-body table{border-collapse:collapse;margin:.9em 0;width:100%}
+.wiki-body th,.wiki-body td{border:1px solid #e2e7f2;padding:8px 12px;text-align:left}
+.wiki-body th{background:#f4f6fc}
+.wiki-body blockquote{border-left:4px solid #bcd0ff;background:#f4f8ff;padding:10px 16px;margin:.9em 0;color:#456}
+.wiki-body a{color:#2f6bff;border-bottom:1px dashed #bcd0ff}
+.nav{margin:14px 0 0;display:flex;gap:10px;flex-wrap:wrap}
+.nav a{background:#eef3ff;border:1px solid #d9e4ff;padding:6px 16px;border-radius:20px;font-size:13px;color:#2f6bff}
+.mark{color:#c0392b}
+</style></head><body><div class="wrap"><a class="back" href="../index.html">← 项目合辑</a><h1>appendix</h1><div class="page-title">tk-visitor-gate · 使用说明（只读镜像）</div><div class="nav"><a href="../index.html">返回合辑</a><a href="./home.html">概览</a></div><div class="wiki-body"><h1>附录</h1>
+<h2>项目信息</h2>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>项目名称</td>
+<td>QR-Code-Gate（访客门禁二维码管理系统）</td>
+</tr>
+<tr>
+<td>应用类型</td>
+<td>Web 应用</td>
+</tr>
+<tr>
+<td>服务端口</td>
+<td>5102</td>
+</tr>
+<tr>
+<td>部署设备</td>
+<td>TK-Server · 192.168.11.70</td>
+</tr>
+<tr>
+<td>公网访问</td>
+<td>http://119.145.17.34:5102</td>
+</tr>
+<tr>
+<td>管理后台</td>
+<td>http://192.168.11.70:5102/approve</td>
+</tr>
+<tr>
+<td>Git 仓库</td>
+<td>Gitea · LZ-TK-Station · TK-QR-Gate</td>
+</tr>
+<tr>
+<td>本地路径</td>
+<td>/tmp/QR-Code-Gate</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>技术栈</h2>
+<table>
+<thead>
+<tr>
+<th>层级</th>
+<th>技术</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>后端框架</td>
+<td>Python Flask</td>
+</tr>
+<tr>
+<td>模板引擎</td>
+<td>Jinja2</td>
+</tr>
+<tr>
+<td>数据存储</td>
+<td>JSON 文件（无数据库）</td>
+</tr>
+<tr>
+<td>门禁对接</td>
+<td>达实 C3 双通道 API（19002 + 19001）</td>
+</tr>
+<tr>
+<td>二维码生成</td>
+<td>qrcode + base64</td>
+</tr>
+<tr>
+<td>安全加固</td>
+<td>PBKDF2 密码哈希、暴力破解锁定、签名验证</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>文件结构</h2>
+<pre class="codehilite"><code>QR-Code-Gate/
+├── app.py              # Flask 主应用（60+ 路由）
+├── models.py           # 数据模型 + 业务逻辑
+├── api_client.py       # C3 API 客户端
+├── config.json         # 运行时配置
+├── data/
+│   ├── accounts.json   # 账户池
+│   ├── approvals.json  # 审批记录
+│   ├── admins.json     # 管理员
+│   ├── devices.json    # 门禁设备缓存
+│   └── admins/
+│       └── leon.json   # 超管凭证
+├── templates/          # Jinja2 模板（9 个）
+│   ├── base.html
+│   ├── index.html
+│   ├── visitor.html
+│   ├── approve.html
+│   ├── qr.html
+│   ├── dev.html
+│   ├── remote.html
+│   ├── admin.html
+│   └── emp_pass.html
+└── static/
+    ├── css/
+    └── js/
+</code></pre>
+
+<hr />
+<h2>核心文件说明</h2>
+<table>
+<thead>
+<tr>
+<th>文件</th>
+<th>行数</th>
+<th>职责</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>app.py</td>
+<td>2310</td>
+<td>Flask 主应用、路由定义、C3 网关调试</td>
+</tr>
+<tr>
+<td>models.py</td>
+<td>813</td>
+<td>账户池分时分配、门禁控制、管理员 CRUD、二维码生成</td>
+</tr>
+<tr>
+<td>api_client.py</td>
+<td>634</td>
+<td>C3 双通道 API 客户端（WebApi + 签名版）</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>账户模型设计</h2>
+<h3>账户模型（AccountsModel）</h3>
+<pre class="codehilite"><code class="language-python">class Account:
+    def __init__(self, account_no, visitor_name=&quot;&quot;, visitor_phone=&quot;&quot;,
+                 allocated=False, allocated_by=None, allocated_at=None,
+                 expires_at=None):
+        self.account_no = account_no      # C3 门禁账户编号
+        self.visitor_name = visitor_name   # 访客姓名
+        self.visitor_phone = visitor_phone # 访客手机号
+        self.allocated = allocated         # 是否已分配
+        self.allocated_by = allocated_by   # 哪个管理员分配的
+        self.allocated_at = allocated_at   # 分配时间
+        self.expires_at = expires_at       # 到期时间（分时分配用）
+</code></pre>
+
+<h3>门禁设备（DoorsModel）</h3>
+<pre class="codehilite"><code class="language-python">class DoorDevice:
+    def __init__(self, id, name, dev_mac, enabled, group_name):
+        self.id = id                    # 设备 ID
+        self.name = name                # 门禁名称（doorName）
+        self.dev_mac = dev_mac          # 设备 Mac 地址
+        self.enabled = enabled          # 是否启用
+        self.group_name = group_name    # 所属分组
+</code></pre>
+
+<hr />
+<h2>门禁点位</h2>
+<p>共 404 个门禁点位（启用 387 个），分两大类：</p>
+<table>
+<thead>
+<tr>
+<th>类别</th>
+<th>数量</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>普通门锁</td>
+<td>343</td>
+<td>E 座东/西区通道、各栋消防梯、电梯厅、大堂门</td>
+</tr>
+<tr>
+<td>人脸设备</td>
+<td>61</td>
+<td>刷脸闸机</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>URL 路由</h2>
+<table>
+<thead>
+<tr>
+<th>路径</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/</code></td>
+<td>首页</td>
+</tr>
+<tr>
+<td><code>/login</code></td>
+<td>登录页</td>
+</tr>
+<tr>
+<td><code>/visitor</code></td>
+<td>访客预约页</td>
+</tr>
+<tr>
+<td><code>/approve</code></td>
+<td>审批列表页</td>
+</tr>
+<tr>
+<td><code>/visit/&lt;id&gt;/&lt;token&gt;</code></td>
+<td>访客通行凭证页</td>
+</tr>
+<tr>
+<td><code>/admin</code></td>
+<td>管理后台</td>
+</tr>
+<tr>
+<td><code>/records</code></td>
+<td>通行记录页</td>
+</tr>
+<tr>
+<td><code>/remote</code></td>
+<td>远程开门页</td>
+</tr>
+<tr>
+<td><code>/qr</code></td>
+<td>二维码展示页</td>
+</tr>
+<tr>
+<td><code>/emp_pass</code></td>
+<td>通行证页面</td>
+</tr>
+<tr>
+<td><code>/api/door/open</code></td>
+<td>远程开门 API</td>
+</tr>
+<tr>
+<td><code>/api/doors/sync</code></td>
+<td>同步门禁 API</td>
+</tr>
+<tr>
+<td><code>/api/c3/proxy</code></td>
+<td>C3 开发者代理</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>测试脚本</h2>
+<p>项目附带完整的测试脚本：</p>
+<table>
+<thead>
+<tr>
+<th>脚本</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>test_c3_token.py</td>
+<td>测试 Token 获取</td>
+</tr>
+<tr>
+<td>test_c3_emp_list.py</td>
+<td>测试员工列表</td>
+</tr>
+<tr>
+<td>test_c3_emp_detail.py</td>
+<td>测试员工详情</td>
+</tr>
+<tr>
+<td>test_c3_qrcode.py</td>
+<td>测试二维码生成</td>
+</tr>
+<tr>
+<td>test_c3_door_list.py</td>
+<td>测试门禁列表</td>
+</tr>
+<tr>
+<td>test_c3_doors_batch.py</td>
+<td>测试批量开门</td>
+</tr>
+<tr>
+<td>test_c3_dev_face_list.py</td>
+<td>测试人脸设备列表</td>
+</tr>
+<tr>
+<td>test_c3_face_photo.py</td>
+<td>测试人脸照片获取</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>安全机制</h2>
+<table>
+<thead>
+<tr>
+<th>机制</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>密码哈希</td>
+<td>PBKDF2（200k 迭代 + 盐）</td>
+</tr>
+<tr>
+<td>暴力破解防护</td>
+<td>5 次失败锁定 15 分钟</td>
+</tr>
+<tr>
+<td>Session 安全</td>
+<td>登录时自动轮换 session</td>
+</tr>
+<tr>
+<td>审批状态守卫</td>
+<td>pending 才能操作，已通过/已拒绝不可逆</td>
+</tr>
+<tr>
+<td>通道自动切换</td>
+<td>单通道故障时自动切换</td>
+</tr>
+<tr>
+<td>自动回收过期账户</td>
+<td>每 15 分钟扫描回收</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>联系方式</h2>
+<table>
+<thead>
+<tr>
+<th>角色</th>
+<th>联系方式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>超级管理员</td>
+<td>Leon</td>
+</tr>
+<tr>
+<td>服务地址</td>
+<td>TK-Server · 192.168.11.70</td>
+</tr>
+<tr>
+<td>公网地址</td>
+<td>http://119.145.17.34:5102</td>
+</tr>
+<tr>
+<td>Git 仓库</td>
+<td>Gitea · LZ-TK-Station · TK-QR-Gate</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p><a href="/w/qr-code-gate/faq">← 常见问题</a> <a href="/w/qr-code-gate/home">返回首页</a></p></div></div></body></html>

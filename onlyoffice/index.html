@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OnlyOffice · 项目官网</title>
+<meta name="description" content="ONLYOFFICE Docs 在线文档服务，容器化部署于 Leon-Docker 节点，与 MemKV 记忆库深度联动：记忆库中的 docx / xlsx / pptx / pdf 附件点击即可在线编辑，保存实时回写。">
+<meta property="og:title" content="OnlyOffice">
+<meta property="og:description" content="ONLYOFFICE Docs 在线文档服务，容器化部署于 Leon-Docker 节点，与 MemKV 记忆库深度联动：记忆库中的 docx / xlsx / pptx / pdf 附件点击即可在线编辑，保存实时回写。">
+<meta property="og:type" content="website">
+<style>
+:root{--bg:#0b0d13;--bg2:#11141d;--card:#151926;--rule:rgba(255,255,255,.07);--text:#e8eaf2;--muted:#98a0b8;
+--a1:#93c5fd;--a2:#3b82f6;--grad:linear-gradient(135deg,#93c5fd,#3b82f6);--glow:#93c5fd33;}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;background:var(--bg);color:var(--text);line-height:1.7}
+a{color:var(--a1);text-decoration:none}
+.wrap{max-width:1080px;margin:0 auto;padding:0 28px}
+nav{position:sticky;top:0;z-index:99;background:rgba(11,13,19,.82);backdrop-filter:blur(14px);border-bottom:1px solid var(--rule)}
+.nav-in{display:flex;align-items:center;justify-content:space-between;height:62px}
+.brand{font-weight:700;font-size:17px;display:flex;align-items:center;gap:10px;color:var(--text)}
+.brand .dot{width:30px;height:30px;border-radius:9px;background:var(--grad);display:flex;align-items:center;justify-content:center;font-size:16px}
+.nav-links{display:flex;gap:26px;font-size:14px}
+.nav-links a{color:var(--muted)}.nav-links a:hover{color:var(--text)}
+.hero{position:relative;padding:96px 0 76px;overflow:hidden}
+.hero::before,.hero::after{content:'';position:absolute;border-radius:50%;filter:blur(90px);opacity:.55;z-index:-1}
+.hero::before{width:480px;height:480px;background:var(--a1);top:-180px;right:-120px}
+.hero::after{width:420px;height:420px;background:var(--a2);bottom:-200px;left:-140px;opacity:.35}
+.badge{display:inline-flex;align-items:center;gap:8px;background:var(--glow);border:1px solid #93c5fd44;color:var(--a1);padding:6px 16px;border-radius:999px;font-size:13px;font-weight:600;margin-bottom:22px}
+h1{font-size:clamp(2rem,4.6vw,3.3rem);font-weight:800;line-height:1.18;letter-spacing:.5px;margin-bottom:18px}
+h1 em{font-style:normal;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.sub{font-size:1.06rem;color:var(--muted);max-width:720px;margin-bottom:34px}
+.cta{display:flex;gap:14px;flex-wrap:wrap}
+.btn{padding:12px 28px;border-radius:10px;font-weight:600;font-size:15px;transition:.2s;display:inline-block}
+.btn.pri{background:var(--grad);color:#fff}.btn.pri:hover{transform:translateY(-2px);box-shadow:0 10px 30px var(--glow)}
+.btn.ghost{border:1px solid var(--rule);color:var(--text);background:rgba(255,255,255,.03)}.btn.ghost:hover{border-color:var(--a1)}
+.stats{display:flex;gap:0;margin-top:56px;border:1px solid var(--rule);border-radius:14px;background:rgba(255,255,255,.02);overflow:hidden}
+.stats div{flex:1;padding:20px 12px;text-align:center;border-right:1px solid var(--rule)}
+.stats div:last-child{border-right:none}
+.stats b{display:block;font-size:1.5rem;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;font-weight:800}
+.stats span{font-size:.8rem;color:var(--muted)}
+section{padding:64px 0}
+.sec-tag{color:var(--a1);font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase}
+h2{font-size:clamp(1.5rem,3vw,2.1rem);font-weight:800;margin:6px 0 14px}
+.lead{color:var(--muted);max-width:760px;margin-bottom:36px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px}
+.card{background:var(--card);border:1px solid var(--rule);border-radius:14px;padding:26px;transition:.25s}
+.card:hover{transform:translateY(-4px);border-color:#93c5fd55;box-shadow:0 14px 40px rgba(0,0,0,.35)}
+.card .ic{width:44px;height:44px;border-radius:12px;background:var(--glow);display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:14px}
+.card h3{font-size:1.02rem;margin-bottom:8px}
+.card p{font-size:.88rem;color:var(--muted)}
+.chips{display:flex;flex-wrap:wrap;gap:10px}
+.chip{background:rgba(255,255,255,.04);border:1px solid var(--rule);padding:7px 16px;border-radius:999px;font-size:13.5px;color:var(--text)}
+.tbl{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--rule);border-radius:14px;overflow:hidden}
+.tbl tr{border-bottom:1px solid var(--rule)}.tbl tr:last-child{border-bottom:none}
+.tbl td{padding:14px 22px;font-size:.92rem;vertical-align:top}
+.tbl td:first-child{color:var(--muted);white-space:nowrap;width:150px;font-weight:600}
+.tbl code,.mono{font-family:'SF Mono',Consolas,Menlo,monospace;font-size:.86em;color:var(--a1);word-break:break-all}
+.note{margin-top:22px;background:rgba(255,255,255,.03);border-left:3px solid var(--a1);border-radius:0 10px 10px 0;padding:16px 20px;font-size:.88rem;color:var(--muted)}
+footer{border-top:1px solid var(--rule);padding:38px 0;text-align:center;color:var(--muted);font-size:.85rem}
+footer a{color:var(--a1)}
+@media(max-width:640px){
+.nav-links{display:none}
+.hero{padding:64px 0 52px}
+.stats{flex-direction:column}.stats div{border-right:none;border-bottom:1px solid var(--rule)}
+.grid{grid-template-columns:1fr}
+.tbl td{padding:12px 14px}.tbl td:first-child{width:auto}
+}
+</style>
+</head>
+<body>
+<nav><div class="wrap nav-in">
+<a class="brand" href="#"><span class="dot">📘</span>OnlyOffice</a>
+<div class="nav-links"><a href="#features">功能特性</a><a href="#tech">技术栈</a><a href="#deploy">部署与访问</a><a href="http://192.168.11.70:5070/">托管平台</a></div>
+</div></nav>
+
+<header class="hero"><div class="wrap">
+<span class="badge">📘 在线办公</span>
+<h1>OnlyOffice</h1>
+<p class="sub">在线文档服务 · Docker 部署 · 与 MemKV 联动在线编辑<br><br>ONLYOFFICE Docs 在线文档服务，容器化部署于 Leon-Docker 节点，与 MemKV 记忆库深度联动：记忆库中的 docx / xlsx / pptx / pdf 附件点击即可在线编辑，保存实时回写。</p>
+<div class="cta"></div>
+<div class="stats"><div><b>8090</b><span>内部端口</span></div><div><b>Docker</b><span>容器部署</span></div><div><b>全格式</b><span>文档支持</span></div></div>
+</div></header>
+
+<main class="wrap">
+<section id="features">
+<div class="sec-tag">Features</div><h2>功能特性</h2>
+<p class="lead">围绕实际业务场景打磨的核心能力一览。</p>
+<div class="grid"><div class="card"><div class="ic">📝</div><h3>全套文档编辑</h3><p>Word / Excel / PowerPoint / PDF / ODF 全格式在线编辑</p></div><div class="card"><div class="ic">🐳</div><h3>Docker 容器化</h3><p>容器部署于 Leon-Docker 节点，升级迁移灵活自如</p></div><div class="card"><div class="ic">🔗</div><h3>MemKV 联动</h3><p>记忆库附件免下载在线打开，编辑保存自动回写附件库</p></div><div class="card"><div class="ic">👥</div><h3>协作基因</h3><p>ONLYOFFICE 原生协作能力，多人编辑随时可用</p></div><div class="card"><div class="ic">🔒</div><h3>内网私有化</h3><p>文档数据全程私有化存储，安全合规不出内网</p></div><div class="card"><div class="ic">🌐</div><h3>公网可达</h3><p>经 NAT 与透传链路映射公网端口，外部协作同样顺畅</p></div></div>
+</section>
+
+<section id="tech">
+<div class="sec-tag">Tech Stack</div><h2>技术栈</h2>
+<p class="lead">OnlyOffice 采用以下技术构建：</p>
+<div class="chips"><span class="chip">ONLYOFFICE Docs</span><span class="chip">Docker</span><span class="chip">JWT</span><span class="chip">Nginx Stream</span></div>
+
+</section>
+
+<section id="deploy">
+<div class="sec-tag">Deployment</div><h2>部署与访问</h2>
+<p class="lead">服务部署位置与访问方式汇总。</p>
+<table class="tbl"><tr><td>服务入口</td><td>经 Todo-Mind-Map 等应用内嵌调用</td></tr><tr><td>部署设备</td><td>Leon-Docker · 192.168.11.64</td></tr><tr><td>服务端口</td><td>8090</td></tr><tr><td>公网链路</td><td>119.145.17.34:58090 → NAT → 透传 → .64:8090</td></tr></table>
+</section>
+</main>
+
+<footer>© 2026 Leon · <a href="http://192.168.11.70:5070/">Powered by Leon-Web-Host</a> · 项目展示站</footer>
+<a id="leon-jump-btn-wan" href="http://192.168.11.64:8090" target="_blank" rel="noopener" style="position:fixed;right:24px;bottom:22px;z-index:99999;display:flex;align-items:center;gap:8px;border-radius:48px;font-size:14px;font-weight:600;text-decoration:none;padding:12px 22px;background:linear-gradient(135deg,#10b981,#065f46);color:#fff;box-shadow:0 4px 18px rgba(16,185,129,.45);font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif;">🌐 进入系统</a>
+</body>
+</html>

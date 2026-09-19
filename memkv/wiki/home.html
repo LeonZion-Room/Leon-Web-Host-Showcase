@@ -1,0 +1,182 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>home · memkv 说明</title><style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;background:#fafbff;color:#1a2332;line-height:1.75}
+a{color:#2f6bff;text-decoration:none}
+.wrap{max-width:920px;margin:0 auto;padding:32px 20px 80px}
+.back{font-size:13px;color:#8a94a6}
+h1{font-size:26px;font-weight:800;margin:8px 0 4px;border-bottom:2px solid #eef1f8;padding-bottom:14px}
+.page-title{font-size:16px;color:#5c6670;margin:-2px 0 20px}
+.wiki-body{margin-top:8px}
+.wiki-body h1,.wiki-body h2,.wiki-body h3{margin:1.2em 0 .5em;line-height:1.4}
+.wiki-body h2{font-size:22px}.wiki-body h3{font-size:18px}
+.wiki-body p{margin:.8em 0}
+.wiki-body ul,.wiki-body ol{margin:.6em 0 .6em 1.6em}
+.wiki-body img{max-width:100%}
+.wiki-body pre{background:#0f1523;color:#e8edff;padding:14px 16px;border-radius:10px;overflow:auto;margin:.9em 0}
+.wiki-body code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:.9em}
+.wiki-body pre code{background:none;padding:0}
+.wiki-body table{border-collapse:collapse;margin:.9em 0;width:100%}
+.wiki-body th,.wiki-body td{border:1px solid #e2e7f2;padding:8px 12px;text-align:left}
+.wiki-body th{background:#f4f6fc}
+.wiki-body blockquote{border-left:4px solid #bcd0ff;background:#f4f8ff;padding:10px 16px;margin:.9em 0;color:#456}
+.wiki-body a{color:#2f6bff;border-bottom:1px dashed #bcd0ff}
+.nav{margin:14px 0 0;display:flex;gap:10px;flex-wrap:wrap}
+.nav a{background:#eef3ff;border:1px solid #d9e4ff;padding:6px 16px;border-radius:20px;font-size:13px;color:#2f6bff}
+.mark{color:#c0392b}
+</style></head><body><div class="wrap"><a class="back" href="../index.html">← 项目合辑</a><h1>home</h1><div class="page-title">memkv · 使用说明（只读镜像）</div><div class="nav"><a href="../index.html">返回合辑</a><a href="./home.html">概览</a></div><div class="wiki-body"><h1>MemKV · 打通 AI 与人的人性化记忆基础设施</h1>
+<h2>产品定位</h2>
+<p><strong>MemKV</strong> 不只是一个 AI 知识库，更是一座<strong>打通 AI 与人的人性化记忆桥梁</strong>。它让 AI 像人一样拥有可被任意设备、任意模型、任何场景共享的<strong>长期记忆层</strong>，同时让人类也能像浏览普通笔记一样<strong>读、写、批注、分享</strong>这些记忆。</p>
+<h2>核心理念 · 打通 AI 与人</h2>
+<h3>AI 视角：可被调用的持久化记忆</h3>
+<ul>
+<li><strong>跨会话记忆</strong>：每次新会话开始，AI 自动 search 加载历史偏好，告别"金鱼脑"</li>
+<li><strong>跨设备同步</strong>：一个 Token，所有设备、所有模型、所有 Agent 共享同一份记忆</li>
+<li><strong>结构化输出</strong>：纯 JSON / Markdown 直接喂给 LLM，无需预处理</li>
+<li><strong>可解释检索</strong>：关键词 + References 引用，AI 知道每条记忆的来龙去脉</li>
+<li><strong>自动上下文</strong>：会话开始即自动拉取相关 Skill / SOP / 偏好，AI 立刻进入工作状态</li>
+</ul>
+<h3>人的视角：人性化交互界面</h3>
+<ul>
+<li><strong>像写笔记一样管理</strong>：Markdown 编辑器，所见即所得</li>
+<li><strong>像查资料一样查阅</strong>：左侧目录 + 全文搜索 + 标签云</li>
+<li><strong>像分享文档一样分享</strong>：公开链接、二维码、嵌入外部网页</li>
+<li><strong>像备份文件一样备份</strong>：JSON / MD / HTML / PDF 四种格式一键导出</li>
+<li><strong>像整理文件夹一样整理</strong>：三级树形结构，分类、标签、引用一目了然</li>
+</ul>
+<h3>双向桥梁 · 人机协作</h3>
+<table>
+<thead>
+<tr>
+<th>场景</th>
+<th>AI 怎么用</th>
+<th>人怎么用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>新增记忆</strong></td>
+<td>AI 通过 API 写入条目，自动分类、添加标签</td>
+<td>人通过 Web 编辑器撰写，AI 后续补充</td>
+</tr>
+<tr>
+<td><strong>更新记忆</strong></td>
+<td>AI 根据上下文自动 update 条目内容</td>
+<td>人修订后 AI 自动感知变更</td>
+</tr>
+<tr>
+<td><strong>查询记忆</strong></td>
+<td>AI 启动时 search 拉取相关上下文</td>
+<td>人通过搜索框查阅具体内容</td>
+</tr>
+<tr>
+<td><strong>分享记忆</strong></td>
+<td>AI 生成公开 URL / 二维码</td>
+<td>人扫码或复制链接分享给同事</td>
+</tr>
+<tr>
+<td><strong>备份记忆</strong></td>
+<td>AI 定时快照 + Git 增量同步</td>
+<td>人一键导出 JSON / PDF 归档</td>
+</tr>
+</tbody>
+</table>
+<h2>三级树形结构</h2>
+<pre class="codehilite"><code>项目 (Project)
+  └─ 分组 (Group)
+       └─ 条目 (Item)
+            └─ 引用 (References) → 其他条目
+</code></pre>
+
+<ul>
+<li><strong>项目</strong>：独立知识空间，如 <code>Leon-Note</code>、<code>开发相关</code>、<code>个人文档</code></li>
+<li><strong>分组</strong>：项目内的分类，如 <code>【项目】汇总</code>、<code>【投控】信息（设备）</code></li>
+<li><strong>条目</strong>：最小知识单元，每个条目都有 <code>summary</code> 摘要 + <code>content</code> 正文 + <code>references</code> 关联</li>
+<li><strong>引用</strong>：条目间通过 <code>&lt;a class="wl wl-missing" href="wiki/wikilink.html"&gt;wikilink&lt;/a&gt;</code> 或 <code>references</code> 字段相互关联，形成知识图谱</li>
+</ul>
+<h2>API 一览</h2>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>路径</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GET</td>
+<td>/api/v1/memory/index</td>
+<td>获取完整记忆树</td>
+</tr>
+<tr>
+<td>GET</td>
+<td>/api/v1/search?keyword=词</td>
+<td>关键词全文搜索</td>
+</tr>
+<tr>
+<td>GET</td>
+<td>/api/v1/item/content?project_name=..&amp;group_name=..&amp;item_name=..</td>
+<td>读取条目正文</td>
+</tr>
+<tr>
+<td>POST</td>
+<td>/api/v1/item/content</td>
+<td>创建/更新条目</td>
+</tr>
+<tr>
+<td>POST</td>
+<td>/api/v1/erase</td>
+<td>删除条目（公网接口，避开 WAF 拦截）</td>
+</tr>
+<tr>
+<td>GET</td>
+<td>/api/v1/share/qrcode?url=...</td>
+<td>生成二维码</td>
+</tr>
+<tr>
+<td>GET</td>
+<td>/api/v1/export?format=md</td>
+<td>导出 Markdown</td>
+</tr>
+</tbody>
+</table>
+<h2>人性化设计</h2>
+<ul>
+<li><strong>双视角数据模型</strong>：AI 看到的是结构化 JSON，人类看到的是可读 Markdown</li>
+<li><strong>自然语言写备注</strong>：条目支持 <code>&lt;a class="wl wl-missing" href="wiki/wikilink.html"&gt;wikilink&lt;/a&gt;</code> 双链语法，像写笔记一样</li>
+<li><strong>AI 补充 + 人类修订</strong>：AI 写入后人类可继续修订，反之亦然</li>
+<li><strong>草稿与正式版分离</strong>：每个条目有 <code>summary</code> 简述 + <code>content</code> 正文，新人先看 summary</li>
+<li><strong>跨模型兼容</strong>：不绑定任何特定 LLM，OpenAI / DeepSeek / Claude / 自研模型通吃</li>
+<li><strong>零冷启动</strong>：无需 Embedding 模型，无需 GPU，开箱即用</li>
+</ul>
+<h2>部署信息</h2>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>详情</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>服务地址</td>
+<td>http://192.168.11.70:5001 / http://119.145.17.34:5001</td>
+</tr>
+<tr>
+<td>部署设备</td>
+<td>TK-Server · 192.168.11.70</td>
+</tr>
+<tr>
+<td>认证 Token</td>
+<td><code>wswwsw1234</code></td>
+</tr>
+<tr>
+<td>数据格式</td>
+<td>JSON 文件 + Markdown</td>
+</tr>
+<tr>
+<td>接口协议</td>
+<td>HTTP RESTful API</td>
+</tr>
+</tbody>
+</table></div></div></body></html>

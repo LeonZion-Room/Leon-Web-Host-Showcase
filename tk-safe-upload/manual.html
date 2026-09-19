@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TK-Safe-UpLoad · 安全生产平台用户操作手册</title>
+<meta name="description" content="大鹏投控安全生产一体化智慧管理平台完整用户操作手册">
+<style>
+:root{
+  --bg:#ffffff;--bg2:#f7f8fb;--bg3:#f0f2f7;--card:#ffffff;
+  --rule:rgba(15,23,42,.07);--rule2:rgba(66,133,244,.28);
+  --text:#1a1a1a;--muted:#5c6670;--muted2:#8a93a0;
+  --a1:#3d5afe;--a2:#7e57c2;--a3:#00897b;
+  --cyan:#26a69a;--green:#43a047;--pink:#e91e63;--orange:#fb8c00;
+  --grad:linear-gradient(120deg,#448aff,#7c4dff 35%,#ff5252 65%,#ffb300);
+  --grad2:linear-gradient(135deg,#448aff,#7c4dff);
+  --grad3:linear-gradient(135deg,#43a047,#26c6da);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;overflow-x:hidden}
+a{color:var(--a1);text-decoration:none;transition:color .2s}
+a:hover{color:#555}
+img{max-width:100%;display:block}
+
+.bg-grid{position:fixed;inset:0;background-image:linear-gradient(rgba(0,0,0,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(0,0,0,.04) 1px,transparent 1px);background-size:48px 48px;pointer-events:none;z-index:0;mask-image:radial-gradient(ellipse at center,#000 30%,transparent 80%);-webkit-mask-image:radial-gradient(ellipse at center,#000 30%,transparent 80%)}
+
+nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.92);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid var(--rule)}
+.nav-in{max-width:1280px;margin:0 auto;padding:0 32px;height:64px;display:flex;align-items:center;justify-content:space-between}
+.brand{font-weight:800;font-size:18px;display:flex;align-items:center;gap:11px;color:#202124}
+.brand .dot{width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,#448aff,#7c4dff);display:flex;align-items:center;justify-content:center;font-size:18px;color:#fff;box-shadow:0 4px 12px rgba(124,77,255,.3)}
+.brand small{font-size:11px;color:var(--muted);font-weight:400;margin-left:8px;padding-left:8px;border-left:1px solid var(--rule);letter-spacing:.5px}
+.nav-links{display:flex;gap:28px;font-size:14.5px;font-weight:500}
+.nav-links a{color:var(--muted);position:relative}
+.nav-links a:hover{color:#1a1a1a}
+.nav-links a::after{content:'';position:absolute;left:50%;bottom:-6px;transform:translateX(-50%);width:0;height:2px;background:linear-gradient(90deg,#448aff,#ff5252);transition:width .25s;border-radius:2px}
+.nav-links a:hover::after{width:24px}
+.nav-right{display:flex;align-items:center;gap:10px}
+.nav-btn{padding:8px 18px;border-radius:8px;font-size:13px;font-weight:600;transition:.2s}
+.nav-btn.ghost{color:var(--muted);border:1px solid var(--rule)}
+.nav-btn.ghost:hover{color:#1a1a1a;border-color:#1a1a1a}
+.nav-btn.pri{background:linear-gradient(135deg,#448aff,#7c4dff);color:#fff;box-shadow:0 4px 14px rgba(124,77,255,.3)}
+.nav-btn.pri:hover{background:#444;transform:translateY(-1px)}
+
+.wrap{max-width:1280px;margin:0 auto;padding:0 32px;position:relative;z-index:2}
+section{padding:80px 0;position:relative;z-index:2}
+.sec-tag{display:inline-block;color:#448aff;font-size:12px;font-weight:700;letter-spacing:3px;text-transform:uppercase;padding:4px 12px;border:1px solid rgba(68,138,255,.35);border-radius:20px;background:rgba(68,138,255,.07);margin-bottom:14px}
+h2{font-size:clamp(1.8rem,3.5vw,2.4rem);font-weight:800;margin-bottom:14px;letter-spacing:-.5px}
+h2::after{content:'';display:block;width:56px;height:4px;border-radius:2px;margin-top:12px;background:linear-gradient(90deg,#448aff,#ff5252,#ffb300)}
+h2 em{font-style:normal;font-weight:800;background:linear-gradient(100deg,#448aff,#7c4dff 45%,#ff5252);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.lead{color:var(--muted);font-size:15.5px;max-width:760px;margin-bottom:42px}
+
+.hero{position:relative;padding:90px 0 60px;text-align:left;overflow:hidden}
+.hero-inner{display:grid;grid-template-columns:1.15fr .85fr;gap:60px;align-items:center}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,rgba(68,138,255,.1),rgba(124,77,255,.08));border:1px solid rgba(68,138,255,.35);color:#448aff;padding:7px 16px;border-radius:999px;font-size:13px;font-weight:600;margin-bottom:24px}
+.hero-badge .dot-pulse{width:7px;height:7px;border-radius:50%;background:#43a047;box-shadow:0 0 0 0 rgba(67,160,71,.5);animation:pulse 2s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(67,160,71,.5)}70%{box-shadow:0 0 0 10px rgba(67,160,71,0)}100%{box-shadow:0 0 0 0 rgba(67,160,71,0)}}
+.hero h1{font-size:clamp(2.4rem,5.2vw,4rem);font-weight:800;line-height:1.1;letter-spacing:-1px;margin-bottom:22px}
+.hero h1 em{font-style:normal;background:linear-gradient(100deg,#448aff,#7c4dff 45%,#ff5252);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.hero h1 .sub-line{display:block;font-size:.42em;color:var(--muted);font-weight:500;margin-top:18px;letter-spacing:0}
+.hero p.sub{font-size:1.08rem;color:var(--muted);max-width:560px;margin-bottom:36px;line-height:1.75}
+.hero p.sub b{color:var(--text);font-weight:600}
+.hero-cta{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:44px}
+.btn{padding:13px 28px;border-radius:10px;font-weight:600;font-size:14.5px;transition:.25s;display:inline-flex;align-items:center;gap:8px}
+.btn.pri{background:linear-gradient(135deg,#448aff,#7c4dff);color:#fff;box-shadow:0 6px 18px rgba(124,77,255,.32);position:relative;overflow:hidden}
+.btn.pri::after{content:'';position:absolute;top:0;left:-60%;width:45%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.35),transparent);transform:skewX(-20deg);animation:shimmer 3.2s ease-in-out infinite}
+@keyframes shimmer{0%{left:-60%}60%{left:150%}100%{left:150%}}
+.btn.pri:hover{background:linear-gradient(135deg,#5a6bff,#8a5cff);transform:translateY(-2px);box-shadow:0 10px 26px rgba(124,77,255,.42)}
+.btn.ghost{border:1px solid var(--rule);color:var(--text);background:rgba(255,255,255,.6)}
+.btn.ghost:hover{border-color:#1a1a1a;background:rgba(0,0,0,.03)}
+
+.hero-vis{position:relative;height:480px}
+.vis-card{position:absolute;background:linear-gradient(145deg,#ffffff,#fafafa);border:1px solid var(--rule);border-radius:16px;padding:18px;backdrop-filter:blur(8px);box-shadow:0 20px 50px rgba(0,0,0,.06);transition:.3s;overflow:hidden}
+.vis-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#448aff,#ff5252,#ffb300);opacity:.7}
+.vis-card:hover{transform:translateY(-4px) scale(1.02);border-color:rgba(0,0,0,.15);box-shadow:0 24px 54px rgba(0,0,0,.1)}
+.vis-card .vc-head{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.vis-card .vc-icon{width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:18px;background:linear-gradient(135deg,#448aff,#26c6da);color:#fff;box-shadow:0 4px 10px rgba(68,138,255,.25)}
+.vis-card .vc-title{font-weight:700;font-size:14px}
+.vis-card .vc-sub{color:var(--muted2);font-size:11.5px}
+.vis-card .vc-row{display:flex;justify-content:space-between;font-size:12px;padding:6px 0;border-top:1px solid var(--rule);color:var(--muted)}
+.vis-card .vc-row b{color:var(--text)}
+.vc-1{top:10px;left:20px;width:260px;animation:float 6s ease-in-out infinite}
+.vc-2{top:90px;right:10px;width:240px;animation:float 7s ease-in-out infinite reverse}
+.vc-3{bottom:80px;left:40px;width:280px;animation:float 8s ease-in-out infinite}
+.vc-4{bottom:20px;right:30px;width:220px;animation:float 5.5s ease-in-out infinite reverse}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+
+.stats-strip{padding:30px 0;background:linear-gradient(180deg,transparent,rgba(0,0,0,.02) 50%,transparent)}
+.stats-strip-inner{display:grid;grid-template-columns:repeat(5,1fr);gap:0;border:1px solid var(--rule);border-radius:18px;background:rgba(255,255,255,.7);backdrop-filter:blur(8px);overflow:hidden}
+.stats-strip-inner div{padding:24px 12px;text-align:center;border-right:1px solid var(--rule)}
+.stats-strip-inner div:last-child{border-right:none}
+.stats-strip-inner b{display:block;font-size:clamp(1.8rem,3.5vw,2.6rem);font-weight:800;background:linear-gradient(100deg,#448aff,#7c4dff 50%,#ff5252);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;line-height:1.1;margin-bottom:6px}
+.stats-strip-inner span{font-size:13px;color:var(--muted)}
+.stats-strip-inner .ic{display:block;margin:0 auto 8px;font-size:18px;opacity:.7}
+
+.features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.feature{background:linear-gradient(145deg,#ffffff,#fafafa);border:1px solid var(--rule);border-radius:16px;padding:30px 28px;transition:.3s;position:relative;overflow:hidden}
+.feature::after{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--f-grad,linear-gradient(90deg,#448aff,#ff5252,#ffb300));opacity:.8}
+.feature:hover{transform:translateY(-6px);border-color:rgba(0,0,0,.15);box-shadow:0 20px 50px rgba(0,0,0,.08)}
+.feature>*{position:relative}
+.feature .ic{width:54px;height:54px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:26px;margin-bottom:18px;background:linear-gradient(135deg,#448aff,#26c6da);border:none;color:#fff;box-shadow:0 8px 20px rgba(68,138,255,.3)}
+.feature h3{font-size:1.15rem;font-weight:700;margin-bottom:10px;color:#1a1a1a}
+.feature p{color:var(--muted);font-size:14px;line-height:1.65;margin-bottom:14px}
+.feature ul{list-style:none;font-size:13px;color:var(--muted2)}
+.feature ul li{padding:5px 0;display:flex;align-items:center;gap:8px}
+.feature ul li::before{content:'✓';color:var(--green);font-weight:700;font-size:11px}
+
+.screenshot-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(380px,1fr));gap:20px;margin-top:32px}
+.screenshot-card{background:linear-gradient(145deg,#ffffff,#fafafa);border:1px solid var(--rule);border-radius:16px;overflow:hidden;transition:.3s}
+.screenshot-card:hover{transform:translateY(-4px);border-color:rgba(0,0,0,.15);box-shadow:0 16px 40px rgba(0,0,0,.08)}
+.screenshot-card img{width:100%;display:block;border-bottom:1px solid var(--rule)}
+.screenshot-card .cap{padding:16px 20px}
+.screenshot-card .cap h4{font-size:15px;font-weight:700;color:#1a1a1a;margin-bottom:4px}
+.screenshot-card .cap p{font-size:13px;color:var(--muted);margin:0}
+
+.module-section{margin-bottom:60px}
+.module-section h3{font-size:1.4rem;font-weight:700;color:#1a1a1a;margin-bottom:8px;display:flex;align-items:center;gap:10px}
+.module-section h3 .tag{font-size:11px;padding:3px 10px;border-radius:8px;font-weight:600;background:rgba(68,138,255,.1);color:#448aff}
+.module-section>p{color:var(--muted);font-size:14px;margin-bottom:20px}
+
+.step-list{background:rgba(255,255,255,.9);border:1px solid var(--rule);border-radius:14px;padding:24px;margin-bottom:24px}
+.step-list h4{font-size:14px;font-weight:700;color:#1a1a1a;margin-bottom:12px}
+.step-list ol{margin:0 0 0 20px;padding:0}
+.step-list li{padding:6px 0;font-size:14px;color:var(--text)}
+.step-list code{background:rgba(68,138,255,.08);color:#448aff;padding:2px 7px;border-radius:5px;font-size:13px;font-family:'SF Mono',Consolas,monospace}
+
+.tip-box{background:linear-gradient(135deg,rgba(68,138,255,.06),rgba(124,77,255,.04));border:1px solid rgba(68,138,255,.2);border-radius:12px;padding:16px 20px;margin:16px 0;font-size:13.5px;color:var(--muted)}
+.tip-box b{color:#448aff}
+
+.warn-box{background:linear-gradient(135deg,rgba(255,152,0,.06),rgba(255,87,34,.04));border:1px solid rgba(255,152,0,.25);border-radius:12px;padding:16px 20px;margin:16px 0;font-size:13.5px;color:var(--muted)}
+.warn-box b{color:var(--orange)}
+
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:14px}
+th,td{padding:12px 16px;text-align:left;border-bottom:1px solid var(--rule)}
+th{font-weight:700;color:#1a1a1a;background:rgba(0,0,0,.02)}
+td{color:var(--muted)}
+
+footer{background:var(--bg2);border-top:1px solid var(--rule);padding:40px 0;position:relative;z-index:2;text-align:center}
+footer p{color:var(--muted2);font-size:13px}
+
+@media(max-width:1100px){
+  .hero-inner{grid-template-columns:1fr;gap:40px}
+  .hero-vis{height:380px}
+  .features-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:768px){
+  .nav-links{display:none}
+  .features-grid,.screenshot-grid{grid-template-columns:1fr}
+  .hero{padding:60px 0 30px}
+  .hero-vis{height:340px}
+  section{padding:60px 0}
+  .wrap{padding:0 20px}
+}
+</style>
+</head>
+<body>
+
+<div class="bg-grid"></div>
+
+<nav>
+  <div class="nav-in">
+    <a class="brand" href="/s/tk-safe-upload/">
+      <span class="dot">🛡️</span>
+      TK-Safe-UpLoad
+      <small>用户操作手册 v3.0</small>
+    </a>
+    <div class="nav-links">
+      <a href="#overview">平台简介</a>
+      <a href="#login">登录系统</a>
+      <a href="#mobile">移动端</a>
+      <a href="#admin">PC后台</a>
+      <a href="#screen">数据大屏</a>
+      <a href="#faq">常见问题</a>
+      <a href="/s/tk-safe-upload/test-guide.html" style="color:#448aff;font-weight:700">✅ 点检流程</a>
+    </div>
+    <div class="nav-right">
+      <a class="nav-btn ghost" href="/s/tk-safe-upload/">返回首页</a>
+      <a class="nav-btn pri" href="http://119.145.17.34:5111" target="_blank">立即使用 →</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ========== Hero ========== -->
+<header class="hero">
+  <div class="wrap">
+    <div class="hero-inner">
+      <div>
+        <span class="hero-badge"><span class="dot-pulse"></span> 大鹏投控 · 安全生产一体化智慧管理平台</span>
+        <h1>
+          <em>用户操作手册</em><br>
+          从零开始，轻松掌握平台使用
+          <span class="sub-line">移动端随手拍 · PC后台管理 · 可视化大屏 · 全流程覆盖</span>
+        </h1>
+        <p class="sub">
+          本手册面向<b>初中二年级学生</b>（零基础），用通俗易懂的语言，一步步教您如何使用<b>TK-Safe-UpLoad 安全生产平台</b>的每一个功能。
+          包含<b>真实截图</b>、<b>操作步骤</b>、<b>注意事项</b>，让您快速上手。
+        </p>
+        <div class="hero-cta">
+          <a class="btn pri" href="#login">开始学习 →</a>
+          <a class="btn ghost" href="#mobile">📱 移动端指南</a>
+          <a class="btn ghost" href="#admin">🖥️ PC后台指南</a>
+        </div>
+      </div>
+
+      <div class="hero-vis">
+        <div class="vis-card vc-1">
+          <div class="vc-head">
+            <div class="vc-icon">📷</div>
+            <div>
+              <div class="vc-title">随手拍上报</div>
+              <div class="vc-sub">发现隐患立即拍照</div>
+            </div>
+          </div>
+          <div class="vc-row"><span>操作</span><b>拍照 → 提交 → 自动生成工单</b></div>
+          <div class="vc-row"><span>响应</span><b>管理员实时收到通知</b></div>
+        </div>
+
+        <div class="vis-card vc-2">
+          <div class="vc-head">
+            <div class="vc-icon">🔧</div>
+            <div>
+              <div class="vc-title">隐患闭环</div>
+              <div class="vc-sub">上报 → 整改 → 复核 → 销号</div>
+            </div>
+          </div>
+          <div class="vc-row"><span>流程</span><b>4步完成隐患治理</b></div>
+          <div class="vc-row"><span>追踪</span><b>全程留痕可追溯</b></div>
+        </div>
+
+        <div class="vis-card vc-3">
+          <div class="vc-head">
+            <div class="vc-icon">🎓</div>
+            <div>
+              <div class="vc-title">在线培训</div>
+              <div class="vc-sub">视频课程 + 课件学习</div>
+            </div>
+          </div>
+          <div class="vc-row"><span>功能</span><b>倍速播放 · 进度记录</b></div>
+          <div class="vc-row"><span>证书</span><b>完成课时自动颁发</b></div>
+        </div>
+
+        <div class="vis-card vc-4">
+          <div class="vc-head">
+            <div class="vc-icon">📊</div>
+            <div>
+              <div class="vc-title">数据大屏</div>
+              <div class="vc-sub">实时数据可视化</div>
+            </div>
+          </div>
+          <div class="vc-row"><span>展示</span><b>隐患趋势 · 整改率</b></div>
+          <div class="vc-row"><span>用途</span><b>指挥调度 · 领导汇报</b></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ========== 数据指标 ========== -->
+<div class="stats-strip">
+  <div class="wrap">
+    <div class="stats-strip-inner">
+      <div><span class="ic">📱</span><b>3</b><span>端口覆盖</span></div>
+      <div><span class="ic">🔧</span><b>8</b><span>核心模块</span></div>
+      <div><span class="ic">📸</span><b>29</b><span>操作截图</span></div>
+      <div><span class="ic">📖</span><b>33</b><span>功能章节</span></div>
+      <div><span class="ic">🛡️</span><b>100%</b><span>安全覆盖</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== 平台简介 ========== -->
+<section id="overview">
+  <div class="wrap">
+    <div class="sec-tag">Overview</div>
+    <h2>这是什么<em>平台</em>？</h2>
+    <p class="lead">TK-Safe-UpLoad 是大鹏投控集团用来管理安全生产工作的<b>一站式智能平台</b>。简单说，就是把以前用纸笔、微信群、Excel表格做的安全工作，全部搬到电脑和手机上来做。</p>
+
+    <div class="features-grid">
+      <div class="feature" style="--f-grad:linear-gradient(135deg,#ff5252,#ff8a65)">
+        <div class="ic" style="background:linear-gradient(135deg,#ff5252,#ff8a65)">🚨</div>
+        <h3>隐患排查治理</h3>
+        <p>发现安全隐患 → 上报 → 整改 → 复核 → 销号，全流程闭环管理。</p>
+        <ul>
+          <li>随手拍上报隐患</li>
+          <li>自动生成工单</li>
+          <li>整改进度追踪</li>
+        </ul>
+      </div>
+
+      <div class="feature" style="--f-grad:linear-gradient(135deg,#43a047,#26c6da)">
+        <div class="ic" style="background:linear-gradient(135deg,#43a047,#26c6da)">🎓</div>
+        <h3>安全培训</h3>
+        <p>在线学习安全知识、观看培训视频、获得证书。</p>
+        <ul>
+          <li>视频课程播放</li>
+          <li>学习进度记录</li>
+          <li>课程证书颁发</li>
+        </ul>
+      </div>
+
+      <div class="feature" style="--f-grad:linear-gradient(135deg,#448aff,#7c4dff)">
+        <div class="ic" style="background:linear-gradient(135deg,#448aff,#7c4dff)">📍</div>
+        <h3>巡查打卡</h3>
+        <p>按照巡查计划，到指定地点进行安全检查。</p>
+        <ul>
+          <li>计划下发与执行</li>
+          <li>现场签到打卡</li>
+          <li>异常情况上报</li>
+        </ul>
+      </div>
+
+      <div class="feature" style="--f-grad:linear-gradient(135deg,#ffb300,#ff7043)">
+        <div class="ic" style="background:linear-gradient(135deg,#ffb300,#ff7043)">🚒</div>
+        <h3>应急管理</h3>
+        <p>管理应急预案、演练记录、通讯录。</p>
+        <ul>
+          <li>预案版本管理</li>
+          <li>演练记录归档</li>
+          <li>应急通讯录</li>
+        </ul>
+      </div>
+
+      <div class="feature" style="--f-grad:linear-gradient(135deg,#e91e63,#ff8ab5)">
+        <div class="ic" style="background:linear-gradient(135deg,#e91e63,#ff8ab5)">🗺️</div>
+        <h3>双重预防</h3>
+        <p>风险点四级分级、管控措施、到期复核。</p>
+        <ul>
+          <li>风险点标注</li>
+          <li>分级管控</li>
+          <li>热力地图</li>
+        </ul>
+      </div>
+
+      <div class="feature" style="--f-grad:linear-gradient(135deg,#7c4dff,#448aff)">
+        <div class="ic" style="background:linear-gradient(135deg,#7c4dff,#448aff)">📈</div>
+        <h3>统计报表</h3>
+        <p>隐患趋势、整改率排名、风险分布、Excel/PDF导出。</p>
+        <ul>
+          <li>数据可视化</li>
+          <li>多维度分析</li>
+          <li>一键导出</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== 登录系统 ========== -->
+<section id="login" style="background:var(--bg2)">
+  <div class="wrap">
+    <div class="sec-tag">Login</div>
+    <h2>如何<em>登录</em>系统</h2>
+    <p class="lead">打开浏览器，输入访问地址，输入账号密码即可登录。</p>
+
+    <div class="module-section">
+      <h3>访问地址 <span class="tag">必读</span></h3>
+      <table>
+        <tr><th>访问方式</th><th>地址</th></tr>
+        <tr><td>外网访问</td><td><code>http://119.145.17.34:5111</code></td></tr>
+        <tr><td>内网访问</td><td><code>http://192.168.11.70:5111</code></td></tr>
+      </table>
+
+      <div class="screenshot-grid">
+        <div class="screenshot-card">
+          <img src="/s/tk-safe-upload/01_login.png" alt="登录页面">
+          <div class="cap">
+            <h4>系统登录页面</h4>
+            <p>输入用户名和密码，点击"登录"按钮</p>
+          </div>
+        </div>
+      </div>
+
+      <h3 style="margin-top:32px">测试账号</h3>
+      <table>
+        <tr><th>角色</th><th>用户名</th><th>密码</th><th>说明</th></tr>
+        <tr><td>管理员</td><td><code>admin</code></td><td><code>admin123</code></td><td>拥有全部权限</td></tr>
+        <tr><td>安全员</td><td><code>inspector</code></td><td><code>inspector123</code></td><td>负责巡查和隐患处理</td></tr>
+        <tr><td>普通员工</td><td><code>staff</code></td><td><code>staff123</code></td><td>基本操作权限</td></tr>
+        <tr><td>子公司管理员</td><td><code>subadmin</code></td><td><code>subadmin123</code></td><td>子公司管理权限</td></tr>
+      </table>
+
+      <div class="warn-box">
+        <b>⚠️ 重要：</b>首次登录后请立即修改密码！
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== 统一工作台 ========== -->
+<section id="portal">
+  <div class="wrap">
+    <div class="sec-tag">Portal</div>
+    <h2>统一<em>工作台</em></h2>
+    <p class="lead">登录成功后会看到"统一工作台"页面，这是系统的总入口，聚合了移动端、PC后台、数据大屏三个入口。</p>
+
+    <div class="screenshot-grid">
+      <div class="screenshot-card">
+        <img src="/s/tk-safe-upload/02_portal.png" alt="统一工作台">
+        <div class="cap">
+          <h4>统一工作台</h4>
+          <p>三端入口聚合，数据面板实时展示关键指标</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="module-section" style="margin-top:32px">
+      <h3>三端入口</h3>
+      <table>
+        <tr><th>入口</th><th>说明</th><th>适用人群</th></tr>
+        <tr><td>📱 打开移动端</td><td>进入手机端工作台，适合日常操作</td><td>所有员工</td></tr>
+        <tr><td>🖥️ PC管理后台</td><td>进入PC端后台，适合管理员处理业务</td><td>管理员/安全员</td></tr>
+        <tr><td>📊 可视化大屏</td><td>打开数据展示大屏，查看实时数据</td><td>所有人</td></tr>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ========== 移动端 ========== -->
+<section id="mobile" style="background:var(--bg2)">
+  <div class="wrap">
+    <div class="sec-tag">Mobile</div>
+    <h2>移动端<em>操作指南</em></h2>
+    <p class="lead">面向一线员工的手机端操作指南，涵盖随手拍、巡查打卡、任务接收、培训学习等全部功能。</p>
+
+    <div class="module-section">
+      <h3>📱 移动端首页 <span class="tag">员工必看</span></h3>
+      <p>手机端首页是员工日常操作的起点，包含快捷操作入口和数据概览。</p>
+      <div class="screenshot-grid">
+        <div class="screenshot-card">
+          <img src="/s/tk-safe-upload/18_mobile_home.png" alt="移动端首页">
+          <div class="cap">
+            <h4>移动端首页</h4>
+            <p>快捷操作入口、数据概览、待办预警</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="module-section">
+      <h3>📷 随手拍上报 <span class="tag">核心功能</span></h3>
+      <p>发现安全隐患时，用手机拍照上报。系统自动生成隐患工单，由安全管理员分派责任单位限期整改。</p>
+      <div class="screenshot-grid">
+        <div class="screenshot-card">
+          <img src="/s/tk-safe-upload/19_mobile_photo.png" alt="随手拍上报">
+          <div class="cap">
+            <h4>隐患随手拍上报</h4>
+            <p>填写信息、上传照片、一键提交</p>
+          </div>
+        </div>
+      </div>
+      <div class="step-list">
+        <h4>操作步骤</h4>
+        <ol>
+          <li>点击首页的"📷 随手拍"图标</li>
+          <li>填写隐患标题（必填）和描述</li>
+          <li>选择隐患分级：一般/较大/重大</li>
+          <li>选择所属单位和绑定点位</li>
+          <li>上传现场照片（最多6张，点击可删除）</li>
+          <li>点击"提交上报"按钮</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="module-section">
+      <h3>📍 巡查打卡 <span class="tag">安全员</span></h3>
+      <p>按照巡查计划，到指定地点进行安全检查并签到。</p>
+      <div class="screenshot-grid">
+        <div class="screenshot-card">
+          <img src="/s/tk-safe-upload/20_mobile_patrol.png" alt="巡查打卡">
+          <div class="cap">
+            <h4>巡查打卡页面</h4>
+            <p>选择计划、签到点位、现场记录</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="module-section">
+      <h3>📋 任务接收 <span class="tag">日常</span></h3>
+      <p>查看和处理分配给你的任务，包括整改任务、复查任务、培训通知等。</p>
+      <div class="screenshot-grid">
+        <div class="screenshot-card">
+          <img src="/s/tk-safe-upload/21_mobile_tasks.png" alt="任务接收">
+          <div class="cap">
+            <h4>任务接收页面</h4>
+            <p>待办任务列表、整改提交、标记完成</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="module-section">
+      <h3>🚨 隐患举报 <span class="tag">匿名</span></h3>
+      <p>发现安全隐患但不想暴露身份时，可以匿名举报。</p>
+      <div class="screenshot-grid">
+        <div class="screenshot-card">
+          <img src="/s/tk-safe-upload/22_mobile_report.png" alt="隐患举报">
+          <div class="cap">
+            <h4>隐患举报页面</h4>
+            <p>支持匿名举报，保护举报人隐私</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="module-section">
+      <h3>🎓 线上培训 <span class="tag">学习</span></h3>
+      <p>在线学习安全知识，观看培训视频，完成课时后获得证书。</p>
+      <div class="screenshot-grid">
+        <div class="screenshot-card">
+          <img src="/s/tk-safe-upload/23_mobile_training.png" alt="线上培训">
+          <div class="cap">
+            <h4>线上培训页面</h4>
+            <p>课程列表、学习进度、证书查看</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="module-section">
+      <h3>📚 资料查阅 <span class="tag">参考</span></h3>
+      <p>查看应急预案、风险管控卡、安全制度等文档。</p>
+      <div class="screenshot-grid">
+        <div class="screenshot-card">
+          <img src="/s/tk-safe-upload/10_mobile_library.png" alt="资料查阅">
+          <div class="cap">
+            <h4>资料查阅页面</h4>
+            <p>应急预案、风险管控卡、安全制度</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="module-section">
+      <h3>⏰ 待办预警 <span class="tag">提醒</span></h3>
+      <p>查看需要关注的预警事项，包括逾期隐患、设备到期、证件到期等。</p>
+      <div class="screenshot-grid">
+        <div class="screenshot-card">
+          <img src="/s/tk-safe-upload/11_mobile_alerts.png" alt="待办预警">
+          <div class="cap">
+            <h4>待办预警页面</h4>
+            <p>五类预警事项一目了然</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="module-section">
+      <h3>👤 个人中心 <span class="tag">设置</span></h3>
+      <p>查看个人信息、修改密码、查看我的记录。</p>
+      <div class="screenshot-grid">
+        <div class="screenshot-card">
+          <img src="/s/tk-safe-upload/24_mobile_me.png" alt="个人中心">
+          <div class="cap">
+            <h4>个人中心页面</h4>
+            <p>我的上报、我的打卡、我的培训</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== PC后台 ========== -->
+<section id="admin">
+  <div class="wrap">
+    <div class="sec-tag">Admin</div>
+    <h2>PC管理后台<em>操作指南</em></h2>
+    <p class="lead">只有管理员和安全员才能访问PC管理后台。后台包含仪表盘、隐患治理、基础台账、安全培训等全部管理功能。</p>
+
+    <div class="module-section">
+      <h3>🖥️ 模块导航 <span class="tag">管理员</span></h3>
+      <p>PC后台采用模块化设计，左侧菜单导航，顶部操作按钮。</p>
+      <div class="screenshot-grid">
+        <div class="screenshot-card">
+          <img src="/s/tk-safe-upload/04_admin_modules.png" alt="模块导航">
+          <div class="cap">
+            <h4>PC后台模块导航</h4>
+            <p>9大功能模块，覆盖全部管理需求</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="module-section">
+      <h3>📊 仪表盘 <span class="tag">首页</span></h3>
+      <p>登录后台后看到的第一个页面，展示关键数据和预警信息。</p>
+      <div class="screenshot-grid">
+        <div class="screenshot-card">
+          <img src="/s/tk-safe-upload/03_admin_dashboard.png" alt="仪表盘">
+          <div class="cap">
+            <h4>PC管理后台仪表盘</h4>
+            <p>隐患统计、风险分布、整改率排名</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="module-section">
+      <h3>🚨 隐患治理 <span class="tag">核心</span></h3>
+      <p>这是后台最重要的功能模块，管理隐患工单的全生命周期。</p>
+      <div class="screenshot-grid">
+        <div class="screenshot-card">
+          <img src="/s/tk-safe-upload/08_admin_hazards.png" alt="隐患治理">
+          <div class="cap">
+            <h4>隐患治理页面</h4>
+            <p>工单列表、筛选、分派、复核、销号</p>
+          </div>
+        </div>
+      </div>
+      <div class="step-list">
+        <h4>隐患治理流程</h4>
+        <ol>
+          <li><b>分派工单</b>：选择责任人、责任单位、设置整改期限</li>
+          <li><b>提交整改</b>：责任人填写整改说明、上传佐证照片</li>
+          <li><b>复核销号</b>：管理员审核整改结果，通过则销号，退回则继续整改</li>
+          <li><b>挂牌督办</b>：重大隐患可标记为挂牌督办或强制停工</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="module-section">
+      <h3>🏢 基础台账 <span class="tag">数据</span></h3>
+      <p>管理企业的组织架构、设备、人员、物资等基础信息。</p>
+      <div class="screenshot-grid">
+        <div class="screenshot-card">
+          <img src="/s/tk-safe-upload/05_admin_orgs.png" alt="经营主体">
+          <div class="cap">
+            <h4>经营主体管理</h4>
+            <p>公司、部门、子公司等组织信息</p>
+          </div>
+        </div>
+        <div class="screenshot-card">
+          <img src="/s/tk-safe-upload/06_admin_equipment.png" alt="特种设备">
+          <div class="cap">
+            <h4>特种设备管理</h4>
+            <p>电梯、锅炉等设备的检验和维保</p>
+          </div>
+        </div>
+        <div class="screenshot-card">
+          <img src="/s/tk-safe-upload/07_admin_personnel.png" alt="人员管理">
+          <div class="cap">
+            <h4>人员管理</h4>
+            <p>员工信息、特种作业证件管理</p>
+          </div>
+        </div>
+        <div class="screenshot-card">
+          <img src="/s/tk-safe-upload/19_admin_materials.png" alt="应急物资">
+          <div class="cap">
+            <h4>应急物资管理</h4>
+            <p>灭火器等物资的库存和出入库</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="module-section">
+      <h3>🗺️ 双重预防 <span class="tag">风险</span></h3>
+      <p>管理风险点和管控措施，实现风险分级管控。</p>
+      <div class="screenshot-grid">
+        <div class="screenshot-card">
+          <img src="/s/tk-safe-upload/09_admin_risks.png" alt="双重预防">
+          <div class="cap">
+            <h4>双重预防 - 风险点管理</h4>
+            <p>风险点录入、分级、管控措施</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="module-section">
+      <h3>📑 专项整治 <span class="tag">专项</span></h3>
+      <p>管理各类专项安全检查活动。</p>
+      <div class="screenshot-grid">
+        <div class="screenshot-card">
+          <img src="/s/tk-safe-upload/10_admin_special.png" alt="专项整治">
+          <div class="cap">
+            <h4>专项整治管理</h4>
+            <p>消防、燃气、建筑施工等7类专项</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="module-section">
+      <h3>🎓 安全培训 <span class="tag">培训</span></h3>
+      <p>管理培训课程、计划和记录。</p>
+      <div class="screenshot-grid">
+        <div class="screenshot-card">
+          <img src="/s/tk-safe-upload/11_admin_training.png" alt="安全培训">
+          <div class="cap">
+            <h4>安全培训管理</h4>
+            <p>课程管理、培训计划、学时统计</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="module-section">
+      <h3>🚒 应急管理 <span class="tag">应急</span></h3>
+      <p>管理应急预案、演练记录和通讯录。</p>
+      <div class="screenshot-grid">
+        <div class="screenshot-card">
+          <img src="/s/tk-safe-upload/12_admin_emergency.png" alt="应急管理">
+          <div class="cap">
+            <h4>应急管理页面</h4>
+            <p>预案、演练、通讯录一站式管理</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="module-section">
+      <h3>📝 作业许可 <span class="tag">审批</span></h3>
+      <p>管理动火、有限空间、高处作业等高风险作业的审批。</p>
+      <div class="screenshot-grid">
+        <div class="screenshot-card">
+          <img src="/s/tk-safe-upload/13_admin_permits.png" alt="作业许可">
+          <div class="cap">
+            <h4>作业许可管理</h4>
+            <p>多级审批、完工销项</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="module-section">
+      <h3>📈 统计报表 <span class="tag">分析</span></h3>
+      <p>查看各类统计数据和报表，支持Excel/PDF导出。</p>
+      <div class="screenshot-grid">
+        <div class="screenshot-card">
+          <img src="/s/tk-safe-upload/14_admin_reports.png" alt="统计报表">
+          <div class="cap">
+            <h4>统计报表页面</h4>
+            <p>隐患趋势、整改率排名、风险分布</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="module-section">
+      <h3>⚙️ 系统配套 <span class="tag">管理</span></h3>
+      <p>管理用户、日志、配置等系统功能。</p>
+      <div class="screenshot-grid">
+        <div class="screenshot-card">
+          <img src="/s/tk-safe-upload/15_admin_users.png" alt="用户管理">
+          <div class="cap">
+            <h4>用户管理</h4>
+            <p>添加/删除账号、分配角色</p>
+          </div>
+        </div>
+        <div class="screenshot-card">
+          <img src="/s/tk-safe-upload/16_admin_logs.png" alt="操作日志">
+          <div class="cap">
+            <h4>操作日志</h4>
+            <p>查看谁在什么时候做了什么</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== 数据大屏 ========== -->
+<section id="screen" style="background:var(--bg2)">
+  <div class="wrap">
+    <div class="sec-tag">Screen</div>
+    <h2>可视化<em>调度大屏</em></h2>
+    <p class="lead">投放到公司大屏上，给领导、参观人员展示安全态势，实时更新数据。</p>
+
+    <div class="screenshot-grid">
+      <div class="screenshot-card">
+        <img src="/s/tk-safe-upload/25_screen.png" alt="数据大屏">
+        <div class="cap">
+          <h4>可视化调度大屏</h4>
+          <p>实时数据展示、隐患趋势、整改率排名</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="module-section" style="margin-top:32px">
+      <h3>大屏数据说明</h3>
+      <table>
+        <tr><th>数据</th><th>说明</th></tr>
+        <tr><td>隐患总数</td><td>系统中所有隐患数量</td></tr>
+        <tr><td>逾期隐患</td><td>超过整改期限的隐患</td></tr>
+        <tr><td>重大隐患</td><td>红色级别的隐患</td></tr>
+        <tr><td>整改率</td><td>已完成整改的隐患比例</td></tr>
+        <tr><td>风险分布</td><td>各级别风险点数量</td></tr>
+        <tr><td>预警信息</td><td>需要关注的预警事项</td></tr>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ========== 常见问题 ========== -->
+<section id="faq">
+  <div class="wrap">
+    <div class="sec-tag">FAQ</div>
+    <h2>常见<em>问题</em>与解答</h2>
+    <p class="lead">遇到问题不要慌，这里有您需要的答案。</p>
+
+    <div class="module-section">
+      <div class="step-list">
+        <h4>Q1: 登录后看不到PC管理后台入口？</h4>
+        <p><b>原因</b>：您的角色没有PC后台访问权限。</p>
+        <p><b>解决</b>：联系管理员，在"用户管理"中将您的角色调整为"公司管理员"或"安全员"。</p>
+      </div>
+
+      <div class="step-list">
+        <h4>Q2: 手机端照片上传失败？</h4>
+        <p><b>原因</b>：照片格式不支持、文件太大、网络不稳定。</p>
+        <p><b>解决</b>：检查照片格式（支持jpg/png/gif/bmp/webp），压缩照片大小，重试上传。</p>
+      </div>
+
+      <div class="step-list">
+        <h4>Q3: 如何修改密码？</h4>
+        <p><b>步骤</b>：进入"个人中心"（👤）→ 点击"修改登录密码" → 输入旧密码和新密码 → 点击"保存新密码"。</p>
+      </div>
+
+      <div class="step-list">
+        <h4>Q4: 隐患上报后如何查看处理进度？</h4>
+        <p><b>步骤</b>：进入"个人中心"（👤）→ 查看"我的上报隐患" → 点击隐患标题查看详情 → 查看治理流转记录。</p>
+      </div>
+
+      <div class="step-list">
+        <h4>Q5: 如何导出数据？</h4>
+        <p><b>步骤</b>（仅管理员）：进入PC管理后台 → 进入对应模块 → 点击"导出"按钮 → 选择导出格式（Excel/PDF）→ 下载文件。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== 系统安全 ========== -->
+<section style="background:var(--bg2)">
+  <div class="wrap">
+    <div class="sec-tag">Security</div>
+    <h2>系统<em>安全特性</em></h2>
+    <p class="lead">本系统具备完善的安全防护机制，保障数据安全。</p>
+
+    <div class="features-grid">
+      <div class="feature" style="--f-grad:linear-gradient(135deg,#43a047,#26c6da)">
+        <div class="ic" style="background:linear-gradient(135deg,#43a047,#26c6da)">🔐</div>
+        <h3>密码加密</h3>
+        <p>密码使用bcrypt加密存储，无法反向破解。</p>
+      </div>
+
+      <div class="feature" style="--f-grad:linear-gradient(135deg,#448aff,#7c4dff)">
+        <div class="ic" style="background:linear-gradient(135deg,#448aff,#7c4dff)">🛡️</div>
+        <h3>安全响应头</h3>
+        <p>X-Content-Type-Options、X-Frame-Options等安全头。</p>
+      </div>
+
+      <div class="feature" style="--f-grad:linear-gradient(135deg,#ffb300,#ff7043)">
+        <div class="ic" style="background:linear-gradient(135deg,#ffb300,#ff7043)">⏱️</div>
+        <h3>登录限制</h3>
+        <p>连续失败5次锁定15分钟，防止暴力破解。</p>
+      </div>
+
+      <div class="feature" style="--f-grad:linear-gradient(135deg,#e91e63,#ff8ab5)">
+        <div class="ic" style="background:linear-gradient(135deg,#e91e63,#ff8ab5)">📝</div>
+        <h3>操作日志</h3>
+        <p>所有操作记录审计日志，可追溯可审查。</p>
+      </div>
+
+      <div class="feature" style="--f-grad:linear-gradient(135deg,#7c4dff,#448aff)">
+        <div class="ic" style="background:linear-gradient(135deg,#7c4dff,#448aff)">📁</div>
+        <h3>文件上传</h3>
+        <p>白名单校验，防止上传危险文件。</p>
+      </div>
+
+      <div class="feature" style="--f-grad:linear-gradient(135deg,#00897b,#43a047)">
+        <div class="ic" style="background:linear-gradient(135deg,#00897b,#43a047)">🍪</div>
+        <h3>会话管理</h3>
+        <p>Session自动过期，支持HTTPS，SameSite Cookie。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== Footer ========== -->
+<footer>
+  <div class="wrap">
+    <p>TK-Safe-UpLoad 安全生产平台 · 用户操作手册 v3.0 · 最后更新：2026年9月15日</p>
+    <p style="margin-top:8px">
+      <a href="/s/tk-safe-upload/" style="margin:0 12px">返回首页</a>
+      <a href="/w/tk-safe-upload/" style="margin:0 12px">Wiki文档</a>
+      <a href="http://119.145.17.34:5111" target="_blank" style="margin:0 12px">访问平台</a>
+    </p>
+  </div>
+</footer>
+
+</body>
+</html>

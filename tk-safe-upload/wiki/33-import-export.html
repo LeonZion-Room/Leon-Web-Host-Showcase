@@ -1,0 +1,149 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>33-import-export · tk-safe-upload 说明</title><style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;background:#fafbff;color:#1a2332;line-height:1.75}
+a{color:#2f6bff;text-decoration:none}
+.wrap{max-width:920px;margin:0 auto;padding:32px 20px 80px}
+.back{font-size:13px;color:#8a94a6}
+h1{font-size:26px;font-weight:800;margin:8px 0 4px;border-bottom:2px solid #eef1f8;padding-bottom:14px}
+.page-title{font-size:16px;color:#5c6670;margin:-2px 0 20px}
+.wiki-body{margin-top:8px}
+.wiki-body h1,.wiki-body h2,.wiki-body h3{margin:1.2em 0 .5em;line-height:1.4}
+.wiki-body h2{font-size:22px}.wiki-body h3{font-size:18px}
+.wiki-body p{margin:.8em 0}
+.wiki-body ul,.wiki-body ol{margin:.6em 0 .6em 1.6em}
+.wiki-body img{max-width:100%}
+.wiki-body pre{background:#0f1523;color:#e8edff;padding:14px 16px;border-radius:10px;overflow:auto;margin:.9em 0}
+.wiki-body code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:.9em}
+.wiki-body pre code{background:none;padding:0}
+.wiki-body table{border-collapse:collapse;margin:.9em 0;width:100%}
+.wiki-body th,.wiki-body td{border:1px solid #e2e7f2;padding:8px 12px;text-align:left}
+.wiki-body th{background:#f4f6fc}
+.wiki-body blockquote{border-left:4px solid #bcd0ff;background:#f4f8ff;padding:10px 16px;margin:.9em 0;color:#456}
+.wiki-body a{color:#2f6bff;border-bottom:1px dashed #bcd0ff}
+.nav{margin:14px 0 0;display:flex;gap:10px;flex-wrap:wrap}
+.nav a{background:#eef3ff;border:1px solid #d9e4ff;padding:6px 16px;border-radius:20px;font-size:13px;color:#2f6bff}
+.mark{color:#c0392b}
+</style></head><body><div class="wrap"><a class="back" href="../index.html">← 项目合辑</a><h1>33-import-export</h1><div class="page-title">tk-safe-upload · 使用说明（只读镜像）</div><div class="nav"><a href="../index.html">返回合辑</a><a href="./home.html">概览</a></div><div class="wiki-body"><h1>怎么导入和导出数据</h1>
+<blockquote>
+<p>批量录入、报表导出。这一节讲<strong>怎么用 Excel 批量管理数据</strong>。</p>
+</blockquote>
+<hr />
+<h2>为什么要用导入导出？</h2>
+<ul>
+<li><strong>导入</strong>：一次性录入大量数据（不用一条一条加）</li>
+<li><strong>导出</strong>：下载数据做报表、备份、跨系统同步</li>
+</ul>
+<hr />
+<h2>哪些数据可以导入导出？</h2>
+<h3>可以导入（7 个表）</h3>
+<ul>
+<li>经营主体、组织</li>
+<li>特种设备</li>
+<li>人员</li>
+<li>相关方</li>
+<li>应急物资</li>
+<li>风险点</li>
+<li>应急通讯录</li>
+</ul>
+<h3>可以导出（10 个表）</h3>
+<p>上面 7 个 + 隐患 + 巡查记录 + 培训记录 + 操作日志</p>
+<hr />
+<h2>怎么导入（批量录入）</h2>
+<h3>第 1 步：下载模板</h3>
+<ol>
+<li>进入要录入数据的页面（比如"经营主体台账"）</li>
+<li>点"<strong>⬇ 导入模板</strong>"</li>
+<li>保存文件到电脑</li>
+</ol>
+<h3>第 2 步：在 Excel 里填写</h3>
+<ol>
+<li>打开下载的 CSV 文件</li>
+<li>按列填写</li>
+<li>必填字段必须填</li>
+<li>保存为 <strong>CSV 格式</strong>（不是 xlsx！）</li>
+</ol>
+<blockquote>
+<p>⚠️ <strong>重要</strong>：保存为 <strong>CSV UTF-8</strong> 格式，<strong>不能</strong>是 Excel 默认的 xlsx。</p>
+</blockquote>
+<h3>第 3 步：上传文件</h3>
+<ol>
+<li>点"<strong>⬆ 导入 CSV</strong>"</li>
+<li>选择刚保存的文件</li>
+<li>等待上传</li>
+</ol>
+<h3>第 4 步：看结果</h3>
+<p>系统显示：
+- ✅ 成功 X 条
+- ❌ 失败 Y 条
+- 失败原因（如果有）</p>
+<hr />
+<h2>一个导入例子</h2>
+<p><strong>场景</strong>：录入 50 个特种设备。</p>
+<p><strong>操作步骤</strong>：</p>
+<ol>
+<li>进入"<strong>🛗 特种设备台账</strong>"</li>
+<li>点"<strong>⬇ 导入模板</strong>"，下载 <code>equipment_template.csv</code></li>
+<li>在 Excel 里打开，看到这些列：
+   <code>eq_type,name,code,org_id,location,...</code></li>
+<li>一行一个设备，填好 50 行</li>
+<li><strong>文件 → 另存为 → CSV UTF-8</strong></li>
+<li>回到系统，点"<strong>⬆ 导入 CSV</strong>"</li>
+<li>选刚保存的文件</li>
+<li>显示"成功 50 条，失败 0 条" → 完成！</li>
+</ol>
+<hr />
+<h2>怎么导出</h2>
+<h3>导出 Excel</h3>
+<ol>
+<li>进入要导出的页面</li>
+<li>点"<strong>⬇ 导出 Excel</strong>"（或"⬇ 导出"）</li>
+<li>自动下载 CSV 文件</li>
+</ol>
+<h3>导出 PDF</h3>
+<ol>
+<li>进入要导出的页面</li>
+<li>点"<strong>⬇ 导出 PDF</strong>"</li>
+<li>自动下载 PDF 文件</li>
+</ol>
+<hr />
+<h2>导出会筛选吗？</h2>
+<p>会！导出的是<strong>当前筛选后</strong>的数据。</p>
+<p>比如：
+- 隐患页面筛选"待分派"，导出的就是所有"待分派"的隐患
+- 培训页面筛选某个月，导出的就是该月的数据</p>
+<blockquote>
+<p>💡 导出前先设置好筛选条件。</p>
+</blockquote>
+<hr />
+<h2>培训记录专项导出</h2>
+<p>培训页面有特殊的"<strong>导出进度</strong>"按钮，导出内容包括：
+- 学员
+- 课程
+- 签到时间
+- 学习时长
+- 进度
+- 是否完成
+- 考试分数</p>
+<blockquote>
+<p>比普通导出的字段更全。</p>
+</blockquote>
+<hr />
+<h2>常见问题</h2>
+<p><strong>Q：CSV 是什么？</strong>
+A：一种简单的文本格式，Excel 可以打开和保存。</p>
+<p><strong>Q：Excel 怎么保存为 CSV？</strong>
+A：
+- Excel 2016+：文件 → 另存为 → 选择"CSV UTF-8"
+- 注意：<strong>不要</strong>选"CSV (MS-DOS)"，会有乱码</p>
+<p><strong>Q：导入失败怎么办？</strong>
+A：常见原因：
+- 必填字段没填
+- 数据类型不对（比如数字列填了文字）
+- 编码不对（要用 UTF-8）
+- 外键不存在（比如 org_id 填了不存在的单位）</p>
+<p><strong>Q：导入会覆盖现有数据吗？</strong>
+A：<strong>不会</strong>。导入是"添加新数据"，不会修改或删除现有的。</p>
+<p><strong>Q：导出文件打不开？</strong>
+A：CSV 用 Excel 或记事本打开。PDF 用 PDF 阅读器。</p>
+<p><strong>Q：批量导入后能批量删除吗？</strong>
+A：当前不支持，需要一条一条删。</p></div></div></body></html>

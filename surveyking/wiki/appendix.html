@@ -1,0 +1,232 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>appendix · surveyking 说明</title><style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;background:#fafbff;color:#1a2332;line-height:1.75}
+a{color:#2f6bff;text-decoration:none}
+.wrap{max-width:920px;margin:0 auto;padding:32px 20px 80px}
+.back{font-size:13px;color:#8a94a6}
+h1{font-size:26px;font-weight:800;margin:8px 0 4px;border-bottom:2px solid #eef1f8;padding-bottom:14px}
+.page-title{font-size:16px;color:#5c6670;margin:-2px 0 20px}
+.wiki-body{margin-top:8px}
+.wiki-body h1,.wiki-body h2,.wiki-body h3{margin:1.2em 0 .5em;line-height:1.4}
+.wiki-body h2{font-size:22px}.wiki-body h3{font-size:18px}
+.wiki-body p{margin:.8em 0}
+.wiki-body ul,.wiki-body ol{margin:.6em 0 .6em 1.6em}
+.wiki-body img{max-width:100%}
+.wiki-body pre{background:#0f1523;color:#e8edff;padding:14px 16px;border-radius:10px;overflow:auto;margin:.9em 0}
+.wiki-body code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:.9em}
+.wiki-body pre code{background:none;padding:0}
+.wiki-body table{border-collapse:collapse;margin:.9em 0;width:100%}
+.wiki-body th,.wiki-body td{border:1px solid #e2e7f2;padding:8px 12px;text-align:left}
+.wiki-body th{background:#f4f6fc}
+.wiki-body blockquote{border-left:4px solid #bcd0ff;background:#f4f8ff;padding:10px 16px;margin:.9em 0;color:#456}
+.wiki-body a{color:#2f6bff;border-bottom:1px dashed #bcd0ff}
+.nav{margin:14px 0 0;display:flex;gap:10px;flex-wrap:wrap}
+.nav a{background:#eef3ff;border:1px solid #d9e4ff;padding:6px 16px;border-radius:20px;font-size:13px;color:#2f6bff}
+.mark{color:#c0392b}
+</style></head><body><div class="wrap"><a class="back" href="../index.html">← 项目合辑</a><h1>appendix</h1><div class="page-title">surveyking · 使用说明（只读镜像）</div><div class="nav"><a href="../index.html">返回合辑</a><a href="./home.html">概览</a></div><div class="wiki-body"><h1>📎 附录</h1>
+<blockquote>
+<p>📖 部署信息、API 接口、版本记录、常见问题。
+🔗 返回 <a href="wiki/home.html">说明书首页</a></p>
+</blockquote>
+<hr />
+<h2>系统信息</h2>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>系统名称</td>
+<td>卷王问卷考试系统 / SurveyKing</td>
+</tr>
+<tr>
+<td>访问地址</td>
+<td>http://119.145.17.34:3010/</td>
+</tr>
+<tr>
+<td>内网地址</td>
+<td>http://192.168.11.64:3010/</td>
+</tr>
+<tr>
+<td>当前版本</td>
+<td>v1.12.0</td>
+</tr>
+<tr>
+<td>部署方式</td>
+<td>Docker 单容器，H2 内置数据库</td>
+</tr>
+<tr>
+<td>部署设备</td>
+<td>Leon-Docker（192.168.11.64）</td>
+</tr>
+<tr>
+<td>管理员账号</td>
+<td>由系统管理员提供</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>菜单结构总览</h2>
+<pre class="codehilite"><code>卷王问卷考试系统
+├── 首页（仪表盘）
+├── 我的项目
+├── 我的练习
+├── 题库中心
+│   ├── 我的题库
+│   ├── 问题管理
+│   └── 我的笔记
+├── 模板广场
+└── 系统管理
+    ├── 用户管理
+    ├── 角色管理
+    ├── 组织机构
+    ├── 岗位设置
+    ├── 字典管理
+    └── 系统设置
+</code></pre>
+
+<hr />
+<h2>URL 路由表</h2>
+<table>
+<thead>
+<tr>
+<th>功能</th>
+<th>URL 路径</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>登录页</td>
+<td>/user/login</td>
+</tr>
+<tr>
+<td>首页</td>
+<td>/home</td>
+</tr>
+<tr>
+<td>我的项目</td>
+<td>/project</td>
+</tr>
+<tr>
+<td>我的练习</td>
+<td>/exercise</td>
+</tr>
+<tr>
+<td>模板广场</td>
+<td>/template</td>
+</tr>
+<tr>
+<td>用户管理</td>
+<td>/system/user</td>
+</tr>
+<tr>
+<td>角色管理</td>
+<td>/system/role</td>
+</tr>
+<tr>
+<td>组织机构</td>
+<td>/system/dept</td>
+</tr>
+<tr>
+<td>岗位设置</td>
+<td>/system/position</td>
+</tr>
+<tr>
+<td>字典管理</td>
+<td>/system/dict</td>
+</tr>
+<tr>
+<td>系统设置</td>
+<td>/system/setting</td>
+</tr>
+<tr>
+<td>我的题库</td>
+<td>/repo/index</td>
+</tr>
+<tr>
+<td>问题管理</td>
+<td>/repo/template</td>
+</tr>
+<tr>
+<td>我的笔记</td>
+<td>/repo/book</td>
+</tr>
+<tr>
+<td>问卷编辑器</td>
+<td>/survey/new?mode=survey</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>REST API 接口</h2>
+<h3>Wiki 说明书 API</h3>
+<pre class="codehilite"><code>GET  /api/projects/surveyking/wiki/tree          # 获取页面目录
+GET  /api/projects/surveyking/wiki/page?path=home&amp;raw=1  # 获取页面内容
+POST /api/projects/surveyking/wiki/page          # 创建/更新页面
+POST /api/projects/surveyking/upload              # 上传图片
+</code></pre>
+
+<h3>认证方式</h3>
+<pre class="codehilite"><code>Authorization: Bearer &lt;project_token&gt;
+</code></pre>
+
+<hr />
+<h2>题型完整列表</h2>
+<h3>选择题</h3>
+<p>单选题、多选题、下拉题、级联题、上传文件</p>
+<h3>填空题</h3>
+<p>单行文本题、多行文本题、多项填空、电子签名、横向填空、扫码题</p>
+<h3>打分题</h3>
+<p>打分题、NPS题</p>
+<h3>矩阵题</h3>
+<p>矩阵填空、矩阵单选、矩阵多选、表格自增</p>
+<h3>辅助布局</h3>
+<p>问题组、文字描述、分页、分割线</p>
+<h3>高级题型</h3>
+<p>成员、部门、富文本</p>
+<h3>个人信息</h3>
+<p>地理位置、省市县、民族、邮箱、日期、时间、手机、身份证</p>
+<hr />
+<h2>常见问题</h2>
+<h3>Q: 忘记管理员密码怎么办？</h3>
+<p>A: 联系部署管理员，通过 Docker 进入容器重置密码，或使用系统设置中的数据备份功能。</p>
+<h3>Q: 如何开启 AI 智能创建？</h3>
+<p>A: 管理员进入 <a href="wiki/system.html">系统管理 &gt; 系统设置</a>，找到「AI 设置」区块，开启「启用 AI 功能」开关。</p>
+<h3>Q: 数据备份文件格式是什么？</h3>
+<p>A: 备份包包含 manifest.json、每张表的 ndjson 数据文件，以及上传文件目录。</p>
+<h3>Q: 如何批量导入用户？</h3>
+<p>A: 在 <a href="wiki/system.html#用户管理">用户管理</a> 页面点击「批量导入」按钮，上传 Excel/CSV 文件。</p>
+<hr />
+<h2>版本记录</h2>
+<table>
+<thead>
+<tr>
+<th>日期</th>
+<th>版本</th>
+<th>变更</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2026-09-04</td>
+<td>v1.0</td>
+<td>说明书初版，基于 v1.12.0 系统</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>相关链接</h2>
+<ul>
+<li>🏠 <a href="wiki/home.html">说明书首页</a></li>
+<li>🔗 <a href="wiki/login.html">登录与初始化</a></li>
+<li>🏠 <a href="wiki/dashboard.html">首页仪表盘</a></li>
+<li>📁 <a href="wiki/projects.html">我的项目</a></li>
+<li>✏️ <a href="wiki/survey-editor.html">问卷编辑器</a></li>
+<li>📚 <a href="wiki/question-bank.html">题库中心</a></li>
+<li>📝 <a href="wiki/practice.html">我的练习</a></li>
+<li>🎨 <a href="wiki/template.html">模板广场</a></li>
+<li>⚙️ <a href="wiki/system.html">系统管理</a></li>
+</ul></div></div></body></html>

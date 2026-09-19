@@ -1,0 +1,141 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>16-basetable-equipment · tk-safe-upload 说明</title><style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;background:#fafbff;color:#1a2332;line-height:1.75}
+a{color:#2f6bff;text-decoration:none}
+.wrap{max-width:920px;margin:0 auto;padding:32px 20px 80px}
+.back{font-size:13px;color:#8a94a6}
+h1{font-size:26px;font-weight:800;margin:8px 0 4px;border-bottom:2px solid #eef1f8;padding-bottom:14px}
+.page-title{font-size:16px;color:#5c6670;margin:-2px 0 20px}
+.wiki-body{margin-top:8px}
+.wiki-body h1,.wiki-body h2,.wiki-body h3{margin:1.2em 0 .5em;line-height:1.4}
+.wiki-body h2{font-size:22px}.wiki-body h3{font-size:18px}
+.wiki-body p{margin:.8em 0}
+.wiki-body ul,.wiki-body ol{margin:.6em 0 .6em 1.6em}
+.wiki-body img{max-width:100%}
+.wiki-body pre{background:#0f1523;color:#e8edff;padding:14px 16px;border-radius:10px;overflow:auto;margin:.9em 0}
+.wiki-body code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:.9em}
+.wiki-body pre code{background:none;padding:0}
+.wiki-body table{border-collapse:collapse;margin:.9em 0;width:100%}
+.wiki-body th,.wiki-body td{border:1px solid #e2e7f2;padding:8px 12px;text-align:left}
+.wiki-body th{background:#f4f6fc}
+.wiki-body blockquote{border-left:4px solid #bcd0ff;background:#f4f8ff;padding:10px 16px;margin:.9em 0;color:#456}
+.wiki-body a{color:#2f6bff;border-bottom:1px dashed #bcd0ff}
+.nav{margin:14px 0 0;display:flex;gap:10px;flex-wrap:wrap}
+.nav a{background:#eef3ff;border:1px solid #d9e4ff;padding:6px 16px;border-radius:20px;font-size:13px;color:#2f6bff}
+.mark{color:#c0392b}
+</style></head><body><div class="wrap"><a class="back" href="../index.html">← 项目合辑</a><h1>16-basetable-equipment</h1><div class="page-title">tk-safe-upload · 使用说明（只读镜像）</div><div class="nav"><a href="../index.html">返回合辑</a><a href="./home.html">概览</a></div><div class="wiki-body"><h1>怎么管理特种设备</h1>
+<blockquote>
+<p>电梯、锅炉、叉车、压力容器……这些"特种设备"每年必须年检。本系统帮您管理这些设备，提醒年检时间。</p>
+</blockquote>
+<hr />
+<h2>什么是特种设备？</h2>
+<p>简单说就是：一旦出问题<strong>后果很严重</strong>的设备。包括：
+- 电梯
+- 锅炉
+- 叉车
+- 压力容器
+- 起重机
+- 等等</p>
+<p>法律规定这些设备必须<strong>定期检验</strong>，否则不能继续使用。</p>
+<hr />
+<h2>页面长什么样</h2>
+<p>在电脑后台左侧菜单点"<strong>🛗 特种设备台账</strong>"：</p>
+<p><img alt="特种设备台账" src="/s/tk-safe-upload/06_admin_equipment.png" /></p>
+<hr />
+<h2>顶部按钮</h2>
+<table>
+<thead>
+<tr>
+<th>按钮</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>⬇ 导出 Excel</td>
+<td>下载所有设备信息</td>
+</tr>
+<tr>
+<td>⬇ 导出 PDF</td>
+<td>下载为 PDF</td>
+</tr>
+<tr>
+<td>⬇ 导入模板</td>
+<td>下载空白模板</td>
+</tr>
+<tr>
+<td>⬆ 导入 CSV</td>
+<td>上传 CSV 批量导入</td>
+</tr>
+<tr>
+<td>+ 新增</td>
+<td>添加一台新设备</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>表格里有什么</h2>
+<p>每一行是一台设备，显示：</p>
+<ul>
+<li><strong>ID</strong>：编号</li>
+<li><strong>设备类型</strong>：电梯/锅炉/叉车等</li>
+<li><strong>设备名称</strong>：比如"1号客梯"</li>
+<li><strong>设备编号</strong>：唯一识别码</li>
+<li><strong>所属单位</strong>：在哪个公司/园区</li>
+<li><strong>位置</strong>：具体位置（比如"主楼1层"）</li>
+<li><strong>上次检验日期</strong>：什么时候检的</li>
+<li><strong>维保单位</strong>：谁负责维护</li>
+<li><strong>下次检验日期</strong>：下次什么时候检</li>
+<li><strong>状态</strong>：正常/停用/报废</li>
+<li><strong>操作</strong>：编辑/删除</li>
+</ul>
+<hr />
+<h2>怎么新增一台设备</h2>
+<p><strong>第1步</strong>：点"<strong>+ 新增</strong>"</p>
+<p><strong>第2步</strong>：填写表单</p>
+<ul>
+<li><strong>设备类型</strong>：下拉选</li>
+<li><strong>设备名称</strong>：必填</li>
+<li><strong>设备编号</strong>：必填（唯一）</li>
+<li><strong>所属单位</strong>：下拉选</li>
+<li><strong>位置</strong>：具体位置</li>
+<li><strong>上次检验日期</strong>：日期选择</li>
+<li><strong>下次检验日期</strong>：系统可自动计算</li>
+<li><strong>维保单位</strong>：维保公司名称</li>
+<li><strong>维保电话</strong>：维保公司电话</li>
+<li><strong>状态</strong>：正常/停用/报废</li>
+<li><strong>备注</strong></li>
+</ul>
+<p><strong>第3步</strong>：点"<strong>保存</strong>"</p>
+<hr />
+<h2>怎么编辑/删除</h2>
+<p>和经营主体台账一样，点击行右侧的"<strong>编辑</strong>"或"<strong>删除</strong>"按钮。</p>
+<hr />
+<h2>年检提醒</h2>
+<p>系统自动检查：
+- <strong>到期前 30 天</strong>：预警提醒
+- <strong>已超期</strong>：标记为"逾期"</p>
+<p>预警会显示在：
+- 工作台首页的预警区
+- 待办预警页面
+- 给您推送通知</p>
+<hr />
+<h2>怎么批量录入</h2>
+<p>设备很多时（比如几十台上百台），用批量导入：</p>
+<ol>
+<li>点"<strong>⬇ 导入模板</strong>"下载空表</li>
+<li>在 Excel 里填好设备信息</li>
+<li>保存为 <strong>CSV</strong> 格式</li>
+<li>点"<strong>⬆ 导入 CSV</strong>"上传</li>
+<li>等待导入结果</li>
+</ol>
+<hr />
+<h2>常见问题</h2>
+<p><strong>Q：到期没检怎么办？</strong>
+A：⚠️ 这是<strong>严重违规</strong>！立即停止使用设备，安排年检。系统会持续提醒。</p>
+<p><strong>Q：可以一个设备对应多个单位吗？</strong>
+A：不可以。一台设备只能属于一个单位。</p>
+<p><strong>Q：设备报废了怎么处理？</strong>
+A：编辑设备，状态改为"报废"。这台设备就不再出现在预警中。</p>
+<p><strong>Q：怎么找某台设备？</strong>
+A：用搜索框输入设备名称或编号。</p></div></div></body></html>

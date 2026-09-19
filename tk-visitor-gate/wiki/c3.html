@@ -1,0 +1,126 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>c3 · tk-visitor-gate 说明</title><style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;background:#fafbff;color:#1a2332;line-height:1.75}
+a{color:#2f6bff;text-decoration:none}
+.wrap{max-width:920px;margin:0 auto;padding:32px 20px 80px}
+.back{font-size:13px;color:#8a94a6}
+h1{font-size:26px;font-weight:800;margin:8px 0 4px;border-bottom:2px solid #eef1f8;padding-bottom:14px}
+.page-title{font-size:16px;color:#5c6670;margin:-2px 0 20px}
+.wiki-body{margin-top:8px}
+.wiki-body h1,.wiki-body h2,.wiki-body h3{margin:1.2em 0 .5em;line-height:1.4}
+.wiki-body h2{font-size:22px}.wiki-body h3{font-size:18px}
+.wiki-body p{margin:.8em 0}
+.wiki-body ul,.wiki-body ol{margin:.6em 0 .6em 1.6em}
+.wiki-body img{max-width:100%}
+.wiki-body pre{background:#0f1523;color:#e8edff;padding:14px 16px;border-radius:10px;overflow:auto;margin:.9em 0}
+.wiki-body code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:.9em}
+.wiki-body pre code{background:none;padding:0}
+.wiki-body table{border-collapse:collapse;margin:.9em 0;width:100%}
+.wiki-body th,.wiki-body td{border:1px solid #e2e7f2;padding:8px 12px;text-align:left}
+.wiki-body th{background:#f4f6fc}
+.wiki-body blockquote{border-left:4px solid #bcd0ff;background:#f4f8ff;padding:10px 16px;margin:.9em 0;color:#456}
+.wiki-body a{color:#2f6bff;border-bottom:1px dashed #bcd0ff}
+.nav{margin:14px 0 0;display:flex;gap:10px;flex-wrap:wrap}
+.nav a{background:#eef3ff;border:1px solid #d9e4ff;padding:6px 16px;border-radius:20px;font-size:13px;color:#2f6bff}
+.mark{color:#c0392b}
+</style></head><body><div class="wrap"><a class="back" href="../index.html">← 项目合辑</a><h1>c3</h1><div class="page-title">tk-visitor-gate · 使用说明（只读镜像）</div><div class="nav"><a href="../index.html">返回合辑</a><a href="./home.html">概览</a></div><div class="wiki-body"><h1>C3 双通道对接</h1>
+<p>系统对接达实 C3 门禁平台，通过<strong>双通道机制</strong>保证可靠性。</p>
+<hr />
+<h2>双通道架构</h2>
+<table>
+<thead>
+<tr>
+<th>通道</th>
+<th>地址</th>
+<th>特点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>C3WebApi</td>
+<td><code>http://192.168.101.7:19002/api/AccessInterface</code></td>
+<td>不签名，备用通道</td>
+</tr>
+<tr>
+<td>AccessInterface</td>
+<td><code>http://192.168.101.7:19001/api/AccessInterface</code></td>
+<td>需要签名（私钥 pem），优先通道</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>工作流程</h2>
+<pre class="codehilite"><code class="language-mermaid">flowchart TD
+    A[收到请求] --&gt; B[读取当前通道]
+    B --&gt; C[调用当前通道接口]
+    C --&gt; D{HTTP 状态 200 且返回正常}
+    D --&gt;|成功| E[更新 last_ok，记成功]
+    D --&gt;|失败| F[标记失败，尝试另一个通道]
+    F --&gt; G{另一个通道成功}
+    G --&gt;|是| H[切换到该通道并记成功]
+    G --&gt;|否| I[返回失败]
+</code></pre>
+
+<p>关键特性：
+- 默认走<strong>上一次成功</strong>的通道
+- 只有失败时才尝试另一个通道
+- 每次失败都立即切换，成功后记住新通道
+- 定时探活（每 5 分钟）：两边都试，谁好用谁</p>
+<hr />
+<h2>C3 接口清单</h2>
+<table>
+<thead>
+<tr>
+<th>功能</th>
+<th>C3WebApi</th>
+<th>AccessInterface</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>认证</td>
+<td>Login/PostLogin</td>
+<td>Login/PostLogin</td>
+</tr>
+<tr>
+<td>账户管理</td>
+<td>EmpInfo/Get/Post/Delete</td>
+<td>EmpInfo/Get/Post/Delete</td>
+</tr>
+<tr>
+<td>门禁权限</td>
+<td>AuthorSet1</td>
+<td>AuthorSet1/GenerateEmpAuthorSet1</td>
+</tr>
+<tr>
+<td>刷卡记录</td>
+<td>CardRecord/Get</td>
+<td>CardRecord/Get</td>
+</tr>
+<tr>
+<td>人脸设备</td>
+<td>DevFace/Get、EmpFaceSet1</td>
+<td>DevFace/Get、EmpFaceSet1</td>
+</tr>
+<tr>
+<td>人脸照片</td>
+<td>EmpFaceBase64/Get</td>
+<td>EmpFaceBase64/Get</td>
+</tr>
+<tr>
+<td>二维码</td>
+<td>GenEmpQrcode</td>
+<td>GenEmpQrcode</td>
+</tr>
+<tr>
+<td>门禁设备</td>
+<td>Dev/Get、DevMac/Get</td>
+<td>Dev/Get、DevMac/Get</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>接口监控</h2>
+<p>管理后台首页卡片实时显示：C3WebApi（19002）和 AccessInterface（19001）的连通状态。</p>
+<hr />
+<p><a href="/w/qr-code-gate/dev">← 开发者模式</a> <a href="/w/qr-code-gate/faq">常见问题 →</a></p></div></div></body></html>

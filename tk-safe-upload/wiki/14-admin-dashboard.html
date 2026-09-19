@@ -1,0 +1,181 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>14-admin-dashboard · tk-safe-upload 说明</title><style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;background:#fafbff;color:#1a2332;line-height:1.75}
+a{color:#2f6bff;text-decoration:none}
+.wrap{max-width:920px;margin:0 auto;padding:32px 20px 80px}
+.back{font-size:13px;color:#8a94a6}
+h1{font-size:26px;font-weight:800;margin:8px 0 4px;border-bottom:2px solid #eef1f8;padding-bottom:14px}
+.page-title{font-size:16px;color:#5c6670;margin:-2px 0 20px}
+.wiki-body{margin-top:8px}
+.wiki-body h1,.wiki-body h2,.wiki-body h3{margin:1.2em 0 .5em;line-height:1.4}
+.wiki-body h2{font-size:22px}.wiki-body h3{font-size:18px}
+.wiki-body p{margin:.8em 0}
+.wiki-body ul,.wiki-body ol{margin:.6em 0 .6em 1.6em}
+.wiki-body img{max-width:100%}
+.wiki-body pre{background:#0f1523;color:#e8edff;padding:14px 16px;border-radius:10px;overflow:auto;margin:.9em 0}
+.wiki-body code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:.9em}
+.wiki-body pre code{background:none;padding:0}
+.wiki-body table{border-collapse:collapse;margin:.9em 0;width:100%}
+.wiki-body th,.wiki-body td{border:1px solid #e2e7f2;padding:8px 12px;text-align:left}
+.wiki-body th{background:#f4f6fc}
+.wiki-body blockquote{border-left:4px solid #bcd0ff;background:#f4f8ff;padding:10px 16px;margin:.9em 0;color:#456}
+.wiki-body a{color:#2f6bff;border-bottom:1px dashed #bcd0ff}
+.nav{margin:14px 0 0;display:flex;gap:10px;flex-wrap:wrap}
+.nav a{background:#eef3ff;border:1px solid #d9e4ff;padding:6px 16px;border-radius:20px;font-size:13px;color:#2f6bff}
+.mark{color:#c0392b}
+</style></head><body><div class="wrap"><a class="back" href="../index.html">← 项目合辑</a><h1>14-admin-dashboard</h1><div class="page-title">tk-safe-upload · 使用说明（只读镜像）</div><div class="nav"><a href="../index.html">返回合辑</a><a href="./home.html">概览</a></div><div class="wiki-body"><h1>管理工作台（电脑后台首页）</h1>
+<blockquote>
+<p>登录电脑后台后，您看到的<strong>第一个页面</strong>。每天开始工作，先看这里。</p>
+</blockquote>
+<hr />
+<h2>工作台长什么样</h2>
+<p><img alt="管理工作台" src="/s/tk-safe-upload/03_admin_dashboard.png" /></p>
+<hr />
+<h2>顶部按钮</h2>
+<p>工作台右上角有三个按钮：</p>
+<ul>
+<li><strong>📺 调度大屏</strong>：跳转到数据大屏</li>
+<li><strong>🧩 模块总览</strong>：查看所有功能模块</li>
+<li><strong>⬇ 导出隐患台账</strong>：下载当前所有隐患为 Excel</li>
+</ul>
+<hr />
+<h2>顶部：四个统计卡片</h2>
+<p>四个颜色不同的大方格，让您<strong>一眼看到重点</strong>：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">颜色</th>
+<th>名称</th>
+<th>数字代表什么</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">🔴 红色</td>
+<td>隐患总数</td>
+<td>现在有多少个隐患</td>
+</tr>
+<tr>
+<td style="text-align: center;">🟠 橙色</td>
+<td>逾期未整改</td>
+<td>超期没处理的（<strong>重点关注</strong>）</td>
+</tr>
+<tr>
+<td style="text-align: center;">🔵 蓝色</td>
+<td>本月新增</td>
+<td>这个月新出现的</td>
+</tr>
+<tr>
+<td style="text-align: center;">🟣 紫色</td>
+<td>重大隐患</td>
+<td>严重的、需要重视的</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>这些数字是<strong>整个公司</strong>的统计。数字大说明问题多。</p>
+</blockquote>
+<hr />
+<h2>中间：两个饼图</h2>
+<h3>左边：风险分布</h3>
+<p>显示公司所有风险点的等级分布：
+- 🔴 红色部分：重大风险有几个
+- 🟠 橙色部分：较大风险有几个
+- 🟡 黄色部分：一般风险有几个
+- 🔵 蓝色部分：低风险有几个</p>
+<blockquote>
+<p>一眼看出公司面临什么级别的风险最多。</p>
+</blockquote>
+<h3>右边：隐患状态</h3>
+<p>显示当前所有隐患的处理状态：
+- 待分派（红色）
+- 处理中（黄色）
+- 待复核（蓝色）
+- 已销号（绿色）</p>
+<blockquote>
+<p>一眼看出有多少"卡住"了。</p>
+</blockquote>
+<hr />
+<h2>下面：单位整改率排名</h2>
+<p>显示<strong>各下属单位</strong>的隐患整改率（从高到低）：</p>
+<ul>
+<li>绿色长条 = 90%以上（<strong>优秀</strong>）</li>
+<li>黄色长条 = 70-90%（<strong>合格</strong>）</li>
+<li>红色长条 = 70%以下（<strong>不合格</strong>）</li>
+</ul>
+<blockquote>
+<p>一眼看出哪些单位做得好，哪些单位需要督促。</p>
+</blockquote>
+<hr />
+<h2>底部：五类预警</h2>
+<p>最下面是五类预警的快速显示：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">颜色</th>
+<th>预警类型</th>
+<th>数字代表什么</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">🔴 红色</td>
+<td>逾期隐患</td>
+<td>必须马上处理</td>
+</tr>
+<tr>
+<td style="text-align: center;">🟠 橙色</td>
+<td>设备到期</td>
+<td>30天内年检到期</td>
+</tr>
+<tr>
+<td style="text-align: center;">🟠 橙色</td>
+<td>证件到期</td>
+<td>30天内证书到期</td>
+</tr>
+<tr>
+<td style="text-align: center;">🔵 蓝色</td>
+<td>风险复核</td>
+<td>风险点该复核了</td>
+</tr>
+<tr>
+<td style="text-align: center;">🟢 绿色</td>
+<td>物资提醒</td>
+<td>库存不足</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>数字越大越要关注。点击数字可以跳到详情。</p>
+</blockquote>
+<hr />
+<h2>怎么用工作台？</h2>
+<h3>每天开始工作</h3>
+<ol>
+<li>打开电脑后台</li>
+<li>先看<strong>顶部统计卡</strong>——逾期多少？重大多少？</li>
+<li>再看<strong>预警区</strong>——有哪些紧急的？</li>
+<li>然后点击<strong>🚨 隐患</strong>菜单，去处理具体事项</li>
+</ol>
+<h3>每周汇报前</h3>
+<ol>
+<li>看<strong>整改率排名</strong>——哪些单位表现好，哪些差</li>
+<li>看<strong>饼图</strong>——风险结构如何</li>
+<li>必要时点击"<strong>导出</strong>"下载数据</li>
+</ol>
+<h3>月底考核</h3>
+<ol>
+<li>看<strong>月度新增/销号</strong>对比</li>
+<li>计算整改率</li>
+<li>生成报表存档</li>
+</ol>
+<hr />
+<h2>常见问题</h2>
+<p><strong>Q：数字什么时候更新？</strong>
+A：每次刷新页面时更新。</p>
+<p><strong>Q：饼图看不懂怎么办？</strong>
+A：颜色对应等级，扇形大小对应该等级的数量。鼠标悬停可看具体数字。</p>
+<p><strong>Q：整改率怎么算的？</strong>
+A：已销号 ÷ 总数 × 100%。比如10个隐患里销号了7个，整改率就是70%。</p>
+<p><strong>Q：可以隐藏某些模块吗？</strong>
+A：不能。模块固定显示。</p></div></div></body></html>

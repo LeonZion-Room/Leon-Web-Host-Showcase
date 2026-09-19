@@ -1,0 +1,252 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>02-roles · tk-safe-upload 说明</title><style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;background:#fafbff;color:#1a2332;line-height:1.75}
+a{color:#2f6bff;text-decoration:none}
+.wrap{max-width:920px;margin:0 auto;padding:32px 20px 80px}
+.back{font-size:13px;color:#8a94a6}
+h1{font-size:26px;font-weight:800;margin:8px 0 4px;border-bottom:2px solid #eef1f8;padding-bottom:14px}
+.page-title{font-size:16px;color:#5c6670;margin:-2px 0 20px}
+.wiki-body{margin-top:8px}
+.wiki-body h1,.wiki-body h2,.wiki-body h3{margin:1.2em 0 .5em;line-height:1.4}
+.wiki-body h2{font-size:22px}.wiki-body h3{font-size:18px}
+.wiki-body p{margin:.8em 0}
+.wiki-body ul,.wiki-body ol{margin:.6em 0 .6em 1.6em}
+.wiki-body img{max-width:100%}
+.wiki-body pre{background:#0f1523;color:#e8edff;padding:14px 16px;border-radius:10px;overflow:auto;margin:.9em 0}
+.wiki-body code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:.9em}
+.wiki-body pre code{background:none;padding:0}
+.wiki-body table{border-collapse:collapse;margin:.9em 0;width:100%}
+.wiki-body th,.wiki-body td{border:1px solid #e2e7f2;padding:8px 12px;text-align:left}
+.wiki-body th{background:#f4f6fc}
+.wiki-body blockquote{border-left:4px solid #bcd0ff;background:#f4f8ff;padding:10px 16px;margin:.9em 0;color:#456}
+.wiki-body a{color:#2f6bff;border-bottom:1px dashed #bcd0ff}
+.nav{margin:14px 0 0;display:flex;gap:10px;flex-wrap:wrap}
+.nav a{background:#eef3ff;border:1px solid #d9e4ff;padding:6px 16px;border-radius:20px;font-size:13px;color:#2f6bff}
+.mark{color:#c0392b}
+</style></head><body><div class="wrap"><a class="back" href="../index.html">← 项目合辑</a><h1>02-roles</h1><div class="page-title">tk-safe-upload · 使用说明（只读镜像）</div><div class="nav"><a href="../index.html">返回合辑</a><a href="./home.html">概览</a></div><div class="wiki-body"><h1>我是什么角色，能做什么</h1>
+<blockquote>
+<p>简单来说：<strong>不同的人，权限不同</strong>。这一节帮您搞明白您能做什么、不能做什么。</p>
+</blockquote>
+<hr />
+<h2>角色关系图</h2>
+<pre class="mermaid">
+graph TD
+    A["🔵 公司管理员<br/>(admin)"] --> B["🟢 子公司管理员<br/>(subadmin)"]
+    A --> C["🟡 安全员<br/>(inspector)"]
+    A --> D["🟠 外协单位<br/>(contractor)"]
+    B --> C
+    B --> D
+    B --> E["🔘 普通员工<br/>(staff)"]
+    C --> E
+
+    style A fill:#1a237e,stroke:#4a6cf7,color:#fff
+    style B fill:#1b5e20,stroke:#34d399,color:#fff
+    style C fill:#b45309,stroke:#fbbf24,color:#fff
+    style D fill:#7c2d12,stroke:#fb923c,color:#fff
+    style E fill:#374151,stroke:#9ca3af,color:#fff
+</pre>
+
+<h2>一共五种角色</h2>
+<p>平台里有五种人，每种人能看到、能做的事情不一样：</p>
+<p><img alt="用户管理" src="/s/tk-safe-upload/15_admin_users.png" /></p>
+<h3>🔵 公司管理员（老板角色）</h3>
+<p><strong>这是谁</strong>：集团安全总监、平台系统管理员</p>
+<p><strong>能做什么</strong>：
+- ✅ 管理所有账号（增加、删除、改密码）
+- ✅ 调整系统设置
+- ✅ 看所有公司的数据
+- ✅ 导出所有报表
+- ✅ 管理所有业务（台账、隐患、培训等）</p>
+<p><strong>典型的使用场景</strong>：
+- 给新员工创建账号
+- 设置预警规则
+- 月底给老板出报表</p>
+<hr />
+<h3>🟢 子公司管理员</h3>
+<p><strong>这是谁</strong>：子公司安全主管、安全经理</p>
+<p><strong>能做什么</strong>：
+- ✅ 管理本公司的账号
+- ✅ 管理本公司的台账
+- ✅ 处理本公司的隐患
+- ✅ 管理培训课程
+- ❌ 不能改系统设置
+- ❌ 看不到其他公司的数据</p>
+<p><strong>典型使用场景</strong>：
+- 给本公司的隐患分配负责人
+- 安排本月的培训计划</p>
+<hr />
+<h3>🟠 现场巡查员</h3>
+<p><strong>这是谁</strong>：安全员、巡查队长</p>
+<p><strong>能做什么</strong>：
+- ✅ 查看隐患列表
+- ✅ 执行巡查任务
+- ✅ 处理分配的任务
+- ❌ 不能管理台账
+- ❌ 不能导出数据</p>
+<p><strong>典型使用场景</strong>：
+- 每天到点巡查，打卡签到
+- 提交整改后等待复核</p>
+<hr />
+<h3>🟣 商户</h3>
+<p><strong>这是谁</strong>：园区里的商户老板</p>
+<p><strong>能做什么</strong>：
+- ✅ 上报自己看到的安全问题
+- ✅ 参加培训学习
+- ✅ 看到跟自己相关的数据
+- ❌ 不能看其他商户的数据
+- ❌ 不能管理业务</p>
+<p><strong>典型使用场景</strong>：
+- 店里发现隐患，拍照上报
+- 参加园区组织的安全培训</p>
+<hr />
+<h3>⚫ 普通员工</h3>
+<p><strong>这是谁</strong>：一般员工、一线工作人员</p>
+<p><strong>能做什么</strong>：
+- ✅ 用手机随手拍上报隐患
+- ✅ 参加培训学习
+- ✅ 看到自己的学习记录
+- ❌ 不能看别人的数据
+- ❌ 不能管理业务</p>
+<p><strong>典型使用场景</strong>：
+- 上班看到什么不对的，拍照上报
+- 晚上有空学一节安全课</p>
+<hr />
+<h2>怎么知道自己是什么角色？</h2>
+<p>登录后，在<strong>工作台</strong>或<strong>个人中心</strong>页面，您会看到您的角色名称。</p>
+<p><strong>手机端</strong>：在"个人中心"页面，名字旁边有彩色的小标签
+<strong>电脑端</strong>：在左侧菜单底部，名字旁边会显示</p>
+<p>如果您觉得自己的角色不对，请联系公司管理员调整。</p>
+<hr />
+<h2>数据隔离是什么意思？</h2>
+<p>简单说：<strong>您只能看到自己权限范围内的数据</strong>。</p>
+<p>比如：
+- 普通员工只能看到自己上报的隐患
+- 子公司管理员只能看到自己公司的隐患
+- 公司管理员能看到所有公司的</p>
+<p>这样设计是为了：
+- 🔒 <strong>保护隐私</strong>：不同公司之间不互相看
+- 🎯 <strong>避免混乱</strong>：不会被不相关的数据干扰
+- ⚡ <strong>提高效率</strong>：只看和自己有关的内容</p>
+<hr />
+<h2>一个简单的对照表</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">谁能做什么</th>
+<th style="text-align: center;">公司管理员</th>
+<th style="text-align: center;">子公司管理员</th>
+<th style="text-align: center;">巡查员</th>
+<th style="text-align: center;">商户</th>
+<th style="text-align: center;">普通员工</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">登录</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">✅</td>
+</tr>
+<tr>
+<td style="text-align: left;">上报隐患</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">✅</td>
+</tr>
+<tr>
+<td style="text-align: left;">举报问题</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">✅</td>
+</tr>
+<tr>
+<td style="text-align: left;">查看所有隐患</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">❌</td>
+<td style="text-align: center;">❌</td>
+</tr>
+<tr>
+<td style="text-align: left;">分配任务给同事</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">❌</td>
+<td style="text-align: center;">❌</td>
+<td style="text-align: center;">❌</td>
+</tr>
+<tr>
+<td style="text-align: left;">审核整改</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">❌</td>
+<td style="text-align: center;">❌</td>
+<td style="text-align: center;">❌</td>
+</tr>
+<tr>
+<td style="text-align: left;">管理台账</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">❌</td>
+<td style="text-align: center;">❌</td>
+<td style="text-align: center;">❌</td>
+</tr>
+<tr>
+<td style="text-align: left;">培训学习</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">✅</td>
+</tr>
+<tr>
+<td style="text-align: left;">作业许可审批</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">❌</td>
+<td style="text-align: center;">❌</td>
+<td style="text-align: center;">❌</td>
+</tr>
+<tr>
+<td style="text-align: left;">用户管理</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">❌</td>
+<td style="text-align: center;">❌</td>
+<td style="text-align: center;">❌</td>
+<td style="text-align: center;">❌</td>
+</tr>
+<tr>
+<td style="text-align: left;">系统设置</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">❌</td>
+<td style="text-align: center;">❌</td>
+<td style="text-align: center;">❌</td>
+<td style="text-align: center;">❌</td>
+</tr>
+<tr>
+<td style="text-align: left;">操作日志</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">❌</td>
+<td style="text-align: center;">❌</td>
+<td style="text-align: center;">❌</td>
+<td style="text-align: center;">❌</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>怎么申请调整权限？</h2>
+<p>如果您觉得现有的权限不够用：</p>
+<ol>
+<li><strong>找您的直属领导</strong>说明情况</li>
+<li><strong>领导审批后</strong>联系公司管理员</li>
+<li><strong>管理员</strong>在"用户管理"里调整您的角色</li>
+</ol>
+<blockquote>
+<p>⚠️ 重要提醒：<strong>权限越大责任越大</strong>。系统会记录您所有的操作（操作日志），所以不要随便给别人账号，也不要让别人用您的账号。</p>
+</blockquote></div></div></body></html>

@@ -1,0 +1,90 @@
+{
+  "generated_at": "2026-09-19 15:13:23",
+  "count": 21,
+  "projects": {
+    "memkv": {
+      "group_id": "1",
+      "wikipages": 1
+    },
+    "leon-infra": {
+      "group_id": "3",
+      "wikipages": 1
+    },
+    "SAFTOP-Manual": {
+      "group_id": "",
+      "wikipages": 1
+    },
+    "lz-secops": {
+      "group_id": "3",
+      "wikipages": 1
+    },
+    "yzt-smart-construction": {
+      "group_id": "",
+      "wikipages": 1
+    },
+    "wireguard-vpn": {
+      "group_id": "3",
+      "wikipages": 1
+    },
+    "wechat-card": {
+      "group_id": "2",
+      "wikipages": 1
+    },
+    "tk-zy-oa": {
+      "group_id": "2",
+      "wikipages": 1
+    },
+    "tk-visitor-gate": {
+      "group_id": "",
+      "wikipages": 14
+    },
+    "tk-safe-upload": {
+      "group_id": "2",
+      "wikipages": 48
+    },
+    "tk-office": {
+      "group_id": "4",
+      "wikipages": 1
+    },
+    "tk-daily-patrol": {
+      "group_id": "3",
+      "wikipages": 1
+    },
+    "surveyking": {
+      "group_id": "2",
+      "wikipages": 10
+    },
+    "qr-code-gate": {
+      "group_id": "2",
+      "wikipages": 14
+    },
+    "onlyoffice": {
+      "group_id": "4",
+      "wikipages": 1
+    },
+    "LZ-Studio": {
+      "group_id": "2",
+      "wikipages": 1
+    },
+    "lz-agent": {
+      "group_id": "1",
+      "wikipages": 1
+    },
+    "leon-web-host": {
+      "group_id": "2",
+      "wikipages": 1
+    },
+    "leon-img": {
+      "group_id": "4",
+      "wikipages": 1
+    },
+    "leon-control": {
+      "group_id": "4",
+      "wikipages": 1
+    },
+    "leon-ai-chat": {
+      "group_id": "1",
+      "wikipages": 1
+    }
+  }
+}

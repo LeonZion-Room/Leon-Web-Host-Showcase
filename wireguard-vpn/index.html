@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WireGuard VPN · 项目官网</title>
+<meta name="description" content="基于 WireGuard 的安全远程接入体系：外网设备经 UDP 51820 连入后即置身内网，全内网资源直接可达。服务端部署于 Safe 安全节点，与现代加密算法加持的最小内核实现，性能与安全兼得。">
+<meta property="og:title" content="WireGuard VPN">
+<meta property="og:description" content="基于 WireGuard 的安全远程接入体系：外网设备经 UDP 51820 连入后即置身内网，全内网资源直接可达。服务端部署于 Safe 安全节点，与现代加密算法加持的最小内核实现，性能与安全兼得。">
+<meta property="og:type" content="website">
+<style>
+:root{--bg:#0b0d13;--bg2:#11141d;--card:#151926;--rule:rgba(255,255,255,.07);--text:#e8eaf2;--muted:#98a0b8;
+--a1:#f43f5e;--a2:#be123c;--grad:linear-gradient(135deg,#f43f5e,#be123c);--glow:#f43f5e33;}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;background:var(--bg);color:var(--text);line-height:1.7}
+a{color:var(--a1);text-decoration:none}
+.wrap{max-width:1080px;margin:0 auto;padding:0 28px}
+nav{position:sticky;top:0;z-index:99;background:rgba(11,13,19,.82);backdrop-filter:blur(14px);border-bottom:1px solid var(--rule)}
+.nav-in{display:flex;align-items:center;justify-content:space-between;height:62px}
+.brand{font-weight:700;font-size:17px;display:flex;align-items:center;gap:10px;color:var(--text)}
+.brand .dot{width:30px;height:30px;border-radius:9px;background:var(--grad);display:flex;align-items:center;justify-content:center;font-size:16px}
+.nav-links{display:flex;gap:26px;font-size:14px}
+.nav-links a{color:var(--muted)}.nav-links a:hover{color:var(--text)}
+.hero{position:relative;padding:96px 0 76px;overflow:hidden}
+.hero::before,.hero::after{content:'';position:absolute;border-radius:50%;filter:blur(90px);opacity:.55;z-index:-1}
+.hero::before{width:480px;height:480px;background:var(--a1);top:-180px;right:-120px}
+.hero::after{width:420px;height:420px;background:var(--a2);bottom:-200px;left:-140px;opacity:.35}
+.badge{display:inline-flex;align-items:center;gap:8px;background:var(--glow);border:1px solid #f43f5e44;color:var(--a1);padding:6px 16px;border-radius:999px;font-size:13px;font-weight:600;margin-bottom:22px}
+h1{font-size:clamp(2rem,4.6vw,3.3rem);font-weight:800;line-height:1.18;letter-spacing:.5px;margin-bottom:18px}
+h1 em{font-style:normal;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.sub{font-size:1.06rem;color:var(--muted);max-width:720px;margin-bottom:34px}
+.cta{display:flex;gap:14px;flex-wrap:wrap}
+.btn{padding:12px 28px;border-radius:10px;font-weight:600;font-size:15px;transition:.2s;display:inline-block}
+.btn.pri{background:var(--grad);color:#fff}.btn.pri:hover{transform:translateY(-2px);box-shadow:0 10px 30px var(--glow)}
+.btn.ghost{border:1px solid var(--rule);color:var(--text);background:rgba(255,255,255,.03)}.btn.ghost:hover{border-color:var(--a1)}
+.stats{display:flex;gap:0;margin-top:56px;border:1px solid var(--rule);border-radius:14px;background:rgba(255,255,255,.02);overflow:hidden}
+.stats div{flex:1;padding:20px 12px;text-align:center;border-right:1px solid var(--rule)}
+.stats div:last-child{border-right:none}
+.stats b{display:block;font-size:1.5rem;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;font-weight:800}
+.stats span{font-size:.8rem;color:var(--muted)}
+section{padding:64px 0}
+.sec-tag{color:var(--a1);font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase}
+h2{font-size:clamp(1.5rem,3vw,2.1rem);font-weight:800;margin:6px 0 14px}
+.lead{color:var(--muted);max-width:760px;margin-bottom:36px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px}
+.card{background:var(--card);border:1px solid var(--rule);border-radius:14px;padding:26px;transition:.25s}
+.card:hover{transform:translateY(-4px);border-color:#f43f5e55;box-shadow:0 14px 40px rgba(0,0,0,.35)}
+.card .ic{width:44px;height:44px;border-radius:12px;background:var(--glow);display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:14px}
+.card h3{font-size:1.02rem;margin-bottom:8px}
+.card p{font-size:.88rem;color:var(--muted)}
+.chips{display:flex;flex-wrap:wrap;gap:10px}
+.chip{background:rgba(255,255,255,.04);border:1px solid var(--rule);padding:7px 16px;border-radius:999px;font-size:13.5px;color:var(--text)}
+.tbl{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--rule);border-radius:14px;overflow:hidden}
+.tbl tr{border-bottom:1px solid var(--rule)}.tbl tr:last-child{border-bottom:none}
+.tbl td{padding:14px 22px;font-size:.92rem;vertical-align:top}
+.tbl td:first-child{color:var(--muted);white-space:nowrap;width:150px;font-weight:600}
+.tbl code,.mono{font-family:'SF Mono',Consolas,Menlo,monospace;font-size:.86em;color:var(--a1);word-break:break-all}
+.note{margin-top:22px;background:rgba(255,255,255,.03);border-left:3px solid var(--a1);border-radius:0 10px 10px 0;padding:16px 20px;font-size:.88rem;color:var(--muted)}
+footer{border-top:1px solid var(--rule);padding:38px 0;text-align:center;color:var(--muted);font-size:.85rem}
+footer a{color:var(--a1)}
+@media(max-width:640px){
+.nav-links{display:none}
+.hero{padding:64px 0 52px}
+.stats{flex-direction:column}.stats div{border-right:none;border-bottom:1px solid var(--rule)}
+.grid{grid-template-columns:1fr}
+.tbl td{padding:12px 14px}.tbl td:first-child{width:auto}
+}
+</style>
+</head>
+<body>
+<nav><div class="wrap nav-in">
+<a class="brand" href="#"><span class="dot">🔒</span>WireGuard VPN</a>
+<div class="nav-links"><a href="#features">功能特性</a><a href="#tech">技术栈</a><a href="#deploy">部署与访问</a><a href="http://192.168.11.70:5070/">托管平台</a></div>
+</div></nav>
+
+<header class="hero"><div class="wrap">
+<span class="badge">🔒 安全接入</span>
+<h1>WireGuard VPN</h1>
+<p class="sub">安全远程接入 VPN · 一连入网 · 直达全网资源<br><br>基于 WireGuard 的安全远程接入体系：外网设备经 UDP 51820 连入后即置身内网，全内网资源直接可达。服务端部署于 Safe 安全节点，与现代加密算法加持的最小内核实现，性能与安全兼得。</p>
+<div class="cta"></div>
+<div class="stats"><div><b>UDP 51820</b><span>唯一入口</span></div><div><b>全内网</b><span>资源可达</span></div><div><b>Safe</b><span>网关位置</span></div></div>
+</div></header>
+
+<main class="wrap">
+<section id="features">
+<div class="sec-tag">Features</div><h2>功能特性</h2>
+<p class="lead">围绕实际业务场景打磨的核心能力一览。</p>
+<div class="grid"><div class="card"><div class="ic">⚡</div><h3> WireGuard 高性能</h3><p>极简内核态实现，握手迅速吞吐高，移动网络也流畅</p></div><div class="card"><div class="ic">🌐</div><h3>全网资源直达</h3><p>连入 VPN 即获得内网身份，SSH / Web / 数据库全域可达</p></div><div class="card"><div class="ic">🛡️</div><h3>部署于 Safe 节点</h3><p>VPN 网关置于安全体系核心，进出流量双重审视</p></div><div class="card"><div class="ic">🔑</div><h3>现代加密体制</h3><p>Curve25519 / ChaCha20-Poly1305 默认启用，密钥不落地明文</p></div><div class="card"><div class="ic">📶</div><h3>UDP 51820</h3><p>单一 UDP 端口对外，暴露面最小化</p></div><div class="card"><div class="ic">🤝</div><h3>漫游无缝</h3><p>IP 切换网络切换自动重连，出差在外如处内网</p></div></div>
+</section>
+
+<section id="tech">
+<div class="sec-tag">Tech Stack</div><h2>技术栈</h2>
+<p class="lead">WireGuard VPN 采用以下技术构建：</p>
+<div class="chips"><span class="chip">WireGuard</span><span class="chip">EG3220 NAT</span><span class="chip">UFW</span><span class="chip">Safe 节点</span></div>
+
+</section>
+
+<section id="deploy">
+<div class="sec-tag">Deployment</div><h2>部署与访问</h2>
+<p class="lead">服务部署位置与访问方式汇总。</p>
+<table class="tbl"><tr><td>服务端点</td><td>119.145.17.34:51820/UDP</td></tr><tr><td>部署设备</td><td>Safe · 192.168.11.71</td></tr><tr><td>链路路径</td><td>外网设备 → 公网 → EG3220 NAT → Safe(WireGuard)</td></tr><tr><td>接入方式</td><td>客户端导入配置，密钥离线分发</td></tr></table>
+</section>
+</main>
+
+<footer>© 2026 Leon · <a href="http://192.168.11.70:5070/">Powered by Leon-Web-Host</a> · 项目展示站</footer>
+</body>
+</html>

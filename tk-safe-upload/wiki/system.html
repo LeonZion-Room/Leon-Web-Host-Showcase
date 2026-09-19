@@ -1,0 +1,220 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>system · tk-safe-upload 说明</title><style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;background:#fafbff;color:#1a2332;line-height:1.75}
+a{color:#2f6bff;text-decoration:none}
+.wrap{max-width:920px;margin:0 auto;padding:32px 20px 80px}
+.back{font-size:13px;color:#8a94a6}
+h1{font-size:26px;font-weight:800;margin:8px 0 4px;border-bottom:2px solid #eef1f8;padding-bottom:14px}
+.page-title{font-size:16px;color:#5c6670;margin:-2px 0 20px}
+.wiki-body{margin-top:8px}
+.wiki-body h1,.wiki-body h2,.wiki-body h3{margin:1.2em 0 .5em;line-height:1.4}
+.wiki-body h2{font-size:22px}.wiki-body h3{font-size:18px}
+.wiki-body p{margin:.8em 0}
+.wiki-body ul,.wiki-body ol{margin:.6em 0 .6em 1.6em}
+.wiki-body img{max-width:100%}
+.wiki-body pre{background:#0f1523;color:#e8edff;padding:14px 16px;border-radius:10px;overflow:auto;margin:.9em 0}
+.wiki-body code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:.9em}
+.wiki-body pre code{background:none;padding:0}
+.wiki-body table{border-collapse:collapse;margin:.9em 0;width:100%}
+.wiki-body th,.wiki-body td{border:1px solid #e2e7f2;padding:8px 12px;text-align:left}
+.wiki-body th{background:#f4f6fc}
+.wiki-body blockquote{border-left:4px solid #bcd0ff;background:#f4f8ff;padding:10px 16px;margin:.9em 0;color:#456}
+.wiki-body a{color:#2f6bff;border-bottom:1px dashed #bcd0ff}
+.nav{margin:14px 0 0;display:flex;gap:10px;flex-wrap:wrap}
+.nav a{background:#eef3ff;border:1px solid #d9e4ff;padding:6px 16px;border-radius:20px;font-size:13px;color:#2f6bff}
+.mark{color:#c0392b}
+</style></head><body><div class="wrap"><a class="back" href="../index.html">← 项目合辑</a><h1>system</h1><div class="page-title">tk-safe-upload · 使用说明（只读镜像）</div><div class="nav"><a href="../index.html">返回合辑</a><a href="./home.html">概览</a></div><div class="wiki-body"><h1>系统管理</h1>
+<blockquote>
+<p>仅 company_admin 角色可访问</p>
+</blockquote>
+<hr />
+<h2>系统管理功能全景</h2>
+<pre class="mermaid">
+mindmap
+  root((系统管理))
+    用户管理
+      账号增删改
+      角色分配
+      密码重置
+      启用/禁用
+    消息模板
+      微信模板
+      短信模板
+      变量替换
+    预警规则
+      隐患逾期
+      设备年检
+      证件到期
+      风险复核
+    推送通道
+      微信 Webhook
+      短信网关
+    数据管理
+      自动备份
+      手动备份
+      数据恢复
+    操作日志
+      全操作留痕
+      按用户查询
+      按时间查询
+</pre>
+
+<hr />
+<h2>用户管理</h2>
+<p><img alt="用户管理" src="/s/tk-safe-upload/15_admin_users.png" /></p>
+<h3>用户列表</h3>
+<ul>
+<li>显示所有系统用户</li>
+<li>显示用户名、姓名、角色、所属单位、状态</li>
+</ul>
+<h3>新增用户</h3>
+<ol>
+<li>点击「+ 新增」按钮</li>
+<li>填写用户信息：</li>
+<li><strong>用户名</strong>（必填）：登录账号</li>
+<li><strong>姓名</strong>（必填）：真实姓名</li>
+<li><strong>手机号</strong>：联系电话</li>
+<li><strong>角色</strong>（必填）：选择角色类型</li>
+<li><strong>所属单位</strong>（必填）：选择经营主体</li>
+<li>点击「保存」</li>
+</ol>
+<h3>编辑用户</h3>
+<ul>
+<li>点击行内「编辑」按钮</li>
+<li>修改用户信息</li>
+<li>保存修改</li>
+</ul>
+<h3>用户状态管理</h3>
+<ul>
+<li><strong>启用</strong>：允许用户登录</li>
+<li><strong>禁用</strong>：禁止用户登录</li>
+</ul>
+<h3>密码管理</h3>
+<ul>
+<li>重置用户密码</li>
+<li>用户可自行修改密码</li>
+</ul>
+<hr />
+<h2>消息模板配置</h2>
+<p><img alt="系统配置" src="/s/tk-safe-upload/17_admin_settings.png" /></p>
+<h3>模板列表</h3>
+<ul>
+<li>显示所有消息模板</li>
+<li>显示模板名称、通道、内容</li>
+</ul>
+<h3>新增模板</h3>
+<ol>
+<li>点击「+ 新增」按钮</li>
+<li>填写模板信息：</li>
+<li><strong>模板名称</strong>：模板标识</li>
+<li><strong>通知通道</strong>：微信服务通知/短信</li>
+<li><strong>模板内容</strong>：支持变量替换</li>
+<li>点击「保存」</li>
+</ol>
+<h3>支持的变量</h3>
+<table>
+<thead>
+<tr>
+<th>变量</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>{title}</td>
+<td>消息标题</td>
+</tr>
+<tr>
+<td>{name}</td>
+<td>用户姓名</td>
+</tr>
+<tr>
+<td>{date}</td>
+<td>日期时间</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>预警规则配置</h2>
+<h3>规则列表</h3>
+<ul>
+<li>显示所有预警规则</li>
+<li>显示规则名称、阈值类型、提前天数、通道</li>
+</ul>
+<h3>新增规则</h3>
+<ol>
+<li>点击「+ 新增」按钮</li>
+<li>填写规则信息：</li>
+<li><strong>规则名称</strong></li>
+<li><strong>阈值类型</strong>：选择预警类型</li>
+<li><strong>提前天数</strong>：提前多少天预警</li>
+<li><strong>通知通道</strong>：选择通知方式</li>
+<li>点击「保存」</li>
+</ol>
+<h3>支持的预警类型</h3>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>隐患整改逾期</td>
+<td>隐患超过整改期限</td>
+</tr>
+<tr>
+<td>设备年检到期</td>
+<td>特种设备年检日期临近</td>
+</tr>
+<tr>
+<td>证件到期</td>
+<td>人员资质证书即将过期</td>
+</tr>
+<tr>
+<td>风险复核到期</td>
+<td>风险点需要重新评估</td>
+</tr>
+<tr>
+<td>维保到期</td>
+<td>设备维保日期临近</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>推送通道配置</h2>
+<h3>微信推送</h3>
+<ul>
+<li>配置微信服务通知的 Webhook URL</li>
+<li>用于推送微信模板消息</li>
+</ul>
+<h3>短信推送</h3>
+<ul>
+<li>配置短信网关地址</li>
+<li>用于发送短信通知</li>
+</ul>
+<h3>保存配置</h3>
+<ul>
+<li>修改后点击「保存配置」</li>
+<li>配置立即生效</li>
+</ul>
+<hr />
+<h2>数据库管理</h2>
+<h3>数据备份</h3>
+<ul>
+<li>定期自动备份数据库</li>
+<li>支持手动备份</li>
+</ul>
+<h3>数据恢复</h3>
+<ul>
+<li>从备份文件恢复数据</li>
+</ul>
+<hr />
+<h2>操作日志</h2>
+<p><img alt="操作日志" src="/s/tk-safe-upload/16_admin_logs.png" /></p>
+<ul>
+<li>记录所有用户操作</li>
+<li>支持按时间和操作类型查询</li>
+<li>用于审计和追溯</li>
+</ul></div></div></body></html>

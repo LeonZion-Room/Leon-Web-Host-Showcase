@@ -1,0 +1,233 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>15-basetable-orgs · tk-safe-upload 说明</title><style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;background:#fafbff;color:#1a2332;line-height:1.75}
+a{color:#2f6bff;text-decoration:none}
+.wrap{max-width:920px;margin:0 auto;padding:32px 20px 80px}
+.back{font-size:13px;color:#8a94a6}
+h1{font-size:26px;font-weight:800;margin:8px 0 4px;border-bottom:2px solid #eef1f8;padding-bottom:14px}
+.page-title{font-size:16px;color:#5c6670;margin:-2px 0 20px}
+.wiki-body{margin-top:8px}
+.wiki-body h1,.wiki-body h2,.wiki-body h3{margin:1.2em 0 .5em;line-height:1.4}
+.wiki-body h2{font-size:22px}.wiki-body h3{font-size:18px}
+.wiki-body p{margin:.8em 0}
+.wiki-body ul,.wiki-body ol{margin:.6em 0 .6em 1.6em}
+.wiki-body img{max-width:100%}
+.wiki-body pre{background:#0f1523;color:#e8edff;padding:14px 16px;border-radius:10px;overflow:auto;margin:.9em 0}
+.wiki-body code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:.9em}
+.wiki-body pre code{background:none;padding:0}
+.wiki-body table{border-collapse:collapse;margin:.9em 0;width:100%}
+.wiki-body th,.wiki-body td{border:1px solid #e2e7f2;padding:8px 12px;text-align:left}
+.wiki-body th{background:#f4f6fc}
+.wiki-body blockquote{border-left:4px solid #bcd0ff;background:#f4f8ff;padding:10px 16px;margin:.9em 0;color:#456}
+.wiki-body a{color:#2f6bff;border-bottom:1px dashed #bcd0ff}
+.nav{margin:14px 0 0;display:flex;gap:10px;flex-wrap:wrap}
+.nav a{background:#eef3ff;border:1px solid #d9e4ff;padding:6px 16px;border-radius:20px;font-size:13px;color:#2f6bff}
+.mark{color:#c0392b}
+</style></head><body><div class="wrap"><a class="back" href="../index.html">← 项目合辑</a><h1>15-basetable-orgs</h1><div class="page-title">tk-safe-upload · 使用说明（只读镜像）</div><div class="nav"><a href="../index.html">返回合辑</a><a href="./home.html">概览</a></div><div class="wiki-body"><h1>怎么管理组织架构（公司、部门、园区、商户）</h1>
+<blockquote>
+<p>整个系统的"骨架"——所有的设备、人员、隐患都要归属到某个组织。先把组织建好，其他管理才方便。</p>
+</blockquote>
+<hr />
+<h2>这一节讲什么</h2>
+<p>大鹏投控集团有很多下属公司、园区、入驻商户。本系统把组织分成<strong>6种类型</strong>，方便层级管理。</p>
+<hr />
+<h2>页面长什么样</h2>
+<p>在电脑后台左侧菜单点"<strong>🏢 经营主体台账</strong>"：</p>
+<p><img alt="经营主体台账" src="/s/tk-safe-upload/05_admin_orgs.png" /></p>
+<hr />
+<h2>顶部按钮</h2>
+<table>
+<thead>
+<tr>
+<th>按钮</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>⬇ 导出 Excel</td>
+<td>下载当前所有组织信息为 Excel</td>
+</tr>
+<tr>
+<td>⬇ 导出 PDF</td>
+<td>下载为 PDF 文件</td>
+</tr>
+<tr>
+<td>⬇ 导入模板</td>
+<td>下载空白模板，批量录入用</td>
+</tr>
+<tr>
+<td>⬆ 导入 CSV</td>
+<td>上传 CSV 文件，批量导入</td>
+</tr>
+<tr>
+<td>+ 新增</td>
+<td>添加一个新组织</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>表格里的列</h2>
+<p>每一行是一个组织，列包括：</p>
+<ul>
+<li><strong>ID</strong>：系统自动生成的编号</li>
+<li><strong>类型</strong>：6种组织类型（颜色标签）</li>
+<li><strong>名称</strong>：组织名称</li>
+<li><strong>编码</strong>：唯一识别码</li>
+<li><strong>上级单位</strong>：归属于哪个组织</li>
+<li><strong>地址</strong>：办公地址</li>
+<li><strong>负责人</strong>：安全负责人</li>
+<li><strong>电话</strong>：联系电话</li>
+<li><strong>操作</strong>：编辑/删除按钮</li>
+</ul>
+<hr />
+<h2>6 种组织类型</h2>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th style="text-align: center;">颜色</th>
+<th>是什么</th>
+<th>举例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>公司</td>
+<td style="text-align: center;">🔵 蓝</td>
+<td>集团最高层</td>
+<td>大鹏投控</td>
+</tr>
+<tr>
+<td>子公司</td>
+<td style="text-align: center;">🟢 绿</td>
+<td>下属公司</td>
+<td>房地产部、物流部</td>
+</tr>
+<tr>
+<td>园区</td>
+<td style="text-align: center;">🟣 紫</td>
+<td>子公司下属的园区</td>
+<td>智慧园区</td>
+</tr>
+<tr>
+<td>商户</td>
+<td style="text-align: center;">🟠 橙</td>
+<td>入驻园区的商户</td>
+<td>咖啡店、便利店</td>
+</tr>
+<tr>
+<td>项目</td>
+<td style="text-align: center;">🟡 黄</td>
+<td>独立项目</td>
+<td>地库工程</td>
+</tr>
+<tr>
+<td>户外</td>
+<td style="text-align: center;">⚪ 灰</td>
+<td>户外区域</td>
+<td>露天仓库</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>怎么新增一个组织</h2>
+<p><strong>第1步</strong>：点击右上角"<strong>+ 新增</strong>"按钮</p>
+<p><strong>第2步</strong>：弹出表单，填写：</p>
+<ul>
+<li><strong>名称</strong>（必填）：组织名称，比如"咖啡廊"</li>
+<li><strong>类型</strong>（必填）：下拉选 6 种之一，比如"商户"</li>
+<li><strong>上级单位</strong>：下拉选属于哪个组织，比如"智慧园区"</li>
+<li><strong>编码</strong>：唯一的字母数字组合</li>
+<li><strong>地址</strong>：办公地址</li>
+<li><strong>负责人</strong>：安全负责人姓名</li>
+<li><strong>电话</strong>：联系电话</li>
+<li><strong>备注</strong>：其他说明</li>
+</ul>
+<p><strong>第3步</strong>：点击"<strong>保存</strong>"</p>
+<blockquote>
+<p>🎉 完成！新组织已经加入系统。</p>
+</blockquote>
+<hr />
+<h2>怎么编辑一个组织</h2>
+<p><strong>第1步</strong>：找到要改的组织</p>
+<p><strong>第2步</strong>：点击行右侧的"<strong>编辑</strong>"按钮</p>
+<p><strong>第3步</strong>：修改信息</p>
+<p><strong>第4步</strong>：点"<strong>保存</strong>"</p>
+<hr />
+<h2>怎么删除一个组织</h2>
+<p><strong>第1步</strong>：找到要删除的组织</p>
+<p><strong>第2步</strong>：点击"<strong>删除</strong>"按钮</p>
+<p><strong>第3步</strong>：弹出确认框"<strong>确认删除？</strong>"</p>
+<p><strong>第4步</strong>：点"<strong>确定</strong>"</p>
+<blockquote>
+<p>⚠️ 注意：如果这个组织下还有设备、人员等数据，<strong>不要删除</strong>！应该先迁移数据。</p>
+</blockquote>
+<hr />
+<h2>怎么批量导入</h2>
+<p>如果组织很多，可以用 Excel 批量导入：</p>
+<p><strong>第1步</strong>：点"<strong>⬇ 导入模板</strong>"下载空模板</p>
+<p><strong>第2步</strong>：在 Excel 里填好组织信息</p>
+<p><strong>第3步</strong>：保存为 CSV 格式（<strong>注意是 CSV 不是 xlsx</strong>）</p>
+<p><strong>第4步</strong>：点"<strong>⬆ 导入 CSV</strong>"，选择刚保存的文件</p>
+<p><strong>第5步</strong>：等几秒，系统显示"成功 X 条，失败 Y 条"</p>
+<hr />
+<h2>搜索和筛选</h2>
+<h3>搜索</h3>
+<p>页面顶部有个搜索框：
+- 输入组织名称或编码
+- 实时过滤表格内容</p>
+<h3>按类型筛选</h3>
+<p>在表格上方的"类型"标签可以快速筛选：
+- 点击"公司"——只显示公司
+- 点击"全部"——显示所有</p>
+<hr />
+<h2>一个组织的例子</h2>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>例子</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>名称</td>
+<td>咖啡廊</td>
+</tr>
+<tr>
+<td>编码</td>
+<td>SHOP-001</td>
+</tr>
+<tr>
+<td>类型</td>
+<td>商户</td>
+</tr>
+<tr>
+<td>上级单位</td>
+<td>智慧园区</td>
+</tr>
+<tr>
+<td>地址</td>
+<td>智慧园区A栋1楼</td>
+</tr>
+<tr>
+<td>负责人</td>
+<td>王小明</td>
+</tr>
+<tr>
+<td>电话</td>
+<td>13800001111</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>常见问题</h2>
+<p><strong>Q：组织可以有多级吗？</strong>
+A：可以。比如"咖啡廊"在"智慧园区"里，"智慧园区"在"房地产部"里。</p>
+<p><strong>Q：怎么调整组织的层级？</strong>
+A：编辑组织，修改"上级单位"字段。</p>
+<p><strong>Q：删除组织会怎么样？</strong>
+A：组织本身被删除，但<strong>关联的设备、人员等不会被自动删除</strong>（会变成"无主"状态）。建议先迁移。</p>
+<p><strong>Q：组织编码可以重复吗？</strong>
+A：不能。编码必须唯一。</p></div></div></body></html>

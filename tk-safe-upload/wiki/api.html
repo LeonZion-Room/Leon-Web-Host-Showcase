@@ -1,0 +1,158 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>api · tk-safe-upload 说明</title><style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;background:#fafbff;color:#1a2332;line-height:1.75}
+a{color:#2f6bff;text-decoration:none}
+.wrap{max-width:920px;margin:0 auto;padding:32px 20px 80px}
+.back{font-size:13px;color:#8a94a6}
+h1{font-size:26px;font-weight:800;margin:8px 0 4px;border-bottom:2px solid #eef1f8;padding-bottom:14px}
+.page-title{font-size:16px;color:#5c6670;margin:-2px 0 20px}
+.wiki-body{margin-top:8px}
+.wiki-body h1,.wiki-body h2,.wiki-body h3{margin:1.2em 0 .5em;line-height:1.4}
+.wiki-body h2{font-size:22px}.wiki-body h3{font-size:18px}
+.wiki-body p{margin:.8em 0}
+.wiki-body ul,.wiki-body ol{margin:.6em 0 .6em 1.6em}
+.wiki-body img{max-width:100%}
+.wiki-body pre{background:#0f1523;color:#e8edff;padding:14px 16px;border-radius:10px;overflow:auto;margin:.9em 0}
+.wiki-body code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:.9em}
+.wiki-body pre code{background:none;padding:0}
+.wiki-body table{border-collapse:collapse;margin:.9em 0;width:100%}
+.wiki-body th,.wiki-body td{border:1px solid #e2e7f2;padding:8px 12px;text-align:left}
+.wiki-body th{background:#f4f6fc}
+.wiki-body blockquote{border-left:4px solid #bcd0ff;background:#f4f8ff;padding:10px 16px;margin:.9em 0;color:#456}
+.wiki-body a{color:#2f6bff;border-bottom:1px dashed #bcd0ff}
+.nav{margin:14px 0 0;display:flex;gap:10px;flex-wrap:wrap}
+.nav a{background:#eef3ff;border:1px solid #d9e4ff;padding:6px 16px;border-radius:20px;font-size:13px;color:#2f6bff}
+.mark{color:#c0392b}
+</style></head><body><div class="wrap"><a class="back" href="../index.html">← 项目合辑</a><h1>api</h1><div class="page-title">tk-safe-upload · 使用说明（只读镜像）</div><div class="nav"><a href="../index.html">返回合辑</a><a href="./home.html">概览</a></div><div class="wiki-body"><h1>API 接口文档</h1>
+<h2>通用说明</h2>
+<ul>
+<li>认证：Session Cookie（<code>tk_safe_session</code>）</li>
+<li>响应：<code>{"success": true, "data": ...}</code> 或 <code>{"success": false, "msg": "..."}</code></li>
+<li>未认证返回 401，权限不足返回 403</li>
+</ul>
+<h2>认证流程</h2>
+<pre class="mermaid">
+sequenceDiagram
+    participant U as 用户浏览器
+    participant F as Flask app.py
+    participant DB as SQLite
+    U->>F: POST /login (username, password)
+    F->>F: SHA-256 哈希密码
+    F->>DB: SELECT users WHERE username=?
+    DB-->>F: 用户记录
+    F->>F: 验证密码 + 角色
+    F-->>U: Set-Cookie tk_safe_session<br/>302 → /portal
+    U->>F: GET /admin/dashboard<br/>(Cookie: tk_safe_session)
+    F->>F: 验证 Session
+    F->>DB: 多租户过滤查询
+    DB-->>F: 数据
+    F-->>U: HTML 页面
+</pre>
+
+<h2>认证接口</h2>
+<h3>登录</h3>
+<pre class="codehilite"><code>POST /login
+Content-Type: application/x-www-form-urlencoded
+username=admin&amp;password=admin123
+→ {&quot;success&quot;: true, &quot;role&quot;: &quot;company_admin&quot;}
+</code></pre>
+
+<h3>退出</h3>
+<pre class="codehilite"><code>GET /logout → 302 重定向
+</code></pre>
+
+<h2>移动端接口</h2>
+<h3>隐患随手拍</h3>
+<pre class="codehilite"><code>POST /api/photo/submit (multipart/form-data)
+file_0~file_5: 照片(最多6张)
+title, description, level, org_id, point_id, point_name
+→ {&quot;success&quot;: true, &quot;data&quot;: {&quot;id&quot;: 123}}
+</code></pre>
+
+<h3>巡查打卡</h3>
+<pre class="codehilite"><code>POST /api/patrol/checkin (multipart/form-data)
+file_0~file_3: 照片(最多4张)
+plan_id, point_name, org_id, record, status
+→ {&quot;success&quot;: true, &quot;data&quot;: {&quot;id&quot;: 456}}
+</code></pre>
+
+<h3>隐患举报</h3>
+<pre class="codehilite"><code>POST /api/report/submit (multipart/form-data)
+file_0~file_5: 照片
+title, description, level, org_id, point_name, anonymous(0/1)
+→ {&quot;success&quot;: true, &quot;data&quot;: {&quot;id&quot;: 789}}
+</code></pre>
+
+<h3>完成任务</h3>
+<pre class="codehilite"><code>POST /api/task/&lt;id&gt;/done → {&quot;success&quot;: true}
+</code></pre>
+
+<h3>培训签到</h3>
+<pre class="codehilite"><code>POST /api/training/&lt;id&gt;/sign → {&quot;success&quot;: true}
+</code></pre>
+
+<h3>修改密码</h3>
+<pre class="codehilite"><code>POST /api/profile/password (JSON)
+{&quot;old_password&quot;: &quot;旧密码&quot;, &quot;new_password&quot;: &quot;新密码(≥6位)&quot;}
+</code></pre>
+
+<h2>PC 后台接口</h2>
+<h3>通用 CRUD</h3>
+<pre class="codehilite"><code>GET  /api/admin/&lt;table&gt;/list
+POST /api/admin/&lt;table&gt;/add
+POST /api/admin/&lt;table&gt;/&lt;id&gt;/update
+POST /api/admin/&lt;table&gt;/&lt;id&gt;/delete
+</code></pre>
+
+<p>支持的表：organizations, equipment, personnel, related_parties, materials, risk_points, hazards, special_actions, training_courses, training_plans, emergency_plans, drill_records, contacts, message_templates, alert_rules, assessment, risk_reports, violation_reports, work_permits, patrol_plans</p>
+<h3>隐患管理</h3>
+<pre class="codehilite"><code>POST /api/admin/hazard/&lt;id&gt;/assign   {assignee, assignee_org, days}
+POST /api/admin/hazard/&lt;id&gt;/rectify  (multipart: note + file_0~file_5)
+POST /api/admin/hazard/&lt;id&gt;/review   {pass:&quot;1&quot;/&quot;0&quot;, note}
+POST /api/admin/hazard/&lt;id&gt;/major    {major_flag, stop_work}
+GET  /api/admin/hazard/&lt;id&gt;/detail
+</code></pre>
+
+<h3>作业许可</h3>
+<pre class="codehilite"><code>POST /api/admin/permit/&lt;id&gt;/approve  {level: 1/2}
+POST /api/admin/permit/&lt;id&gt;/finish   {note}
+</code></pre>
+
+<h3>物资出入库</h3>
+<pre class="codehilite"><code>POST /api/admin/material/&lt;id&gt;/io  {io_type:&quot;in&quot;/&quot;out&quot;, quantity, note}
+</code></pre>
+
+<h3>风险复核</h3>
+<pre class="codehilite"><code>POST /api/admin/risk/&lt;id&gt;/review  {result:&quot;ok&quot;, note}
+</code></pre>
+
+<h3>用户管理</h3>
+<pre class="codehilite"><code>POST /api/admin/users/add
+POST /api/admin/users/&lt;id&gt;/update
+POST /api/admin/users/&lt;id&gt;/delete
+</code></pre>
+
+<h3>系统配置</h3>
+<pre class="codehilite"><code>POST /api/admin/setting/save  {key, value}
+POST /api/admin/send-test-message  channel, target, title
+</code></pre>
+
+<h2>数据导入导出</h2>
+<pre class="codehilite"><code>GET  /admin/import-template/&lt;table&gt;  → CSV 模板下载
+POST /api/admin/&lt;table&gt;/import       → CSV 批量导入
+GET  /admin/export/&lt;table&gt;?fmt=excel → CSV 导出
+GET  /admin/export/&lt;table&gt;?fmt=pdf   → PDF 导出
+</code></pre>
+
+<h2>大屏接口</h2>
+<pre class="codehilite"><code>GET /api/screen/data → 完整统计数据
+</code></pre>
+
+<h2>相关阅读</h2>
+<ul>
+<li>平台架构与技术栈：<a class="wl" href="wiki/architecture.html">architecture</a></li>
+<li>数据库表结构：<a class="wl" href="wiki/database.html">database</a></li>
+<li>系统管理：<a class="wl" href="wiki/system.html">system</a></li>
+<li>首页：<a class="wl" href="wiki/home.html">home</a></li>
+<li>隐患管理：<a class="wl" href="wiki/hazard-flow.html">隐患治理流程</a></li>
+</ul></div></div></body></html>

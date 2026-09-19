@@ -1,0 +1,148 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>26-admin-permits · tk-safe-upload 说明</title><style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;background:#fafbff;color:#1a2332;line-height:1.75}
+a{color:#2f6bff;text-decoration:none}
+.wrap{max-width:920px;margin:0 auto;padding:32px 20px 80px}
+.back{font-size:13px;color:#8a94a6}
+h1{font-size:26px;font-weight:800;margin:8px 0 4px;border-bottom:2px solid #eef1f8;padding-bottom:14px}
+.page-title{font-size:16px;color:#5c6670;margin:-2px 0 20px}
+.wiki-body{margin-top:8px}
+.wiki-body h1,.wiki-body h2,.wiki-body h3{margin:1.2em 0 .5em;line-height:1.4}
+.wiki-body h2{font-size:22px}.wiki-body h3{font-size:18px}
+.wiki-body p{margin:.8em 0}
+.wiki-body ul,.wiki-body ol{margin:.6em 0 .6em 1.6em}
+.wiki-body img{max-width:100%}
+.wiki-body pre{background:#0f1523;color:#e8edff;padding:14px 16px;border-radius:10px;overflow:auto;margin:.9em 0}
+.wiki-body code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:.9em}
+.wiki-body pre code{background:none;padding:0}
+.wiki-body table{border-collapse:collapse;margin:.9em 0;width:100%}
+.wiki-body th,.wiki-body td{border:1px solid #e2e7f2;padding:8px 12px;text-align:left}
+.wiki-body th{background:#f4f6fc}
+.wiki-body blockquote{border-left:4px solid #bcd0ff;background:#f4f8ff;padding:10px 16px;margin:.9em 0;color:#456}
+.wiki-body a{color:#2f6bff;border-bottom:1px dashed #bcd0ff}
+.nav{margin:14px 0 0;display:flex;gap:10px;flex-wrap:wrap}
+.nav a{background:#eef3ff;border:1px solid #d9e4ff;padding:6px 16px;border-radius:20px;font-size:13px;color:#2f6bff}
+.mark{color:#c0392b}
+</style></head><body><div class="wrap"><a class="back" href="../index.html">← 项目合辑</a><h1>26-admin-permits</h1><div class="page-title">tk-safe-upload · 使用说明（只读镜像）</div><div class="nav"><a href="../index.html">返回合辑</a><a href="./home.html">概览</a></div><div class="wiki-body"><h1>作业许可（高风险作业要审批）</h1>
+<blockquote>
+<p>动火、高处、有限空间……这些<strong>高风险作业</strong>必须<strong>先审批、再作业</strong>。出了事故要追责。</p>
+</blockquote>
+<hr />
+<h2>什么是"高风险作业"？</h2>
+<p>容易出<strong>重大事故</strong>的作业类型：</p>
+<ul>
+<li>🔥 <strong>动火作业</strong>（焊接、切割等）</li>
+<li>🕳️ <strong>有限空间作业</strong>（进入管道、罐体等）</li>
+<li>🪜 <strong>高处作业</strong>（2米以上）</li>
+<li>等等</li>
+</ul>
+<p>法律规定这些作业<strong>必须办理许可证</strong>，由专人审批后，才能开始。</p>
+<hr />
+<h2>页面长什么样</h2>
+<p>在电脑后台左侧菜单点"<strong>📝 高风险作业许可</strong>"。</p>
+<hr />
+<h2>顶部按钮</h2>
+<table>
+<thead>
+<tr>
+<th>按钮</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>+ 新建作业许可</td>
+<td>创建一份新的许可证申请</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>许可证卡片</h2>
+<p>每张卡片是一份许可证申请：</p>
+<ul>
+<li><strong>类型徽标</strong>（颜色）：</li>
+<li>🔴 红色 = 动火作业</li>
+<li>🟠 橙色 = 有限空间</li>
+<li>🔵 蓝色 = 高处作业</li>
+<li><strong>标题</strong>（比如"锅炉房焊接"）</li>
+<li><strong>所属单位</strong></li>
+<li><strong>状态徽标</strong>：</li>
+<li>⬜ 灰色 = 待审批</li>
+<li>🟢 绿色 = 已批准</li>
+<li>🔵 蓝色 = 已完工</li>
+<li><strong>操作按钮</strong>（根据状态显示）</li>
+</ul>
+<hr />
+<h2>怎么新建一份许可证</h2>
+<p><strong>第1步</strong>：点"<strong>+ 新建作业许可</strong>"</p>
+<p><strong>第2步</strong>：填写表单</p>
+<ul>
+<li><strong>作业类型</strong>（必填）：下拉选 动火/有限空间/高处</li>
+<li><strong>作业名称</strong>（必填）：比如"锅炉房焊接"</li>
+<li><strong>所属单位</strong>（必填）</li>
+<li><strong>作业地点</strong>：具体位置</li>
+<li><strong>申请人</strong>（必填）：姓名</li>
+</ul>
+<p><strong>第3步</strong>：点"<strong>提交申请</strong>"</p>
+<blockquote>
+<p>完成！申请已提交，等待审批。</p>
+</blockquote>
+<hr />
+<h2>怎么审批许可证</h2>
+<p>许可证需要<strong>两级审批</strong>：</p>
+<h3>一级审批</h3>
+<p><strong>场景</strong>：直接主管审批</p>
+<p><strong>操作</strong>：
+1. 找到"待审批"的许可证
+2. 点击"<strong>一级审批</strong>"
+3. 弹出确认框
+4. 点"<strong>确定</strong>"</p>
+<blockquote>
+<p>完成！进入二级审批。</p>
+</blockquote>
+<h3>二级审批</h3>
+<p><strong>场景</strong>：上级领导审批</p>
+<p><strong>操作</strong>：
+1. 找到"已一级审批"的许可证
+2. 点击"<strong>二级审批</strong>"
+3. 弹出确认框
+4. 点"<strong>确定</strong>"</p>
+<blockquote>
+<p>完成！许可证状态变成"已批准"，可以开始作业。</p>
+</blockquote>
+<hr />
+<h2>怎么完工销项</h2>
+<p>作业<strong>完成后</strong>，要做"完工销项"记录：</p>
+<p><strong>第1步</strong>：找到"已批准"的许可证</p>
+<p><strong>第2步</strong>：点击"<strong>完工销项</strong>"按钮</p>
+<p><strong>第3步</strong>：弹出输入框，填写<strong>作业完成说明</strong>（比如"焊接完成，无残留，现场已清理"）</p>
+<p><strong>第4步</strong>：点"<strong>确定</strong>"</p>
+<blockquote>
+<p>完成！许可证状态变成"已完工"，流程结束。</p>
+</blockquote>
+<hr />
+<h2>一个完整的许可证流程</h2>
+<pre class="codehilite"><code>1. 申请人提交申请
+   ↓ (状态：待审批)
+2. 一级审批（直接主管）
+   ↓ (状态：一级审批)
+3. 二级审批（上级领导）
+   ↓ (状态：已批准)
+4. 开始作业
+   ↓
+5. 完工销项
+   (状态：已完工)
+</code></pre>
+
+<hr />
+<h2>常见问题</h2>
+<p><strong>Q：没许可证能作业吗？</strong>
+A：<strong>绝对不能</strong>！这是严重违规，发生事故要承担法律责任。</p>
+<p><strong>Q：能跳过审批吗？</strong>
+A：不能。必须两级都批才能开始。</p>
+<p><strong>Q：作业中情况有变怎么办？</strong>
+A：停止作业，重新申请。</p>
+<p><strong>Q：许可证有有效期吗？</strong>
+A：默认 7 天。过期需要重新申请。</p>
+<p><strong>Q：审批人不在怎么办？</strong>
+A：找有同样审批权限的人代审。</p></div></div></body></html>

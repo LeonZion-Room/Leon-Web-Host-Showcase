@@ -1,0 +1,154 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>22-admin-special · tk-safe-upload 说明</title><style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;background:#fafbff;color:#1a2332;line-height:1.75}
+a{color:#2f6bff;text-decoration:none}
+.wrap{max-width:920px;margin:0 auto;padding:32px 20px 80px}
+.back{font-size:13px;color:#8a94a6}
+h1{font-size:26px;font-weight:800;margin:8px 0 4px;border-bottom:2px solid #eef1f8;padding-bottom:14px}
+.page-title{font-size:16px;color:#5c6670;margin:-2px 0 20px}
+.wiki-body{margin-top:8px}
+.wiki-body h1,.wiki-body h2,.wiki-body h3{margin:1.2em 0 .5em;line-height:1.4}
+.wiki-body h2{font-size:22px}.wiki-body h3{font-size:18px}
+.wiki-body p{margin:.8em 0}
+.wiki-body ul,.wiki-body ol{margin:.6em 0 .6em 1.6em}
+.wiki-body img{max-width:100%}
+.wiki-body pre{background:#0f1523;color:#e8edff;padding:14px 16px;border-radius:10px;overflow:auto;margin:.9em 0}
+.wiki-body code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:.9em}
+.wiki-body pre code{background:none;padding:0}
+.wiki-body table{border-collapse:collapse;margin:.9em 0;width:100%}
+.wiki-body th,.wiki-body td{border:1px solid #e2e7f2;padding:8px 12px;text-align:left}
+.wiki-body th{background:#f4f6fc}
+.wiki-body blockquote{border-left:4px solid #bcd0ff;background:#f4f8ff;padding:10px 16px;margin:.9em 0;color:#456}
+.wiki-body a{color:#2f6bff;border-bottom:1px dashed #bcd0ff}
+.nav{margin:14px 0 0;display:flex;gap:10px;flex-wrap:wrap}
+.nav a{background:#eef3ff;border:1px solid #d9e4ff;padding:6px 16px;border-radius:20px;font-size:13px;color:#2f6bff}
+.mark{color:#c0392b}
+</style></head><body><div class="wrap"><a class="back" href="../index.html">← 项目合辑</a><h1>22-admin-special</h1><div class="page-title">tk-safe-upload · 使用说明（只读镜像）</div><div class="nav"><a href="../index.html">返回合辑</a><a href="./home.html">概览</a></div><div class="wiki-body"><h1>专项整治（七类专项安全活动）</h1>
+<blockquote>
+<p>每年都有一些<strong>专项安全活动</strong>：消防、燃气、用电……系统帮您管理这些专项的检查、记录、整改。</p>
+</blockquote>
+<hr />
+<h2>什么是"专项整治"？</h2>
+<p>针对<strong>特定主题</strong>开展的集中安全活动。比如：
+- 消防安全隐患排查
+- 燃气安全整治
+- 用电安全检查
+- 等等</p>
+<p>每个专项都有<strong>明确的检查范围、整改要求</strong>。</p>
+<hr />
+<h2>七大专项模板</h2>
+<p>系统预置了 7 个常用的专项模板：</p>
+<table>
+<thead>
+<tr>
+<th>专项</th>
+<th>主要检查内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>🔥 消防安全隐患排查</td>
+<td>灭火器、应急照明、疏散通道</td>
+</tr>
+<tr>
+<td>🔥 燃气安全专题整治</td>
+<td>燃气管道、阀门、可燃气体报警器</td>
+</tr>
+<tr>
+<td>⚡ 用电安全检查</td>
+<td>配电箱、线路、漏电保护</td>
+</tr>
+<tr>
+<td>🕳️ 有限空间作业</td>
+<td>作业票、气体检测、应急装备</td>
+</tr>
+<tr>
+<td>🏗️ 建筑施工</td>
+<td>脚手架、临边防护、深基坑</td>
+</tr>
+<tr>
+<td>🔥 动火作业</td>
+<td>动火票、灭火措施、监护人</td>
+</tr>
+<tr>
+<td>🚧 户外作业</td>
+<td>高处坠落、防晒、防中暑</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>这些模板只是参考，您可以根据需要修改。</p>
+</blockquote>
+<hr />
+<h2>页面长什么样</h2>
+<p>在电脑后台左侧菜单点"<strong>📑 专项整治</strong>"：</p>
+<p><img alt="专项整治" src="/s/tk-safe-upload/10_admin_special.png" /></p>
+<hr />
+<h2>顶部按钮</h2>
+<table>
+<thead>
+<tr>
+<th>按钮</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>+ 新增专项行动</td>
+<td>创建一个新的专项活动</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>专项卡片</h2>
+<p>每张卡片是一次专项活动：</p>
+<ul>
+<li><strong>专项类型</strong>（彩色徽标）</li>
+<li><strong>活动名称</strong>（比如"2024年春季消防专项"）</li>
+<li><strong>组织单位</strong></li>
+<li><strong>起止日期</strong></li>
+<li><strong>操作</strong>：删除/归档检查记录</li>
+</ul>
+<hr />
+<h2>怎么创建一次专项活动</h2>
+<p><strong>第1步</strong>：点"<strong>+ 新增专项行动</strong>"</p>
+<p><strong>第2步</strong>：填写表单</p>
+<ul>
+<li><strong>专项类型</strong>（必填）：下拉选 7 个模板</li>
+<li><strong>活动名称</strong>（必填）：自定义</li>
+<li><strong>所属单位</strong>（必填）</li>
+<li><strong>开始日期</strong>（必填）</li>
+<li><strong>结束日期</strong>（必填）</li>
+</ul>
+<p><strong>第3步</strong>：点"<strong>保存</strong>"</p>
+<blockquote>
+<p>完成！专项活动已创建。</p>
+</blockquote>
+<hr />
+<h2>怎么归档检查记录</h2>
+<p>每次做完检查，需要把结果记录到系统里。</p>
+<p><strong>第1步</strong>：找到要记录的活动</p>
+<p><strong>第2步</strong>：在卡片下方有：
+- <strong>检查内容</strong>输入框：写了什么
+- <strong>检查结果</strong>输入框：发现了什么
+- "<strong>归档检查记录</strong>"按钮</p>
+<p><strong>第3步</strong>：填写内容，点"<strong>归档</strong>"</p>
+<blockquote>
+<p>完成！这条检查记录已保存。</p>
+</blockquote>
+<hr />
+<h2>怎么删除</h2>
+<p>点击卡片的"<strong>删除</strong>"按钮，确认后删除。</p>
+<blockquote>
+<p>⚠️ 删除后记录就没了，请谨慎。</p>
+</blockquote>
+<hr />
+<h2>常见问题</h2>
+<p><strong>Q：一次专项可以查很多地方，怎么记录？</strong>
+A：每次检查都归档一条记录，累积起来就是完整的检查档案。</p>
+<p><strong>Q：专项模板能改吗？</strong>
+A：模板是固定的，但您可以创建自定义的专项活动（用任意名称）。</p>
+<p><strong>Q：归档后能改吗？</strong>
+A：不能。请确认后再归档。</p>
+<p><strong>Q：可以打印检查记录吗？</strong>
+A：可以。用浏览器的打印功能（Ctrl+P）打印页面。</p></div></div></body></html>

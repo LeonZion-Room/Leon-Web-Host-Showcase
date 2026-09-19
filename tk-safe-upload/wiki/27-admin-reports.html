@@ -1,0 +1,145 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>27-admin-reports · tk-safe-upload 说明</title><style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;background:#fafbff;color:#1a2332;line-height:1.75}
+a{color:#2f6bff;text-decoration:none}
+.wrap{max-width:920px;margin:0 auto;padding:32px 20px 80px}
+.back{font-size:13px;color:#8a94a6}
+h1{font-size:26px;font-weight:800;margin:8px 0 4px;border-bottom:2px solid #eef1f8;padding-bottom:14px}
+.page-title{font-size:16px;color:#5c6670;margin:-2px 0 20px}
+.wiki-body{margin-top:8px}
+.wiki-body h1,.wiki-body h2,.wiki-body h3{margin:1.2em 0 .5em;line-height:1.4}
+.wiki-body h2{font-size:22px}.wiki-body h3{font-size:18px}
+.wiki-body p{margin:.8em 0}
+.wiki-body ul,.wiki-body ol{margin:.6em 0 .6em 1.6em}
+.wiki-body img{max-width:100%}
+.wiki-body pre{background:#0f1523;color:#e8edff;padding:14px 16px;border-radius:10px;overflow:auto;margin:.9em 0}
+.wiki-body code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:.9em}
+.wiki-body pre code{background:none;padding:0}
+.wiki-body table{border-collapse:collapse;margin:.9em 0;width:100%}
+.wiki-body th,.wiki-body td{border:1px solid #e2e7f2;padding:8px 12px;text-align:left}
+.wiki-body th{background:#f4f6fc}
+.wiki-body blockquote{border-left:4px solid #bcd0ff;background:#f4f8ff;padding:10px 16px;margin:.9em 0;color:#456}
+.wiki-body a{color:#2f6bff;border-bottom:1px dashed #bcd0ff}
+.nav{margin:14px 0 0;display:flex;gap:10px;flex-wrap:wrap}
+.nav a{background:#eef3ff;border:1px solid #d9e4ff;padding:6px 16px;border-radius:20px;font-size:13px;color:#2f6bff}
+.mark{color:#c0392b}
+</style></head><body><div class="wrap"><a class="back" href="../index.html">← 项目合辑</a><h1>27-admin-reports</h1><div class="page-title">tk-safe-upload · 使用说明（只读镜像）</div><div class="nav"><a href="../index.html">返回合辑</a><a href="./home.html">概览</a></div><div class="wiki-body"><h1>统计报表（数据图表一站式查看）</h1>
+<blockquote>
+<p>月底、季度末汇报时看这里。所有数据都用<strong>漂亮的图表</strong>展示，一目了然。</p>
+</blockquote>
+<hr />
+<h2>页面长什么样</h2>
+<p>在电脑后台左侧菜单点"<strong>📈 统计报表</strong>"。</p>
+<hr />
+<h2>顶部：5 个统计卡片</h2>
+<p>显示<strong>整个公司</strong>的关键数据：</p>
+<table>
+<thead>
+<tr>
+<th>卡片</th>
+<th>数字</th>
+<th>什么意思</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>隐患总数</td>
+<td>123</td>
+<td>一共有多少个隐患</td>
+</tr>
+<tr>
+<td>逾期未整改</td>
+<td>5</td>
+<td>超期没处理的（红色）</td>
+</tr>
+<tr>
+<td>已销号</td>
+<td>80</td>
+<td>已经处理完的（绿色）</td>
+</tr>
+<tr>
+<td>巡查打卡次数</td>
+<td>1234</td>
+<td>安全员打了多少次卡</td>
+</tr>
+<tr>
+<td>培训签到/用户数</td>
+<td>80/100</td>
+<td>80人签到/100人</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>中部：两个图表</h2>
+<h3>左边：近 12 个月隐患趋势</h3>
+<p>一个<strong>折线图</strong>，显示过去一年每个月的隐患数量。</p>
+<ul>
+<li><strong>看趋势</strong>：上个月30个，这个月45个 → 上升了</li>
+<li><strong>看规律</strong>：是不是某些月份容易出问题？</li>
+</ul>
+<h3>右边：风险点位分布</h3>
+<p>一个<strong>环形图</strong>，显示所有风险点的等级分布。</p>
+<ul>
+<li>红色部分：多少个重大风险</li>
+<li>橙色部分：多少个较大风险</li>
+<li>等等</li>
+</ul>
+<blockquote>
+<p>一眼看出公司面临什么级别的风险最多。</p>
+</blockquote>
+<hr />
+<h2>下部：两个图表</h2>
+<h3>左边：各单位隐患整改率排名</h3>
+<p>显示<strong>各下属单位</strong>的整改率（从高到低）：</p>
+<ul>
+<li><strong>绿色长条</strong>：≥90% 优秀</li>
+<li><strong>黄色长条</strong>：70-90% 合格</li>
+<li><strong>红色长条</strong>：&lt;70% 不合格</li>
+</ul>
+<blockquote>
+<p>一眼看出哪些单位做得好。</p>
+</blockquote>
+<h3>右边：隐患状态统计</h3>
+<p>一个<strong>柱状图</strong>，显示当前所有隐患的分布：</p>
+<ul>
+<li>待分派（红色）</li>
+<li>处理中（黄色）</li>
+<li>待复核（蓝色）</li>
+<li>已销号（绿色）</li>
+</ul>
+<blockquote>
+<p>看有多少"卡住"了。</p>
+</blockquote>
+<hr />
+<h2>怎么用这些报表</h2>
+<h3>每月汇报前</h3>
+<ol>
+<li>打开统计报表</li>
+<li>截图或导出关键图表</li>
+<li>准备汇报材料：</li>
+<li>隐患趋势：说"这个月比上个月下降/上升 X%"</li>
+<li>整改率：表扬先进、批评落后</li>
+<li>培训：多少人完成培训</li>
+</ol>
+<h3>找问题</h3>
+<ul>
+<li>整改率低的单位 → 找原因</li>
+<li>培训完成率低 → 催促进度</li>
+<li>风险点新增多 → 评估管控</li>
+</ul>
+<h3>工作规划</h3>
+<ul>
+<li>趋势上升 → 加强培训</li>
+<li>整改率低 → 优化流程</li>
+<li>培训低 → 排课程</li>
+</ul>
+<hr />
+<h2>常见问题</h2>
+<p><strong>Q：图表数据怎么导出来？</strong>
+A：用浏览器的截图功能（截屏），或者直接对着屏幕拍照。</p>
+<p><strong>Q：可以选时间段吗？</strong>
+A：当前是固定显示。后续可能加时间段选择。</p>
+<p><strong>Q：图表看不懂怎么办？</strong>
+A：颜色对应等级，长度对应该等级的数量。鼠标悬停可看具体数字。</p>
+<p><strong>Q：数据多久更新？</strong>
+A：每次刷新页面时更新。</p></div></div></body></html>

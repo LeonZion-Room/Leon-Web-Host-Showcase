@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QR-Code-Gate · 大鹏投控访客门禁二维码管理系统</title>
+<meta name="description" content="大鹏投控企业园区访客门禁二维码管理系统：访客预约、员工审批、分时账户分配、二维码生成、远程开门、人脸授权、通行记录归因全流程管理。对接达实 C3 双通道（19002 C3WebApi + 19001 AccessInterface），404 门禁点位 × 61 台人脸设备，闸机联动。">
+<meta property="og:title" content="QR-Code-Gate · 大鹏投控访客门禁二维码管理系统">
+<meta property="og:description" content="访客预约 → 员工审批 → 分时分配账户 → 二维码通行 → 远程开门 → 通行记录归因。达实 C3 双通道对接，404 门禁 × 61 人脸设备。">
+<meta property="og:type" content="website">
+<style>
+:root{--bg:#0b0d13;--bg2:#11141d;--card:#151926;--rule:rgba(255,255,255,.07);--text:#e8eaf2;--muted:#98a0b8;
+--a1:#f59e0b;--a2:#b45309;--grad:linear-gradient(135deg,#f59e0b,#b45309);--glow:#f59e0b33;
+--blue:#3b82f6;--green:#10b981;--red:#ef4444;--purple:#8b5cf6;}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;background:var(--bg);color:var(--text);line-height:1.7}
+a{color:var(--a1);text-decoration:none}
+.wrap{max-width:1100px;margin:0 auto;padding:0 28px}
+nav{position:sticky;top:0;z-index:99;background:rgba(11,13,19,.82);backdrop-filter:blur(14px);border-bottom:1px solid var(--rule)}
+.nav-in{display:flex;align-items:center;justify-content:space-between;height:62px}
+.brand{font-weight:700;font-size:17px;display:flex;align-items:center;gap:10px;color:var(--text)}
+.brand .dot{width:30px;height:30px;border-radius:9px;background:var(--grad);display:flex;align-items:center;justify-content:center;font-size:16px}
+.nav-links{display:flex;gap:22px;font-size:13.5px}
+.nav-links a{color:var(--muted)}.nav-links a:hover{color:var(--text)}
+.hero{position:relative;padding:96px 0 76px;overflow:hidden}
+.hero::before,.hero::after{content:'';position:absolute;border-radius:50%;filter:blur(90px);opacity:.55;z-index:-1}
+.hero::before{width:500px;height:500px;background:var(--a1);top:-180px;right:-120px}
+.hero::after{width:420px;height:420px;background:var(--a2);bottom:-200px;left:-140px;opacity:.35}
+.badge{display:inline-flex;align-items:center;gap:8px;background:var(--glow);border:1px solid #f59e0b44;color:var(--a1);padding:6px 16px;border-radius:999px;font-size:13px;font-weight:600;margin-bottom:22px}
+h1{font-size:clamp(2rem,4.6vw,3.3rem);font-weight:800;line-height:1.18;letter-spacing:.5px;margin-bottom:18px}
+h1 em{font-style:normal;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.sub{font-size:1.08rem;color:var(--muted);max-width:780px;margin-bottom:34px}
+.cta{display:flex;gap:14px;flex-wrap:wrap}
+.btn{padding:12px 28px;border-radius:10px;font-weight:600;font-size:15px;transition:.2s;display:inline-block}
+.btn.pri{background:var(--grad);color:#fff}.btn.pri:hover{transform:translateY(-2px);box-shadow:0 10px 30px var(--glow)}
+.btn.ghost{border:1px solid var(--rule);color:var(--text);background:rgba(255,255,255,.03)}.btn.ghost:hover{border-color:var(--a1)}
+.stats{display:flex;gap:0;margin-top:56px;border:1px solid var(--rule);border-radius:14px;background:rgba(255,255,255,.02);overflow:hidden}
+.stats div{flex:1;padding:22px 12px;text-align:center;border-right:1px solid var(--rule)}
+.stats div:last-child{border-right:none}
+.stats b{display:block;font-size:1.5rem;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;font-weight:800}
+.stats span{font-size:.8rem;color:var(--muted)}
+section{padding:68px 0}
+.sec-tag{color:var(--a1);font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase}
+h2{font-size:clamp(1.5rem,3vw,2.1rem);font-weight:800;margin:6px 0 14px}
+.lead{color:var(--muted);max-width:760px;margin-bottom:36px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px}
+.card{background:var(--card);border:1px solid var(--rule);border-radius:14px;padding:26px;transition:.25s}
+.card:hover{transform:translateY(-4px);border-color:#f59e0b55;box-shadow:0 14px 40px rgba(0,0,0,.35)}
+.card .ic{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:14px}
+.card h3{font-size:1.02rem;margin-bottom:8px}
+.card p{font-size:.88rem;color:var(--muted)}
+.chips{display:flex;flex-wrap:wrap;gap:10px}
+.chip{background:rgba(255,255,255,.04);border:1px solid var(--rule);padding:7px 16px;border-radius:999px;font-size:13.5px;color:var(--text)}
+.tbl{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--rule);border-radius:14px;overflow:hidden}
+.tbl tr{border-bottom:1px solid var(--rule)}.tbl tr:last-child{border-bottom:none}
+.tbl td{padding:14px 22px;font-size:.92rem;vertical-align:top}
+.tbl td:first-child{color:var(--muted);white-space:nowrap;width:150px;font-weight:600}
+.tbl code,.mono{font-family:'SF Mono',Consolas,Menlo,monospace;font-size:.86em;color:var(--a1);word-break:break-all}
+.note{margin-top:22px;background:rgba(255,255,255,.03);border-left:3px solid var(--a1);border-radius:0 10px 10px 0;padding:16px 20px;font-size:.88rem;color:var(--muted)}
+.flow{display:flex;align-items:center;gap:0;margin:28px 0;overflow-x:auto;padding-bottom:8px}
+.flow-step{flex:0 0 auto;background:var(--card);border:1px solid var(--rule);border-radius:12px;padding:18px 22px;text-align:center;min-width:160px}
+.flow-step .num{width:32px;height:32px;border-radius:50%;background:var(--grad);color:#fff;font-weight:700;font-size:14px;display:inline-flex;align-items:center;justify-content:center;margin-bottom:8px}
+.flow-step h4{font-size:.92rem;margin-bottom:4px}
+.flow-step p{font-size:.78rem;color:var(--muted)}
+.flow-arrow{flex:0 0 auto;font-size:20px;color:var(--a1);padding:0 4px}
+.arch{background:var(--card);border:1px solid var(--rule);border-radius:14px;padding:28px;margin:24px 0}
+.arch h3{font-size:1rem;margin-bottom:14px}
+.arch-row{display:flex;gap:12px;flex-wrap:wrap}
+.arch-box{background:rgba(255,255,255,.03);border:1px solid var(--rule);border-radius:10px;padding:14px 18px;flex:1;min-width:200px}
+.arch-box .label{font-size:.75rem;color:var(--a1);font-weight:600;margin-bottom:4px}
+.arch-box .val{font-size:.88rem;color:var(--text)}
+footer{border-top:1px solid var(--rule);padding:38px 0;text-align:center;color:var(--muted);font-size:.85rem}
+footer a{color:var(--a1)}
+@media(max-width:640px){
+.nav-links{display:none}
+.hero{padding:64px 0 52px}
+.stats{flex-direction:column}.stats div{border-right:none;border-bottom:1px solid var(--rule)}
+.grid{grid-template-columns:1fr}
+.tbl td{padding:12px 14px}.tbl td:first-child{width:auto}
+.flow{flex-direction:column}.flow-arrow{transform:rotate(90deg)}
+.arch-row{flex-direction:column}
+}
+</style>
+</head>
+<body>
+<nav><div class="wrap nav-in">
+<a class="brand" href="#"><span class="dot">🚪</span>QR-Code-Gate</a>
+<div class="nav-links"><a href="#features">功能特性</a><a href="#flow">业务流程</a><a href="#architecture">系统架构</a><a href="#c3">C3对接</a><a href="#security">安全体系</a><a href="#tech">技术栈</a><a href="#deploy">部署访问</a><a href="http://119.145.17.34:5070/w/qr-code-gate/">📖 说明书</a></div>
+</div></nav>
+
+<header class="hero"><div class="wrap">
+<span class="badge">🚪 大鹏投控 · 门禁管理 · v3.0</span>
+<h1>QR-Code-Gate <em>访客门禁二维码管理系统</em></h1>
+<p class="sub">大鹏投控企业园区访客全流程管理平台：访客线上预约 → 经办人审批 → 系统自动分时分配账户并授权 → 生成专属二维码 → 闸机扫码/刷脸通行 → 到期自动回收并归因记录。<br>对接达实 C3 门禁平台双通道（C3WebApi 19002 + AccessInterface 19001），覆盖 404 个门禁点位（启用 387）与 61 台人脸设备，手机/平板/电脑免安装直接使用。</p>
+<div class="cta">
+<a class="btn pri" target="_blank" rel="noopener" href="http://119.145.17.34:5102/">进入系统 ↗</a>
+<a class="btn ghost" target="_blank" rel="noopener" href="http://119.145.17.34:5070/w/qr-code-gate/">📖 使用说明书</a>
+<a class="btn ghost" href="#flow">业务流程 ↓</a>
+</div>
+<div class="stats">
+<div><b>404 / 387</b><span>门禁点位 / 已启用</span></div>
+<div><b>61 台</b><span>人脸设备</span></div>
+<div><b>19002+19001</b><span>C3 双通道</span></div>
+<div><b>5102</b><span>服务端口</span></div>
+</div>
+</div></header>
+
+<main class="wrap">
+
+<!-- ======== 核心业务流程 ======== -->
+<section id="flow">
+<div class="sec-tag">Workflow</div><h2>核心业务流程</h2>
+<p class="lead">一次访客来访的完整链路，4 步完成从预约到进门的全闭环。</p>
+
+<div class="flow">
+<div class="flow-step"><div class="num">1</div><h4>访客预约</h4><p>姓名/手机/时段/门禁<br>经办人/事由</p></div>
+<div class="flow-arrow">→</div>
+<div class="flow-step"><div class="num">2</div><h4>员工审批</h4><p>点通过即自动触发<br>分配+授权+二维码</p></div>
+<div class="flow-arrow">→</div>
+<div class="flow-step"><div class="num">3</div><h4>闸机通行</h4><p>专属链接出示二维码<br>或人脸设备刷脸</p></div>
+<div class="flow-arrow">→</div>
+<div class="flow-step"><div class="num">4</div><h4>回收归档</h4><p>到期自动回收账户<br>人脸撤销+记录归因</p></div>
+</div>
+
+<div class="note">账户不足时系统自动创建 <span class="mono">V+时间戳</span> 新账户并授权，保证审批一定成功；拒绝仅限待审批记录，拒绝时自动回收已分配账户。</div>
+</section>
+
+<!-- ======== 功能特性 ======== -->
+<section id="features">
+<div class="sec-tag">Features</div><h2>功能特性</h2>
+<p class="lead">围绕访客进出实际场景打磨的核心能力。</p>
+<div class="grid">
+<div class="card"><div class="ic" style="background:rgba(59,130,246,.15);color:var(--blue)">📅</div><h3>访客预约（免登录）</h3><p>姓名、手机号（11位格式校验）、来访时段（支持仅选日期）、多选门禁点位、经办人、来访事由，提交即生成待审批记录。预约页默认展示人脸设备，点击展开普通门禁。</p></div>
+
+<div class="card"><div class="ic" style="background:rgba(16,185,129,.15);color:var(--green)">✅</div><h3>员工审批（一键通过）</h3><p>待审批/已通过/已拒绝/全部分页展示。通过自动触发：分时账户分配 → 按时段授权 → 人脸授权（无卡号自动人脸兜底）→ 生成二维码与访客专属链接。拒绝仅限 pending 状态，拒绝自动回收已分配账户。</p></div>
+
+<div class="card"><div class="ic" style="background:rgba(139,92,246,.15);color:var(--purple)">⏱️</div><h3>分时账户分配（核心机制）</h3><p>同一账户可在非重叠时段分配给不同访客，实现资源最大化利用。分配算法检测时段冲突，优先使用预约指定账户。池不足时自动创建 V 前缀账户并逐一授权（PutEmpInfo + GenerateEmpAuthorSet1），到期自动回收（后台线程每15分钟扫描）。</p></div>
+
+<div class="card"><div class="ic" style="background:rgba(245,158,11,.15);color:var(--a1)">🔳</div><h3>二维码通行证</h3><p>审批通过调用 C3 AccessInterface 获取员工二维码数据，生成专属加密链接 <span class="mono">/visit/编号/令牌</span>（SHA-256），二维码与预约时段同效，支持全屏放大与导出 PNG 标签卡片。</p></div>
+
+<div class="card"><div class="ic" style="background:rgba(239,68,68,.15);color:var(--red)">🔓</div><h3>远程开门（仅超管）</h3><p>按门名称（doorName）签名开门（AccessInterface），失败回退无签名版（C3WebApi）。支持单个开门与一键全开（后台并发 + 进度实时回显）。开门按钮仅超管可见。</p></div>
+
+<div class="card"><div class="ic" style="background:rgba(16,185,129,.15);color:var(--green)">👤</div><h3>人脸设备授权</h3><p>61 台人脸设备按 DevMac 精确定位下发人脸权限（EmpFaceAuthorSet），回收时同步撤销该预约下发的人脸授权，防共享账户残留越权。支持同步 C3 设备列表、访客页显示设置。</p></div>
+
+<div class="card"><div class="ic" style="background:rgba(59,130,246,.15);color:var(--blue)">🧾</div><h3>通行记录精确归因</h3><p>访客查询：按手机号/姓名匹配分配记录 → 每条分配记录按时段查 C3 刷卡记录 → 二次校验 cardDay 落在时段内 → 按授权门禁过滤 → 去重 → 附加归因元信息。外部账号查询：直接合并门禁刷卡+人脸通行。分时共享场景也不张冠李戴。</p></div>
+
+<div class="card"><div class="ic" style="background:rgba(239,68,68,.15);color:var(--red)">🛡️</div><h3>安全加固（09-13）</h3><p>登录防爆破（IP+用户双维度，5次失败锁15分钟，session轮换）；8个敏感API补鉴权（approve/qr/visitor-link/recycle/door-record/search-visitor）+ open-door/open-all-doors 收紧仅超管；审批状态机守卫（仅pending可操作）；密码PBKDF2哈希；JSON原子写（RLock+tmp+replace+fsync）。</p></div>
+
+<div class="card"><div class="ic" style="background:rgba(139,92,246,.15);color:var(--purple)">⚙️</div><h3>管理后台</h3><p>账户池管理（状态/分配记录/二维码日志/一键回收）；访客查询（手机号/姓名/外部账号/刷卡明细）；门禁控制（单开/全开/同步/显示设置）；管理员管理（分层权限/CRUD/可审批开关）；站点设置（5套主题/公告/自定义卡片/页脚/分享卡片）；开发者模式（批量创建/批量审批/日志回看）。</p></div>
+</div>
+</section>
+
+<!-- ======== 系统架构 ======== -->
+<section id="architecture">
+<div class="sec-tag">Architecture</div><h2>系统架构</h2>
+<p class="lead">轻量 Flask + JSON 文件存储 + C3 双通道，免数据库、免运维。</p>
+
+<div class="arch">
+<h3>分层架构</h3>
+<div class="arch-row">
+<div class="arch-box"><div class="label">表现层</div><div class="val">Jinja2 模板 + 原生 HTML/CSS/JS<br>9 个页面模板（admin 1773 行最大）</div></div>
+<div class="arch-box"><div class="label">业务层</div><div class="val">app.py 2310 行 · 60+ API 路由<br>预约/审批/二维码/开门/授权/查询</div></div>
+<div class="arch-box"><div class="label">数据层</div><div class="val">models.py 813 行 · JSON 原子写<br>RLock + tmp + replace + fsync</div></div>
+</div>
+<div class="arch-row" style="margin-top:12px">
+<div class="arch-box"><div class="label">外部对接</div><div class="val">api_client.py 634 行 · requests.Session 复用<br>C3WebApi (19002) + AccessInterface (19001)</div></div>
+<div class="arch-box"><div class="label">守护线程</div><div class="val">自动回收过期账户（15分钟周期）<br>过期门禁权限同步撤销</div></div>
+<div class="arch-box"><div class="label">安全层</div><div class="val">PBKDF2 密码 · 防爆破锁 · 状态机<br>审批守卫 · XSS转义 · secret_key随机化</div></div>
+</div>
+</div>
+
+<h3 style="margin-top:32px">页面模板</h3>
+<table class="tbl">
+<tr><td>index.html</td><td>首页 · 5 张功能卡片 · 公告 · 自定义卡片</td></tr>
+<tr><td>visitor.html</td><td>访客预约表单 · 多选门禁 · 经办人下拉</td></tr>
+<tr><td>approve.html</td><td>员工审批 · 4 个标签页 · 分页</td></tr>
+<tr><td>qr.html</td><td>二维码展示 · 放大 · 导出 PNG 标签卡</td></tr>
+<tr><td>admin.html</td><td>管理后台（最大 1773 行）· 7 个标签页</td></tr>
+<tr><td>dev.html</td><td>开发者模式 · 批量操作 · 任务日志</td></tr>
+<tr><td>login.html</td><td>登录页 · session 验证</td></tr>
+<tr><td>visitor_access.html</td><td>访客通行凭证 · 加密令牌访问</td></tr>
+<tr><td>emp_pass.html</td><td>员工通行证 · 账户编号快速查看</td></tr>
+</table>
+</section>
+
+<!-- ======== C3 对接 ======== -->
+<section id="c3">
+<div class="sec-tag">C3 Integration</div><h2>达实 C3 双通道对接</h2>
+<p class="lead">2026-09-13 已从 5433/5434 迁移至 19002/19001，代码与平台已同步。</p>
+
+<div class="grid" style="margin-bottom:24px">
+<div class="card" style="border-left:3px solid var(--blue)"><div class="ic" style="background:rgba(59,130,246,.15);color:var(--blue)">🔗</div><h3>主通道 · C3WebApi（19002）</h3><p><span class="mono">http://119.145.17.34:19002/C3WebApi</span><br>GET 无签名 · 用于：获取二维码、查刷卡记录、远程开门（备用）、新建人员、人脸授权</p></div>
+<div class="card" style="border-left:3px solid var(--green)"><div class="ic" style="background:rgba(16,185,129,.15);color:var(--green)">🔐</div><h3>备用通道 · AccessInterface（19001）</h3><p><span class="mono">http://119.145.17.34:19001/api/AccessInterface</span><br>POST MD5 签名 · 用于：查人员、查全部门禁、授权/取消、按时段授权、离职（签名密钥 MD5 大写）</p></div>
+</div>
+
+<table class="tbl">
+<tr><td>开门策略</td><td>优先签名版按门名称开门（AccessInterface），失败回退无签名版（C3WebApi）</td></tr>
+<tr><td>授权策略</td><td>永久授权用 GenerateEmpAuthorSet（type=A/D）；分时用 GenerateEmpAuthorSet1（按起止时段，到期自动失效）</td></tr>
+<tr><td>人脸授权</td><td>EmpFaceAuthorSet 按 DevMac 精确定位，防同名设备冲突；无卡号账户自动走人脸兜底</td></tr>
+<tr><td>同步机制</td><td>管理后台一键拉取门禁（GetAllDoorInfo 分页）+ 人脸设备（GetFaceDevList），本地缓存 data/doors.json + face_devs.json</td></tr>
+<tr><td>签名校验</td><td>参数按 key 排序拼接 + "&key=" + 签名密钥 → MD5 → 大写，AccessInterface 专用</td></tr>
+<tr><td>GetDoorRecord</td><td>19002 无签名版必须显式传 EmpNo/DoorId 参数位（空值=查所有），否则报 -6</td></tr>
+</table>
+</section>
+
+<!-- ======== 安全体系 ======== -->
+<section id="security">
+<div class="sec-tag">Security</div><h2>安全体系</h2>
+<p class="lead">2026-09-13 全项目审查加固，覆盖鉴权、防爆破、密码存储、数据安全。</p>
+
+<div class="grid">
+<div class="card"><div class="ic" style="background:rgba(239,68,68,.15);color:var(--red)">🔒</div><h3>登录防暴力破解</h3><p>IP+用户双维度失败计数，5 次失败锁 15 分钟；登录成功时 session 轮换防会话固定</p></div>
+<div class="card"><div class="ic" style="background:rgba(59,130,246,.15);color:var(--blue)">🛡️</div><h3>8 个敏感 API 鉴权</h3><p>approve/qr/visitor-link/recycle/door-record/search-visitor 加 @login_required；open-door/open-all-doors 收紧仅超管</p></div>
+<div class="card"><div class="ic" style="background:rgba(16,185,129,.15);color:var(--green)">⚡</div><h3>审批状态机守卫</h3><p>仅 pending 状态可批准/拒绝；拒绝时自动回收已分配账户，防重复审批与账户泄漏</p></div>
+<div class="card"><div class="ic" style="background:rgba(139,92,246,.15);color:var(--purple)">🔑</div><h3>密码安全</h3><p>PBKDF2 哈希（200k 迭代+盐），旧明文登录时自动迁移；管理员密码最低 8 位；create_admin 禁止创建同名超管</p></div>
+<div class="card"><div class="ic" style="background:rgba(245,158,11,.15);color:var(--a1)">💾</div><h3>JSON 存储安全</h3><p>进程内 RLock + 原子写（tmp + os.replace + fsync），防并发写入损坏；SECRET_KEY 改为 data/.secret_key 持久随机密钥</p></div>
+<div class="card"><div class="ic" style="background:rgba(239,68,68,.15);color:var(--red)">🔄</div><h3>审批失败回滚</h3><p>二维码生成失败时撤销人脸授权 + 回收账户，防账户泄漏与双重占位</p></div>
+</div>
+</section>
+
+<!-- ======== 技术栈 ======== -->
+<section id="tech">
+<div class="sec-tag">Tech Stack</div><h2>技术栈</h2>
+<p class="lead">轻量 Flask + JSON 文件存储，免数据库、免运维，适合单机托管。</p>
+<div class="chips">
+<span class="chip">Python Flask</span>
+<span class="chip">Jinja2 模板</span>
+<span class="chip">原生 HTML/CSS/JS</span>
+<span class="chip">JSON 文件存储</span>
+<span class="chip">RLock + 原子写</span>
+<span class="chip">达实 C3WebApi</span>
+<span class="chip">C3-Plus 签名接口</span>
+<span class="chip">PBKDF2 密码哈希</span>
+<span class="chip">requests.Session 复用</span>
+<span class="chip">后台自动回收线程</span>
+<span class="chip">Leon-Control 托管</span>
+</div>
+</section>
+
+<!-- ======== 部署与访问 ======== -->
+<section id="deploy">
+<div class="sec-tag">Deployment</div><h2>部署与访问</h2>
+<p class="lead">服务部署位置与访问方式汇总。</p>
+<table class="tbl">
+<tr><td>业务系统</td><td><a href="http://119.145.17.34:5102/">http://119.145.17.34:5102/</a>（公网）· <span class="mono">http://192.168.11.70:5102/</span>（内网）</td></tr>
+<tr><td>使用说明书</td><td><a href="http://119.145.17.34:5070/w/qr-code-gate/">http://119.145.17.34:5070/w/qr-code-gate/</a>（Wiki，别名站 /w/tk-visitor-gate/ 同步更新）</td></tr>
+<tr><td>展示站</td><td><a href="http://119.145.17.34:5070/s/qr-code-gate/">http://119.145.17.34:5070/s/qr-code-gate/</a>（本页）</td></tr>
+<tr><td>部署设备</td><td>TK-Server · 192.168.11.70 · <span class="mono">~/Desktop/Leon-TK-Station/QR-Code-Gate</span> · Leon-Control 托管自启</td></tr>
+<tr><td>代码仓库</td><td><span class="mono">Gitea LZ-TK-Station/TK-QR-Gate（main）</span></td></tr>
+<tr><td>默认超管</td><td><span class="mono">Leon / wswwsw1234</span>（登录5次失败锁15分钟）</td></tr>
+<tr><td>C3 端口</td><td>主通道 <span class="mono">19002</span> · 备用 <span class="mono">19001</span> · 签名密钥已内置</td></tr>
+</table>
+<div class="note">项目展示站由 Leon-Web-Host 托管 · 说明书与展示站相互独立 · 每次保存自动生成版本快照可回滚</div>
+</section>
+
+</main>
+
+<footer>© 2026 Leon · <a href="http://192.168.11.70:5070/">Powered by Leon-Web-Host</a> · QR-Code-Gate 项目展示站 v3.0</footer>
+<a id="leon-jump-btn-wan" href="http://119.145.17.34:5102/" target="_blank" rel="noopener" style="position:fixed;right:24px;bottom:22px;z-index:99999;display:flex;align-items:center;gap:8px;border-radius:48px;font-size:14px;font-weight:600;text-decoration:none;padding:12px 22px;background:linear-gradient(135deg,#10b981,#065f46);color:#fff;box-shadow:0 4px 18px rgba(16,185,129,.45);font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif;">🌐 进入系统</a>
+</body>
+</html>

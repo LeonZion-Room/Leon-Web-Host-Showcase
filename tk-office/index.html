@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TK-Office · 项目官网</title>
+<meta name="description" content="轻量 PDF 拆分重组工具：上传 PDF 后按页拆分，拖拽自由排序重组，支持命名管理，可导出为新 PDF、无文字层 PDF 或逐页 PNG 图片，办公文档处理得心应手。">
+<meta property="og:title" content="TK-Office">
+<meta property="og:description" content="轻量 PDF 拆分重组工具：上传 PDF 后按页拆分，拖拽自由排序重组，支持命名管理，可导出为新 PDF、无文字层 PDF 或逐页 PNG 图片，办公文档处理得心应手。">
+<meta property="og:type" content="website">
+<style>
+:root{--bg:#0b0d13;--bg2:#11141d;--card:#151926;--rule:rgba(255,255,255,.07);--text:#e8eaf2;--muted:#98a0b8;
+--a1:#fb923c;--a2:#ea580c;--grad:linear-gradient(135deg,#fb923c,#ea580c);--glow:#fb923c33;}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;background:var(--bg);color:var(--text);line-height:1.7}
+a{color:var(--a1);text-decoration:none}
+.wrap{max-width:1080px;margin:0 auto;padding:0 28px}
+nav{position:sticky;top:0;z-index:99;background:rgba(11,13,19,.82);backdrop-filter:blur(14px);border-bottom:1px solid var(--rule)}
+.nav-in{display:flex;align-items:center;justify-content:space-between;height:62px}
+.brand{font-weight:700;font-size:17px;display:flex;align-items:center;gap:10px;color:var(--text)}
+.brand .dot{width:30px;height:30px;border-radius:9px;background:var(--grad);display:flex;align-items:center;justify-content:center;font-size:16px}
+.nav-links{display:flex;gap:26px;font-size:14px}
+.nav-links a{color:var(--muted)}.nav-links a:hover{color:var(--text)}
+.hero{position:relative;padding:96px 0 76px;overflow:hidden}
+.hero::before,.hero::after{content:'';position:absolute;border-radius:50%;filter:blur(90px);opacity:.55;z-index:-1}
+.hero::before{width:480px;height:480px;background:var(--a1);top:-180px;right:-120px}
+.hero::after{width:420px;height:420px;background:var(--a2);bottom:-200px;left:-140px;opacity:.35}
+.badge{display:inline-flex;align-items:center;gap:8px;background:var(--glow);border:1px solid #fb923c44;color:var(--a1);padding:6px 16px;border-radius:999px;font-size:13px;font-weight:600;margin-bottom:22px}
+h1{font-size:clamp(2rem,4.6vw,3.3rem);font-weight:800;line-height:1.18;letter-spacing:.5px;margin-bottom:18px}
+h1 em{font-style:normal;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.sub{font-size:1.06rem;color:var(--muted);max-width:720px;margin-bottom:34px}
+.cta{display:flex;gap:14px;flex-wrap:wrap}
+.btn{padding:12px 28px;border-radius:10px;font-weight:600;font-size:15px;transition:.2s;display:inline-block}
+.btn.pri{background:var(--grad);color:#fff}.btn.pri:hover{transform:translateY(-2px);box-shadow:0 10px 30px var(--glow)}
+.btn.ghost{border:1px solid var(--rule);color:var(--text);background:rgba(255,255,255,.03)}.btn.ghost:hover{border-color:var(--a1)}
+.stats{display:flex;gap:0;margin-top:56px;border:1px solid var(--rule);border-radius:14px;background:rgba(255,255,255,.02);overflow:hidden}
+.stats div{flex:1;padding:20px 12px;text-align:center;border-right:1px solid var(--rule)}
+.stats div:last-child{border-right:none}
+.stats b{display:block;font-size:1.5rem;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;font-weight:800}
+.stats span{font-size:.8rem;color:var(--muted)}
+section{padding:64px 0}
+.sec-tag{color:var(--a1);font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase}
+h2{font-size:clamp(1.5rem,3vw,2.1rem);font-weight:800;margin:6px 0 14px}
+.lead{color:var(--muted);max-width:760px;margin-bottom:36px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px}
+.card{background:var(--card);border:1px solid var(--rule);border-radius:14px;padding:26px;transition:.25s}
+.card:hover{transform:translateY(-4px);border-color:#fb923c55;box-shadow:0 14px 40px rgba(0,0,0,.35)}
+.card .ic{width:44px;height:44px;border-radius:12px;background:var(--glow);display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:14px}
+.card h3{font-size:1.02rem;margin-bottom:8px}
+.card p{font-size:.88rem;color:var(--muted)}
+.chips{display:flex;flex-wrap:wrap;gap:10px}
+.chip{background:rgba(255,255,255,.04);border:1px solid var(--rule);padding:7px 16px;border-radius:999px;font-size:13.5px;color:var(--text)}
+.tbl{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--rule);border-radius:14px;overflow:hidden}
+.tbl tr{border-bottom:1px solid var(--rule)}.tbl tr:last-child{border-bottom:none}
+.tbl td{padding:14px 22px;font-size:.92rem;vertical-align:top}
+.tbl td:first-child{color:var(--muted);white-space:nowrap;width:150px;font-weight:600}
+.tbl code,.mono{font-family:'SF Mono',Consolas,Menlo,monospace;font-size:.86em;color:var(--a1);word-break:break-all}
+.note{margin-top:22px;background:rgba(255,255,255,.03);border-left:3px solid var(--a1);border-radius:0 10px 10px 0;padding:16px 20px;font-size:.88rem;color:var(--muted)}
+footer{border-top:1px solid var(--rule);padding:38px 0;text-align:center;color:var(--muted);font-size:.85rem}
+footer a{color:var(--a1)}
+@media(max-width:640px){
+.nav-links{display:none}
+.hero{padding:64px 0 52px}
+.stats{flex-direction:column}.stats div{border-right:none;border-bottom:1px solid var(--rule)}
+.grid{grid-template-columns:1fr}
+.tbl td{padding:12px 14px}.tbl td:first-child{width:auto}
+}
+</style>
+</head>
+<body>
+<nav><div class="wrap nav-in">
+<a class="brand" href="#"><span class="dot">📑</span>TK-Office</a>
+<div class="nav-links"><a href="#features">功能特性</a><a href="#tech">技术栈</a><a href="#deploy">部署与访问</a><a href="http://192.168.11.70:5070/">托管平台</a></div>
+</div></nav>
+
+<header class="hero"><div class="wrap">
+<span class="badge">📑 文档工具</span>
+<h1>TK-Office</h1>
+<p class="sub">PDF 拆分重组工具 · 拖拽排序 · 多格式导出<br><br>轻量 PDF 拆分重组工具：上传 PDF 后按页拆分，拖拽自由排序重组，支持命名管理，可导出为新 PDF、无文字层 PDF 或逐页 PNG 图片，办公文档处理得心应手。</p>
+<div class="cta"><a class="btn pri" target="_blank" rel="noopener" href="http://119.145.17.34:5210/">访问系统 ↗</a></div>
+<div class="stats"><div><b>PDF/PNG</b><span>双格式导出</span></div><div><b>5210</b><span>服务端口</span></div><div><b>Web</b><span>零安装使用</span></div></div>
+</div></header>
+
+<main class="wrap">
+<section id="features">
+<div class="sec-tag">Features</div><h2>功能特性</h2>
+<p class="lead">围绕实际业务场景打磨的核心能力一览。</p>
+<div class="grid"><div class="card"><div class="ic">✂️</div><h3>PDF 页级拆分</h3><p>整本 PDF 快速拆分为独立页面，自由取舍</p></div><div class="card"><div class="ic">🔀</div><h3>拖拽排序重组</h3><p>页面缩略图拖拽排序，随心重组文档结构</p></div><div class="card"><div class="ic">🏷️</div><h3>命名管理</h3><p>拆分页支持自定义命名，批量整理有条不紊</p></div><div class="card"><div class="ic">📄</div><h3>导出新 PDF</h3><p>选定页面重新合并导出为全新 PDF 文件</p></div><div class="card"><div class="ic">🚫</div><h3>无字 PDF 导出</h3><p>去除文字层仅保留版式图像，满足特殊交付需求</p></div><div class="card"><div class="ic">🖼️</div><h3>PNG 图片导出</h3><p>逐页转出高清 PNG，方便插入 PPT 与文档</p></div></div>
+</section>
+
+<section id="tech">
+<div class="sec-tag">Tech Stack</div><h2>技术栈</h2>
+<p class="lead">TK-Office 采用以下技术构建：</p>
+<div class="chips"><span class="chip">Python Flask</span><span class="chip">PyMuPDF</span><span class="chip">SortableJS</span></div>
+
+</section>
+
+<section id="deploy">
+<div class="sec-tag">Deployment</div><h2>部署与访问</h2>
+<p class="lead">服务部署位置与访问方式汇总。</p>
+<table class="tbl"><tr><td>公网地址</td><td>http://119.145.17.34:5210/</td></tr><tr><td>内网地址</td><td>http://192.168.11.70:5210/</td></tr><tr><td>部署设备</td><td>TK-Server · 192.168.11.70</td></tr><tr><td>服务端口</td><td>5210</td></tr></table>
+</section>
+</main>
+
+<footer>© 2026 Leon · <a href="http://192.168.11.70:5070/">Powered by Leon-Web-Host</a> · 项目展示站</footer>
+<a id="leon-jump-btn-wan" href="http://192.168.11.70:5210/" target="_blank" rel="noopener" style="position:fixed;right:24px;bottom:22px;z-index:99999;display:flex;align-items:center;gap:8px;border-radius:48px;font-size:14px;font-weight:600;text-decoration:none;padding:12px 22px;background:linear-gradient(135deg,#10b981,#065f46);color:#fff;box-shadow:0 4px 18px rgba(16,185,129,.45);font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif;">🌐 进入系统</a>
+</body>
+</html>

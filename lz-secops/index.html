@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LZ-SecOps · 安全运维平台</title>
+<meta name="description" content="LZ-SecOps 安全运维平台：异常自动建工单、AI 智能研判处置、fail2ban 联动封禁、工单全流程闭环，7×24 小时安全运营。">
+<meta property="og:title" content="LZ-SecOps 安全运维平台">
+<meta property="og:description" content="异常自动建工单、AI 智能研判处置、fail2ban 联动封禁、工单全流程闭环，7×24 小时安全运营。">
+<meta property="og:type" content="website">
+<style>
+:root{--bg:#0b0d13;--bg2:#11141d;--card:#151926;--rule:rgba(255,255,255,.07);--text:#e8eaf2;--muted:#98a0b8;
+--a1:#0ea5e9;--a2:#0369a1;--grad:linear-gradient(135deg,#0ea5e9,#0369a1);--glow:#0ea5e933;}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;background:var(--bg);color:var(--text);line-height:1.7}
+a{color:var(--a1);text-decoration:none}
+.wrap{max-width:1080px;margin:0 auto;padding:0 28px}
+nav{position:sticky;top:0;z-index:99;background:rgba(11,13,19,.82);backdrop-filter:blur(14px);border-bottom:1px solid var(--rule)}
+.nav-in{display:flex;align-items:center;justify-content:space-between;height:62px}
+.brand{font-weight:700;font-size:17px;display:flex;align-items:center;gap:10px;color:var(--text)}
+.brand .dot{width:30px;height:30px;border-radius:9px;background:var(--grad);display:flex;align-items:center;justify-content:center;font-size:16px}
+.nav-links{display:flex;gap:26px;font-size:14px}
+.nav-links a{color:var(--muted)}.nav-links a:hover{color:var(--text)}
+.hero{position:relative;padding:96px 0 76px;overflow:hidden}
+.hero::before,.hero::after{content:'';position:absolute;border-radius:50%;filter:blur(90px);opacity:.55;z-index:-1}
+.hero::before{width:480px;height:480px;background:var(--a1);top:-180px;right:-120px}
+.hero::after{width:420px;height:420px;background:var(--a2);bottom:-200px;left:-140px;opacity:.35}
+.badge{display:inline-flex;align-items:center;gap:8px;background:var(--glow);border:1px solid #0ea5e944;color:var(--a1);padding:6px 16px;border-radius:999px;font-size:13px;font-weight:600;margin-bottom:22px}
+h1{font-size:clamp(2rem,4.6vw,3.3rem);font-weight:800;line-height:1.18;letter-spacing:.5px;margin-bottom:18px}
+h1 em{font-style:normal;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.sub{font-size:1.06rem;color:var(--muted);max-width:720px;margin-bottom:34px}
+.cta{display:flex;gap:14px;flex-wrap:wrap}
+.btn{padding:12px 28px;border-radius:10px;font-weight:600;font-size:15px;transition:.2s;display:inline-block}
+.btn.pri{background:var(--grad);color:#fff}.btn.pri:hover{transform:translateY(-2px);box-shadow:0 10px 30px var(--glow)}
+.btn.ghost{border:1px solid var(--rule);color:var(--text);background:rgba(255,255,255,.03)}.btn.ghost:hover{border-color:var(--a1)}
+.stats{display:flex;gap:0;margin-top:56px;border:1px solid var(--rule);border-radius:14px;background:rgba(255,255,255,.02);overflow:hidden}
+.stats div{flex:1;padding:20px 12px;text-align:center;border-right:1px solid var(--rule)}
+.stats div:last-child{border-right:none}
+.stats b{display:block;font-size:1.5rem;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;font-weight:800}
+.stats span{font-size:.8rem;color:var(--muted)}
+section{padding:64px 0}
+.sec-tag{color:var(--a1);font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase}
+h2{font-size:clamp(1.5rem,3vw,2.1rem);font-weight:800;margin:6px 0 14px}
+.lead{color:var(--muted);max-width:760px;margin-bottom:36px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px}
+.card{background:var(--card);border:1px solid var(--rule);border-radius:14px;padding:26px;transition:.25s}
+.card:hover{transform:translateY(-4px);border-color:#0ea5e955;box-shadow:0 14px 40px rgba(0,0,0,.35)}
+.card .ic{width:44px;height:44px;border-radius:12px;background:var(--glow);display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:14px}
+.card h3{font-size:1.02rem;margin-bottom:8px}
+.card p{font-size:.88rem;color:var(--muted)}
+.chips{display:flex;flex-wrap:wrap;gap:10px}
+.chip{background:rgba(255,255,255,.04);border:1px solid var(--rule);padding:7px 16px;border-radius:999px;font-size:13.5px;color:var(--text)}
+.tbl{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--rule);border-radius:14px;overflow:hidden}
+.tbl tr{border-bottom:1px solid var(--rule)}.tbl tr:last-child{border-bottom:none}
+.tbl td{padding:14px 22px;font-size:.92rem;vertical-align:top}
+.tbl td:first-child{color:var(--muted);white-space:nowrap;width:150px;font-weight:600}
+.tbl code,.mono{font-family:'SF Mono',Consolas,Menlo,monospace;font-size:.86em;color:var(--a1);word-break:break-all}
+.note{margin-top:22px;background:rgba(255,255,255,.03);border-left:3px solid var(--a1);border-radius:0 10px 10px 0;padding:16px 20px;font-size:.88rem;color:var(--muted)}
+footer{border-top:1px solid var(--rule);padding:38px 0;text-align:center;color:var(--muted);font-size:.85rem}
+footer a{color:var(--a1)}
+@media(max-width:640px){
+.nav-links{display:none}
+.hero{padding:64px 0 52px}
+.stats{flex-direction:column}.stats div{border-right:none;border-bottom:1px solid var(--rule)}
+.grid{grid-template-columns:1fr}
+.tbl td{padding:12px 14px}.tbl td:first-child{width:auto}
+}
+</style>
+</head>
+<body>
+<nav><div class="wrap nav-in">
+<a class="brand" href="#"><span class="dot">🔐</span>LZ-SecOps</a>
+<div class="nav-links"><a href="#features">功能特性</a><a href="#flow">处置流程</a><a href="#tech">技术栈</a><a href="#deploy">部署与访问</a><a href="http://192.168.11.70:5070/">托管平台</a></div>
+</div></nav>
+
+<header class="hero"><div class="wrap">
+<span class="badge">🔐 AI 驱动安全运营</span>
+<h1>LZ-SecOps <em>安全运维平台</em></h1>
+<p class="sub">异常自动建工单 · AI 智能研判处置 · fail2ban 联动封禁 · 工单全流程闭环<br><br>发现异常（告警/巡检异常）→ 自动建工单 → 提交 LZ-Agent → AI 判断是否需介入 → 需要则直接在安全机执行处置（无需审批）→ 回写工单 + 推送手机通知。</p>
+<div class="cta"><a class="btn pri" href="http://192.168.11.71:5011" target="_blank" rel="noopener">🚀 进入平台</a><a class="btn ghost" href="#features">了解更多</a></div>
+<div class="stats"><div><b>AI</b><span>智能研判</span></div><div><b>7×24</b><span>全天候运营</span></div><div><b>分钟级</b><span>事件响应</span></div><div><b>全自动</b><span>工单闭环</span></div></div>
+</div></header>
+
+<main class="wrap">
+<section id="features">
+<div class="sec-tag">Features</div><h2>功能特性</h2>
+<p class="lead">围绕安全运营场景打造的六大核心能力。</p>
+<div class="grid">
+<div class="card"><div class="ic">🚨</div><h3>告警自动建工单</h3><p>异常检测触发后自动生成工单，零人工干预，告警即工单</p></div>
+<div class="card"><div class="ic">🤖</div><h3>AI 智能研判</h3><p>DeepSeek 模型分析异常真实性与严重等级，自动决策是否需人工介入</p></div>
+<div class="card"><div class="ic">⛔</div><h3>fail2ban 联动</h3><p>爆破与扫描行为实时识别，自动封禁恶意 IP，联动三机安全节点</p></div>
+<div class="card"><div class="ic">📋</div><h3>工单全流程闭环</h3><p>建单 → 分派 → 处置 → 回写 → 归档，全流程可追溯</p></div>
+<div class="card"><div class="ic">📱</div><h3>手机推送通知</h3><p>关键安全事件实时推送至手机，重要告警不遗漏</p></div>
+<div class="card"><div class="ic">🔎</div><h3>日志关联分析</h3><p>rsyslog 汇聚全网日志，跨源关联分析，潜伏威胁无所遁形</p></div>
+</div>
+</section>
+
+<section id="flow">
+<div class="sec-tag">Workflow</div><h2>AI 处置流程</h2>
+<p class="lead">从异常发现到处置闭环，全程自动化。</p>
+<table class="tbl">
+<tr><td>① 异常发现</td><td>告警系统 / 巡检平台检测到异常</td></tr>
+<tr><td>② 自动建单</td><td>异常信息自动转化为安全工单</td></tr>
+<tr><td>③ 提交 LZ-Agent</td><td>工单提交至机房自动化执行中心</td></tr>
+<tr><td>④ AI 判断</td><td>查记忆库确认处理规范 → 核实异常真实性（查磁盘/服务/日志/fail2ban）</td></tr>
+<tr><td>⑤ 自动处置</td><td>确认需介入时，直接在安全机执行处置脚本（无需审批）</td></tr>
+<tr><td>⑥ 闭环</td><td>回写工单处置结果 + 推送手机通知</td></tr>
+</table>
+</section>
+
+<section id="tech">
+<div class="sec-tag">Tech Stack</div><h2>技术栈</h2>
+<p class="lead">LZ-SecOps 采用以下技术构建：</p>
+<div class="chips"><span class="chip">Python / Flask</span><span class="chip">DeepSeek AI</span><span class="chip">LZ-Agent</span><span class="chip">fail2ban</span><span class="chip">rsyslog</span><span class="chip">SIEM</span><span class="chip">UFW</span></div>
+</section>
+
+<section id="deploy">
+<div class="sec-tag">Deployment</div><h2>部署与访问</h2>
+<p class="lead">服务部署位置与访问方式汇总。</p>
+<table class="tbl">
+<tr><td>部署节点</td><td>Safe .71（中央安全节点）</td></tr>
+<tr><td>访问地址</td><td>内网 <code>http://192.168.11.71:5011</code></td></tr>
+<tr><td>技术栈</td><td>Python 3.12 / Flask / Werkzeug</td></tr>
+<tr><td>关联服务</td><td>LZ-Agent (.77:5010) · fail2ban · rsyslog</td></tr>
+<tr><td>定位</td><td>全平台安全运维 AI 处置中枢</td></tr>
+</table>
+<div class="note">⚠️ 本平台仅限内网访问，需通过 WireGuard VPN 或内网环境接入。</div>
+</section>
+</main>
+
+<footer>© 2026 Leon · <a href="http://192.168.11.70:5070/">Powered by Leon-Web-Host</a> · 项目展示站</footer>
+<a id="leon-jump-btn-wan" href="http://119.145.17.34:5011" target="_blank" rel="noopener" style="position:fixed;right:24px;bottom:22px;z-index:99999;display:flex;align-items:center;gap:8px;border-radius:48px;font-size:14px;font-weight:600;text-decoration:none;padding:12px 22px;background:linear-gradient(135deg,#10b981,#065f46);color:#fff;box-shadow:0 4px 18px rgba(16,185,129,.45);font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif;">🌐 进入系统</a>
+</body>
+</html>

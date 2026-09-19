@@ -1,0 +1,125 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>visitor · qr-code-gate 说明</title><style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;background:#fafbff;color:#1a2332;line-height:1.75}
+a{color:#2f6bff;text-decoration:none}
+.wrap{max-width:920px;margin:0 auto;padding:32px 20px 80px}
+.back{font-size:13px;color:#8a94a6}
+h1{font-size:26px;font-weight:800;margin:8px 0 4px;border-bottom:2px solid #eef1f8;padding-bottom:14px}
+.page-title{font-size:16px;color:#5c6670;margin:-2px 0 20px}
+.wiki-body{margin-top:8px}
+.wiki-body h1,.wiki-body h2,.wiki-body h3{margin:1.2em 0 .5em;line-height:1.4}
+.wiki-body h2{font-size:22px}.wiki-body h3{font-size:18px}
+.wiki-body p{margin:.8em 0}
+.wiki-body ul,.wiki-body ol{margin:.6em 0 .6em 1.6em}
+.wiki-body img{max-width:100%}
+.wiki-body pre{background:#0f1523;color:#e8edff;padding:14px 16px;border-radius:10px;overflow:auto;margin:.9em 0}
+.wiki-body code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:.9em}
+.wiki-body pre code{background:none;padding:0}
+.wiki-body table{border-collapse:collapse;margin:.9em 0;width:100%}
+.wiki-body th,.wiki-body td{border:1px solid #e2e7f2;padding:8px 12px;text-align:left}
+.wiki-body th{background:#f4f6fc}
+.wiki-body blockquote{border-left:4px solid #bcd0ff;background:#f4f8ff;padding:10px 16px;margin:.9em 0;color:#456}
+.wiki-body a{color:#2f6bff;border-bottom:1px dashed #bcd0ff}
+.nav{margin:14px 0 0;display:flex;gap:10px;flex-wrap:wrap}
+.nav a{background:#eef3ff;border:1px solid #d9e4ff;padding:6px 16px;border-radius:20px;font-size:13px;color:#2f6bff}
+.mark{color:#c0392b}
+</style></head><body><div class="wrap"><a class="back" href="../index.html">← 项目合辑</a><h1>visitor</h1><div class="page-title">qr-code-gate · 使用说明（只读镜像）</div><div class="nav"><a href="../index.html">返回合辑</a><a href="./home.html">概览</a></div><div class="wiki-body"><h1>访客预约</h1>
+<p>访客<strong>无需登录</strong>，直接访问首页 → 点击「访客预约」卡片进入预约页。</p>
+<p><img alt="访客预约表单" src="http://119.145.17.34:5001/api/v1/attachment/download?id=716" /></p>
+<hr />
+<h2>填写预约信息</h2>
+<p>打开系统首页 http://119.145.17.34:5102 → 点击「访客预约」卡片（路径 <code>/visitor</code>）。</p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>说明</th>
+<th>必填</th>
+<th>校验规则</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>访客姓名</td>
+<td>来访人员的真实姓名</td>
+<td>是</td>
+<td>—</td>
+</tr>
+<tr>
+<td>访客手机号</td>
+<td>用于接收通行链接</td>
+<td>是</td>
+<td>11 位手机号格式</td>
+</tr>
+<tr>
+<td>来访开始时间</td>
+<td>什么时候来</td>
+<td>是</td>
+<td>日期+时间</td>
+</tr>
+<tr>
+<td>来访结束时间</td>
+<td>什么时候走</td>
+<td>是</td>
+<td>不能早于开始时间；仅选日期时自动算到 23:59:59</td>
+</tr>
+<tr>
+<td>来访门禁</td>
+<td>要进的门</td>
+<td>是</td>
+<td>可多选，至少选一种</td>
+</tr>
+<tr>
+<td>经办人</td>
+<td>接待你的公司员工</td>
+<td>是</td>
+<td>只能从有审批权的管理员里选</td>
+</tr>
+<tr>
+<td>来访事由</td>
+<td>比如商务拜访、开会</td>
+<td>否</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>选择门禁点位</h2>
+<p>页面默认先列出<strong>人脸设备</strong>（刷脸闸机）。</p>
+<ul>
+<li>点击「＋显示普通门禁设备」会展开全部普通门锁点位</li>
+<li>人脸闸机与普通门锁<strong>至少选择一种</strong>，也可以都选</li>
+<li>门禁列表支持按名称搜索过滤</li>
+</ul>
+<blockquote>
+<p><strong>提示</strong>：勾选框变蓝表示已选中，至少有一个勾选才能提交。</p>
+</blockquote>
+<hr />
+<h2>提交后</h2>
+<p>确认信息无误 → 点击「提交预约」按钮。</p>
+<p>系统生成一条预约记录，状态为「待审批」。经办人会收到审批通知。</p>
+<pre class="codehilite"><code class="language-mermaid">flowchart LR
+    A[提交预约] --&gt; B[状态: 待审批]
+    B --&gt; C[经办人审批]
+    C --&gt;|通过| D[分配账户+授权+二维码]
+    C --&gt;|拒绝| E[状态: 已拒绝]
+</code></pre>
+
+<hr />
+<h2>字段校验</h2>
+<p>系统会自动校验以下内容，不通过时会阻止提交：</p>
+<ul>
+<li>手机号格式（必须 11 位数字）</li>
+<li>结束时间不能早于开始时间</li>
+<li>门禁点位至少选一种</li>
+<li>经办人必须选择</li>
+</ul>
+<hr />
+<h2>注意事项</h2>
+<ul>
+<li>预约提交后<strong>不能修改</strong>，如需更改请让经办人拒绝后重新预约</li>
+<li>经办人下拉框只显示<strong>已启用且有审批权</strong>的管理员</li>
+<li>预约页的设备显示可在管理后台配置隐藏</li>
+</ul>
+<hr />
+<p><a href="/w/qr-code-gate/home">← 简介</a> <a href="/w/qr-code-gate/approve">员工审批 →</a></p></div></div></body></html>

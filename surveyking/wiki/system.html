@@ -1,0 +1,316 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>system · surveyking 说明</title><style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;background:#fafbff;color:#1a2332;line-height:1.75}
+a{color:#2f6bff;text-decoration:none}
+.wrap{max-width:920px;margin:0 auto;padding:32px 20px 80px}
+.back{font-size:13px;color:#8a94a6}
+h1{font-size:26px;font-weight:800;margin:8px 0 4px;border-bottom:2px solid #eef1f8;padding-bottom:14px}
+.page-title{font-size:16px;color:#5c6670;margin:-2px 0 20px}
+.wiki-body{margin-top:8px}
+.wiki-body h1,.wiki-body h2,.wiki-body h3{margin:1.2em 0 .5em;line-height:1.4}
+.wiki-body h2{font-size:22px}.wiki-body h3{font-size:18px}
+.wiki-body p{margin:.8em 0}
+.wiki-body ul,.wiki-body ol{margin:.6em 0 .6em 1.6em}
+.wiki-body img{max-width:100%}
+.wiki-body pre{background:#0f1523;color:#e8edff;padding:14px 16px;border-radius:10px;overflow:auto;margin:.9em 0}
+.wiki-body code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:.9em}
+.wiki-body pre code{background:none;padding:0}
+.wiki-body table{border-collapse:collapse;margin:.9em 0;width:100%}
+.wiki-body th,.wiki-body td{border:1px solid #e2e7f2;padding:8px 12px;text-align:left}
+.wiki-body th{background:#f4f6fc}
+.wiki-body blockquote{border-left:4px solid #bcd0ff;background:#f4f8ff;padding:10px 16px;margin:.9em 0;color:#456}
+.wiki-body a{color:#2f6bff;border-bottom:1px dashed #bcd0ff}
+.nav{margin:14px 0 0;display:flex;gap:10px;flex-wrap:wrap}
+.nav a{background:#eef3ff;border:1px solid #d9e4ff;padding:6px 16px;border-radius:20px;font-size:13px;color:#2f6bff}
+.mark{color:#c0392b}
+</style></head><body><div class="wrap"><a class="back" href="../index.html">← 项目合辑</a><h1>system</h1><div class="page-title">surveyking · 使用说明（只读镜像）</div><div class="nav"><a href="../index.html">返回合辑</a><a href="./home.html">概览</a></div><div class="wiki-body"><h1>⚙️ 系统管理</h1>
+<blockquote>
+<p>📖 管理员专属功能 — 用户、角色、组织、系统配置。
+🔗 返回 <a href="wiki/home.html">说明书首页</a></p>
+</blockquote>
+<hr />
+<h2>入口</h2>
+<p>点击左侧导航栏「系统管理」展开子菜单（仅管理员可见）：</p>
+<p><img alt="系统管理菜单" src="/s/surveyking/SYS_expanded.png" />
+<em>系统管理子菜单展开</em></p>
+<hr />
+<h2>用户管理</h2>
+<p><img alt="用户管理" src="/s/surveyking/SYS01_user.png" />
+<em>用户管理页面</em></p>
+<h3>页面布局</h3>
+<table>
+<thead>
+<tr>
+<th>区域</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>左侧</td>
+<td>组织机构树，点击机构名筛选该机构下的用户</td>
+</tr>
+<tr>
+<td>右侧上方</td>
+<td>搜索区 — 按姓名搜索 + 重置/查询按钮</td>
+</tr>
+<tr>
+<td>右侧下方</td>
+<td>用户列表表格</td>
+</tr>
+</tbody>
+</table>
+<h3>用户列表字段</h3>
+<table>
+<thead>
+<tr>
+<th>列名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>☑️</td>
+<td>批量选择复选框</td>
+</tr>
+<tr>
+<td>组织机构</td>
+<td>用户所属机构</td>
+</tr>
+<tr>
+<td>姓名</td>
+<td>用户姓名</td>
+</tr>
+<tr>
+<td>角色</td>
+<td>用户角色（Admin/普通用户等）</td>
+</tr>
+<tr>
+<td>手机</td>
+<td>手机号码</td>
+</tr>
+<tr>
+<td>状态</td>
+<td>在用/停用（绿色开关）</td>
+</tr>
+<tr>
+<td>操作</td>
+<td>编辑、更多（重置密码/分配角色/删除）</td>
+</tr>
+</tbody>
+</table>
+<h3>操作按钮</h3>
+<table>
+<thead>
+<tr>
+<th>按钮</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>+ 新建</td>
+<td>创建新用户</td>
+</tr>
+<tr>
+<td>批量导入</td>
+<td>通过 Excel/CSV 批量导入用户</td>
+</tr>
+<tr>
+<td>🔄</td>
+<td>刷新列表</td>
+</tr>
+<tr>
+<td>📊</td>
+<td>切换列显示</td>
+</tr>
+<tr>
+<td>⚙️</td>
+<td>表格设置</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>角色管理</h2>
+<p><img alt="角色管理" src="/s/surveyking/SYS_role_list.png" />
+<em>角色管理页面</em></p>
+<h3>系统角色</h3>
+<table>
+<thead>
+<tr>
+<th>角色名称</th>
+<th>编码</th>
+<th>描述</th>
+<th>状态</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Admin</td>
+<td>admin</td>
+<td>系统初始化角色</td>
+<td>启用</td>
+</tr>
+<tr>
+<td>普通用户</td>
+<td>role</td>
+<td>-</td>
+<td>启用</td>
+</tr>
+</tbody>
+</table>
+<h3>角色操作</h3>
+<ul>
+<li><strong>新建</strong>：创建自定义角色</li>
+<li><strong>编辑</strong>：修改角色名称、权限</li>
+<li><strong>更多</strong>：删除角色</li>
+<li><strong>状态开关</strong>：启用/停用角色</li>
+</ul>
+<hr />
+<h2>组织机构</h2>
+<p><img alt="组织机构" src="/s/surveyking/SYS03_org.png" />
+<em>组织机构管理</em></p>
+<p>管理公司的部门/组织架构树形结构。</p>
+<hr />
+<h2>岗位设置</h2>
+<p><img alt="岗位设置" src="/s/surveyking/SYS_position.png" />
+<em>岗位设置页面</em></p>
+<p>管理岗位信息，可关联到用户。</p>
+<hr />
+<h2>字典管理</h2>
+<p><img alt="字典管理" src="/s/surveyking/SYS_dict.png" />
+<em>字典管理页面</em></p>
+<p>管理系统字典数据（下拉选项、枚举值等）。</p>
+<hr />
+<h2>系统设置</h2>
+<p><img alt="系统设置" src="/s/surveyking/SYS_cfg_full.png" />
+<em>系统设置页面（滚动查看完整内容）</em></p>
+<p>系统设置页面包含多个配置区块：</p>
+<h3>基本信息</h3>
+<table>
+<thead>
+<tr>
+<th>配置项</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>系统名称</td>
+<td>自定义系统显示名称</td>
+</tr>
+<tr>
+<td>Logo 图标</td>
+<td>上传系统 Logo（建议 512x512 PNG）</td>
+</tr>
+<tr>
+<td>开启注册</td>
+<td>开关控制是否允许自主注册</td>
+</tr>
+<tr>
+<td>更新基本信息</td>
+<td>保存基本设置</td>
+</tr>
+</tbody>
+</table>
+<h3>AI 设置</h3>
+<p><img alt="AI设置" src="/s/surveyking/SYS_cfg_bottom.png" />
+<em>AI 设置和数据备份</em></p>
+<table>
+<thead>
+<tr>
+<th>配置项</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>启用 AI 功能</td>
+<td>开启后用户可使用 AI 智能创建问卷</td>
+</tr>
+<tr>
+<td>查看文档</td>
+<td>链接到 AI 功能使用文档</td>
+</tr>
+<tr>
+<td>提交/重置</td>
+<td>保存或重置 AI 设置</td>
+</tr>
+</tbody>
+</table>
+<h3>数据备份</h3>
+<table>
+<thead>
+<tr>
+<th>按钮</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>导出备份</td>
+<td>导出系统数据为 ndjson 格式（含 manifest.json、数据文件、上传文件目录）</td>
+</tr>
+<tr>
+<td>导入备份</td>
+<td>导入备份文件（⚠️ 会覆盖同名数据表和附件目录）</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⚠️ <strong>警告</strong>：导入备份会覆盖当前系统中的同名数据表和附件目录，请谨慎操作。建议在导入前先执行一次导出备份。</p>
+</blockquote>
+<hr />
+<h2>权限说明</h2>
+<table>
+<thead>
+<tr>
+<th>功能</th>
+<th>Admin</th>
+<th>普通用户</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>用户管理</td>
+<td>✅</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>角色管理</td>
+<td>✅</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>组织机构</td>
+<td>✅</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>系统设置</td>
+<td>✅</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>创建问卷</td>
+<td>✅</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>答卷填写</td>
+<td>✅</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>数据查看</td>
+<td>✅</td>
+<td>✅（仅自己的）</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<blockquote>
+<p>🔗 上一步：<a href="wiki/template.html">模板广场</a>
+🔗 下一步：<a href="wiki/appendix.html">附录</a>
+🔗 相关：<a href="wiki/dashboard.html">首页仪表盘</a></p>
+</blockquote></div></div></body></html>

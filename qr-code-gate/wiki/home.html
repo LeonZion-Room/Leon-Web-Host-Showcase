@@ -1,0 +1,131 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>home · qr-code-gate 说明</title><style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;background:#fafbff;color:#1a2332;line-height:1.75}
+a{color:#2f6bff;text-decoration:none}
+.wrap{max-width:920px;margin:0 auto;padding:32px 20px 80px}
+.back{font-size:13px;color:#8a94a6}
+h1{font-size:26px;font-weight:800;margin:8px 0 4px;border-bottom:2px solid #eef1f8;padding-bottom:14px}
+.page-title{font-size:16px;color:#5c6670;margin:-2px 0 20px}
+.wiki-body{margin-top:8px}
+.wiki-body h1,.wiki-body h2,.wiki-body h3{margin:1.2em 0 .5em;line-height:1.4}
+.wiki-body h2{font-size:22px}.wiki-body h3{font-size:18px}
+.wiki-body p{margin:.8em 0}
+.wiki-body ul,.wiki-body ol{margin:.6em 0 .6em 1.6em}
+.wiki-body img{max-width:100%}
+.wiki-body pre{background:#0f1523;color:#e8edff;padding:14px 16px;border-radius:10px;overflow:auto;margin:.9em 0}
+.wiki-body code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:.9em}
+.wiki-body pre code{background:none;padding:0}
+.wiki-body table{border-collapse:collapse;margin:.9em 0;width:100%}
+.wiki-body th,.wiki-body td{border:1px solid #e2e7f2;padding:8px 12px;text-align:left}
+.wiki-body th{background:#f4f6fc}
+.wiki-body blockquote{border-left:4px solid #bcd0ff;background:#f4f8ff;padding:10px 16px;margin:.9em 0;color:#456}
+.wiki-body a{color:#2f6bff;border-bottom:1px dashed #bcd0ff}
+.nav{margin:14px 0 0;display:flex;gap:10px;flex-wrap:wrap}
+.nav a{background:#eef3ff;border:1px solid #d9e4ff;padding:6px 16px;border-radius:20px;font-size:13px;color:#2f6bff}
+.mark{color:#c0392b}
+</style></head><body><div class="wrap"><a class="back" href="../index.html">← 项目合辑</a><h1>home</h1><div class="page-title">qr-code-gate · 使用说明（只读镜像）</div><div class="nav"><a href="../index.html">返回合辑</a><a href="./home.html">概览</a></div><div class="wiki-body"><h1>简介</h1>
+<p>QR-Code-Gate 是大鹏投控企业园区的<strong>访客门禁二维码管理系统</strong>，打通「访客预约 → 员工审批 → 二维码生成 → 远程开门 → 设备授权 → 通行记录查询」的全流程，实现无接触、可追溯的访客进出管理。</p>
+<p><img alt="首页截图" src="http://119.145.17.34:5001/api/v1/attachment/download?id=725" /></p>
+<hr />
+<h2>从这里开始</h2>
+<p>[</p>
+<p><strong>访客预约</strong></p>
+<p>访客填写来访信息，提交预约申请。</p>
+<p>](/w/qr-code-gate/visitor)[</p>
+<p><strong>员工审批</strong></p>
+<p>管理员审批预约，自动触发分配与授权。</p>
+<p>](/w/qr-code-gate/approve)[</p>
+<p><strong>二维码通行</strong></p>
+<p>审批通过后生成专属通行二维码。</p>
+<p>](/w/qr-code-gate/qr)</p>
+<hr />
+<h2>你可以用 QR-Code-Gate 做什么</h2>
+<p>[</p>
+<p><strong>访客预约</strong></p>
+<p>访客线上提交预约，支持多选门禁点位、经办人选择。</p>
+<p>](/w/qr-code-gate/visitor)[</p>
+<p><strong>员工审批</strong></p>
+<p>一键通过，系统自动完成分时分配、授权、二维码生成。</p>
+<p>](/w/qr-code-gate/approve)[</p>
+<p><strong>远程开门</strong></p>
+<p>管理员远程开门，支持单个开门与一键全开。</p>
+<p>](/w/qr-code-gate/remote)[</p>
+<p><strong>人脸设备授权</strong></p>
+<p>61 台人脸设备按 Mac 精确下发权限，到期自动撤销。</p>
+<p>](/w/qr-code-gate/face)[</p>
+<p><strong>账户池管理</strong></p>
+<p>分时分配机制，同一账户非重叠时段可复用。</p>
+<p>](/w/qr-code-gate/account)[</p>
+<p><strong>通行记录查询</strong></p>
+<p>精确归因算法，分时共享场景也不张冠李戴。</p>
+<p>](/w/qr-code-gate/records)</p>
+<hr />
+<h2>系统规模</h2>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th>数值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>门禁点位</td>
+<td>404 个（启用 387 个）</td>
+</tr>
+<tr>
+<td>人脸设备</td>
+<td>61 台</td>
+</tr>
+<tr>
+<td>C3 对接</td>
+<td>双通道（19002 + 19001）</td>
+</tr>
+<tr>
+<td>服务端口</td>
+<td>5102</td>
+</tr>
+<tr>
+<td>部署设备</td>
+<td>TK-Server · 192.168.11.70</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>快速上手</h2>
+<p><strong>30 秒完成一次访客管理：</strong></p>
+<ol>
+<li><strong>访客</strong>：打开 http://119.145.17.34:5102 → 点「访客预约」→ 填写信息提交</li>
+<li><strong>经办人</strong>：登录 → 点「员工审批」→ 点「通过」</li>
+<li><strong>访客</strong>：收到专属链接 → 打开出示二维码 → 闸机扫码通行</li>
+</ol>
+<hr />
+<h2>导航</h2>
+<table>
+<thead>
+<tr>
+<th>章节</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="/w/qr-code-gate/visitor">入门</a></td>
+<td>访客预约、员工审批、二维码通行</td>
+</tr>
+<tr>
+<td><a href="/w/qr-code-gate/remote">核心操作</a></td>
+<td>远程开门、人脸授权、账户管理、记录查询</td>
+</tr>
+<tr>
+<td><a href="/w/qr-code-gate/admin">配置</a></td>
+<td>管理员系统、站点设置、开发者模式</td>
+</tr>
+<tr>
+<td><a href="/w/qr-code-gate/c3">参考手册</a></td>
+<td>C3 对接、常见问题、附录</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p><a href="/w/qr-code-gate/visitor">Next Page 访客预约 →</a></p></div></div></body></html>

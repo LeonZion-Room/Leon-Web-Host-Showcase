@@ -1,0 +1,223 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>roles · tk-safe-upload 说明</title><style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;background:#fafbff;color:#1a2332;line-height:1.75}
+a{color:#2f6bff;text-decoration:none}
+.wrap{max-width:920px;margin:0 auto;padding:32px 20px 80px}
+.back{font-size:13px;color:#8a94a6}
+h1{font-size:26px;font-weight:800;margin:8px 0 4px;border-bottom:2px solid #eef1f8;padding-bottom:14px}
+.page-title{font-size:16px;color:#5c6670;margin:-2px 0 20px}
+.wiki-body{margin-top:8px}
+.wiki-body h1,.wiki-body h2,.wiki-body h3{margin:1.2em 0 .5em;line-height:1.4}
+.wiki-body h2{font-size:22px}.wiki-body h3{font-size:18px}
+.wiki-body p{margin:.8em 0}
+.wiki-body ul,.wiki-body ol{margin:.6em 0 .6em 1.6em}
+.wiki-body img{max-width:100%}
+.wiki-body pre{background:#0f1523;color:#e8edff;padding:14px 16px;border-radius:10px;overflow:auto;margin:.9em 0}
+.wiki-body code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:.9em}
+.wiki-body pre code{background:none;padding:0}
+.wiki-body table{border-collapse:collapse;margin:.9em 0;width:100%}
+.wiki-body th,.wiki-body td{border:1px solid #e2e7f2;padding:8px 12px;text-align:left}
+.wiki-body th{background:#f4f6fc}
+.wiki-body blockquote{border-left:4px solid #bcd0ff;background:#f4f8ff;padding:10px 16px;margin:.9em 0;color:#456}
+.wiki-body a{color:#2f6bff;border-bottom:1px dashed #bcd0ff}
+.nav{margin:14px 0 0;display:flex;gap:10px;flex-wrap:wrap}
+.nav a{background:#eef3ff;border:1px solid #d9e4ff;padding:6px 16px;border-radius:20px;font-size:13px;color:#2f6bff}
+.mark{color:#c0392b}
+</style></head><body><div class="wrap"><a class="back" href="../index.html">← 项目合辑</a><h1>roles</h1><div class="page-title">tk-safe-upload · 使用说明（只读镜像）</div><div class="nav"><a href="../index.html">返回合辑</a><a href="./home.html">概览</a></div><div class="wiki-body"><h1>组织架构与角色权限</h1>
+<h2>组织架构体系</h2>
+<p>TK-Safe-UpLoad 采用<strong>集团→子公司→园区→商户</strong>的多级组织架构，支持灵活的层级管理。</p>
+<p><img alt="经营主体台账" src="/s/tk-safe-upload/05_admin_orgs.png" /></p>
+<h3>组织类型说明</h3>
+<table>
+<thead>
+<tr>
+<th>组织类型</th>
+<th>说明</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>集团公司</strong></td>
+<td>最高管理层级，管理所有子公司</td>
+<td>大鹏投控</td>
+</tr>
+<tr>
+<td><strong>子公司</strong></td>
+<td>集团下属的独立经营单位</td>
+<td>各子公司</td>
+</tr>
+<tr>
+<td><strong>园区/区域</strong></td>
+<td>子公司下属的地理区域或园区</td>
+<td>各园区</td>
+</tr>
+<tr>
+<td><strong>商户</strong></td>
+<td>入驻园区的经营商户</td>
+<td>各商户</td>
+</tr>
+<tr>
+<td><strong>项目</strong></td>
+<td>独立项目或工程</td>
+<td>各项目</td>
+</tr>
+<tr>
+<td><strong>户外</strong></td>
+<td>户外区域或露天场所</td>
+<td>户外区域</td>
+</tr>
+</tbody>
+</table>
+<h3>组织层级关系</h3>
+<pre class="codehilite"><code>大鹏投控（集团）
+├── 子公司A
+│   ├── 园区1
+│   │   ├── 商户1
+│   │   ├── 商户2
+│   │   └── 项目1
+│   └── 园区2
+│       └── 商户3
+├── 子公司B
+│   ├── 园区3
+│   └── 户外区域
+└── 子公司C
+    └── ...
+</code></pre>
+
+<h3>组织信息管理</h3>
+<p>每个经营主体包含以下信息：
+- <strong>名称</strong>：组织的正式名称
+- <strong>编码</strong>：唯一的组织编码
+- <strong>类型</strong>：公司/子公司/园区/商户/项目/户外
+- <strong>上级单位</strong>：所属的上级组织
+- <strong>地址</strong>：办公或经营地址
+- <strong>负责人</strong>：安全管理负责人
+- <strong>联系电话</strong>：负责人联系方式</p>
+<hr />
+<h2>五级角色体系</h2>
+<p>平台实行五级角色分级管理，每级角色拥有不同的功能权限：</p>
+<p><img alt="用户管理" src="/s/tk-safe-upload/15_admin_users.png" /></p>
+<h3>角色说明</h3>
+<table>
+<thead>
+<tr>
+<th>角色</th>
+<th>名称</th>
+<th>适用人员</th>
+<th>权限范围</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>company_admin</strong></td>
+<td>公司管理员</td>
+<td>集团安全总监、系统管理员</td>
+<td>全部功能，包括用户管理、系统配置、数据导出</td>
+</tr>
+<tr>
+<td><strong>sub_admin</strong></td>
+<td>子公司安管</td>
+<td>子公司安全主管、安全经理</td>
+<td>业务管理（台账、隐患、培训、作业许可等），不含系统配置</td>
+</tr>
+<tr>
+<td><strong>inspector</strong></td>
+<td>现场巡查员</td>
+<td>安全员、巡查队长</td>
+<td>隐患查看、巡查管理、任务处理</td>
+</tr>
+<tr>
+<td><strong>merchant</strong></td>
+<td>商户</td>
+<td>入驻商户负责人</td>
+<td>隐患上报、培训学习、查看本商户数据</td>
+</tr>
+<tr>
+<td><strong>staff</strong></td>
+<td>普通员工</td>
+<td>一般员工</td>
+<td>隐患随手拍、培训学习、查看个人数据</td>
+</tr>
+</tbody>
+</table>
+<h3>各角色能做什么？</h3>
+<h4>公司管理员（company_admin）</h4>
+<ul>
+<li>✅ 管理所有用户账号</li>
+<li>✅ 配置系统参数和消息模板</li>
+<li>✅ 查看所有子公司数据</li>
+<li>✅ 导出所有报表</li>
+<li>✅ 管理经营主体、设备、人员台账</li>
+<li>✅ 管理隐患、巡查、培训等业务</li>
+</ul>
+<h4>子公司安管（sub_admin）</h4>
+<ul>
+<li>✅ 管理本子公司用户</li>
+<li>✅ 管理本子公司台账（经营主体、设备、人员）</li>
+<li>✅ 管理本子公司隐患</li>
+<li>✅ 管理巡查任务</li>
+<li>✅ 管理培训课程</li>
+<li>❌ 不能配置系统参数</li>
+<li>❌ 不能查看其他子公司数据</li>
+</ul>
+<h4>现场巡查员（inspector）</h4>
+<ul>
+<li>✅ 查看隐患列表</li>
+<li>✅ 执行巡查打卡</li>
+<li>✅ 处理分配的任务</li>
+<li>❌ 不能管理台账</li>
+<li>❌ 不能导出数据</li>
+</ul>
+<h4>商户（merchant）</h4>
+<ul>
+<li>✅ 上报隐患（随手拍）</li>
+<li>✅ 参加培训学习</li>
+<li>✅ 查看本商户相关数据</li>
+<li>❌ 不能查看其他商户数据</li>
+<li>❌ 不能管理业务</li>
+</ul>
+<h4>普通员工（staff）</h4>
+<ul>
+<li>✅ 随手拍上报隐患</li>
+<li>✅ 参加培训学习</li>
+<li>✅ 查看个人相关数据</li>
+<li>❌ 不能查看他人数据</li>
+<li>❌ 不能管理业务</li>
+</ul>
+<hr />
+<h2>数据隔离机制</h2>
+<p>平台按组织层级进行数据隔离：</p>
+<table>
+<thead>
+<tr>
+<th>角色</th>
+<th>数据可见范围</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>company_admin</td>
+<td>全集团所有数据</td>
+</tr>
+<tr>
+<td>sub_admin</td>
+<td>本子公司及下属单位数据</td>
+</tr>
+<tr>
+<td>inspector</td>
+<td>被分配的隐患和巡查任务</td>
+</tr>
+<tr>
+<td>merchant</td>
+<td>本商户相关数据</td>
+</tr>
+<tr>
+<td>staff</td>
+<td>个人相关数据</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>💡 <strong>提示</strong>：登录后，系统会自动根据您的角色和所属组织，展示您有权限查看的数据。</p>
+</blockquote></div></div></body></html>

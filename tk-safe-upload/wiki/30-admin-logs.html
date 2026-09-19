@@ -1,0 +1,165 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>30-admin-logs · tk-safe-upload 说明</title><style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;background:#fafbff;color:#1a2332;line-height:1.75}
+a{color:#2f6bff;text-decoration:none}
+.wrap{max-width:920px;margin:0 auto;padding:32px 20px 80px}
+.back{font-size:13px;color:#8a94a6}
+h1{font-size:26px;font-weight:800;margin:8px 0 4px;border-bottom:2px solid #eef1f8;padding-bottom:14px}
+.page-title{font-size:16px;color:#5c6670;margin:-2px 0 20px}
+.wiki-body{margin-top:8px}
+.wiki-body h1,.wiki-body h2,.wiki-body h3{margin:1.2em 0 .5em;line-height:1.4}
+.wiki-body h2{font-size:22px}.wiki-body h3{font-size:18px}
+.wiki-body p{margin:.8em 0}
+.wiki-body ul,.wiki-body ol{margin:.6em 0 .6em 1.6em}
+.wiki-body img{max-width:100%}
+.wiki-body pre{background:#0f1523;color:#e8edff;padding:14px 16px;border-radius:10px;overflow:auto;margin:.9em 0}
+.wiki-body code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:.9em}
+.wiki-body pre code{background:none;padding:0}
+.wiki-body table{border-collapse:collapse;margin:.9em 0;width:100%}
+.wiki-body th,.wiki-body td{border:1px solid #e2e7f2;padding:8px 12px;text-align:left}
+.wiki-body th{background:#f4f6fc}
+.wiki-body blockquote{border-left:4px solid #bcd0ff;background:#f4f8ff;padding:10px 16px;margin:.9em 0;color:#456}
+.wiki-body a{color:#2f6bff;border-bottom:1px dashed #bcd0ff}
+.nav{margin:14px 0 0;display:flex;gap:10px;flex-wrap:wrap}
+.nav a{background:#eef3ff;border:1px solid #d9e4ff;padding:6px 16px;border-radius:20px;font-size:13px;color:#2f6bff}
+.mark{color:#c0392b}
+</style></head><body><div class="wrap"><a class="back" href="../index.html">← 项目合辑</a><h1>30-admin-logs</h1><div class="page-title">tk-safe-upload · 使用说明（只读镜像）</div><div class="nav"><a href="../index.html">返回合辑</a><a href="./home.html">概览</a></div><div class="wiki-body"><h1>操作日志（谁在什么时候做了什么）</h1>
+<blockquote>
+<p>平台会<strong>记录所有人的所有操作</strong>。出了问题可以追查。</p>
+</blockquote>
+<hr />
+<h2>什么是"操作日志"？</h2>
+<p>系统自动记录：
+- 谁（哪个用户）
+- 什么时候（时间）
+- 做了什么（动作）
+- 在哪个模块
+- 详细说明
+- 从哪个IP访问的</p>
+<blockquote>
+<p>这些记录<strong>不可删除、不可修改</strong>。是审计和追责的依据。</p>
+</blockquote>
+<hr />
+<h2>页面长什么样</h2>
+<p>在电脑后台左侧菜单点"<strong>📜 操作日志</strong>"：</p>
+<p><img alt="操作日志" src="/s/tk-safe-upload/16_admin_logs.png" /></p>
+<hr />
+<h2>顶部按钮</h2>
+<table>
+<thead>
+<tr>
+<th>按钮</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>⬇ 导出日志</td>
+<td>下载日志为 Excel</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>搜索筛选</h2>
+<p>页面顶部有搜索表单：</p>
+<ul>
+<li><strong>关键词</strong>：输入操作人、动作、详情中的关键词</li>
+<li><strong>模块</strong>：下拉选模块（隐患/培训/登录等）</li>
+<li><strong>筛选按钮</strong>：应用筛选</li>
+<li><strong>清除</strong>：清空筛选条件</li>
+</ul>
+<hr />
+<h2>表格里有什么</h2>
+<p>每行是一条操作记录：</p>
+<table>
+<thead>
+<tr>
+<th>列</th>
+<th>意思</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>时间</td>
+<td>什么时候操作的</td>
+</tr>
+<tr>
+<td>操作人</td>
+<td>谁</td>
+</tr>
+<tr>
+<td>角色</td>
+<td>他的角色</td>
+</tr>
+<tr>
+<td>动作</td>
+<td>做了什么（比如"新增隐患"）</td>
+</tr>
+<tr>
+<td>模块</td>
+<td>在哪个功能（比如"隐患"）</td>
+</tr>
+<tr>
+<td>详情</td>
+<td>具体内容</td>
+</tr>
+<tr>
+<td>IP 地址</td>
+<td>从哪台电脑访问的</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>怎么查询</h2>
+<h3>按时间查</h3>
+<ul>
+<li>表格按时间倒序（最新的在上面）</li>
+<li>翻页查看更多</li>
+</ul>
+<h3>按操作人查</h3>
+<ul>
+<li>在搜索框输入操作人姓名</li>
+<li>点击"筛选"</li>
+</ul>
+<h3>按动作查</h3>
+<ul>
+<li>在搜索框输入动作关键词（比如"删除"）</li>
+<li>点击"筛选"</li>
+</ul>
+<h3>按模块查</h3>
+<ul>
+<li>在"模块"下拉框选择</li>
+<li>点击"筛选"</li>
+</ul>
+<hr />
+<h2>实际使用场景</h2>
+<h3>追查问题</h3>
+<p><strong>场景</strong>：发现某条隐患被错误删除。</p>
+<p><strong>操作</strong>：
+1. 打开操作日志
+2. 模块选"隐患"
+3. 搜索"删除"
+4. 找到那条记录
+5. 看是谁、什么时候删的</p>
+<h3>安全审计</h3>
+<p><strong>场景</strong>：检查异常登录。</p>
+<p><strong>操作</strong>：
+1. 搜索框输入"登录"
+2. 看有没有非工作时间、非工作IP的登录
+3. 必要时联系当事人确认</p>
+<h3>工作量统计</h3>
+<p><strong>场景</strong>：评估某员工的工作量。</p>
+<p><strong>操作</strong>：
+1. 搜索框输入该员工姓名
+2. 看每天处理多少隐患
+3. 作为考核参考</p>
+<hr />
+<h2>常见问题</h2>
+<p><strong>Q：日志能删吗？</strong>
+A：不能。所有日志永久保存。</p>
+<p><strong>Q：日志保存多久？</strong>
+A：建议<strong>至少 3 年</strong>，具体看公司规定。</p>
+<p><strong>Q：能看到改了什么吗？</strong>
+A：能看到动作类型和简述，详细改动历史要查具体记录。</p>
+<p><strong>Q：IP 是私网还是公网？</strong>
+A：通常是私网IP（比如 192.168.x.x）。</p></div></div></body></html>

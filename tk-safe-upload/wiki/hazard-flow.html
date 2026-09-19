@@ -1,0 +1,185 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>hazard-flow · tk-safe-upload 说明</title><style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;background:#fafbff;color:#1a2332;line-height:1.75}
+a{color:#2f6bff;text-decoration:none}
+.wrap{max-width:920px;margin:0 auto;padding:32px 20px 80px}
+.back{font-size:13px;color:#8a94a6}
+h1{font-size:26px;font-weight:800;margin:8px 0 4px;border-bottom:2px solid #eef1f8;padding-bottom:14px}
+.page-title{font-size:16px;color:#5c6670;margin:-2px 0 20px}
+.wiki-body{margin-top:8px}
+.wiki-body h1,.wiki-body h2,.wiki-body h3{margin:1.2em 0 .5em;line-height:1.4}
+.wiki-body h2{font-size:22px}.wiki-body h3{font-size:18px}
+.wiki-body p{margin:.8em 0}
+.wiki-body ul,.wiki-body ol{margin:.6em 0 .6em 1.6em}
+.wiki-body img{max-width:100%}
+.wiki-body pre{background:#0f1523;color:#e8edff;padding:14px 16px;border-radius:10px;overflow:auto;margin:.9em 0}
+.wiki-body code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:.9em}
+.wiki-body pre code{background:none;padding:0}
+.wiki-body table{border-collapse:collapse;margin:.9em 0;width:100%}
+.wiki-body th,.wiki-body td{border:1px solid #e2e7f2;padding:8px 12px;text-align:left}
+.wiki-body th{background:#f4f6fc}
+.wiki-body blockquote{border-left:4px solid #bcd0ff;background:#f4f8ff;padding:10px 16px;margin:.9em 0;color:#456}
+.wiki-body a{color:#2f6bff;border-bottom:1px dashed #bcd0ff}
+.nav{margin:14px 0 0;display:flex;gap:10px;flex-wrap:wrap}
+.nav a{background:#eef3ff;border:1px solid #d9e4ff;padding:6px 16px;border-radius:20px;font-size:13px;color:#2f6bff}
+.mark{color:#c0392b}
+</style></head><body><div class="wrap"><a class="back" href="../index.html">← 项目合辑</a><h1>hazard-flow</h1><div class="page-title">tk-safe-upload · 使用说明（只读镜像）</div><div class="nav"><a href="../index.html">返回合辑</a><a href="./home.html">概览</a></div><div class="wiki-body"><h1>隐患治理闭环流程</h1>
+<h2>流程概述</h2>
+<p>隐患治理采用<strong>PDCA循环</strong>管理模式，实现从发现到闭环的全流程管控。</p>
+<hr />
+<h2>完整流程</h2>
+<pre class="mermaid">
+flowchart LR
+    A["📷 隐患发现<br/>随手拍/举报/巡查"] --> B["📝 隐患上报<br/>填写描述·分级·照片"]
+    B --> C{"🔍 审核"}
+    C -->|信息不全| D["⚠️ 退回补充"]
+    D --> B
+    C -->|审核通过| E["👤 任务指派<br/>责任人·期限"]
+    E --> F["🔧 整改执行<br/>现场处理·拍照"]
+    F --> G{"✅ 验收"}
+    G -->|不合格| H["🔄 返工整改"]
+    H --> F
+    G -->|合格| I["📦 闭环归档<br/>资料完整·流程结束"]
+
+    style A fill:#1a237e,stroke:#4a6cf7,color:#fff
+    style B fill:#1e3a8a,stroke:#60a5fa,color:#fff
+    style C fill:#7c2d12,stroke:#fb923c,color:#fff
+    style D fill:#7f1d1d,stroke:#f87171,color:#fff
+    style E fill:#1e40af,stroke:#3b82f6,color:#fff
+    style F fill:#854d0e,stroke:#facc15,color:#fff
+    style G fill:#166534,stroke:#34d399,color:#fff
+    style H fill:#7f1d1d,stroke:#f87171,color:#fff
+    style I fill:#14532d,stroke:#22c55e,color:#fff
+</pre>
+
+<h2>简要文字流程</h2>
+<pre class="codehilite"><code>发现隐患 → 上报 → 审核 → 指派 → 整改 → 验收 → 闭环
+</code></pre>
+
+<h3>1. 隐患发现</h3>
+<p><strong>发现渠道：</strong>
+- 📷 <strong>随手拍</strong>：员工通过手机端随时上报
+- 🚨 <strong>举报</strong>：匿名或实名举报
+- 📍 <strong>巡查发现</strong>：巡查员在巡查过程中发现
+- 📋 <strong>检查发现</strong>：专项检查中发现</p>
+<p><strong>上报信息：</strong>
+- 隐患标题和描述
+- 隐患分级（一般/较大/重大）
+- 现场照片
+- 所属单位和点位</p>
+<hr />
+<h3>2. 隐患审核</h3>
+<p><strong>审核流程：</strong>
+1. 安全管理员查看上报的隐患
+2. 确认隐患真实性和分级
+3. 补充整改要求和期限
+4. 指派责任单位</p>
+<p><strong>审核标准：</strong>
+- 信息是否完整
+- 分级是否准确
+- 照片是否清晰</p>
+<hr />
+<h3>3. 任务指派</h3>
+<p><strong>指派操作：</strong>
+1. 选择责任单位
+2. 选择责任人
+3. 设置整改期限
+4. 填写整改要求
+5. 确认指派</p>
+<p><strong>指派原则：</strong>
+- 属地管理：谁的区域谁负责
+- 分级管理：重大隐患由上级单位督办
+- 专业对口：技术性隐患由专业人员处理</p>
+<hr />
+<h3>4. 整改执行</h3>
+<p><strong>整改流程：</strong>
+1. 责任人接收任务
+2. 到现场核实隐患
+3. 制定整改方案
+4. 实施整改
+5. 拍照记录整改过程
+6. 填写整改说明
+7. 提交整改完成</p>
+<p><strong>整改要求：</strong>
+- 在规定期限内完成
+- 提供整改前后对比照片
+- 填写整改说明</p>
+<hr />
+<h3>5. 验收确认</h3>
+<p><strong>验收流程：</strong>
+1. 安全管理员审核整改情况
+2. 现场核实（必要时）
+3. 确认整改合格或不合格</p>
+<p><strong>验收标准：</strong>
+- 隐患是否已消除
+- 整改是否彻底
+- 是否存在新隐患</p>
+<hr />
+<h3>6. 闭环归档</h3>
+<p><strong>闭环条件：</strong>
+- 整改完成
+- 验收合格
+- 资料齐全</p>
+<p><strong>归档内容：</strong>
+- 隐患上报记录
+- 整改过程记录
+- 验收记录
+- 相关照片</p>
+<hr />
+<h2>状态流转</h2>
+<table>
+<thead>
+<tr>
+<th>状态</th>
+<th>说明</th>
+<th>操作人</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>待处理</strong></td>
+<td>新上报的隐患</td>
+<td>系统自动</td>
+</tr>
+<tr>
+<td><strong>已审核</strong></td>
+<td>安全管理员已审核</td>
+<td>安全管理员</td>
+</tr>
+<tr>
+<td><strong>已指派</strong></td>
+<td>已指派责任单位</td>
+<td>安全管理员</td>
+</tr>
+<tr>
+<td><strong>处理中</strong></td>
+<td>责任人正在整改</td>
+<td>责任人</td>
+</tr>
+<tr>
+<td><strong>已完成</strong></td>
+<td>整改完成待验收</td>
+<td>责任人</td>
+</tr>
+<tr>
+<td><strong>已闭环</strong></td>
+<td>验收合格，流程结束</td>
+<td>安全管理员</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>逾期预警</h2>
+<ul>
+<li>系统自动检测逾期未整改的隐患</li>
+<li>在预警中心显示提醒</li>
+<li>推送通知给相关人员</li>
+<li>重大隐患逾期会升级预警</li>
+</ul>
+<hr />
+<h2>统计分析</h2>
+<p>平台提供多维度统计分析：
+- 各单位隐患数量统计
+- 隐患整改率统计
+- 隐患类型分布
+- 隐患趋势分析</p></div></div></body></html>

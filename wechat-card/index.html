@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark" class="h-full antialiased" style="--font-dm-sans:'DM Sans',sans-serif;--font-mono:'JetBrains Mono',monospace;--font-cn:'PingFang SC','Microsoft YaHei',sans-serif;">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WeChat-Card · 微信电子名片 H5 | 模块化 · 分享卡片 · vCard</title>
+<meta name="description" content="微信电子名片 H5 服务：模块化组件、所见即所得编辑、vCard 一键存入通讯录、分享卡片自动生成，开发者预览模式快速调试。">
+<meta property="og:title" content="WeChat-Card · 微信电子名片 H5">
+<meta property="og:description" content="模块化组件 · 所见即所得编辑 · vCard 通讯录 · 分享卡片生成">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#0a0a0b">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg: #0a0a0b;
+  --bg-elev: #101113;
+  --bg-card: #15171c;
+  --border: rgba(255,255,255,0.08);
+  --border-hover: rgba(255,255,255,0.16);
+  --text: #e8eaf2;
+  --text-secondary: #a3a8b8;
+  --text-muted: #6b7080;
+  --brand: #679efe;
+  --brand-glow: #1A3870;
+  --brand-light: #4A8AC4;
+  --accent: #28c840;
+  --warn: #febc2e;
+  --grad: linear-gradient(135deg, #679efe 0%, #1A3870 100%);
+  --grad-soft: radial-gradient(circle, rgba(26,56,112,0.6) 0%, transparent 70%);
+  --font-base: 'DM Sans', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  --font-mono: 'JetBrains Mono', 'Consolas', monospace;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-base);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  font-size: 15px;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+a { color: var(--brand); text-decoration: none; transition: opacity 0.2s; }
+a:hover { opacity: 0.8; }
+code { font-family: var(--font-mono); font-size: 0.86em; color: var(--brand); }
+
+.wrap { max-width: 1180px; margin: 0 auto; padding: 0 28px; }
+
+/* ==================== NAV ==================== */
+nav { position: sticky; top: 0; z-index: 99; background: rgba(10,10,11,0.78); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid var(--border); }
+.nav-in { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+.brand { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 16px; color: var(--text); }
+.brand .dot { width: 30px; height: 30px; border-radius: 8px; background: var(--grad); display: flex; align-items: center; justify-content: center; font-size: 15px; color: #fff; font-weight: 600; }
+.nav-links { display: flex; gap: 4px; font-size: 14px; }
+.nav-links a { color: var(--text-secondary); padding: 8px 14px; border-radius: 6px; transition: all 0.2s; font-weight: 500; }
+.nav-links a:hover { background: rgba(255,255,255,0.05); color: var(--text); opacity: 1; }
+
+/* ==================== HERO ==================== */
+.hero { position: relative; padding: 110px 0 90px; overflow: hidden; }
+.hero::before, .hero::after { content: ''; position: absolute; border-radius: 50%; filter: blur(100px); z-index: 0; pointer-events: none; }
+.hero::before { width: 540px; height: 540px; background: var(--grad-soft); top: -200px; right: -100px; opacity: 0.7; }
+.hero::after { width: 480px; height: 480px; background: radial-gradient(circle, rgba(40,200,64,0.35) 0%, transparent 70%); bottom: -240px; left: -160px; opacity: 0.5; }
+.hero > .wrap { position: relative; z-index: 1; }
+.badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(103,158,254,0.12); border: 1px solid rgba(103,158,254,0.25); color: var(--brand); padding: 6px 16px; border-radius: 999px; font-size: 12.5px; font-weight: 600; margin-bottom: 24px; letter-spacing: 0.3px; }
+.badge .dot-blink { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); animation: pulse 2s ease-in-out infinite; }
+@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+h1 { font-size: clamp(2.4rem, 5vw, 3.6rem); font-weight: 700; line-height: 1.15; letter-spacing: -0.5px; margin-bottom: 20px; color: var(--text); }
+h1 .grad { background: linear-gradient(135deg, #679efe 0%, #4A8AC4 50%, #28c840 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+.sub { font-size: 1.08rem; color: var(--text-secondary); max-width: 720px; margin-bottom: 38px; line-height: 1.7; }
+.cta { display: flex; gap: 12px; flex-wrap: wrap; }
+.btn { padding: 12px 26px; border-radius: 10px; font-weight: 600; font-size: 14.5px; transition: all 0.2s; display: inline-flex; align-items: center; gap: 8px; border: 0; cursor: pointer; }
+.btn.pri { background: var(--grad); color: #fff; box-shadow: 0 4px 20px rgba(103,158,254,0.25); }
+.btn.pri:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(103,158,254,0.4); opacity: 1; }
+.btn.ghost { border: 1px solid var(--border); color: var(--text); background: rgba(255,255,255,0.02); }
+.btn.ghost:hover { border-color: var(--border-hover); background: rgba(255,255,255,0.05); opacity: 1; }
+.stats { display: flex; gap: 0; margin-top: 60px; border: 1px solid var(--border); border-radius: 16px; background: rgba(255,255,255,0.02); overflow: hidden; backdrop-filter: blur(8px); }
+.stat { flex: 1; padding: 22px 14px; text-align: center; border-right: 1px solid var(--border); }
+.stat:last-child { border-right: none; }
+.stat b { display: block; font-size: 1.7rem; font-weight: 700; background: linear-gradient(135deg, #679efe, #28c840); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+.stat span { font-size: 0.78rem; color: var(--text-muted); letter-spacing: 0.5px; }
+
+/* ==================== SECTION ==================== */
+section { padding: 80px 0; position: relative; }
+.sec-tag { color: var(--brand); font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px; }
+h2 { font-size: clamp(1.6rem, 3.2vw, 2.2rem); font-weight: 700; margin-bottom: 16px; color: var(--text); letter-spacing: -0.3px; }
+.lead { color: var(--text-secondary); max-width: 720px; margin-bottom: 44px; font-size: 1rem; }
+
+/* ==================== FEATURE CARDS ==================== */
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(310px, 1fr)); gap: 18px; }
+.card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 28px; transition: all 0.3s; position: relative; overflow: hidden; }
+.card::before { content: ''; position: absolute; inset: 0; border-radius: 16px; background: linear-gradient(135deg, rgba(103,158,254,0.04), transparent 50%); opacity: 0; transition: opacity 0.3s; pointer-events: none; }
+.card:hover { transform: translateY(-3px); border-color: var(--border-hover); }
+.card:hover::before { opacity: 1; }
+.card .ic { width: 46px; height: 46px; border-radius: 12px; background: rgba(103,158,254,0.12); border: 1px solid rgba(103,158,254,0.2); display: flex; align-items: center; justify-content: center; font-size: 22px; margin-bottom: 16px; }
+.card h3 { font-size: 1.05rem; font-weight: 600; margin-bottom: 8px; color: var(--text); }
+.card p { font-size: 0.88rem; color: var(--text-secondary); line-height: 1.65; }
+
+/* ==================== API TABLE ==================== */
+.api-section { background: linear-gradient(180deg, transparent 0%, rgba(103,158,254,0.02) 100%); }
+.api-table { width: 100%; border-collapse: separate; border-spacing: 0; background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; }
+.api-table thead th { background: rgba(255,255,255,0.03); padding: 14px 22px; text-align: left; font-size: 0.78rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid var(--border); }
+.api-table tbody tr { border-bottom: 1px solid var(--border); transition: background 0.2s; }
+.api-table tbody tr:last-child { border-bottom: none; }
+.api-table tbody tr:hover { background: rgba(255,255,255,0.02); }
+.api-table td { padding: 14px 22px; font-size: 0.92rem; vertical-align: middle; }
+.method { display: inline-block; padding: 3px 9px; border-radius: 6px; font-size: 0.72rem; font-weight: 700; font-family: var(--font-mono); letter-spacing: 0.5px; }
+.method.GET { background: rgba(40,200,64,0.15); color: #28c840; border: 1px solid rgba(40,200,64,0.25); }
+.method.POST { background: rgba(254,188,46,0.15); color: #febc2e; border: 1px solid rgba(254,188,46,0.25); }
+.method.PUT, .method.DELETE { background: rgba(103,158,254,0.15); color: #679efe; border: 1px solid rgba(103,158,254,0.25); }
+.api-path { font-family: var(--font-mono); font-size: 0.85rem; color: var(--brand); }
+.api-desc { color: var(--text-secondary); font-size: 0.88rem; }
+
+/* ==================== TECH STACK ==================== */
+.chips { display: flex; flex-wrap: wrap; gap: 10px; }
+.chip { background: rgba(255,255,255,0.03); border: 1px solid var(--border); padding: 8px 16px; border-radius: 999px; font-size: 13.5px; color: var(--text); transition: all 0.2s; }
+.chip:hover { background: rgba(103,158,254,0.08); border-color: rgba(103,158,254,0.25); color: var(--brand); }
+
+/* ==================== DEPLOY ==================== */
+.deploy { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px; }
+.deploy-item { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 24px; }
+.deploy-item .label { color: var(--text-muted); font-size: 0.78rem; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; }
+.deploy-item .value { font-family: var(--font-mono); color: var(--text); font-size: 0.95rem; word-break: break-all; }
+.deploy-item .value a { color: var(--brand); }
+
+/* ==================== FOOTER ==================== */
+footer { border-top: 1px solid var(--border); padding: 48px 0 36px; margin-top: 40px; }
+.foot-in { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; justify-content: space-between; }
+.foot-meta { color: var(--text-muted); font-size: 0.85rem; }
+.foot-links { display: flex; gap: 18px; }
+.foot-links a { color: var(--text-secondary); font-size: 0.88rem; }
+
+@media (max-width: 720px) {
+  .nav-links { display: none; }
+  .hero { padding: 70px 0 50px; }
+  .stats { flex-direction: column; }
+  .stat { border-right: none; border-bottom: 1px solid var(--border); }
+  .stat:last-child { border-bottom: none; }
+  .grid, .deploy { grid-template-columns: 1fr; }
+  .api-table thead { display: none; }
+  .api-table td { padding: 10px 14px; }
+  .api-table tr { display: block; padding: 10px 0; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap nav-in">
+    <a class="brand" href="#"><span class="dot">微</span>WeChat-Card</a>
+    <div class="nav-links">
+      <a href="#features">功能特性</a>
+      <a href="#api">API 概览</a>
+      <a href="#tech">技术栈</a>
+      <a href="#deploy">部署</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="badge"><span class="dot-blink"></span>微信名片 H5 · 持续运行中</span>
+    <h1>电子名片，<br><span class="grad">模块化构建</span>，分享即用</h1>
+    <p class="sub">微信电子名片 H5 服务：模块化组件构成的名片页面，点击资源直接弹窗上传替换，四段式分组编辑界面，vCard 一键存入通讯录，分享卡片自动生成，开发者预览模式快速调试。</p>
+    <div class="cta">
+      <a class="btn pri" target="_blank" rel="noopener" href="http://119.145.17.34:8000/">访问系统 →</a>
+      <a class="btn ghost" target="_blank" rel="noopener" href="http://119.145.17.34:8000/index-dynamic.html?page=yuchang">查看名片示例</a>
+    </div>
+    <div class="stats" id="stats">
+      <div class="stat"><b id="st-pages">—</b><span>名片刻录</span></div>
+      <div class="stat"><b id="st-groups">—</b><span>分组</span></div>
+      <div class="stat"><b id="st-sections">—</b><span>组件</span></div>
+      <div class="stat"><b>8000</b><span>运行端口</span></div>
+      <div class="stat"><b>Flask</b><span>Web 框架</span></div>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section id="features">
+    <div class="sec-tag">Features</div>
+    <h2>功能特性</h2>
+    <p class="lead">围绕实际业务场景打磨的核心能力：模块化组件、所见即所得编辑、分享卡片生成。</p>
+    <div class="grid">
+      <div class="card"><div class="ic">👤</div><h3>电子名片 H5</h3><p>手机端优先的精致名片页面，vCard 一键存入通讯录，加载迅速、样式现代。</p></div>
+      <div class="card"><div class="ic">🧩</div><h3>组件化架构</h3><p>多标签嵌套组件支持（联系/标题/文本/图片/视频/PDF/标签页），模块参数统一清理管理。</p></div>
+      <div class="card"><div class="ic">🖱️</div><h3>所见即所得编辑</h3><p>点击资源直接弹窗上传替换，四段式分组重组编辑界面，<code>?dev=1</code> 开发者预览模式。</p></div>
+      <div class="card"><div class="ic">📲</div><h3>vCard 通讯录</h3><p>访客一键将名片信息存入手机通讯录，符合 vCard 3.0 标准规范。</p></div>
+      <div class="card"><div class="ic">🖼️</div><h3>分享卡片生成</h3><p>微信分享自动抓取 OG 标签，卡片标题/描述/缩略图全部可自定义。</p></div>
+      <div class="card"><div class="ic">🔄</div><h3>资源热替换</h3><p>在线上传图片/视频/PDF 即时替换原引用，开发态实时生效。</p></div>
+      <div class="card"><div class="ic">🔐</div><h3>Token 鉴权</h3><p>编辑后台与开发预览通过 <code>wswwsw1234</code> Token 保护，公开分享链接可选。</p></div>
+      <div class="card"><div class="ic">🗂️</div><h3>分组管理</h3><p>支持创建/复制/移动分组，按业务场景组织名片（个人版 / 文旅版 / 投控版）。</p></div>
+      <div class="card"><div class="ic">🔍</div><h3>JSAPI 签名</h3><p>内置微信 JS-SDK 签名接口，<code>/api/wechat-sign</code> 即取即用。</p></div>
+    </div>
+  </section>
+
+  <section id="api" class="api-section">
+    <div class="sec-tag">API Overview</div>
+    <h2>API 概览</h2>
+    <p class="lead">无需登录即可调用的公开接口。完整接口定义参见 <a href="http://119.145.17.34:8000/admin/api-docs" target="_blank" rel="noopener">/admin/api-docs</a>。</p>
+    <table class="api-table" id="api-table">
+      <thead>
+        <tr><th style="width:90px;">Method</th><th>Path</th><th>说明</th></tr>
+      </thead>
+      <tbody>
+        <tr><td colspan="3" style="text-align:center;color:var(--text-muted);padding:24px;">加载中…</td></tr>
+      </tbody>
+    </table>
+    <p class="lead" style="margin-top:24px;font-size:0.88rem;">更多接口在 <a href="http://119.145.17.34:8000/admin/api-docs" target="_blank" rel="noopener">完整 API 文档</a>。所有管理类接口（<code>/admin/*</code>）需要登录。</p>
+  </section>
+
+  <section id="tech">
+    <div class="sec-tag">Tech Stack</div>
+    <h2>技术栈</h2>
+    <p class="lead">极简而稳定：Flask 模板 + 原生 JS + 静态资源。</p>
+    <div class="chips">
+      <span class="chip">Python 3.12</span>
+      <span class="chip">Flask</span>
+      <span class="chip">Jinja2</span>
+      <span class="chip">vCard 3.0</span>
+      <span class="chip">OG Meta</span>
+      <span class="chip">微信 JS-SDK</span>
+      <span class="chip">JSON Config</span>
+      <span class="chip">Gitea</span>
+    </div>
+  </section>
+
+  <section id="deploy">
+    <div class="sec-tag">Deployment</div>
+    <h2>部署与访问</h2>
+    <p class="lead">运行在 192.168.11.70（开发机）端口 8000，公网通过 WAF 反代至 <code>119.145.17.34:8000</code>。</p>
+    <div class="deploy">
+      <div class="deploy-item">
+        <div class="label">内网访问</div>
+        <div class="value"><a href="http://192.168.11.70:8000/" target="_blank" rel="noopener">http://192.168.11.70:8000/</a></div>
+      </div>
+      <div class="deploy-item">
+        <div class="label">公网访问</div>
+        <div class="value"><a href="http://119.145.17.34:8000/" target="_blank" rel="noopener">http://119.145.17.34:8000/</a></div>
+      </div>
+      <div class="deploy-item">
+        <div class="label">管理后台</div>
+        <div class="value"><a href="http://119.145.17.34:8000/admin/login" target="_blank" rel="noopener">/admin/login</a> · admin / admin123</div>
+      </div>
+      <div class="deploy-item">
+        <div class="label">代码托管</div>
+        <div class="value"><a href="http://192.168.11.70:3000/LZ-TK-Station/WeChat-Card" target="_blank" rel="noopener">Gitea · LZ-TK-Station/WeChat-Card</a></div>
+      </div>
+      <div class="deploy-item">
+        <div class="label">开发预览</div>
+        <div class="value"><a href="http://119.145.17.34:8000/?dev=1&token=wswwsw1234" target="_blank" rel="noopener">?dev=1&token=wswwsw1234</a></div>
+      </div>
+      <div class="deploy-item">
+        <div class="label">配置文件</div>
+        <div class="value"><code>server/card_config.json</code></div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap foot-in">
+    <div class="foot-meta">开源 · 内部项目 · © 2026 LZ-TK-Station · WeChat-Card</div>
+    <div class="foot-links">
+      <a href="http://192.168.11.70:5070/p/wechat-card/" target="_blank" rel="noopener">项目主页</a>
+      <a href="http://192.168.11.70:3000/LZ-TK-Station/WeChat-Card" target="_blank" rel="noopener">Gitea</a>
+      <a href="http://192.168.11.70:5070/" target="_blank" rel="noopener">托管平台</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+// 运行时数据由后端注入到 {{ rt.* }} 占位符
+(function() {
+  var stats = {"groups": 25, "pages": 62, "sections": 142, "types": [["image", 84], ["contact", 16], ["mapping", 12], ["title", 11], ["video", 7], ["spacer", 6], ["tabs", 4], ["carousel", 1], ["imageButton", 1]], "uploads": 323, "routes_total": 26};
+  var apis = [{"method": "GET", "path": "/api/card-config", "name": "card_config", "desc": "读取整个 card_config.json 配置（支持 ?page=PAGE_ID 过滤）", "category": "配置", "auth": false}, {"method": "GET", "path": "/api/components", "name": "api_components_list", "desc": "获取所有 components 列表（带 pageId 元数据）", "category": "组件", "auth": false}, {"method": "GET", "path": "/api/components/<uid>", "name": "api_component_get", "desc": "按 uid 获取单个组件完整数据", "category": "组件", "auth": false}, {"method": "GET", "path": "/api/contact-vcard", "name": "contact_vcard", "desc": "下载 .vcf 文件，访客一键存入手机通讯录", "category": "vCard", "auth": false}, {"method": "GET", "path": "/api/groups", "name": "get_groups", "desc": "分组管理", "category": "分组", "auth": false}, {"method": "GET", "path": "/api/groups/tree", "name": "api_groups_tree", "desc": "获取分组树（带页面挂载关系）", "category": "分组", "auth": false}, {"method": "GET", "path": "/api/share-card-image", "name": "share_card_image", "desc": "生成 OG 分享卡片图（1200x630）", "category": "分享", "auth": false}, {"method": "GET", "path": "/api/v1/ping", "name": "api_v1_ping", "desc": "v1 健康检查 ping", "category": "其它", "auth": false}, {"method": "GET", "path": "/api/wechat-sign", "name": "wechat_sign", "desc": "生成微信 JS-SDK 签名（用于分享/拍照/位置等 wx.config）", "category": "签名", "auth": false}, {"method": "GET", "path": "/pdf/<filename>", "name": "view_pdf", "desc": "代理访问上传 PDF（兼容老路径）", "category": "资源", "auth": false}, {"method": "GET", "path": "/share-card", "name": "share_card_page", "desc": "分享落地页（服务端渲染 OG meta）", "category": "分享", "auth": false}, {"method": "GET", "path": "/uploads/<filename>", "name": "uploaded_file", "desc": "代理访问上传文件通用入口", "category": "资源", "auth": false}, {"method": "GET", "path": "/view/<filename>", "name": "view_image", "desc": "代理访问上传图片（兼容老路径）", "category": "资源", "auth": false}, {"method": "PUT", "path": "/api/components/<uid>", "name": "api_component_update", "desc": "按 uid 更新一个组件的 data 字段", "category": "组件", "auth": true}, {"method": "POST", "path": "/api/groups/create", "name": "api_group_create", "desc": "新建一个分组", "category": "分组", "auth": true}, {"method": "POST", "path": "/api/groups/delete", "name": "api_group_delete", "desc": "删除一个分组", "category": "分组", "auth": true}, {"method": "POST", "path": "/api/groups/move", "name": "api_group_move", "desc": "移动页面到指定分组", "category": "分组", "auth": true}, {"method": "POST", "path": "/api/groups/rename", "name": "api_group_rename", "desc": "重命名一个分组", "category": "分组", "auth": true}, {"method": "POST", "path": "/api/mapping", "name": "api_mapping_create", "desc": "创建/更新组件映射（mapping 类型）", "category": "组件", "auth": true}, {"method": "POST", "path": "/api/pages/<page_id>/components", "name": "api_component_create", "desc": "在指定 page 下新建一个组件", "category": "组件", "auth": true}, {"method": "POST", "path": "/api/pages/batch-display", "name": "api_pages_batch_display", "desc": "批量生成分享/展示页缩略信息", "category": "页面", "auth": true}, {"method": "POST", "path": "/api/pages/batch-share", "name": "api_pages_batch_share", "desc": "批量生成微信分享链接 + 短链", "category": "分享", "auth": true}, {"method": "POST", "path": "/api/pages/move", "name": "api_page_move", "desc": "移动页面（重排/换分组）", "category": "页面", "auth": true}, {"method": "POST", "path": "/api/resource/replace", "name": "api_replace_resource", "desc": "上传/替换一个资源文件，返回 url", "category": "资源", "auth": true}, {"method": "POST", "path": "/api/update-page", "name": "update_page", "desc": "POST 更新单个页面的完整 sections 配置", "category": "页面", "auth": true}, {"method": "DELETE", "path": "/api/components/<uid>", "name": "api_component_delete", "desc": "按 uid 删除一个组件", "category": "组件", "auth": true}];
+  if (stats) {
+    document.getElementById('st-pages').textContent = stats.pages || 0;
+    document.getElementById('st-groups').textContent = stats.groups || 0;
+    document.getElementById('st-sections').textContent = stats.sections || 0;
+  }
+  var tbody = document.querySelector('#api-table tbody');
+  if (apis && apis.length) {
+    var html = '';
+    apis.forEach(function(api) {
+      var m = (api.method || 'GET').split(',')[0].toUpperCase();
+      html += '<tr>'
+            +   '<td><span class="method ' + m + '">' + m + '</span></td>'
+            +   '<td><span class="api-path">' + api.path + '</span></td>'
+            +   '<td><span class="api-desc">' + (api.desc || '') + '</span></td>'
+            + '</tr>';
+    });
+    tbody.innerHTML = html;
+  } else {
+    tbody.innerHTML = '<tr><td colspan="3" style="text-align:center;color:var(--text-muted);padding:24px;">暂无公开 API 数据</td></tr>';
+  }
+})();
+</script>
+
+<a id="leon-jump-btn-wan" href="http://119.145.17.34:8000/" target="_blank" rel="noopener" style="position:fixed;right:24px;bottom:22px;z-index:99999;display:flex;align-items:center;gap:8px;border-radius:48px;font-size:14px;font-weight:600;text-decoration:none;padding:12px 22px;background:linear-gradient(135deg,#10b981,#065f46);color:#fff;box-shadow:0 4px 18px rgba(16,185,129,.45);font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif;">🌐 进入系统</a>
+</body>
+</html>

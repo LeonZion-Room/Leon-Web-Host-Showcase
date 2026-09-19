@@ -1,0 +1,167 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>database · tk-safe-upload 说明</title><style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;background:#fafbff;color:#1a2332;line-height:1.75}
+a{color:#2f6bff;text-decoration:none}
+.wrap{max-width:920px;margin:0 auto;padding:32px 20px 80px}
+.back{font-size:13px;color:#8a94a6}
+h1{font-size:26px;font-weight:800;margin:8px 0 4px;border-bottom:2px solid #eef1f8;padding-bottom:14px}
+.page-title{font-size:16px;color:#5c6670;margin:-2px 0 20px}
+.wiki-body{margin-top:8px}
+.wiki-body h1,.wiki-body h2,.wiki-body h3{margin:1.2em 0 .5em;line-height:1.4}
+.wiki-body h2{font-size:22px}.wiki-body h3{font-size:18px}
+.wiki-body p{margin:.8em 0}
+.wiki-body ul,.wiki-body ol{margin:.6em 0 .6em 1.6em}
+.wiki-body img{max-width:100%}
+.wiki-body pre{background:#0f1523;color:#e8edff;padding:14px 16px;border-radius:10px;overflow:auto;margin:.9em 0}
+.wiki-body code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:.9em}
+.wiki-body pre code{background:none;padding:0}
+.wiki-body table{border-collapse:collapse;margin:.9em 0;width:100%}
+.wiki-body th,.wiki-body td{border:1px solid #e2e7f2;padding:8px 12px;text-align:left}
+.wiki-body th{background:#f4f6fc}
+.wiki-body blockquote{border-left:4px solid #bcd0ff;background:#f4f8ff;padding:10px 16px;margin:.9em 0;color:#456}
+.wiki-body a{color:#2f6bff;border-bottom:1px dashed #bcd0ff}
+.nav{margin:14px 0 0;display:flex;gap:10px;flex-wrap:wrap}
+.nav a{background:#eef3ff;border:1px solid #d9e4ff;padding:6px 16px;border-radius:20px;font-size:13px;color:#2f6bff}
+.mark{color:#c0392b}
+</style></head><body><div class="wrap"><a class="back" href="../index.html">← 项目合辑</a><h1>database</h1><div class="page-title">tk-safe-upload · 使用说明（只读镜像）</div><div class="nav"><a href="../index.html">返回合辑</a><a href="./home.html">概览</a></div><div class="wiki-body"><h1>数据库表结构</h1>
+<blockquote>
+<p>SQLite 数据库，路径 <code>data/safe_upload.db</code>，共 28 张表。数据库是整个平台的"记忆中心"，所有隐患、用户、台账数据都存在这里。</p>
+</blockquote>
+<hr />
+<h2>核心表关系图</h2>
+<pre class="mermaid">
+erDiagram
+    ORGANIZATIONS ||--o{ USERS : "拥有"
+    ORGANIZATIONS ||--o{ EQUIPMENT : "拥有"
+    ORGANIZATIONS ||--o{ HAZARDS : "发生"
+    ORGANIZATIONS ||--o{ RISK_POINTS : "分布"
+    ORGANIZATIONS ||--o{ TASKS : "派发"
+    USERS ||--o{ HAZARDS : "上报"
+    USERS ||--o{ TASKS : "负责"
+    USERS ||--o{ LOGS : "操作"
+    HAZARDS ||--o{ HAZARD_FLOW : "流转"
+    HAZARDS ||--o{ HAZARD_PHOTOS : "附件"
+    RISK_POINTS ||--o{ RISK_MEASURES : "措施"
+    TRAINING_COURSES ||--o{ TRAINING_RECORDS : "学习"
+    EMERGENCY_PLANS ||--o{ EMERGENCY_DRILLS : "演练"
+    WORK_PERMITS ||--o{ PERMIT_FLOW : "审批"
+
+    ORGANIZATIONS {
+        int id PK
+        string name
+        int parent_id
+    }
+    USERS {
+        int id PK
+        string username
+        string password_hash
+        string role
+        int org_id FK
+    }
+    HAZARDS {
+        int id PK
+        string title
+        string level
+        int org_id FK
+        int reporter_id FK
+        string status
+    }
+    TASKS {
+        int id PK
+        int hazard_id FK
+        int assignee_id FK
+        date deadline
+        string status
+    }
+    LOGS {
+        int id PK
+        int user_id FK
+        string action
+        string ip
+        datetime created_at
+    }
+</pre>
+
+<hr />
+<h2>表分类总览</h2>
+<table>
+<thead>
+<tr>
+<th>分类</th>
+<th>主要表</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>基础台账</strong></td>
+<td><code>organizations</code> <code>equipment</code> <code>personnel</code> <code>related_parties</code> <code>materials</code></td>
+<td>录入组织、设备、人员、合作方、物资</td>
+</tr>
+<tr>
+<td><strong>隐患管理</strong></td>
+<td><code>hazards</code> <code>hazard_flow</code> <code>hazard_photos</code> <code>tasks</code></td>
+<td>隐患上报、流转、整改、闭环</td>
+</tr>
+<tr>
+<td><strong>风险管控</strong></td>
+<td><code>risk_points</code> <code>risk_measures</code></td>
+<td>双重预防机制 - 风险点与管控措施</td>
+</tr>
+<tr>
+<td><strong>培训管理</strong></td>
+<td><code>training_courses</code> <code>training_records</code> <code>exam_papers</code></td>
+<td>课程、记录、考试</td>
+</tr>
+<tr>
+<td><strong>应急管理</strong></td>
+<td><code>emergency_plans</code> <code>emergency_drills</code> <code>emergency_contacts</code></td>
+<td>预案、演练、通讯录</td>
+</tr>
+<tr>
+<td><strong>作业许可</strong></td>
+<td><code>work_permits</code> <code>permit_flow</code></td>
+<td>动火/高处等高风险作业审批</td>
+</tr>
+<tr>
+<td><strong>巡查管理</strong></td>
+<td><code>patrols</code> <code>patrol_records</code> <code>patrol_points</code></td>
+<td>巡查计划、记录、点位</td>
+</tr>
+<tr>
+<td><strong>统计/考核</strong></td>
+<td><code>reports_cache</code> <code>assessments</code></td>
+<td>报表缓存、考核评分</td>
+</tr>
+<tr>
+<td><strong>系统表</strong></td>
+<td><code>users</code> <code>roles</code> <code>logs</code> <code>settings</code></td>
+<td>账号、权限、日志、配置</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>通用字段约定</h2>
+<p>每张表都包含以下基础字段：</p>
+<ul>
+<li><strong><code>id</code></strong> —— 自增主键</li>
+<li><strong><code>created_at</code></strong> —— 创建时间（ISO8601 字符串）</li>
+<li><strong><code>updated_at</code></strong> —— 更新时间（部分表）</li>
+<li><strong><code>org_id</code></strong> —— 经营主体关联（多租户隔离）</li>
+</ul>
+<hr />
+<h2>多租户隔离机制</h2>
+<p>平台采用<strong>经营主体（org_id）</strong>字段做多租户数据隔离：</p>
+<ul>
+<li>公司管理员可以看到所有数据</li>
+<li>子公司管理员只能看到本公司的数据</li>
+<li>普通员工只能看到自己上报或被指派的数据</li>
+<li>所有 SQL 查询自动追加 <code>WHERE org_id IN (当前用户可见的 org 列表)</code> 过滤</li>
+</ul>
+<hr />
+<h2>备份与维护</h2>
+<ul>
+<li><strong>自动备份</strong>：每日凌晨 2:00 自动备份到内网 Gitea</li>
+<li><strong>保留策略</strong>：本地保留 7 天，Gitea 长期保留</li>
+<li><strong>数据导出</strong>：管理员可在「导入导出」页面导出全量数据为 Excel</li>
+</ul></div></div></body></html>

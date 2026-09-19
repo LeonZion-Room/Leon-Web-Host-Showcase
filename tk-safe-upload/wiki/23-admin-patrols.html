@@ -1,0 +1,156 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>23-admin-patrols · tk-safe-upload 说明</title><style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;background:#fafbff;color:#1a2332;line-height:1.75}
+a{color:#2f6bff;text-decoration:none}
+.wrap{max-width:920px;margin:0 auto;padding:32px 20px 80px}
+.back{font-size:13px;color:#8a94a6}
+h1{font-size:26px;font-weight:800;margin:8px 0 4px;border-bottom:2px solid #eef1f8;padding-bottom:14px}
+.page-title{font-size:16px;color:#5c6670;margin:-2px 0 20px}
+.wiki-body{margin-top:8px}
+.wiki-body h1,.wiki-body h2,.wiki-body h3{margin:1.2em 0 .5em;line-height:1.4}
+.wiki-body h2{font-size:22px}.wiki-body h3{font-size:18px}
+.wiki-body p{margin:.8em 0}
+.wiki-body ul,.wiki-body ol{margin:.6em 0 .6em 1.6em}
+.wiki-body img{max-width:100%}
+.wiki-body pre{background:#0f1523;color:#e8edff;padding:14px 16px;border-radius:10px;overflow:auto;margin:.9em 0}
+.wiki-body code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:.9em}
+.wiki-body pre code{background:none;padding:0}
+.wiki-body table{border-collapse:collapse;margin:.9em 0;width:100%}
+.wiki-body th,.wiki-body td{border:1px solid #e2e7f2;padding:8px 12px;text-align:left}
+.wiki-body th{background:#f4f6fc}
+.wiki-body blockquote{border-left:4px solid #bcd0ff;background:#f4f8ff;padding:10px 16px;margin:.9em 0;color:#456}
+.wiki-body a{color:#2f6bff;border-bottom:1px dashed #bcd0ff}
+.nav{margin:14px 0 0;display:flex;gap:10px;flex-wrap:wrap}
+.nav a{background:#eef3ff;border:1px solid #d9e4ff;padding:6px 16px;border-radius:20px;font-size:13px;color:#2f6bff}
+.mark{color:#c0392b}
+</style></head><body><div class="wrap"><a class="back" href="../index.html">← 项目合辑</a><h1>23-admin-patrols</h1><div class="page-title">tk-safe-upload · 使用说明（只读镜像）</div><div class="nav"><a href="../index.html">返回合辑</a><a href="./home.html">概览</a></div><div class="wiki-body"><h1>巡查管理（怎么下发巡查任务）</h1>
+<blockquote>
+<p>给安全员<strong>布置巡查任务</strong>、<strong>查看打卡记录</strong>。是日常安全管理的重要工作。</p>
+</blockquote>
+<hr />
+<h2>页面长什么样</h2>
+<p>在电脑后台左侧菜单点"<strong>📍 巡查管理</strong>"：</p>
+<p><img alt="巡查管理" src="/s/tk-safe-upload/23_admin_patrols.png" /></p>
+<p>页面分<strong>左右两栏</strong>：</p>
+<ul>
+<li><strong>左边</strong>：巡查计划列表</li>
+<li><strong>右边</strong>：打卡记录</li>
+</ul>
+<hr />
+<h2>顶部按钮</h2>
+<table>
+<thead>
+<tr>
+<th>按钮</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>⬇ 导出打卡记录</td>
+<td>下载所有打卡记录为 Excel</td>
+</tr>
+<tr>
+<td>+ 新建巡查计划</td>
+<td>创建新的巡查计划</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>左侧：巡查计划</h2>
+<p>每个计划是一张卡片，显示：</p>
+<ul>
+<li><strong>计划名称</strong>：比如"园区每日防火巡查"</li>
+<li><strong>计划类型</strong>（颜色徽标）：</li>
+<li>🔵 蓝色 = 日常巡查</li>
+<li>🟠 橙色 = 专项检查</li>
+<li>🟣 紫色 = 节假日督查</li>
+<li><strong>组织单位</strong></li>
+<li><strong>日期范围</strong></li>
+<li><strong>打卡进度</strong>：比如"48/72 次"</li>
+<li><strong>巡查点位列表</strong></li>
+<li><strong>操作</strong>：编辑/删除</li>
+</ul>
+<hr />
+<h2>怎么新建一个巡查计划</h2>
+<p><strong>第1步</strong>：点"<strong>+ 新建巡查计划</strong>"</p>
+<p><strong>第2步</strong>：弹出表单，填写：</p>
+<ul>
+<li><strong>计划名称</strong>（必填）：比如"A区每日防火巡查"</li>
+<li><strong>计划类型</strong>（必填）：日常/专项/节假日</li>
+<li><strong>所属单位</strong>（必填）：下拉选</li>
+<li><strong>开始日期</strong>（必填）</li>
+<li><strong>结束日期</strong>（必填）</li>
+<li><strong>巡查点位</strong>（必填）：每行一个点位，比如：
+  <code>A1-主入口
+  A2-1号配电箱
+  A3-3号灭火器</code></li>
+</ul>
+<p><strong>第3步</strong>：点"<strong>保存</strong>"</p>
+<blockquote>
+<p>完成！计划已创建，安全员手机端会看到这个任务。</p>
+</blockquote>
+<hr />
+<h2>怎么编辑巡查计划</h2>
+<p><strong>第1步</strong>：找到要改的计划</p>
+<p><strong>第2步</strong>：点"<strong>编辑</strong>"</p>
+<p><strong>第3步</strong>：修改信息（注意点位每行一个）</p>
+<p><strong>第4步</strong>：点"<strong>保存</strong>"</p>
+<hr />
+<h2>怎么删除巡查计划</h2>
+<p><strong>第1步</strong>：找到要删的计划</p>
+<p><strong>第2步</strong>：点"<strong>删除</strong>"</p>
+<p><strong>第3步</strong>：确认</p>
+<blockquote>
+<p>⚠️ 删除后所有相关打卡记录也会受影响，请谨慎。</p>
+</blockquote>
+<hr />
+<h2>右侧：打卡记录</h2>
+<p>显示所有安全员的<strong>打卡记录</strong>（最多30条/页）。</p>
+<p>每条记录显示：</p>
+<ul>
+<li><strong>状态点</strong>：</li>
+<li>🟢 ✓ 绿色 = 正常</li>
+<li>🔴 ! 红色 = 异常</li>
+<li><strong>点位名称</strong></li>
+<li><strong>打卡人姓名</strong></li>
+<li><strong>打卡时间</strong></li>
+<li><strong>现场记录</strong>（用户填的内容）</li>
+<li><strong>照片缩略图</strong>（点击放大）</li>
+</ul>
+<blockquote>
+<p>可以用搜索框过滤特定记录。</p>
+</blockquote>
+<hr />
+<h2>分页</h2>
+<p>右侧底部有分页（每页30条），可以翻页查看更多。</p>
+<hr />
+<h2>怎么用巡查管理</h2>
+<h3>每天开始时</h3>
+<ol>
+<li>打开巡查管理</li>
+<li>看"<strong>右侧打卡记录</strong>"——今天有谁打了卡？有没有异常？</li>
+<li>处理异常记录</li>
+</ol>
+<h3>每周/每月</h3>
+<ol>
+<li>看打卡进度——哪些计划完成率低？</li>
+<li>调整计划或督促安全员</li>
+</ol>
+<h3>制定新计划时</h3>
+<ol>
+<li>梳理要查的点位</li>
+<li>确定周期（每天/每周/每月）</li>
+<li>写好计划名称，方便识别</li>
+<li>创建计划</li>
+</ol>
+<hr />
+<h2>常见问题</h2>
+<p><strong>Q：点位是什么？</strong>
+A：具体要检查的地点。比如"3号配电箱"是一个点位。</p>
+<p><strong>Q：一天要查多少次？</strong>
+A：取决于点位数量。系统会按计划自动统计。</p>
+<p><strong>Q：怎么知道谁没打卡？</strong>
+A：检查打卡记录。少了人就催一下。</p>
+<p><strong>Q：异常记录怎么处理？</strong>
+A：看现场记录和照片，严重的转为隐患处理。</p></div></div></body></html>
