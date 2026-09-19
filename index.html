@@ -1,42 +1,1451 @@
-<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8">
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Leon 项目合辑 · 静态镜像</title>
-<meta name="description" content="Leon-Web-Host 21 个项目的静态只读镜像：展示站 + 使用说明">
+<title>Leon-Web-Host · 项目托管数据引擎</title>
+<meta name="description" content="项目托管数据引擎 · 内核级存储 / 调度 / 集成 · 强大数据管交换 · 丰富 RESTful API · 多平台数据互通 · 集成管理项目">
+<meta name="keywords" content="项目托管,数据引擎,内核,数据交换,集成,接口,Wiki,图床,版本管理,多平台">
 <style>
+:root{
+  --bg:#ffffff;--bg2:#f7f8fb;--bg3:#f0f2f7;--card:#ffffff;
+  --rule:rgba(15,23,42,.07);--rule2:rgba(66,133,244,.28);
+  --text:#1a1a1a;--muted:#5c6670;--muted2:#8a93a0;
+  --a1:#3d5afe;--a2:#7e57c2;--a3:#00897b;
+  --cyan:#26a69a;--green:#43a047;--pink:#e91e63;--orange:#fb8c00;
+  --grad:linear-gradient(120deg,#448aff,#7c4dff 35%,#ff5252 65%,#ffb300);
+  --grad2:linear-gradient(135deg,#448aff,#7c4dff);
+  --grad3:linear-gradient(135deg,#43a047,#26c6da);
+  --glow:0 0 50px rgba(68,138,255,.25);
+}
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;background:#fafbff;color:#1a2332;line-height:1.75}
-a{color:#2f6bff;text-decoration:none}
-.wrap{max-width:920px;margin:0 auto;padding:32px 20px 80px}
-.back{font-size:13px;color:#8a94a6}
-h1{font-size:26px;font-weight:800;margin:8px 0 4px;border-bottom:2px solid #eef1f8;padding-bottom:14px}
-.page-title{font-size:16px;color:#5c6670;margin:-2px 0 20px}
-.wiki-body{margin-top:8px}
-.wiki-body h1,.wiki-body h2,.wiki-body h3{margin:1.2em 0 .5em;line-height:1.4}
-.wiki-body h2{font-size:22px}.wiki-body h3{font-size:18px}
-.wiki-body p{margin:.8em 0}
-.wiki-body ul,.wiki-body ol{margin:.6em 0 .6em 1.6em}
-.wiki-body img{max-width:100%}
-.wiki-body pre{background:#0f1523;color:#e8edff;padding:14px 16px;border-radius:10px;overflow:auto;margin:.9em 0}
-.wiki-body code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:.9em}
-.wiki-body pre code{background:none;padding:0}
-.wiki-body table{border-collapse:collapse;margin:.9em 0;width:100%}
-.wiki-body th,.wiki-body td{border:1px solid #e2e7f2;padding:8px 12px;text-align:left}
-.wiki-body th{background:#f4f6fc}
-.wiki-body blockquote{border-left:4px solid #bcd0ff;background:#f4f8ff;padding:10px 16px;margin:.9em 0;color:#456}
-.wiki-body a{color:#2f6bff;border-bottom:1px dashed #bcd0ff}
-.nav{margin:14px 0 0;display:flex;gap:10px;flex-wrap:wrap}
-.nav a{background:#eef3ff;border:1px solid #d9e4ff;padding:6px 16px;border-radius:20px;font-size:13px;color:#2f6bff}
-.mark{color:#c0392b}
+html{scroll-behavior:smooth}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;overflow-x:hidden}
+a{color:var(--a1);text-decoration:none;transition:color .2s}
+a:hover{color:#555}
+img{max-width:100%;display:block}
 
-.hero{background:linear-gradient(135deg,#1c2b4a,#2f6bff);color:#fff;border-radius:16px;padding:34px 28px;margin-bottom:26px}
-.hero h1{color:#fff;border:none;font-size:28px}
-.hero p{color:#cfe0ff;font-size:14px;margin-top:6px}
-.hero .meta{font-size:12px;color:#9fb8ea;margin-top:14px}
-</style></head><body><div class="wrap">
-<div class="hero">
-<h1>🏛️ Leon 项目合辑 · 静态镜像</h1>
-<p>Leon-Web-Host 托管的 21 个项目对外只读展示镜像。页面为静态快照，实时入口请前往原平台。</p>
-<div class="meta">镜像生成于 2026-09-19 15:13:23 · 原平台 http://119.145.17.34:5070/</div>
+/* ===== 背景层 ===== */
+.bg-grid{position:fixed;inset:0;background-image:linear-gradient(rgba(0,0,0,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(0,0,0,.04) 1px,transparent 1px);background-size:48px 48px;pointer-events:none;z-index:0;mask-image:radial-gradient(ellipse at center,#000 30%,transparent 80%);-webkit-mask-image:radial-gradient(ellipse at center,#000 30%,transparent 80%)}
+.bg-glow{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+
+/* ===== 公告条 ===== */
+.announcement-bar{position:relative;z-index:50;background:rgba(0,0,0,.02);border-bottom:1px solid rgba(0,0,0,.07);padding:10px 32px;font-size:13px;display:flex;align-items:center;gap:12px;overflow:hidden}
+.announcement-bar .badge{color:#1a1a1a;background:rgba(0,0,0,.06);padding:3px 10px;border-radius:10px;font-size:11px;font-weight:600;white-space:nowrap}
+.announcement-bar .text{color:#1a1a1a;flex:1;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.announcement-bar .close{background:none;border:none;color:#9aa0b3;cursor:pointer;font-size:18px;padding:0 8px;line-height:1}
+.announcement-bar.hidden{display:none}
+
+/* ===== 导航 ===== */
+nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.92);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid var(--rule)}
+@keyframes fadeInUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+.nav-in{max-width:1280px;margin:0 auto;padding:0 32px;height:64px;display:flex;align-items:center;justify-content:space-between}
+.brand{font-weight:800;font-size:18px;display:flex;align-items:center;gap:11px;color:#202124}
+.brand .dot{width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,#448aff,#7c4dff);display:flex;align-items:center;justify-content:center;font-size:18px;color:#fff;box-shadow:0 4px 12px rgba(124,77,255,.3)}
+.brand small{font-size:11px;color:var(--muted);font-weight:400;margin-left:8px;padding-left:8px;border-left:1px solid var(--rule);letter-spacing:.5px}
+.nav-links{display:flex;gap:28px;font-size:14.5px;font-weight:500}
+.nav-links a{color:var(--muted);position:relative}
+.nav-links a:hover{color:#1a1a1a}
+.nav-links a::after{content:'';position:absolute;left:50%;bottom:-6px;transform:translateX(-50%);width:0;height:2px;background:linear-gradient(90deg,#448aff,#ff5252);transition:width .25s;border-radius:2px}
+.nav-links a:hover::after{width:24px}
+.nav-right{display:flex;align-items:center;gap:10px}
+.nav-btn{padding:8px 18px;border-radius:8px;font-size:13px;font-weight:600;transition:.2s}
+.nav-btn.ghost{color:var(--muted);border:1px solid var(--rule)}
+.nav-btn.ghost:hover{color:#1a1a1a;border-color:#1a1a1a}
+.nav-btn.pri{background:linear-gradient(135deg,#448aff,#7c4dff);color:#fff;box-shadow:0 4px 14px rgba(124,77,255,.3)}
+.nav-btn.pri:hover{background:#444;transform:translateY(-1px)}
+.menu-btn{display:none;background:none;border:none;color:#202124;font-size:22px;cursor:pointer}
+
+/* ===== 通用 ===== */
+.wrap{max-width:1280px;margin:0 auto;padding:0 32px;position:relative;z-index:2}
+section{padding:80px 0;position:relative;z-index:2}
+.sec-tag{display:inline-block;color:#448aff;font-size:12px;font-weight:700;letter-spacing:3px;text-transform:uppercase;padding:4px 12px;border:1px solid rgba(68,138,255,.35);border-radius:20px;background:rgba(68,138,255,.07);margin-bottom:14px}
+h2{font-size:clamp(1.8rem,3.5vw,2.4rem);font-weight:800;margin-bottom:14px;letter-spacing:-.5px}
+h2::after{content:'';display:block;width:56px;height:4px;border-radius:2px;margin-top:12px;background:linear-gradient(90deg,#448aff,#ff5252,#ffb300)}
+.tech-wrap h2::after,.cta-box h2::after{margin-left:auto;margin-right:auto}
+h2 em{font-style:normal;font-weight:800;background:linear-gradient(100deg,#448aff,#7c4dff 45%,#ff5252);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.lead{color:var(--muted);font-size:15.5px;max-width:760px;margin-bottom:42px}
+
+/* ===== Hero ===== */
+.hero{position:relative;padding:90px 0 60px;text-align:left;overflow:hidden}
+.hero-inner{display:grid;grid-template-columns:1.15fr .85fr;gap:60px;align-items:center}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,rgba(68,138,255,.1),rgba(124,77,255,.08));border:1px solid rgba(68,138,255,.35);color:#448aff;padding:7px 16px;border-radius:999px;font-size:13px;font-weight:600;margin-bottom:24px}
+.hero-badge .dot-pulse{width:7px;height:7px;border-radius:50%;background:#43a047;box-shadow:0 0 0 0 rgba(67,160,71,.5);animation:pulse 2s infinite}
+@keyframes pulse { 0% { box-shadow:0 0 0 0 rgba(67,160,71,.5); } 70% { box-shadow:0 0 0 10px rgba(67,160,71,0); } 100% { box-shadow:0 0 0 0 rgba(67,160,71,0); } }
+.hero h1{font-size:clamp(2.4rem,5.2vw,4rem);font-weight:800;line-height:1.1;letter-spacing:-1px;margin-bottom:22px}
+.hero h1 em{font-style:normal;background:linear-gradient(100deg,#448aff,#7c4dff 45%,#ff5252);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.hero h1 .sub-line{display:block;font-size:.42em;color:var(--muted);font-weight:500;margin-top:18px;letter-spacing:0}
+.hero p.sub{font-size:1.08rem;color:var(--muted);max-width:560px;margin-bottom:36px;line-height:1.75}
+.hero p.sub b{color:var(--text);font-weight:600}
+.hero-cta{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:44px}
+.btn{padding:13px 28px;border-radius:10px;font-weight:600;font-size:14.5px;transition:.25s;display:inline-flex;align-items:center;gap:8px}
+.btn.pri{background:linear-gradient(135deg,#448aff,#7c4dff);color:#fff;box-shadow:0 6px 18px rgba(124,77,255,.32);position:relative;overflow:hidden}
+.btn.pri::after{content:'';position:absolute;top:0;left:-60%;width:45%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.35),transparent);transform:skewX(-20deg);animation:shimmer 3.2s ease-in-out infinite}
+@keyframes shimmer{0%{left:-60%}60%{left:150%}100%{left:150%}}
+.btn.pri:hover{background:linear-gradient(135deg,#5a6bff,#8a5cff);transform:translateY(-2px);box-shadow:0 10px 26px rgba(124,77,255,.42)}
+.btn.ghost{border:1px solid var(--rule);color:var(--text);background:rgba(255,255,255,.6)}
+.btn.ghost:hover{border-color:#1a1a1a;background:rgba(0,0,0,.03)}
+.btn.sm{padding:9px 18px;font-size:13px}
+.hero-trust{display:flex;align-items:center;gap:22px;color:var(--muted2);font-size:13px}
+.hero-trust span{display:flex;align-items:center;gap:6px}
+
+/* Hero 右侧可视化 */
+.hero-vis{position:relative;height:480px}
+.vis-card{position:absolute;background:linear-gradient(145deg,#ffffff,#fafafa);border:1px solid var(--rule);border-radius:16px;padding:18px;backdrop-filter:blur(8px);box-shadow:0 20px 50px rgba(0,0,0,.06);transition:.3s;overflow:hidden}
+.vis-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#448aff,#ff5252,#ffb300);opacity:.7}
+.vis-card:hover{transform:translateY(-4px) scale(1.02);border-color:rgba(0,0,0,.15);box-shadow:0 24px 54px rgba(0,0,0,.1)}
+.vis-card .vc-head{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.vis-card .vc-icon{width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:18px;background:linear-gradient(135deg,#448aff,#26c6da);color:#fff;box-shadow:0 4px 10px rgba(68,138,255,.25);filter:grayscale(.1)}
+.vis-card .vc-title{font-weight:700;font-size:14px}
+.vis-card .vc-sub{color:var(--muted2);font-size:11.5px}
+.vis-card .vc-row{display:flex;justify-content:space-between;font-size:12px;padding:6px 0;border-top:1px solid var(--rule);color:var(--muted)}
+.vis-card .vc-row b{color:var(--text)}
+.vis-card .vc-row:first-of-type{border-top:none}
+.vis-card .vc-chip{display:inline-block;padding:3px 9px;border-radius:6px;font-size:10.5px;font-weight:600;background:rgba(52,168,83,.1);color:#188038}
+.vis-card .vc-chip.b{background:rgba(0,0,0,.06);color:#1a1a1a}
+.vis-card .vc-chip.o{background:rgba(249,171,0,.12);color:var(--orange)}
+.vis-line{position:absolute;width:1px;background:linear-gradient(180deg,transparent,var(--rule2),transparent);height:60px}
+.vis-line.h{height:1px;width:60px;background:linear-gradient(90deg,transparent,var(--rule2),transparent)}
+
+.vc-1{top:10px;left:20px;width:260px;animation:float 6s ease-in-out infinite}
+.vc-2{top:90px;right:10px;width:240px;animation:float 7s ease-in-out infinite reverse}
+.vc-3{bottom:80px;left:40px;width:280px;animation:float 8s ease-in-out infinite}
+.vc-4{bottom:20px;right:30px;width:220px;animation:float 5.5s ease-in-out infinite reverse}
+@keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+
+/* ===== 数据指标栏 ===== */
+.stats-strip{padding:30px 0;background:linear-gradient(180deg,transparent,rgba(0,0,0,.02) 50%,transparent)}
+.stats-strip-inner{display:grid;grid-template-columns:repeat(5,1fr);gap:0;border:1px solid var(--rule);border-radius:18px;background:rgba(255,255,255,.7);backdrop-filter:blur(8px);overflow:hidden}
+.stats-strip-inner div{padding:24px 12px;text-align:center;border-right:1px solid var(--rule);position:relative}
+.stats-strip-inner div:last-child{border-right:none}
+.stats-strip-inner b{display:block;font-size:clamp(1.8rem,3.5vw,2.6rem);font-weight:800;background:linear-gradient(100deg,#448aff,#7c4dff 50%,#ff5252);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;line-height:1.1;margin-bottom:6px}
+.stats-strip-inner span{font-size:13px;color:var(--muted)}
+.stats-strip-inner .ic{display:block;margin:0 auto 8px;font-size:18px;opacity:.7;filter:grayscale(.1)}
+
+/* ===== 能力卡片 ===== */
+.features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.feature{background:linear-gradient(145deg,#ffffff,#fafafa);border:1px solid var(--rule);border-radius:16px;padding:30px 28px;transition:.3s;position:relative;overflow:hidden}
+.feature::before{content:'';position:absolute;inset:0;background:rgba(0,0,0,.03);opacity:0;transition:opacity .3s;border-radius:16px}
+.feature::after{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--f-grad,linear-gradient(90deg,#448aff,#ff5252,#ffb300));opacity:.8}
+.feature:hover{transform:translateY(-6px);border-color:rgba(0,0,0,.15);box-shadow:0 20px 50px rgba(0,0,0,.08)}
+.feature:hover::before{opacity:1}
+.feature>*{position:relative}
+.feature .ic{width:54px;height:54px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:26px;margin-bottom:18px;background:linear-gradient(135deg,#448aff,#26c6da);border:none;color:#fff;box-shadow:0 8px 20px rgba(68,138,255,.3);filter:grayscale(.1)}
+.feature h3{font-size:1.15rem;font-weight:700;margin-bottom:10px;color:#1a1a1a}
+.feature p{color:var(--muted);font-size:14px;line-height:1.65;margin-bottom:14px}
+.feature ul{list-style:none;font-size:13px;color:var(--muted2)}
+.feature ul li{padding:5px 0;display:flex;align-items:center;gap:8px}
+.feature ul li::before{content:'✓';color:var(--green);font-weight:700;font-size:11px}
+
+/* ===== 案例展示 ===== */
+.case-tabs{display:flex;gap:8px;margin-bottom:32px;flex-wrap:wrap}
+.case-tab{padding:10px 20px;border-radius:24px;border:1px solid var(--rule);background:rgba(255,255,255,.8);color:var(--muted);font-size:14px;font-weight:500;cursor:pointer;transition:.25s;display:flex;align-items:center;gap:8px}
+.case-tab:hover{border-color:var(--rule2);color:var(--text)}
+.case-tab.active{background:linear-gradient(135deg,#448aff,#7c4dff);border-color:transparent;color:#fff;font-weight:600;box-shadow:0 6px 16px rgba(124,77,255,.3)}
+.case-tab .badge-num{background:rgba(0,0,0,.2);padding:2px 8px;border-radius:10px;font-size:11px;font-weight:700}
+
+.case-group{margin-bottom:48px}
+.case-group-head{display:flex;align-items:center;gap:14px;margin-bottom:24px;padding-bottom:18px;border-bottom:1px solid var(--rule)}
+.case-group-head .gh-ic{width:50px;height:50px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;background:rgba(0,0,0,.04);border:1px solid rgba(0,0,0,.08);filter:grayscale(.1)}
+.case-group-head .gh-info h3{font-size:20px;font-weight:700;color:#202124;margin-bottom:4px}
+.case-group-head .gh-info p{color:var(--muted2);font-size:13px;margin:0}
+
+.projects{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:18px}
+.project{background:linear-gradient(145deg,#ffffff,#fafafa);border:1px solid var(--rule);border-radius:16px;padding:24px;transition:.3s;position:relative;overflow:hidden;display:flex;flex-direction:column}
+.project::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--pc,linear-gradient(90deg,#448aff,#ff5252,#ffb300));opacity:.8}
+.project:hover{transform:translateY(-5px);border-color:rgba(0,0,0,.15);box-shadow:0 20px 50px rgba(0,0,0,.08)}
+.project .p-head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:14px}
+.project .p-icon{width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;background:var(--pc-bg,rgba(68,138,255,.08));border:1px solid var(--pc,var(--rule));flex-shrink:0;filter:grayscale(.1)}
+.project .p-tag{display:inline-block;font-size:11px;padding:3px 9px;border-radius:8px;font-weight:600;background:rgba(0,0,0,.04);color:#1a1a1a}
+.project h4{font-size:17px;font-weight:700;color:#1a1a1a;margin-bottom:8px}
+.project h4 a{color:inherit}
+.project h4 a:hover{color:#448aff}
+.project .desc{color:var(--muted);font-size:13.5px;margin-bottom:14px;line-height:1.55;flex:1;min-height:42px}
+.project .tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
+.project .tags span{font-size:11px;padding:3px 9px;border-radius:6px;background:rgba(20,23,27,.03);color:var(--muted);border:1px solid var(--rule)}
+.project .stats{display:flex;gap:14px;font-size:12px;color:var(--muted2);padding-top:14px;border-top:1px solid var(--rule);margin-bottom:14px}
+.project .stats b{color:var(--text);font-size:14px;display:block;margin-bottom:2px;font-weight:700}
+.project .urls{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto}
+.project .urls a{flex:1;min-width:0;text-align:center;padding:8px 10px;border-radius:8px;font-size:12.5px;font-weight:600;transition:.2s;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.project .urls .site{background:linear-gradient(135deg,#448aff,#7c4dff);color:#fff;box-shadow:0 4px 12px rgba(124,77,255,.25)}
+.project .urls .site:hover{transform:translateY(-1px);box-shadow:0 6px 16px rgba(124,77,255,.38);color:#fff}
+.project .urls .wiki{border:1px solid var(--rule);color:var(--muted)}
+.project .urls .wiki:hover{border-color:#1a1a1a;color:#1a1a1a}
+.project .urls .detail{border:1px solid var(--rule);color:var(--muted2);font-size:11.5px;padding:8px 8px}
+
+/* ===== 特色项目置顶 ===== */
+.featured{display:grid;grid-template-columns:2fr 1fr 1fr;gap:18px;margin-bottom:36px}
+.featured-card{background:linear-gradient(145deg,#ffffff,#fafafa);border:1px solid var(--rule);border-radius:18px;padding:30px;transition:.3s;position:relative;overflow:hidden}
+.featured-card.main{grid-row:span 1;background:linear-gradient(135deg,rgba(0,0,0,.02),rgba(0,0,0,.04));border:1px solid rgba(0,0,0,.1)}
+.featured-card.main::before{content:'';position:absolute;top:-50%;right:-20%;width:300px;height:300px;background:radial-gradient(circle,rgba(0,0,0,.04),transparent 70%);pointer-events:none}
+.featured-card.main::after{content:'';position:absolute;bottom:-40%;left:-10%;width:260px;height:260px;background:radial-gradient(circle,rgba(0,0,0,.03),transparent 70%);pointer-events:none}
+.featured-card:hover{transform:translateY(-4px);border-color:rgba(0,0,0,.15)}
+.featured-card .ft-tag{display:inline-block;font-size:11px;padding:4px 10px;border-radius:8px;font-weight:600;background:rgba(0,0,0,.04);color:#1a1a1a;margin-bottom:14px;border:1px solid rgba(0,0,0,.08)}
+.featured-card.main .ft-tag{background:rgba(0,0,0,.05);color:#1a1a1a}
+.featured-card h3{font-size:22px;font-weight:800;color:#1a1a1a;margin-bottom:10px}
+.featured-card.main h3{font-size:28px}
+.featured-card p{color:var(--muted);font-size:13.5px;margin-bottom:18px;line-height:1.6}
+.featured-card .ft-meta{display:flex;gap:14px;font-size:12px;color:var(--muted2);margin-bottom:18px}
+.featured-card .ft-meta b{color:var(--text);display:block;font-weight:700;font-size:18px;margin-bottom:2px}
+.featured-card .ft-link{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;border-radius:8px;background:linear-gradient(135deg,#448aff,#7c4dff);color:#fff;font-size:13px;font-weight:600;box-shadow:0 4px 12px rgba(124,77,255,.28)}
+
+/* ===== 生态区 ===== */
+.ecosystem{background:linear-gradient(180deg,transparent,rgba(0,0,0,.01) 50%,transparent)}
+.eco-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.eco-card{background:rgba(255,255,255,.9);border:1px solid var(--rule);border-radius:16px;padding:22px;transition:.3s;position:relative;overflow:hidden}
+.eco-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--e-grad,linear-gradient(90deg,#448aff,#ff5252,#ffb300));opacity:.8}
+.eco-card:hover{border-color:rgba(0,0,0,.15);transform:translateY(-3px);box-shadow:0 16px 40px rgba(0,0,0,.06)}
+.eco-card .ec{width:42px;height:42px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:12px;background:linear-gradient(135deg,#448aff,#26c6da);border:none;color:#fff;box-shadow:0 6px 16px rgba(68,138,255,.26);filter:grayscale(.1)}
+.eco-card h4{font-size:15px;font-weight:700;color:#1a1a1a;margin-bottom:6px}
+.eco-card p{color:var(--muted);font-size:13px;line-height:1.55;margin-bottom:12px}
+.eco-card .tags{display:flex;flex-wrap:wrap;gap:5px}
+.eco-card .tags span{font-size:10.5px;padding:2px 8px;border-radius:5px;background:rgba(20,23,27,.03);color:var(--muted2);border:1px solid var(--rule)}
+
+/* ===== 技术栈 ===== */
+.tech-wrap{text-align:center}
+.tech-chips{display:inline-flex;flex-wrap:wrap;gap:10px;justify-content:center;max-width:920px;margin:0 auto}
+.tech-chip{padding:11px 22px;border-radius:999px;background:rgba(255,255,255,.95);border:1px solid var(--rule);color:#1a1a1a;font-size:13.5px;font-weight:500;transition:.2s;display:inline-flex;align-items:center;gap:8px}
+.tech-chip:hover{border-color:rgba(0,0,0,.2);color:#1a1a1a;transform:translateY(-2px);box-shadow:0 8px 22px rgba(0,0,0,.06)}
+.tech-chip .ti{font-size:16px;filter:grayscale(.1)}
+
+/* ===== CTA ===== */
+.cta-section{padding:60px 0 100px}
+.cta-box{background:linear-gradient(135deg,rgba(0,0,0,.02),rgba(0,0,0,.04));border:1px solid rgba(0,0,0,.1);border-radius:24px;padding:60px 50px;text-align:center;position:relative;overflow:hidden}
+.cta-box::before{content:'';position:absolute;top:-100px;left:-100px;width:300px;height:300px;background:radial-gradient(circle,rgba(0,0,0,.04),transparent 70%)}
+.cta-box::after{content:'';position:absolute;bottom:-150px;right:-100px;width:350px;height:350px;background:radial-gradient(circle,rgba(0,0,0,.03),transparent 70%)}
+.cta-box>*{position:relative}
+.cta-box h2{font-size:clamp(1.7rem,3vw,2.4rem);margin-bottom:14px}
+.cta-box p{color:var(--muted);font-size:16px;max-width:620px;margin:0 auto 32px}
+.cta-box .btns{display:flex;justify-content:center;gap:14px;flex-wrap:wrap}
+
+/* ===== Footer ===== */
+footer{background:var(--bg2);border-top:1px solid var(--rule);padding:60px 0 0;position:relative;z-index:2}
+.foot-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr 1fr;gap:40px;margin-bottom:50px}
+.foot-brand h3{font-size:18px;font-weight:800;margin-bottom:12px;color:#1a1a1a;display:flex;align-items:center;gap:10px}
+.foot-brand h3 .dot{width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,#448aff,#7c4dff);display:flex;align-items:center;justify-content:center;font-size:14px;color:#fff}
+.foot-brand h3 span{color:#448aff}
+.foot-brand p{color:var(--muted2);font-size:13px;line-height:1.7;margin-bottom:16px}
+.foot-brand .social{display:flex;gap:8px}
+.foot-brand .social a{width:34px;height:34px;border-radius:8px;background:rgba(20,23,27,.03);border:1px solid var(--rule);display:flex;align-items:center;justify-content:center;font-size:15px;transition:.2s}
+.foot-brand .social a:hover{background:linear-gradient(135deg,#448aff,#7c4dff);border-color:transparent;color:#fff;transform:translateY(-2px)}
+.foot-col h4{font-size:13px;font-weight:700;color:#202124;margin-bottom:18px;letter-spacing:1px;text-transform:uppercase}
+.foot-col ul{list-style:none}
+.foot-col li{padding:6px 0;font-size:13.5px;color:var(--muted)}
+.foot-col li a{color:var(--muted);transition:color .2s}
+.foot-col li a:hover{color:#1a1a1a}
+.foot-bottom{max-width:1280px;margin:0 auto;padding:24px 32px;border-top:1px solid var(--rule);display:flex;justify-content:space-between;align-items:center;font-size:12.5px;color:var(--muted2);flex-wrap:wrap;gap:14px}
+.foot-bottom a{color:var(--muted2)}
+.foot-bottom a:hover{color:#1a1a1a}
+
+/* ===== 响应式 ===== */
+@media(max-width:1100px){
+  .hero-inner{grid-template-columns:1fr;gap:40px}
+  .hero-vis{height:380px}
+  .features-grid,.eco-grid{grid-template-columns:repeat(2,1fr)}
+  .featured{grid-template-columns:1fr 1fr}
+  .featured-card.main{grid-column:span-2}
+  .foot-grid{grid-template-columns:1fr 1fr 1fr}
+}
+@media(max-width:768px){
+  .nav-links{display:none}
+  .menu-btn{display:block}
+  .stats-strip-inner{grid-template-columns:repeat(2,1fr)}
+  .stats-strip-inner div{border-right:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+  .stats-strip-inner div:nth-child(2n){border-right:none}
+  .features-grid,.eco-grid,.projects{grid-template-columns:1fr}
+  .featured{grid-template-columns:1fr}
+  .foot-grid{grid-template-columns:1fr 1fr;gap:30px}
+  .hero{padding:60px 0 30px}
+  .hero-vis{height:340px}
+  .vc-1{width:220px}.vc-2{width:200px}.vc-3{width:230px}.vc-4{width:190px}
+  .cta-box{padding:40px 24px}
+  section{padding:60px 0}
+  .wrap{padding:0 20px}
+  nav{padding:0 16px}
+}
+@media(max-width:480px){
+  .foot-grid{grid-template-columns:1fr}
+  .stats-strip-inner{grid-template-columns:1fr}
+  .stats-strip-inner div{border-right:none}
+}
+</style>
+</head>
+<body>
+
+<div class="bg-grid"></div>
+<div class="bg-glow"></div>
+
+
+<div class="announcement-bar" id="ann-ed79c5fef5">
+  <span class="badge">公告</span>
+  <span class="text" style="color:#1a73e8">🎉 LZ-Studio 控制台已上线！欢迎访问 http://119.145.17.34:5070</span>
+  <button class="close" onclick="document.getElementById('ann-ed79c5fef5').classList.add('hidden')">&times;</button>
 </div>
-<h2 style="margin:30px 0 4px;color:#6c8cff">🤖 AI 智能服务</h2><p style="font-size:12px;color:#8a94a6">3 个项目</p><div style="background:#fff;border:1px solid #e6ebf5;border-left:4px solid #6c8cff;border-radius:12px;padding:18px 20px;margin:14px 0"><div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap"><span style="font-size:22px">🤖</span><a href="leon-ai-chat/index.html" style="font-size:17px;font-weight:700;color:#12192b">leon-ai-chat</a><span style="font-size:12px;color:#8a94a6;background:#f4f6fc;border:1px solid #e6ebf5;padding:2px 10px;border-radius:12px">AI 智能服务</span><span style="flex:1"></span><a href="leon-ai-chat/wiki/home.html">📖 说明</a> <a href="leon-ai-chat/index.html">🌐 展示</a></div><p style="font-size:13px;color:#5c6670;margin-top:8px">基于 MemKV 知识库的 AI 智能问答系统 · SSE 流式输出</p><div style="font-size:12px;color:#b0b7c4;margin-top:6px">文件 N 个 · Wiki 页 1 页</div></div><div style="background:#fff;border:1px solid #e6ebf5;border-left:4px solid #6c8cff;border-radius:12px;padding:18px 20px;margin:14px 0"><div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap"><span style="font-size:22px">🤖</span><a href="lz-agent/index.html" style="font-size:17px;font-weight:700;color:#12192b">lz-agent</a><span style="font-size:12px;color:#8a94a6;background:#f4f6fc;border:1px solid #e6ebf5;padding:2px 10px;border-radius:12px">AI 智能服务</span><span style="flex:1"></span><a href="lz-agent/wiki/home.html">📖 说明</a> <a href="lz-agent/index.html">🌐 展示</a></div><p style="font-size:13px;color:#5c6670;margin-top:8px">机房自动化执行中心 · SSH 跨节点执行器 + 工单系统 + 定时巡检</p><div style="font-size:12px;color:#b0b7c4;margin-top:6px">文件 N 个 · Wiki 页 1 页</div></div><div style="background:#fff;border:1px solid #e6ebf5;border-left:4px solid #6c8cff;border-radius:12px;padding:18px 20px;margin:14px 0"><div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap"><span style="font-size:22px">🤖</span><a href="memkv/index.html" style="font-size:17px;font-weight:700;color:#12192b">memkv</a><span style="font-size:12px;color:#8a94a6;background:#f4f6fc;border:1px solid #e6ebf5;padding:2px 10px;border-radius:12px">AI 智能服务</span><span style="flex:1"></span><a href="memkv/wiki/home.html">📖 说明</a> <a href="memkv/index.html">🌐 展示</a></div><p style="font-size:13px;color:#5c6670;margin-top:8px">AI 三级记忆知识库 · 打通 AI 与人 · 人性化交互 · 项目→分组→条目 · HTTP API 驱动 · 让 AI 像人一样拥有可被任意设备共享的长期记忆</p><div style="font-size:12px;color:#b0b7c4;margin-top:6px">文件 N 个 · Wiki 页 1 页</div></div><h2 style="margin:30px 0 4px;color:#a86cff">💻 平台开发</h2><p style="font-size:12px;color:#8a94a6">7 个项目</p><div style="background:#fff;border:1px solid #e6ebf5;border-left:4px solid #a86cff;border-radius:12px;padding:18px 20px;margin:14px 0"><div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap"><span style="font-size:22px">💻</span><a href="LZ-Studio/index.html" style="font-size:17px;font-weight:700;color:#12192b">LZ-Studio</a><span style="font-size:12px;color:#8a94a6;background:#f4f6fc;border:1px solid #e6ebf5;padding:2px 10px;border-radius:12px">平台开发</span><span style="flex:1"></span><a href="LZ-Studio/wiki/home.html">📖 说明</a> <a href="LZ-Studio/index.html">🌐 展示</a></div><p style="font-size:13px;color:#5c6670;margin-top:8px"></p><div style="font-size:12px;color:#b0b7c4;margin-top:6px">文件 N 个 · Wiki 页 1 页</div></div><div style="background:#fff;border:1px solid #e6ebf5;border-left:4px solid #a86cff;border-radius:12px;padding:18px 20px;margin:14px 0"><div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap"><span style="font-size:22px">💻</span><a href="leon-web-host/index.html" style="font-size:17px;font-weight:700;color:#12192b">leon-web-host</a><span style="font-size:12px;color:#8a94a6;background:#f4f6fc;border:1px solid #e6ebf5;padding:2px 10px;border-radius:12px">平台开发</span><span style="flex:1"></span><a href="leon-web-host/wiki/home.html">📖 说明</a> <a href="leon-web-host/index.html">🌐 展示</a></div><p style="font-size:13px;color:#5c6670;margin-top:8px">项目托管数据引擎 · 内核驱动 · 数据管交换 · 丰富接口 · 集成管理项目</p><div style="font-size:12px;color:#b0b7c4;margin-top:6px">文件 N 个 · Wiki 页 1 页</div></div><div style="background:#fff;border:1px solid #e6ebf5;border-left:4px solid #a86cff;border-radius:12px;padding:18px 20px;margin:14px 0"><div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap"><span style="font-size:22px">💻</span><a href="qr-code-gate/index.html" style="font-size:17px;font-weight:700;color:#12192b">qr-code-gate</a><span style="font-size:12px;color:#8a94a6;background:#f4f6fc;border:1px solid #e6ebf5;padding:2px 10px;border-radius:12px">平台开发</span><span style="flex:1"></span><a href="qr-code-gate/wiki/home.html">📖 说明</a> <a href="qr-code-gate/index.html">🌐 展示</a></div><p style="font-size:13px;color:#5c6670;margin-top:8px">访客门禁二维码管理系统 · 达实 C3 平台对接 · 闸机联动</p><div style="font-size:12px;color:#b0b7c4;margin-top:6px">文件 N 个 · Wiki 页 14 页</div></div><div style="background:#fff;border:1px solid #e6ebf5;border-left:4px solid #a86cff;border-radius:12px;padding:18px 20px;margin:14px 0"><div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap"><span style="font-size:22px">💻</span><a href="surveyking/index.html" style="font-size:17px;font-weight:700;color:#12192b">surveyking</a><span style="font-size:12px;color:#8a94a6;background:#f4f6fc;border:1px solid #e6ebf5;padding:2px 10px;border-radius:12px">平台开发</span><span style="flex:1"></span><a href="surveyking/wiki/home.html">📖 说明</a> <a href="surveyking/index.html">🌐 展示</a></div><p style="font-size:13px;color:#5c6670;margin-top:8px">问卷管理 / 考试系统 · Docker 容器化部署</p><div style="font-size:12px;color:#b0b7c4;margin-top:6px">文件 N 个 · Wiki 页 10 页</div></div><div style="background:#fff;border:1px solid #e6ebf5;border-left:4px solid #a86cff;border-radius:12px;padding:18px 20px;margin:14px 0"><div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap"><span style="font-size:22px">💻</span><a href="tk-safe-upload/index.html" style="font-size:17px;font-weight:700;color:#12192b">tk-safe-upload</a><span style="font-size:12px;color:#8a94a6;background:#f4f6fc;border:1px solid #e6ebf5;padding:2px 10px;border-radius:12px">平台开发</span><span style="flex:1"></span><a href="tk-safe-upload/wiki/home.html">📖 说明</a> <a href="tk-safe-upload/index.html">🌐 展示</a></div><p style="font-size:13px;color:#5c6670;margin-top:8px">安全生产一体化智慧管理平台 · 移动端 + PC 后台 + 数据大屏</p><div style="font-size:12px;color:#b0b7c4;margin-top:6px">文件 N 个 · Wiki 页 48 页</div></div><div style="background:#fff;border:1px solid #e6ebf5;border-left:4px solid #a86cff;border-radius:12px;padding:18px 20px;margin:14px 0"><div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap"><span style="font-size:22px">💻</span><a href="tk-zy-oa/index.html" style="font-size:17px;font-weight:700;color:#12192b">tk-zy-oa</a><span style="font-size:12px;color:#8a94a6;background:#f4f6fc;border:1px solid #e6ebf5;padding:2px 10px;border-radius:12px">平台开发</span><span style="flex:1"></span><a href="tk-zy-oa/wiki/home.html">📖 说明</a> <a href="tk-zy-oa/index.html">🌐 展示</a></div><p style="font-size:13px;color:#5c6670;margin-top:8px">致远 OA 表单数据管理工具 · 达梦数据库直连 · Excel 批量导出</p><div style="font-size:12px;color:#b0b7c4;margin-top:6px">文件 N 个 · Wiki 页 1 页</div></div><div style="background:#fff;border:1px solid #e6ebf5;border-left:4px solid #a86cff;border-radius:12px;padding:18px 20px;margin:14px 0"><div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap"><span style="font-size:22px">💻</span><a href="wechat-card/index.html" style="font-size:17px;font-weight:700;color:#12192b">wechat-card</a><span style="font-size:12px;color:#8a94a6;background:#f4f6fc;border:1px solid #e6ebf5;padding:2px 10px;border-radius:12px">平台开发</span><span style="flex:1"></span><a href="wechat-card/wiki/home.html">📖 说明</a> <a href="wechat-card/index.html">🌐 展示</a></div><p style="font-size:13px;color:#5c6670;margin-top:8px">电子名片 H5 服务 · 组件化编辑 · 分享卡片生成</p><div style="font-size:12px;color:#b0b7c4;margin-top:6px">文件 N 个 · Wiki 页 1 页</div></div><h2 style="margin:30px 0 4px;color:#ff6cb8">🛡️ 安全运维</h2><p style="font-size:12px;color:#8a94a6">4 个项目</p><div style="background:#fff;border:1px solid #e6ebf5;border-left:4px solid #ff6cb8;border-radius:12px;padding:18px 20px;margin:14px 0"><div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap"><span style="font-size:22px">🛡️</span><a href="leon-infra/index.html" style="font-size:17px;font-weight:700;color:#12192b">leon-infra</a><span style="font-size:12px;color:#8a94a6;background:#f4f6fc;border:1px solid #e6ebf5;padding:2px 10px;border-radius:12px">安全运维</span><span style="flex:1"></span><a href="leon-infra/wiki/home.html">📖 说明</a> <a href="leon-infra/index.html">🌐 展示</a></div><p style="font-size:13px;color:#5c6670;margin-top:8px">基础设施数据引擎 · 内核级设备监控 + 公网接入 + ESXi 集群 + Caddy 网关 · 统一数据管交换 · 接口丰富</p><div style="font-size:12px;color:#b0b7c4;margin-top:6px">文件 N 个 · Wiki 页 1 页</div></div><div style="background:#fff;border:1px solid #e6ebf5;border-left:4px solid #ff6cb8;border-radius:12px;padding:18px 20px;margin:14px 0"><div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap"><span style="font-size:22px">🛡️</span><a href="lz-secops/index.html" style="font-size:17px;font-weight:700;color:#12192b">lz-secops</a><span style="font-size:12px;color:#8a94a6;background:#f4f6fc;border:1px solid #e6ebf5;padding:2px 10px;border-radius:12px">安全运维</span><span style="flex:1"></span><a href="lz-secops/wiki/home.html">📖 说明</a> <a href="lz-secops/index.html">🌐 展示</a></div><p style="font-size:13px;color:#5c6670;margin-top:8px">安全运维平台 · 告警自动建工单 · AI智能处置 · fail2ban联动 · 7×24安全运营</p><div style="font-size:12px;color:#b0b7c4;margin-top:6px">文件 N 个 · Wiki 页 1 页</div></div><div style="background:#fff;border:1px solid #e6ebf5;border-left:4px solid #ff6cb8;border-radius:12px;padding:18px 20px;margin:14px 0"><div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap"><span style="font-size:22px">🛡️</span><a href="tk-daily-patrol/index.html" style="font-size:17px;font-weight:700;color:#12192b">tk-daily-patrol</a><span style="font-size:12px;color:#8a94a6;background:#f4f6fc;border:1px solid #e6ebf5;padding:2px 10px;border-radius:12px">安全运维</span><span style="flex:1"></span><a href="tk-daily-patrol/wiki/home.html">📖 说明</a> <a href="tk-daily-patrol/index.html">🌐 展示</a></div><p style="font-size:13px;color:#5c6670;margin-top:8px">每日安全巡检平台 · 全自动查杀 + 自动修复 + 日历报告</p><div style="font-size:12px;color:#b0b7c4;margin-top:6px">文件 N 个 · Wiki 页 1 页</div></div><div style="background:#fff;border:1px solid #e6ebf5;border-left:4px solid #ff6cb8;border-radius:12px;padding:18px 20px;margin:14px 0"><div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap"><span style="font-size:22px">🛡️</span><a href="wireguard-vpn/index.html" style="font-size:17px;font-weight:700;color:#12192b">wireguard-vpn</a><span style="font-size:12px;color:#8a94a6;background:#f4f6fc;border:1px solid #e6ebf5;padding:2px 10px;border-radius:12px">安全运维</span><span style="flex:1"></span><a href="wireguard-vpn/wiki/home.html">📖 说明</a> <a href="wireguard-vpn/index.html">🌐 展示</a></div><p style="font-size:13px;color:#5c6670;margin-top:8px">安全远程接入 VPN · 一连入网 · 直达全网资源</p><div style="font-size:12px;color:#b0b7c4;margin-top:6px">文件 N 个 · Wiki 页 1 页</div></div><h2 style="margin:30px 0 4px;color:#ff9f40">📦 基础服务平台</h2><p style="font-size:12px;color:#8a94a6">4 个项目</p><div style="background:#fff;border:1px solid #e6ebf5;border-left:4px solid #ff9f40;border-radius:12px;padding:18px 20px;margin:14px 0"><div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap"><span style="font-size:22px">📦</span><a href="leon-control/index.html" style="font-size:17px;font-weight:700;color:#12192b">leon-control</a><span style="font-size:12px;color:#8a94a6;background:#f4f6fc;border:1px solid #e6ebf5;padding:2px 10px;border-radius:12px">基础服务平台</span><span style="flex:1"></span><a href="leon-control/wiki/home.html">📖 说明</a> <a href="leon-control/index.html">🌐 展示</a></div><p style="font-size:13px;color:#5c6670;margin-top:8px">脚本管理平台 + SEO 控制台 · 20+ 服务统一纳管</p><div style="font-size:12px;color:#b0b7c4;margin-top:6px">文件 N 个 · Wiki 页 1 页</div></div><div style="background:#fff;border:1px solid #e6ebf5;border-left:4px solid #ff9f40;border-radius:12px;padding:18px 20px;margin:14px 0"><div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap"><span style="font-size:22px">📦</span><a href="leon-img/index.html" style="font-size:17px;font-weight:700;color:#12192b">leon-img</a><span style="font-size:12px;color:#8a94a6;background:#f4f6fc;border:1px solid #e6ebf5;padding:2px 10px;border-radius:12px">基础服务平台</span><span style="flex:1"></span><a href="leon-img/wiki/home.html">📖 说明</a> <a href="leon-img/index.html">🌐 展示</a></div><p style="font-size:13px;color:#5c6670;margin-top:8px">智能图床服务 · 上传管理 · 分割切片 · PDF 导出</p><div style="font-size:12px;color:#b0b7c4;margin-top:6px">文件 N 个 · Wiki 页 1 页</div></div><div style="background:#fff;border:1px solid #e6ebf5;border-left:4px solid #ff9f40;border-radius:12px;padding:18px 20px;margin:14px 0"><div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap"><span style="font-size:22px">📦</span><a href="onlyoffice/index.html" style="font-size:17px;font-weight:700;color:#12192b">onlyoffice</a><span style="font-size:12px;color:#8a94a6;background:#f4f6fc;border:1px solid #e6ebf5;padding:2px 10px;border-radius:12px">基础服务平台</span><span style="flex:1"></span><a href="onlyoffice/wiki/home.html">📖 说明</a> <a href="onlyoffice/index.html">🌐 展示</a></div><p style="font-size:13px;color:#5c6670;margin-top:8px">在线文档服务 · Docker 部署 · 与 MemKV 联动在线编辑</p><div style="font-size:12px;color:#b0b7c4;margin-top:6px">文件 N 个 · Wiki 页 1 页</div></div><div style="background:#fff;border:1px solid #e6ebf5;border-left:4px solid #ff9f40;border-radius:12px;padding:18px 20px;margin:14px 0"><div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap"><span style="font-size:22px">📦</span><a href="tk-office/index.html" style="font-size:17px;font-weight:700;color:#12192b">tk-office</a><span style="font-size:12px;color:#8a94a6;background:#f4f6fc;border:1px solid #e6ebf5;padding:2px 10px;border-radius:12px">基础服务平台</span><span style="flex:1"></span><a href="tk-office/wiki/home.html">📖 说明</a> <a href="tk-office/index.html">🌐 展示</a></div><p style="font-size:13px;color:#5c6670;margin-top:8px">PDF 拆分重组工具 · 拖拽排序 · 多格式导出</p><div style="font-size:12px;color:#b0b7c4;margin-top:6px">文件 N 个 · Wiki 页 1 页</div></div><h2 style="margin:30px 0 4px;color:#8a94a6">📄 未分组</h2><p style="font-size:12px;color:#8a94a6">3 个项目</p><div style="background:#fff;border:1px solid #e6ebf5;border-left:4px solid #8a94a6;border-radius:12px;padding:18px 20px;margin:14px 0"><div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap"><span style="font-size:22px">📄</span><a href="SAFTOP-Manual/index.html" style="font-size:17px;font-weight:700;color:#12192b">SAFTOP-Manual</a><span style="font-size:12px;color:#8a94a6;background:#f4f6fc;border:1px solid #e6ebf5;padding:2px 10px;border-radius:12px">未分组</span><span style="flex:1"></span><a href="SAFTOP-Manual/wiki/home.html">📖 说明</a> <a href="SAFTOP-Manual/index.html">🌐 展示</a></div><p style="font-size:13px;color:#5c6670;margin-top:8px">SAFTOP IoT Platform Manual</p><div style="font-size:12px;color:#b0b7c4;margin-top:6px">文件 N 个 · Wiki 页 1 页</div></div><div style="background:#fff;border:1px solid #e6ebf5;border-left:4px solid #8a94a6;border-radius:12px;padding:18px 20px;margin:14px 0"><div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap"><span style="font-size:22px">📄</span><a href="tk-visitor-gate/index.html" style="font-size:17px;font-weight:700;color:#12192b">tk-visitor-gate</a><span style="font-size:12px;color:#8a94a6;background:#f4f6fc;border:1px solid #e6ebf5;padding:2px 10px;border-radius:12px">未分组</span><span style="flex:1"></span><a href="tk-visitor-gate/wiki/home.html">📖 说明</a> <a href="tk-visitor-gate/index.html">🌐 展示</a></div><p style="font-size:13px;color:#5c6670;margin-top:8px">访客门禁管理系统官网 · 产品介绍与在线预约演示</p><div style="font-size:12px;color:#b0b7c4;margin-top:6px">文件 N 个 · Wiki 页 14 页</div></div><div style="background:#fff;border:1px solid #e6ebf5;border-left:4px solid #8a94a6;border-radius:12px;padding:18px 20px;margin:14px 0"><div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap"><span style="font-size:22px">📄</span><a href="yzt-smart-construction/index.html" style="font-size:17px;font-weight:700;color:#12192b">yzt-smart-construction</a><span style="font-size:12px;color:#8a94a6;background:#f4f6fc;border:1px solid #e6ebf5;padding:2px 10px;border-radius:12px">未分组</span><span style="flex:1"></span><a href="yzt-smart-construction/wiki/home.html">📖 说明</a> <a href="yzt-smart-construction/index.html">🌐 展示</a></div><p style="font-size:13px;color:#5c6670;margin-top:8px">深圳市一指通智能科技有限公司-智慧工地宝管理平台 官方网站+操作文档</p><div style="font-size:12px;color:#b0b7c4;margin-top:6px">文件 N 个 · Wiki 页 1 页</div></div><p style="text-align:center;color:#b0b7c4;font-size:12px;margin-top:40px">
-© 2026 Leon · 本页由 showcase_export.py 自动生成</p></div></body></html>
+
+
+<nav>
+  <div class="nav-in">
+    <a class="brand" href="http://119.145.17.34:5070/">
+      <span class="dot">⚙️</span>
+      Leon<span style="color:#1a1a1a">-Web-Host</span>
+      <small>v3.0 · Data Engine</small>
+    </a>
+    <div class="nav-links">
+      <a href="#features">核心能力</a>
+      <a href="#cases">项目案例</a>
+      <a href="#featured">精选项目</a>
+      <a href="http://119.145.17.34:5070/ecosystem">生态互联</a>
+      <a href="#tech">技术栈</a>
+      <a href="http://119.145.17.34:5070/api/docs">API 文档</a>
+    </div>
+    <div class="nav-right">
+      <a class="nav-btn ghost" href="http://119.145.17.34:5070/ecosystem">生态大图</a>
+      
+        <a class="nav-btn ghost" href="http://119.145.17.34:5070/login">登录</a>
+        <a class="nav-btn pri" href="#cta">立即开始 →</a>
+      
+    </div>
+  </div>
+</nav>
+
+<!-- ========== Hero ========== -->
+<header class="hero">
+  <div class="wrap">
+    <div class="hero-inner">
+      <div>
+        <span class="hero-badge"><span class="dot-pulse"></span> 已上线 21 个项目 · 持续增长中</span>
+        <h1>
+          <em>项目托管数据引擎</em><br>
+          内核驱动 · 多平台数据交换
+          <span class="sub-line">强大数据管交换 · 丰富接口 · 集成管理项目</span>
+        </h1>
+        <p class="sub">
+          基于自研内核的<b>项目托管数据引擎</b>，每个项目拥有<b>独立展示站</b> <code style="color:#1a1a1a;background:rgba(0,0,0,.05);padding:2px 7px;border-radius:5px;font-size:13px">/s/&lt;name&gt;/</code>
+          与<b>说明书 Wiki 站</b> <code style="color:#1a1a1a;background:rgba(0,0,0,.05);padding:2px 7px;border-radius:5px;font-size:13px">/w/&lt;name&gt;/</code>，
+          Git 式快照支持 <b>50 版历史回滚</b>，通过<b>统一数据管交换协议</b>与 MemKV 记忆库、Leon-Control 管控台、图床、控制系统等深度互通，丰富的 REST API 接口支持跨平台集成。
+        </p>
+        <div class="hero-cta">
+          <a class="btn pri" href="#cases">浏览全部项目 →</a>
+          <a class="btn ghost" href="http://119.145.17.34:5070/api/docs">📘 API 文档</a>
+          <a class="btn ghost" href="http://119.145.17.34:5070/ecosystem">🧬 生态可视化</a>
+        </div>
+        <div class="hero-trust">
+          <span>🔌 Flask + Jinja2</span>
+          <span>📡 RESTful API</span>
+          <span>🧠 数据引擎</span>
+          <span>🛡️ Token 鉴权</span>
+        </div>
+      </div>
+
+      <!-- Hero 右侧浮动卡片 -->
+      <div class="hero-vis">
+        <div class="vis-card vc-1">
+          <div class="vc-head">
+            <div class="vc-icon">📦</div>
+            <div>
+              <div class="vc-title">新建项目</div>
+              <div class="vc-sub">POST /api/projects</div>
+            </div>
+          </div>
+          <div class="vc-row"><span>name</span><b>"leon-web-host"</b></div>
+          <div class="vc-row"><span>description</span><b style="font-size:11px">"项目托管数据引擎..."</b></div>
+          <div class="vc-row"><span>状态</span><span class="vc-chip">已创建</span></div>
+        </div>
+
+        <div class="vis-card vc-2">
+          <div class="vc-head">
+            <div class="vc-icon">📝</div>
+            <div>
+              <div class="vc-title">数据引擎写入</div>
+              <div class="vc-sub">PUT 快照 #42</div>
+            </div>
+          </div>
+          <div class="vc-row"><span>path</span><b>index.html</b></div>
+          <div class="vc-row"><span>commit</span><b>"v2.1 发布"</b></div>
+        </div>
+
+        <div class="vis-card vc-3">
+          <div class="vc-head">
+            <div class="vc-icon">🕰️</div>
+            <div>
+              <div class="vc-title">版本回滚</div>
+              <div class="vc-sub">50 版快照</div>
+            </div>
+          </div>
+          <div class="vc-row"><span>v2.1</span><span class="vc-chip b">最新</span></div>
+          <div class="vc-row"><span>v2.0</span><b style="font-size:11px">2026-09-01</b></div>
+          <div class="vc-row"><span>v1.9</span><b style="font-size:11px">2026-08-28</b></div>
+        </div>
+
+        <div class="vis-card vc-4">
+          <div class="vc-head">
+            <div class="vc-icon">🔑</div>
+            <div>
+              <div class="vc-title">Token 鉴权</div>
+              <div class="vc-sub">Bearer Token</div>
+            </div>
+          </div>
+          <div class="vc-row"><span>scope</span><b>project</b></div>
+          <div class="vc-row"><span>权限</span><span class="vc-chip o">读写</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ========== 数据指标栏 ========== -->
+<div class="stats-strip">
+  <div class="wrap">
+    <div class="stats-strip-inner" id="stats-strip">
+      <div><span class="ic">📦</span><b>21</b><span>托管项目</span></div>
+      <div><span class="ic">📁</span><b>4</b><span>分组分类</span></div>
+      <div><span class="ic">📄</span><b id="stat-files">—</b><span>文件总数</span></div>
+      <div><span class="ic">🕰️</span><b id="stat-commits">—</b><span>历史快照</span></div>
+      <div><span class="ic">🧠</span><b>100%</b><span>数据互通</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== 核心能力 ========== -->
+<section id="features">
+  <div class="wrap">
+    <div class="sec-tag">Features</div>
+    <h2>面向 <em>数据引擎</em> 打造的核心能力</h2>
+    <p class="lead">不只是一个静态文件托管，更是一套以内核引擎为驱动的项目数据交换与集成管理平台。</p>
+
+    <div class="features-grid">
+      <div class="feature" style="--f-grad:linear-gradient(135deg,#448aff,#26c6da)">
+        <div class="ic" style="background:linear-gradient(135deg,#448aff,#26c6da)">📦</div>
+        <h3>静态站点托管</h3>
+        <p>单文件 / 多页 HTML / SPA 站点一键托管到 <code style="color:#1a1a1a">/s/&lt;name&gt;/</code>，即传即用无需构建。</p>
+        <ul>
+          <li>支持多文件目录结构</li>
+          <li>自动识别 MIME 与字符集</li>
+          <li>支持自定义 404 页面</li>
+        </ul>
+      </div>
+
+      <div class="feature" style="--f-grad:linear-gradient(135deg,#ff5252,#ff8a65)">
+        <div class="ic" style="background:linear-gradient(135deg,#ff5252,#ff8a65)">📖</div>
+        <h3>说明书 Wiki 站</h3>
+        <p>每个项目自动获得 <code style="color:#1a1a1a">/w/&lt;name&gt;/</code>，Markdown 编写、网页登录编辑、全文搜索。</p>
+        <ul>
+          <li>支持 Markdown 实时预览</li>
+          <li>数据引擎 API 自动同步文档</li>
+          <li>全文检索 + 历史快照</li>
+        </ul>
+      </div>
+
+      <div class="feature" style="--f-grad:linear-gradient(135deg,#43a047,#26c6da)">
+        <div class="ic" style="background:linear-gradient(135deg,#43a047,#26c6da)">🕰️</div>
+        <h3>Git 式版本管理</h3>
+        <p>每次写入自动生成快照提交，最多保留 50 版历史，支持任意版本一键回滚。</p>
+        <ul>
+          <li>快照时间线可视化</li>
+          <li>差异对比 / 单文件回滚</li>
+          <li>提交信息可自定义</li>
+        </ul>
+      </div>
+
+      <div class="feature" style="--f-grad:linear-gradient(135deg,#26c6da,#448aff)">
+        <div class="ic" style="background:linear-gradient(135deg,#26c6da,#448aff)">🖼️</div>
+        <h3>图床服务</h3>
+        <p>图片上传即时外链，配合站点素材统一管理，支持格式转换与 PDF 导出。</p>
+        <ul>
+          <li>拖拽 / 粘贴上传</li>
+          <li>智能压缩 + 分屏切片</li>
+          <li>支持 PDF / 长图导出</li>
+        </ul>
+      </div>
+
+      <div class="feature" style="--f-grad:linear-gradient(135deg,#ffb300,#ff7043)">
+        <div class="ic" style="background:linear-gradient(135deg,#ffb300,#ff7043)">🔑</div>
+        <h3>数据引擎 API</h3>
+        <p>项目级 Token 读写接口，丰富的 RESTful + WebHook + WebSocket 接口支持跨平台集成与数据互通。</p>
+        <ul>
+          <li>RESTful + MCP 协议双适配</li>
+          <li>Bearer Token / 项目级权限</li>
+          <li>OpenAPI 文档自动生成</li>
+        </ul>
+      </div>
+
+      <div class="feature" style="--f-grad:linear-gradient(135deg,#e91e63,#ff8ab5)">
+        <div class="ic" style="background:linear-gradient(135deg,#e91e63,#ff8ab5)">🏷️</div>
+        <h3>集成管理项目</h3>
+        <p>首页按业务分组聚合展示，自定义图标与颜色，支持「未分组」兜底，统一纳管多平台项目。</p>
+        <ul>
+          <li>分组 Tab 快速筛选</li>
+          <li>多平台项目统一汇聚</li>
+          <li>支持后台动态管理</li>
+        </ul>
+      </div>
+
+      <div class="feature" style="--f-grad:linear-gradient(135deg,#7c4dff,#448aff)">
+        <div class="ic" style="background:linear-gradient(135deg,#7c4dff,#448aff)">🧠</div>
+        <h3>内核引擎</h3>
+        <p>自研项目托管内核：存储引擎 / 调度引擎 / 集成引擎三大内核并行，毫秒级响应与高并发支撑。</p>
+        <ul>
+          <li>存储引擎：JSON 文件 + 快照分层</li>
+          <li>调度引擎：异步任务 / 队列管理</li>
+          <li>集成引擎：多平台协议适配</li>
+        </ul>
+      </div>
+
+      <div class="feature" style="--f-grad:linear-gradient(135deg,#00897b,#43a047)">
+        <div class="ic" style="background:linear-gradient(135deg,#00897b,#43a047)">🔄</div>
+        <h3>数据管交换</h3>
+        <p>统一数据管交换协议，与 MemKV 记忆库、Leon-Control 管控台、图床、控制系统等深度互通。</p>
+        <ul>
+          <li>跨平台双向数据交互</li>
+          <li>Webhook 事件回调</li>
+          <li>OpenAPI 多语言 SDK</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== 精选项目 ========== -->
+<section id="featured">
+  <div class="wrap">
+    <div class="sec-tag">Featured Projects</div>
+    <h2><em>主推项目</em> · 三大引擎</h2>
+    <p class="lead">AI 记忆数据引擎 + 安全运营中枢 + 自动化执行中心——Leon-Web-Host 现已承载 21 个真实在用项目。</p>
+
+    <div class="featured">
+      
+      
+        
+          
+            
+          
+        
+      
+        
+          
+            
+          
+        
+      
+        
+          
+            
+          
+        
+      
+      
+        
+        <div class="featured-card main">
+          <span class="ft-tag">⭐ 主推项目 · 记忆数据引擎</span>
+          <h3>memkv</h3>
+          <p>AI 三级记忆知识库 · 打通 AI 与人 · 人性化交互 · 项目→分组→条目 · HTTP API 驱动 · 让 AI 像人一样拥有可被任意设备共享的长期记忆</p>
+          <div class="ft-meta">
+            <div><b>9</b>文件</div>
+            <div><b>2</b>快照</div>
+            <div><b>32</b>位Token</div>
+          </div>
+          <a class="ft-link" href="./memkv/" target="_blank">访问项目 ↗</a>
+        </div>
+        
+      
+        
+        <div class="featured-card">
+          <span class="ft-tag" style="background:rgba(234,67,53,.2);color:#c5221f">🌟 主推项目 · 安全运营中枢</span>
+          <h3>lz-secops</h3>
+          <p>安全运维平台 · 告警自动建工单 · AI智能处置 · fail2ban联动 · 7×24安全运营</p>
+          <div class="ft-meta">
+            <div><b>1</b>文件</div>
+            <div><b>0</b>快照</div>
+            <div><b>32</b>位Token</div>
+          </div>
+          <a class="ft-link" href="./lz-secops/" target="_blank">访问项目 ↗</a>
+        </div>
+        
+      
+        
+        <div class="featured-card">
+          <span class="ft-tag" style="background:rgba(52,168,83,.1);color:#188038">🌟 主推项目 · 自动化执行中心</span>
+          <h3>lz-agent</h3>
+          <p>机房自动化执行中心 · SSH 跨节点执行器 + 工单系统 + 定时巡检</p>
+          <div class="ft-meta">
+            <div><b>1</b>文件</div>
+            <div><b>1</b>快照</div>
+            <div><b>32</b>位Token</div>
+          </div>
+          <a class="ft-link" href="./lz-agent/" target="_blank">访问项目 ↗</a>
+        </div>
+        
+      
+    </div>
+
+    <!-- 分组案例 Tab -->
+    <div class="case-tabs">
+      <div class="case-tab active" onclick="filterCases('all', this)">全部 <span class="badge-num">21</span></div>
+      
+        <div class="case-tab" onclick="filterCases('1', this)" data-c="#6c8cff">🤖 AI 智能服务 <span class="badge-num">3</span></div>
+      
+        <div class="case-tab" onclick="filterCases('2', this)" data-c="#a86cff">💻 平台开发 <span class="badge-num">7</span></div>
+      
+        <div class="case-tab" onclick="filterCases('3', this)" data-c="#ff6cb8">🛡️ 安全运维 <span class="badge-num">4</span></div>
+      
+        <div class="case-tab" onclick="filterCases('4', this)" data-c="#ff9f40">📦 基础服务平台 <span class="badge-num">4</span></div>
+      
+      <div class="case-tab" onclick="filterCases('ungrouped', this)">📁 未分组 <span class="badge-num">3</span></div>
+    </div>
+
+    <!-- 案例分组循环 -->
+    <div id="cases">
+    
+    <div class="case-group" data-case="1">
+      <div class="case-group-head">
+        <div class="gh-ic" style="background:#6c8cff18;border:1px solid #6c8cff30">🤖</div>
+        <div class="gh-info">
+          <h3 style="color:#6c8cffaa">AI 智能服务</h3>
+          <p>3 个项目 · 涵盖该方向的核心应用</p>
+        </div>
+      </div>
+      <div class="projects">
+        
+        <div class="project" data-case="1" style="--pc:#6c8cff;--pc-bg:#6c8cff18;--pc-text:#6c8cff">
+          <div class="p-head">
+            <div class="p-icon">🤖</div>
+            <span class="p-tag">AI 智能服务</span>
+          </div>
+          <h4><a href="http://119.145.17.34:5070/p/memkv/">memkv</a></h4>
+          <p class="desc" data-mem-desc="memkv">AI 三级记忆知识库 · 打通 AI 与人 · 人性化交互 · 项目→分组→条目 · HTTP API 驱动 · 让 AI 像人一样拥有可被任意设备共享的长期记忆</p>
+          <div class="tags" data-mem-tags="memkv">
+            <span>AI 智能服务</span>
+            <span>v2</span>
+            <span>9 文件</span>
+          </div>
+          <div class="stats">
+            <div><b>9</b>文件</div>
+            <div><b>2</b>提交</div>
+            <div><b>公开</b></div>
+          </div>
+          <div class="urls">
+            <a class="site" href="./memkv/" target="_blank">📦 展示站</a>
+            <a class="wiki" href="./memkv/wiki/home.html" target="_blank">📖 Wiki</a>
+            <a class="detail" href="http://119.145.17.34:5070/p/memkv/" target="_blank">详情</a>
+          </div>
+        </div>
+        
+        <div class="project" data-case="1" style="--pc:#6c8cff;--pc-bg:#6c8cff18;--pc-text:#6c8cff">
+          <div class="p-head">
+            <div class="p-icon">🤖</div>
+            <span class="p-tag">AI 智能服务</span>
+          </div>
+          <h4><a href="http://119.145.17.34:5070/p/lz-agent/">lz-agent</a></h4>
+          <p class="desc" data-mem-desc="lz-agent">机房自动化执行中心 · SSH 跨节点执行器 + 工单系统 + 定时巡检</p>
+          <div class="tags" data-mem-tags="lz-agent">
+            <span>AI 智能服务</span>
+            <span>v1</span>
+            <span>1 文件</span>
+          </div>
+          <div class="stats">
+            <div><b>1</b>文件</div>
+            <div><b>1</b>提交</div>
+            <div><b>公开</b></div>
+          </div>
+          <div class="urls">
+            <a class="site" href="./lz-agent/" target="_blank">📦 展示站</a>
+            <a class="wiki" href="./lz-agent/wiki/home.html" target="_blank">📖 Wiki</a>
+            <a class="detail" href="http://119.145.17.34:5070/p/lz-agent/" target="_blank">详情</a>
+          </div>
+        </div>
+        
+        <div class="project" data-case="1" style="--pc:#6c8cff;--pc-bg:#6c8cff18;--pc-text:#6c8cff">
+          <div class="p-head">
+            <div class="p-icon">🤖</div>
+            <span class="p-tag">AI 智能服务</span>
+          </div>
+          <h4><a href="http://119.145.17.34:5070/p/leon-ai-chat/">leon-ai-chat</a></h4>
+          <p class="desc" data-mem-desc="leon-ai-chat">基于 MemKV 知识库的 AI 智能问答系统 · SSE 流式输出</p>
+          <div class="tags" data-mem-tags="leon-ai-chat">
+            <span>AI 智能服务</span>
+            <span>v1</span>
+            <span>1 文件</span>
+          </div>
+          <div class="stats">
+            <div><b>1</b>文件</div>
+            <div><b>1</b>提交</div>
+            <div><b>公开</b></div>
+          </div>
+          <div class="urls">
+            <a class="site" href="./leon-ai-chat/" target="_blank">📦 展示站</a>
+            <a class="wiki" href="./leon-ai-chat/wiki/home.html" target="_blank">📖 Wiki</a>
+            <a class="detail" href="http://119.145.17.34:5070/p/leon-ai-chat/" target="_blank">详情</a>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+    
+    <div class="case-group" data-case="2">
+      <div class="case-group-head">
+        <div class="gh-ic" style="background:#a86cff18;border:1px solid #a86cff30">💻</div>
+        <div class="gh-info">
+          <h3 style="color:#a86cffaa">平台开发</h3>
+          <p>7 个项目 · 涵盖该方向的核心应用</p>
+        </div>
+      </div>
+      <div class="projects">
+        
+        <div class="project" data-case="2" style="--pc:#a86cff;--pc-bg:#a86cff18;--pc-text:#a86cff">
+          <div class="p-head">
+            <div class="p-icon">💻</div>
+            <span class="p-tag">平台开发</span>
+          </div>
+          <h4><a href="http://119.145.17.34:5070/p/wechat-card/">wechat-card</a></h4>
+          <p class="desc" data-mem-desc="wechat-card">电子名片 H5 服务 · 组件化编辑 · 分享卡片生成</p>
+          <div class="tags" data-mem-tags="wechat-card">
+            <span>平台开发</span>
+            <span>v1</span>
+            <span>2 文件</span>
+          </div>
+          <div class="stats">
+            <div><b>2</b>文件</div>
+            <div><b>1</b>提交</div>
+            <div><b>公开</b></div>
+          </div>
+          <div class="urls">
+            <a class="site" href="./wechat-card/" target="_blank">📦 展示站</a>
+            <a class="wiki" href="./wechat-card/wiki/home.html" target="_blank">📖 Wiki</a>
+            <a class="detail" href="http://119.145.17.34:5070/p/wechat-card/" target="_blank">详情</a>
+          </div>
+        </div>
+        
+        <div class="project" data-case="2" style="--pc:#a86cff;--pc-bg:#a86cff18;--pc-text:#a86cff">
+          <div class="p-head">
+            <div class="p-icon">💻</div>
+            <span class="p-tag">平台开发</span>
+          </div>
+          <h4><a href="http://119.145.17.34:5070/p/tk-zy-oa/">tk-zy-oa</a></h4>
+          <p class="desc" data-mem-desc="tk-zy-oa">致远 OA 表单数据管理工具 · 达梦数据库直连 · Excel 批量导出</p>
+          <div class="tags" data-mem-tags="tk-zy-oa">
+            <span>平台开发</span>
+            <span>v1</span>
+            <span>1 文件</span>
+          </div>
+          <div class="stats">
+            <div><b>1</b>文件</div>
+            <div><b>1</b>提交</div>
+            <div><b>公开</b></div>
+          </div>
+          <div class="urls">
+            <a class="site" href="./tk-zy-oa/" target="_blank">📦 展示站</a>
+            <a class="wiki" href="./tk-zy-oa/wiki/home.html" target="_blank">📖 Wiki</a>
+            <a class="detail" href="http://119.145.17.34:5070/p/tk-zy-oa/" target="_blank">详情</a>
+          </div>
+        </div>
+        
+        <div class="project" data-case="2" style="--pc:#a86cff;--pc-bg:#a86cff18;--pc-text:#a86cff">
+          <div class="p-head">
+            <div class="p-icon">💻</div>
+            <span class="p-tag">平台开发</span>
+          </div>
+          <h4><a href="http://119.145.17.34:5070/p/tk-safe-upload/">tk-safe-upload</a></h4>
+          <p class="desc" data-mem-desc="tk-safe-upload">安全生产一体化智慧管理平台 · 移动端 + PC 后台 + 数据大屏</p>
+          <div class="tags" data-mem-tags="tk-safe-upload">
+            <span>平台开发</span>
+            <span>v1</span>
+            <span>69 文件</span>
+          </div>
+          <div class="stats">
+            <div><b>69</b>文件</div>
+            <div><b>1</b>提交</div>
+            <div><b>公开</b></div>
+          </div>
+          <div class="urls">
+            <a class="site" href="./tk-safe-upload/" target="_blank">📦 展示站</a>
+            <a class="wiki" href="./tk-safe-upload/wiki/home.html" target="_blank">📖 Wiki</a>
+            <a class="detail" href="http://119.145.17.34:5070/p/tk-safe-upload/" target="_blank">详情</a>
+          </div>
+        </div>
+        
+        <div class="project" data-case="2" style="--pc:#a86cff;--pc-bg:#a86cff18;--pc-text:#a86cff">
+          <div class="p-head">
+            <div class="p-icon">💻</div>
+            <span class="p-tag">平台开发</span>
+          </div>
+          <h4><a href="http://119.145.17.34:5070/p/surveyking/">surveyking</a></h4>
+          <p class="desc" data-mem-desc="surveyking">问卷管理 / 考试系统 · Docker 容器化部署</p>
+          <div class="tags" data-mem-tags="surveyking">
+            <span>平台开发</span>
+            <span>v1</span>
+            <span>79 文件</span>
+          </div>
+          <div class="stats">
+            <div><b>79</b>文件</div>
+            <div><b>1</b>提交</div>
+            <div><b>公开</b></div>
+          </div>
+          <div class="urls">
+            <a class="site" href="./surveyking/" target="_blank">📦 展示站</a>
+            <a class="wiki" href="./surveyking/wiki/home.html" target="_blank">📖 Wiki</a>
+            <a class="detail" href="http://119.145.17.34:5070/p/surveyking/" target="_blank">详情</a>
+          </div>
+        </div>
+        
+        <div class="project" data-case="2" style="--pc:#a86cff;--pc-bg:#a86cff18;--pc-text:#a86cff">
+          <div class="p-head">
+            <div class="p-icon">💻</div>
+            <span class="p-tag">平台开发</span>
+          </div>
+          <h4><a href="http://119.145.17.34:5070/p/qr-code-gate/">qr-code-gate</a></h4>
+          <p class="desc" data-mem-desc="qr-code-gate">访客门禁二维码管理系统 · 达实 C3 平台对接 · 闸机联动</p>
+          <div class="tags" data-mem-tags="qr-code-gate">
+            <span>平台开发</span>
+            <span>v4</span>
+            <span>1 文件</span>
+          </div>
+          <div class="stats">
+            <div><b>1</b>文件</div>
+            <div><b>4</b>提交</div>
+            <div><b>公开</b></div>
+          </div>
+          <div class="urls">
+            <a class="site" href="./qr-code-gate/" target="_blank">📦 展示站</a>
+            <a class="wiki" href="./qr-code-gate/wiki/home.html" target="_blank">📖 Wiki</a>
+            <a class="detail" href="http://119.145.17.34:5070/p/qr-code-gate/" target="_blank">详情</a>
+          </div>
+        </div>
+        
+        <div class="project" data-case="2" style="--pc:#a86cff;--pc-bg:#a86cff18;--pc-text:#a86cff">
+          <div class="p-head">
+            <div class="p-icon">💻</div>
+            <span class="p-tag">平台开发</span>
+          </div>
+          <h4><a href="http://119.145.17.34:5070/p/LZ-Studio/">LZ-Studio</a></h4>
+          <p class="desc" data-mem-desc="LZ-Studio">暂无描述</p>
+          <div class="tags" data-mem-tags="LZ-Studio">
+            <span>平台开发</span>
+            <span>v5</span>
+            <span>1 文件</span>
+          </div>
+          <div class="stats">
+            <div><b>1</b>文件</div>
+            <div><b>5</b>提交</div>
+            <div><b>公开</b></div>
+          </div>
+          <div class="urls">
+            <a class="site" href="./LZ-Studio/" target="_blank">📦 展示站</a>
+            <a class="wiki" href="./LZ-Studio/wiki/home.html" target="_blank">📖 Wiki</a>
+            <a class="detail" href="http://119.145.17.34:5070/p/LZ-Studio/" target="_blank">详情</a>
+          </div>
+        </div>
+        
+        <div class="project" data-case="2" style="--pc:#a86cff;--pc-bg:#a86cff18;--pc-text:#a86cff">
+          <div class="p-head">
+            <div class="p-icon">💻</div>
+            <span class="p-tag">平台开发</span>
+          </div>
+          <h4><a href="http://119.145.17.34:5070/p/leon-web-host/">leon-web-host</a></h4>
+          <p class="desc" data-mem-desc="leon-web-host">项目托管数据引擎 · 内核驱动 · 数据管交换 · 丰富接口 · 集成管理项目</p>
+          <div class="tags" data-mem-tags="leon-web-host">
+            <span>平台开发</span>
+            <span>v2</span>
+            <span>1 文件</span>
+          </div>
+          <div class="stats">
+            <div><b>1</b>文件</div>
+            <div><b>2</b>提交</div>
+            <div><b>公开</b></div>
+          </div>
+          <div class="urls">
+            <a class="site" href="./leon-web-host/" target="_blank">📦 展示站</a>
+            <a class="wiki" href="./leon-web-host/wiki/home.html" target="_blank">📖 Wiki</a>
+            <a class="detail" href="http://119.145.17.34:5070/p/leon-web-host/" target="_blank">详情</a>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+    
+    <div class="case-group" data-case="3">
+      <div class="case-group-head">
+        <div class="gh-ic" style="background:#ff6cb818;border:1px solid #ff6cb830">🛡️</div>
+        <div class="gh-info">
+          <h3 style="color:#ff6cb8aa">安全运维</h3>
+          <p>4 个项目 · 涵盖该方向的核心应用</p>
+        </div>
+      </div>
+      <div class="projects">
+        
+        <div class="project" data-case="3" style="--pc:#ff6cb8;--pc-bg:#ff6cb818;--pc-text:#ff6cb8">
+          <div class="p-head">
+            <div class="p-icon">🛡️</div>
+            <span class="p-tag">安全运维</span>
+          </div>
+          <h4><a href="http://119.145.17.34:5070/p/leon-infra/">leon-infra</a></h4>
+          <p class="desc" data-mem-desc="leon-infra">基础设施数据引擎 · 内核级设备监控 + 公网接入 + ESXi 集群 + Caddy 网关 · 统一数据管交换 · 接口丰富</p>
+          <div class="tags" data-mem-tags="leon-infra">
+            <span>安全运维</span>
+            <span>v2</span>
+            <span>1 文件</span>
+          </div>
+          <div class="stats">
+            <div><b>1</b>文件</div>
+            <div><b>2</b>提交</div>
+            <div><b>公开</b></div>
+          </div>
+          <div class="urls">
+            <a class="site" href="./leon-infra/" target="_blank">📦 展示站</a>
+            <a class="wiki" href="./leon-infra/wiki/home.html" target="_blank">📖 Wiki</a>
+            <a class="detail" href="http://119.145.17.34:5070/p/leon-infra/" target="_blank">详情</a>
+          </div>
+        </div>
+        
+        <div class="project" data-case="3" style="--pc:#ff6cb8;--pc-bg:#ff6cb818;--pc-text:#ff6cb8">
+          <div class="p-head">
+            <div class="p-icon">🛡️</div>
+            <span class="p-tag">安全运维</span>
+          </div>
+          <h4><a href="http://119.145.17.34:5070/p/lz-secops/">lz-secops</a></h4>
+          <p class="desc" data-mem-desc="lz-secops">安全运维平台 · 告警自动建工单 · AI智能处置 · fail2ban联动 · 7×24安全运营</p>
+          <div class="tags" data-mem-tags="lz-secops">
+            <span>安全运维</span>
+            <span>v0</span>
+            <span>1 文件</span>
+          </div>
+          <div class="stats">
+            <div><b>1</b>文件</div>
+            <div><b>0</b>提交</div>
+            <div><b>公开</b></div>
+          </div>
+          <div class="urls">
+            <a class="site" href="./lz-secops/" target="_blank">📦 展示站</a>
+            <a class="wiki" href="./lz-secops/wiki/home.html" target="_blank">📖 Wiki</a>
+            <a class="detail" href="http://119.145.17.34:5070/p/lz-secops/" target="_blank">详情</a>
+          </div>
+        </div>
+        
+        <div class="project" data-case="3" style="--pc:#ff6cb8;--pc-bg:#ff6cb818;--pc-text:#ff6cb8">
+          <div class="p-head">
+            <div class="p-icon">🛡️</div>
+            <span class="p-tag">安全运维</span>
+          </div>
+          <h4><a href="http://119.145.17.34:5070/p/wireguard-vpn/">wireguard-vpn</a></h4>
+          <p class="desc" data-mem-desc="wireguard-vpn">安全远程接入 VPN · 一连入网 · 直达全网资源</p>
+          <div class="tags" data-mem-tags="wireguard-vpn">
+            <span>安全运维</span>
+            <span>v1</span>
+            <span>1 文件</span>
+          </div>
+          <div class="stats">
+            <div><b>1</b>文件</div>
+            <div><b>1</b>提交</div>
+            <div><b>公开</b></div>
+          </div>
+          <div class="urls">
+            <a class="site" href="./wireguard-vpn/" target="_blank">📦 展示站</a>
+            <a class="wiki" href="./wireguard-vpn/wiki/home.html" target="_blank">📖 Wiki</a>
+            <a class="detail" href="http://119.145.17.34:5070/p/wireguard-vpn/" target="_blank">详情</a>
+          </div>
+        </div>
+        
+        <div class="project" data-case="3" style="--pc:#ff6cb8;--pc-bg:#ff6cb818;--pc-text:#ff6cb8">
+          <div class="p-head">
+            <div class="p-icon">🛡️</div>
+            <span class="p-tag">安全运维</span>
+          </div>
+          <h4><a href="http://119.145.17.34:5070/p/tk-daily-patrol/">tk-daily-patrol</a></h4>
+          <p class="desc" data-mem-desc="tk-daily-patrol">每日安全巡检平台 · 全自动查杀 + 自动修复 + 日历报告</p>
+          <div class="tags" data-mem-tags="tk-daily-patrol">
+            <span>安全运维</span>
+            <span>v1</span>
+            <span>1 文件</span>
+          </div>
+          <div class="stats">
+            <div><b>1</b>文件</div>
+            <div><b>1</b>提交</div>
+            <div><b>公开</b></div>
+          </div>
+          <div class="urls">
+            <a class="site" href="./tk-daily-patrol/" target="_blank">📦 展示站</a>
+            <a class="wiki" href="./tk-daily-patrol/wiki/home.html" target="_blank">📖 Wiki</a>
+            <a class="detail" href="http://119.145.17.34:5070/p/tk-daily-patrol/" target="_blank">详情</a>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+    
+    <div class="case-group" data-case="4">
+      <div class="case-group-head">
+        <div class="gh-ic" style="background:#ff9f4018;border:1px solid #ff9f4030">📦</div>
+        <div class="gh-info">
+          <h3 style="color:#ff9f40aa">基础服务平台</h3>
+          <p>4 个项目 · 涵盖该方向的核心应用</p>
+        </div>
+      </div>
+      <div class="projects">
+        
+        <div class="project" data-case="4" style="--pc:#ff9f40;--pc-bg:#ff9f4018;--pc-text:#ff9f40">
+          <div class="p-head">
+            <div class="p-icon">📦</div>
+            <span class="p-tag">基础服务平台</span>
+          </div>
+          <h4><a href="http://119.145.17.34:5070/p/tk-office/">tk-office</a></h4>
+          <p class="desc" data-mem-desc="tk-office">PDF 拆分重组工具 · 拖拽排序 · 多格式导出</p>
+          <div class="tags" data-mem-tags="tk-office">
+            <span>基础服务平台</span>
+            <span>v1</span>
+            <span>1 文件</span>
+          </div>
+          <div class="stats">
+            <div><b>1</b>文件</div>
+            <div><b>1</b>提交</div>
+            <div><b>公开</b></div>
+          </div>
+          <div class="urls">
+            <a class="site" href="./tk-office/" target="_blank">📦 展示站</a>
+            <a class="wiki" href="./tk-office/wiki/home.html" target="_blank">📖 Wiki</a>
+            <a class="detail" href="http://119.145.17.34:5070/p/tk-office/" target="_blank">详情</a>
+          </div>
+        </div>
+        
+        <div class="project" data-case="4" style="--pc:#ff9f40;--pc-bg:#ff9f4018;--pc-text:#ff9f40">
+          <div class="p-head">
+            <div class="p-icon">📦</div>
+            <span class="p-tag">基础服务平台</span>
+          </div>
+          <h4><a href="http://119.145.17.34:5070/p/onlyoffice/">onlyoffice</a></h4>
+          <p class="desc" data-mem-desc="onlyoffice">在线文档服务 · Docker 部署 · 与 MemKV 联动在线编辑</p>
+          <div class="tags" data-mem-tags="onlyoffice">
+            <span>基础服务平台</span>
+            <span>v1</span>
+            <span>1 文件</span>
+          </div>
+          <div class="stats">
+            <div><b>1</b>文件</div>
+            <div><b>1</b>提交</div>
+            <div><b>公开</b></div>
+          </div>
+          <div class="urls">
+            <a class="site" href="./onlyoffice/" target="_blank">📦 展示站</a>
+            <a class="wiki" href="./onlyoffice/wiki/home.html" target="_blank">📖 Wiki</a>
+            <a class="detail" href="http://119.145.17.34:5070/p/onlyoffice/" target="_blank">详情</a>
+          </div>
+        </div>
+        
+        <div class="project" data-case="4" style="--pc:#ff9f40;--pc-bg:#ff9f4018;--pc-text:#ff9f40">
+          <div class="p-head">
+            <div class="p-icon">📦</div>
+            <span class="p-tag">基础服务平台</span>
+          </div>
+          <h4><a href="http://119.145.17.34:5070/p/leon-img/">leon-img</a></h4>
+          <p class="desc" data-mem-desc="leon-img">智能图床服务 · 上传管理 · 分割切片 · PDF 导出</p>
+          <div class="tags" data-mem-tags="leon-img">
+            <span>基础服务平台</span>
+            <span>v1</span>
+            <span>1 文件</span>
+          </div>
+          <div class="stats">
+            <div><b>1</b>文件</div>
+            <div><b>1</b>提交</div>
+            <div><b>公开</b></div>
+          </div>
+          <div class="urls">
+            <a class="site" href="./leon-img/" target="_blank">📦 展示站</a>
+            <a class="wiki" href="./leon-img/wiki/home.html" target="_blank">📖 Wiki</a>
+            <a class="detail" href="http://119.145.17.34:5070/p/leon-img/" target="_blank">详情</a>
+          </div>
+        </div>
+        
+        <div class="project" data-case="4" style="--pc:#ff9f40;--pc-bg:#ff9f4018;--pc-text:#ff9f40">
+          <div class="p-head">
+            <div class="p-icon">📦</div>
+            <span class="p-tag">基础服务平台</span>
+          </div>
+          <h4><a href="http://119.145.17.34:5070/p/leon-control/">leon-control</a></h4>
+          <p class="desc" data-mem-desc="leon-control">脚本管理平台 + SEO 控制台 · 20+ 服务统一纳管</p>
+          <div class="tags" data-mem-tags="leon-control">
+            <span>基础服务平台</span>
+            <span>v1</span>
+            <span>1 文件</span>
+          </div>
+          <div class="stats">
+            <div><b>1</b>文件</div>
+            <div><b>1</b>提交</div>
+            <div><b>公开</b></div>
+          </div>
+          <div class="urls">
+            <a class="site" href="./leon-control/" target="_blank">📦 展示站</a>
+            <a class="wiki" href="./leon-control/wiki/home.html" target="_blank">📖 Wiki</a>
+            <a class="detail" href="http://119.145.17.34:5070/p/leon-control/" target="_blank">详情</a>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+    
+
+    <div class="case-group" data-case="ungrouped">
+      <div class="case-group-head">
+        <div class="gh-ic" style="background:rgba(20,23,27,.03);border:1px dashed rgba(20,23,27,.14)">📁</div>
+        <div class="gh-info">
+          <h3>未分组项目</h3>
+          <p>企业官网 / 产品展示等独立项目</p>
+        </div>
+      </div>
+      <div class="projects">
+        
+        <div class="project" data-case="ungrouped" style="--pc:#1a1a1a;--pc-bg:rgba(0,0,0,.04);--pc-text:#1a1a1a">
+          <div class="p-head">
+            <div class="p-icon">📁</div>
+            <span class="p-tag">独立项目</span>
+          </div>
+          <h4><a href="http://119.145.17.34:5070/p/SAFTOP-Manual/">SAFTOP-Manual</a></h4>
+          <p class="desc" data-mem-desc="SAFTOP-Manual">SAFTOP IoT Platform Manual</p>
+          <div class="tags" data-mem-tags="SAFTOP-Manual">
+            <span>独立项目</span>
+            <span>v1</span>
+            <span>1 文件</span>
+          </div>
+          <div class="stats">
+            <div><b>1</b>文件</div>
+            <div><b>1</b>提交</div>
+            <div><b>公开</b></div>
+          </div>
+          <div class="urls">
+            <a class="site" href="./SAFTOP-Manual/" target="_blank">📦 展示站</a>
+            <a class="wiki" href="./SAFTOP-Manual/wiki/home.html" target="_blank">📖 Wiki</a>
+            <a class="detail" href="http://119.145.17.34:5070/p/SAFTOP-Manual/" target="_blank">详情</a>
+          </div>
+        </div>
+        
+        <div class="project" data-case="ungrouped" style="--pc:#1a1a1a;--pc-bg:rgba(0,0,0,.04);--pc-text:#1a1a1a">
+          <div class="p-head">
+            <div class="p-icon">📁</div>
+            <span class="p-tag">独立项目</span>
+          </div>
+          <h4><a href="http://119.145.17.34:5070/p/yzt-smart-construction/">yzt-smart-construction</a></h4>
+          <p class="desc" data-mem-desc="yzt-smart-construction">深圳市一指通智能科技有限公司-智慧工地宝管理平台 官方网站+操作文档</p>
+          <div class="tags" data-mem-tags="yzt-smart-construction">
+            <span>独立项目</span>
+            <span>v2</span>
+            <span>1 文件</span>
+          </div>
+          <div class="stats">
+            <div><b>1</b>文件</div>
+            <div><b>2</b>提交</div>
+            <div><b>公开</b></div>
+          </div>
+          <div class="urls">
+            <a class="site" href="./yzt-smart-construction/" target="_blank">📦 展示站</a>
+            <a class="wiki" href="./yzt-smart-construction/wiki/home.html" target="_blank">📖 Wiki</a>
+            <a class="detail" href="http://119.145.17.34:5070/p/yzt-smart-construction/" target="_blank">详情</a>
+          </div>
+        </div>
+        
+        <div class="project" data-case="ungrouped" style="--pc:#1a1a1a;--pc-bg:rgba(0,0,0,.04);--pc-text:#1a1a1a">
+          <div class="p-head">
+            <div class="p-icon">📁</div>
+            <span class="p-tag">独立项目</span>
+          </div>
+          <h4><a href="http://119.145.17.34:5070/p/tk-visitor-gate/">tk-visitor-gate</a></h4>
+          <p class="desc" data-mem-desc="tk-visitor-gate">访客门禁管理系统官网 · 产品介绍与在线预约演示</p>
+          <div class="tags" data-mem-tags="tk-visitor-gate">
+            <span>独立项目</span>
+            <span>v1</span>
+            <span>1 文件</span>
+          </div>
+          <div class="stats">
+            <div><b>1</b>文件</div>
+            <div><b>1</b>提交</div>
+            <div><b>公开</b></div>
+          </div>
+          <div class="urls">
+            <a class="site" href="./tk-visitor-gate/" target="_blank">📦 展示站</a>
+            <a class="wiki" href="./tk-visitor-gate/wiki/home.html" target="_blank">📖 Wiki</a>
+            <a class="detail" href="http://119.145.17.34:5070/p/tk-visitor-gate/" target="_blank">详情</a>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== 生态互联 ========== -->
+<section id="ecosystem-section" class="ecosystem">
+  <div class="wrap">
+    <div class="sec-tag">Ecosystem</div>
+    <h2>深度集成 <em>Leon 全栈生态</em></h2>
+    <p class="lead">Leon-Web-Host 不是孤岛——它通过数据管交换协议与记忆库、数据中台、图床、控制系统等深度互通，构成完整的项目运营闭环。
+      <a href="http://119.145.17.34:5070/ecosystem" style="margin-left:8px">查看完整可视化生态大图 →</a></p>
+
+    <div class="eco-grid">
+      <div class="eco-card" style="--e-grad:linear-gradient(135deg,#448aff,#26c6da)">
+        <div class="ec" style="background:linear-gradient(135deg,#448aff,#26c6da)">🧠</div>
+        <h4>MemKV 记忆库</h4>
+        <p>项目元数据 / 文档 / 运维记录自动同步到三级记忆知识库，多平台数据互通直接调用。</p>
+        <div class="tags"><span>三级记忆</span><span>HTTP API</span><span>语义检索</span></div>
+      </div>
+      <div class="eco-card" style="--e-grad:linear-gradient(135deg,#ff5252,#ff8a65)">
+        <div class="ec" style="background:linear-gradient(135deg,#ff5252,#ff8a65)">⚙️</div>
+        <h4>LZ-Agent 执行器</h4>
+        <p>所有项目的部署 / 巡检 / 告警处置由 LZ-Agent 跨节点执行，统一纳管 20+ 服务。</p>
+        <div class="tags"><span>SSH 跨节点</span><span>工单系统</span><span>自动巡检</span></div>
+      </div>
+      <div class="eco-card" style="--e-grad:linear-gradient(135deg,#43a047,#26c6da)">
+        <div class="ec" style="background:linear-gradient(135deg,#43a047,#26c6da)">🖼️</div>
+        <h4>Leon-IMG 图床</h4>
+        <p>项目展示站图片统一托管在 Leon-IMG，跨项目共享素材库。</p>
+        <div class="tags"><span>图片托管</span><span>PDF 导出</span><span>切片生成</span></div>
+      </div>
+      <div class="eco-card" style="--e-grad:linear-gradient(135deg,#26c6da,#448aff)">
+        <div class="ec" style="background:linear-gradient(135deg,#26c6da,#448aff)">📊</div>
+        <h4>Leon-Control 管控台</h4>
+        <p>20+ 服务统一纳管，可视化监控所有托管站点的在线状态与流量。</p>
+        <div class="tags"><span>服务注册</span><span>实时监控</span><span>数据管交换</span></div>
+      </div>
+      <div class="eco-card" style="--e-grad:linear-gradient(135deg,#ffb300,#ff7043)">
+        <div class="ec" style="background:linear-gradient(135deg,#ffb300,#ff7043)">🔒</div>
+        <h4>三机安全防护</h4>
+        <p>Safe / Safe01 / Safe02 三机协同，实时阻断 WebHost 入口的恶意请求。</p>
+        <div class="tags"><span>fail2ban</span><span>WAF</span><span>跨节点封禁</span></div>
+      </div>
+      <div class="eco-card" style="--e-grad:linear-gradient(135deg,#e91e63,#ff8ab5)">
+        <div class="ec" style="background:linear-gradient(135deg,#e91e63,#ff8ab5)">🌐</div>
+        <h4>Caddy / Nginx 网关</h4>
+        <p>一张证书 + 一个域名，多路径路由多项目共用出口，HTTPS 自动签发。</p>
+        <div class="tags"><span>反向代理</span><span>自动 HTTPS</span><span>多项目路由</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== 技术栈 ========== -->
+<section id="tech" class="tech-wrap">
+  <div class="wrap">
+    <div class="sec-tag">Tech Stack</div>
+    <h2 style="margin:0 auto 14px">轻量、可靠、<em>易扩展</em></h2>
+    <p class="lead" style="margin:0 auto 36px">整个平台基于 Python Flask 构建，单进程即可承载上百个项目，部署与维护成本极低。内核引擎可水平扩展，数据管交换协议支持跨平台集成。</p>
+    <div class="tech-chips">
+      <span class="tech-chip"><span class="ti">🐍</span>Python 3.12</span>
+      <span class="tech-chip"><span class="ti">🌶️</span>Flask</span>
+      <span class="tech-chip"><span class="ti">📝</span>Jinja2</span>
+      <span class="tech-chip"><span class="ti">🧠</span>自研内核</span>
+      <span class="tech-chip"><span class="ti">🗄️</span>JSON 文件存储</span>
+      <span class="tech-chip"><span class="ti">🕰️</span>快照版本</span>
+      <span class="tech-chip"><span class="ti">🔑</span>Token API</span>
+      <span class="tech-chip"><span class="ti">🔄</span>数据管交换</span>
+      <span class="tech-chip"><span class="ti">📡</span>RESTful</span>
+      <span class="tech-chip"><span class="ti">🪝</span>WebHook</span>
+      <span class="tech-chip"><span class="ti">🌐</span>HTML5 / CSS3</span>
+      <span class="tech-chip"><span class="ti">📦</span>无外部依赖</span>
+      <span class="tech-chip"><span class="ti">🐧</span>Linux / systemd</span>
+      <span class="tech-chip"><span class="ti">🔄</span>Git Workflow</span>
+    </div>
+  </div>
+</section>
+
+<!-- ========== 接入指引 ========== -->
+<section id="cta" class="cta-section">
+  <div class="wrap">
+    <div class="cta-box">
+      <div class="sec-tag" style="background:rgba(0,0,0,.05);border-color:rgba(0,0,0,.12);color:#1a1a1a">Get Started</div>
+      <h2><em>数据引擎</em> 驱动 · 集成管理你的项目</h2>
+      <p>调用 API 创建项目 → 写入文件 → 设置分组 → 发布上线 → 通过数据管交换协议与多平台集成，全流程自动化闭环。</p>
+      <div class="btns">
+        <a class="btn pri" href="http://119.145.17.34:5070/api/docs">📘 查看 API 文档</a>
+        <a class="btn ghost" href="http://119.145.17.34:5070/login">🔑 管理员登录</a>
+        <a class="btn ghost" href="#cases">👀 浏览项目案例</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== Footer ========== -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <h3><span class="dot">⚙️</span>Leon<span>-Web-Host</span></h3>
+        <p>项目托管数据引擎 · 内核驱动 · 强大数据管交换 · 丰富接口 · 集成管理项目</p>
+        <div class="social">
+          <a href="#" title="微信">💬</a>
+          <a href="#" title="GitHub">🐙</a>
+          <a href="#" title="文档">📘</a>
+          <a href="#" title="API">🔌</a>
+        </div>
+      </div>
+
+      <div class="foot-col">
+        <h4>产品</h4>
+        <ul>
+          <li><a href="#features">核心能力</a></li>
+          <li><a href="#cases">项目案例</a></li>
+          <li><a href="http://119.145.17.34:5070/ecosystem">生态互联</a></li>
+          <li><a href="#tech">技术栈</a></li>
+          <li><a href="http://119.145.17.34:5070/api/docs">API 文档</a></li>
+        </ul>
+      </div>
+
+      <div class="foot-col">
+        <h4>资源</h4>
+        <ul>
+          <li><a href="http://119.145.17.34:5070/login">管理员入口</a></li>
+          <li><a href="http://119.145.17.34:5070/admin/">管理后台</a></li>
+          <li><a href="http://119.145.17.34:5070/api/health">服务状态</a></li>
+          <li><a href="http://119.145.17.34:5070/api/projects">项目列表 API</a></li>
+          <li><a href="http://119.145.17.34:5070/api/groups">分组 API</a></li>
+        </ul>
+      </div>
+
+      <div class="foot-col">
+        <h4>生态</h4>
+        <ul>
+          <li><a href="http://119.145.17.34:5001/">MemKV 记忆库</a></li>
+          <li><a href="http://119.145.17.34:5005/">Leon-IMG 图床</a></li>
+          <li><a href="http://119.145.17.34:5000/">Leon-Control</a></li>
+          <li><a href="http://119.145.17.34:5077/">AI-Agent-Hub</a></li>
+          <li><a href="http://119.145.17.34:5070/ecosystem">查看全部 →</a></li>
+        </ul>
+      </div>
+
+      <div class="foot-col">
+        <h4>联系</h4>
+        <ul>
+          <li>📱 19580783095</li>
+          <li>📱 13058311849</li>
+          <li>💬 微信 shenzhen2017lyzlyz</li>
+          <li>📍 深圳市宝安区石岩街道</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="foot-bottom">
+      <span>© 2026 Leon-Web-Host · 由 Leon 全栈生态驱动 · Powered by <a href="http://119.145.17.34:5070/">Leon-Web-Host</a></span>
+      <span>
+        <a href="http://119.145.17.34:5070/api/health">● 服务正常</a> · <a href="http://119.145.17.34:5070/api/docs">API</a> · <a href="http://119.145.17.34:5070/login">登录</a>
+      </span>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ===== 模板变量传出的项目 JSON（供 JS 拉取 MemKV 详情）=====
+const __PROJECTS__ = [
+
+  {name:"memkv", desc:"AI 三级记忆知识库 · 打通 AI 与人 · 人性化交互 · 项目→分组→条目 · HTTP API 驱动 · 让 AI 像人一样拥有可被任意设备共享的长期记忆", group:"1", commits:2, files:9, token:"8b4c158b..."},
+
+  {name:"leon-infra", desc:"基础设施数据引擎 · 内核级设备监控 + 公网接入 + ESXi 集群 + Caddy 网关 · 统一数据管交换 · 接口丰富", group:"3", commits:2, files:1, token:"b4b7fa0c..."},
+
+  {name:"SAFTOP-Manual", desc:"SAFTOP IoT Platform Manual", group:"", commits:1, files:1, token:"1603a7ae..."},
+
+  {name:"lz-secops", desc:"安全运维平台 · 告警自动建工单 · AI智能处置 · fail2ban联动 · 7×24安全运营", group:"3", commits:0, files:1, token:"a8f3e2c1..."},
+
+  {name:"yzt-smart-construction", desc:"深圳市一指通智能科技有限公司-智慧工地宝管理平台 官方网站+操作文档", group:"", commits:2, files:1, token:"b74f37c9..."},
+
+  {name:"wireguard-vpn", desc:"安全远程接入 VPN · 一连入网 · 直达全网资源", group:"3", commits:1, files:1, token:"46f5c694..."},
+
+  {name:"wechat-card", desc:"电子名片 H5 服务 · 组件化编辑 · 分享卡片生成", group:"2", commits:1, files:2, token:"2ae4acc4..."},
+
+  {name:"tk-zy-oa", desc:"致远 OA 表单数据管理工具 · 达梦数据库直连 · Excel 批量导出", group:"2", commits:1, files:1, token:"f822f5ad..."},
+
+  {name:"tk-visitor-gate", desc:"访客门禁管理系统官网 · 产品介绍与在线预约演示", group:"", commits:1, files:1, token:"db88f5ac..."},
+
+  {name:"tk-safe-upload", desc:"安全生产一体化智慧管理平台 · 移动端 + PC 后台 + 数据大屏", group:"2", commits:1, files:69, token:"ad5f26bc..."},
+
+  {name:"tk-office", desc:"PDF 拆分重组工具 · 拖拽排序 · 多格式导出", group:"4", commits:1, files:1, token:"f290b198..."},
+
+  {name:"tk-daily-patrol", desc:"每日安全巡检平台 · 全自动查杀 + 自动修复 + 日历报告", group:"3", commits:1, files:1, token:"0d49a77b..."},
+
+  {name:"surveyking", desc:"问卷管理 / 考试系统 · Docker 容器化部署", group:"2", commits:1, files:79, token:"7a9949df..."},
+
+  {name:"qr-code-gate", desc:"访客门禁二维码管理系统 · 达实 C3 平台对接 · 闸机联动", group:"2", commits:4, files:1, token:"730e4542..."},
+
+  {name:"onlyoffice", desc:"在线文档服务 · Docker 部署 · 与 MemKV 联动在线编辑", group:"4", commits:1, files:1, token:"aabced19..."},
+
+  {name:"LZ-Studio", desc:"", group:"2", commits:5, files:1, token:"a6720ce4..."},
+
+  {name:"lz-agent", desc:"机房自动化执行中心 · SSH 跨节点执行器 + 工单系统 + 定时巡检", group:"1", commits:1, files:1, token:"047ef4ff..."},
+
+  {name:"leon-web-host", desc:"项目托管数据引擎 · 内核驱动 · 数据管交换 · 丰富接口 · 集成管理项目", group:"2", commits:2, files:1, token:"2a260700..."},
+
+  {name:"leon-img", desc:"智能图床服务 · 上传管理 · 分割切片 · PDF 导出", group:"4", commits:1, files:1, token:"01155331..."},
+
+  {name:"leon-control", desc:"脚本管理平台 + SEO 控制台 · 20+ 服务统一纳管", group:"4", commits:1, files:1, token:"d896de01..."},
+
+  {name:"leon-ai-chat", desc:"基于 MemKV 知识库的 AI 智能问答系统 · SSE 流式输出", group:"1", commits:1, files:1, token:"a62a9226..."},
+
+];
+
+// ===== 数据指标动态计算 =====
+(function(){
+  const totalFiles = __PROJECTS__.reduce((a,p)=>a+p.files, 0);
+  const totalCommits = __PROJECTS__.reduce((a,p)=>a+p.commits, 0);
+  const fe = document.getElementById('stat-files');
+  const ce = document.getElementById('stat-commits');
+  if(fe) fe.textContent = totalFiles;
+  if(ce) ce.textContent = totalCommits;
+})();
+
+// ===== 案例分组筛选 =====
+function filterCases(gid, el){
+  document.querySelectorAll('.case-tab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  document.querySelectorAll('.case-group').forEach(g=>{
+    g.style.display = (gid==='all' || g.dataset.case===gid) ? '' : 'none';
+  });
+  document.querySelectorAll('.project').forEach(p=>{
+    p.style.display = (gid==='all' || p.dataset.case===gid) ? '' : 'none';
+  });
+}
+
+// ===== 异步从 MemKV 拉取每个项目的详细信息并补充描述 =====
+(function(){
+  // MemKV 公开 API
+  const MEMKV = 'http://119.145.17.34:5001';
+  const HEADERS = { 'Authorization': 'Bearer wswwsw1234' };
+
+  __PROJECTS__.forEach(p=>{
+    if(!p.name) return;
+    fetch(MEMKV + '/api/v1/search?keyword=' + encodeURIComponent(p.name), {headers:HEADERS})
+      .then(r=>r.json()).then(j=>{
+        if(!j.data || !j.data.length) return;
+        // 找最匹配的条目（名字完全相等或项目名包含）
+        const item = j.data.find(x=>x.item_name===p.name) || j.data[0];
+        if(!item || !item.summary) return;
+        // 更新卡片描述（取第一句作为简介）
+        const short = item.summary.length > 110 ? item.summary.slice(0,110)+'...' : item.summary;
+        const descEl = document.querySelector('[data-mem-desc="'+p.name+'"]');
+        if(descEl && !descEl.dataset.enhanced){
+          descEl.textContent = short;
+          descEl.dataset.enhanced = '1';
+        }
+        // 提取前 3 个关键词作为补充 tags
+        const tagsEl = document.querySelector('[data-mem-tags="'+p.name+'"]');
+        if(tagsEl && !tagsEl.dataset.enhanced){
+          // 从 summary 提取 · 前后片段
+          const segments = item.summary.split(/[·•,，]/).map(s=>s.trim()).filter(s=>s.length>=2 && s.length<=10);
+          const extras = segments.slice(0,3);
+          extras.forEach(t=>{
+            const sp = document.createElement('span');
+            sp.textContent = t;
+            tagsEl.appendChild(sp);
+          });
+          tagsEl.dataset.enhanced = '1';
+        }
+      }).catch(()=>{});
+  });
+})();
+
+// ===== 滚动入场动画（CSS 动画，无需 JS 强制 opacity:0） =====
+document.querySelectorAll('.feature, .project, .eco-card, .featured-card').forEach(el=>{
+  el.style.animation='fadeInUp .55s ease both';
+  el.style.animationDelay=Math.random()*.25+'s';
+});
+
+// ===== 菜单按钮（移动端）=====
+document.querySelector('.menu-btn')?.addEventListener('click', ()=>{
+  document.querySelector('.nav-links').classList.toggle('show-mobile');
+});
+</script>
+
+</body>
+</html>
